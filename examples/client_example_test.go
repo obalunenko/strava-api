@@ -3,18 +3,31 @@ package examples
 import (
 	"context"
 	"fmt"
+	"log"
+	"net/http"
+	"os"
+
 	strava "github.com/obalunenko/strava-api/gen/strava-api-go"
 )
 
-func ExampleNewClient() {
-	cfg := strava.NewConfiguration()
-	client := strava.NewAPIClient(cfg)
+func ExampleGetLoggedInAthlete() {
+	token, ok := os.LookupEnv("STRAVA_ACCESS_TOKEN")
+	if !ok {
+		log.Fatal("STRAVA_ACCESS_TOKEN not set")
+	}
 
-	ctx := context.Background()
+	// Authentication is provided via context values.
+	ctx := context.WithValue(context.Background(), strava.ContextAccessToken, token)
 
-	athlete, _, err := client.AthletesApi.GetLoggedInAthlete(ctx)
+	client := strava.NewAPIClient(strava.NewConfiguration())
+
+	athlete, resp, err := client.AthletesApi.GetLoggedInAthlete(ctx)
 	if err != nil {
-		return
+		log.Fatal(err)
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		log.Fatal(fmt.Errorf("not ok: %s", http.StatusText(resp.StatusCode)))
 	}
 
 	fmt.Println(athlete)

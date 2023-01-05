@@ -5,14 +5,21 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
+	"testing"
+
+	"github.com/obalunenko/getenv"
+	"github.com/stretchr/testify/assert"
 
 	strava "github.com/obalunenko/strava-api/gen/strava-api-go"
 )
 
-func ExampleGetLoggedInAthlete() {
-	token, ok := os.LookupEnv("STRAVA_ACCESS_TOKEN")
-	if !ok {
+func TestGetLoggedInAthlete(t *testing.T) {
+	if getenv.BoolOrDefault("CI", false) {
+		t.Skip("Do not run on CI")
+	}
+
+	token := getenv.StringOrDefault("STRAVA_ACCESS_TOKEN", "")
+	if token == "" {
 		log.Fatal("STRAVA_ACCESS_TOKEN not set")
 	}
 
@@ -31,4 +38,7 @@ func ExampleGetLoggedInAthlete() {
 	}
 
 	fmt.Println(athlete)
+
+	// not empty
+	assert.NotEqual(t, strava.DetailedAthlete{}, athlete)
 }

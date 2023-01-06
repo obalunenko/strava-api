@@ -31,7 +31,7 @@ services:
   lint-full:
     extends:
       service: tools
-    entrypoint: /bin/sh -c './scripts/linting/run-linters.sh'
+    entrypoint: /bin/sh -c 'git config --global --add safe.directory /app && ./scripts/linting/run-linters.sh'
 
   go-generate:
     extends:

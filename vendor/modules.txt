@@ -7,7 +7,7 @@ github.com/davecgh/go-spew/spew
 # github.com/golang/protobuf v1.5.2
 ## explicit; go 1.9
 github.com/golang/protobuf/proto
-# github.com/obalunenko/getenv v1.2.0
+# github.com/obalunenko/getenv v1.2.1
 ## explicit; go 1.19
 github.com/obalunenko/getenv
 github.com/obalunenko/getenv/internal

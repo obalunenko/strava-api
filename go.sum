@@ -9,8 +9,8 @@ github.com/golang/protobuf v1.5.2 h1:ROPKBNFfQgOUMifHyP+KYbvpjbdoFNs+aK7DXlji0Tw
 github.com/golang/protobuf v1.5.2/go.mod h1:XVQd3VNwM+JqD3oG2Ue2ip4fOMUkwXdXDdiuN0vRsmY=
 github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 github.com/google/go-cmp v0.5.8 h1:e6P7q2lk1O+qJJb4BtCQXlK8vWEO8V1ZeuEdJNOqZyg=
-github.com/obalunenko/getenv v1.2.1 h1:K7kcPZ+E4CxfJDI4JyiQyIzxEFPqYwmfxAZqmzPOIUc=
-github.com/obalunenko/getenv v1.2.1/go.mod h1:rQSU30CHN52CamPdfTjUF4dk0oaoTo03kjxw2Yx3s2Y=
+github.com/obalunenko/getenv v1.3.0 h1:gBH8OYI2fw+Rfyd8aywMnqRLRNxhI4bLztAZLuOjMVU=
+github.com/obalunenko/getenv v1.3.0/go.mod h1:trfsd8x+Ulqtw8DHKTmL1DdM9wgUd8IvOUgo22GLn3U=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=

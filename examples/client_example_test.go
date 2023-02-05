@@ -14,11 +14,11 @@ import (
 )
 
 func TestGetLoggedInAthlete(t *testing.T) {
-	if getenv.BoolOrDefault("CI", false) {
+	if getenv.EnvOrDefault("CI", false) {
 		t.Skip("Do not run on CI")
 	}
 
-	token := getenv.StringOrDefault("STRAVA_ACCESS_TOKEN", "")
+	token := getenv.EnvOrDefault("STRAVA_ACCESS_TOKEN", "")
 	if token == "" {
 		log.Fatal("STRAVA_ACCESS_TOKEN not set")
 	}

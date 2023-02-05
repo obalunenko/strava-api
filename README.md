@@ -38,5 +38,6 @@ func main() {
 
 	fmt.Println(athlete)
 }
+
 ```
 

@@ -1,10 +1,10 @@
 module github.com/obalunenko/strava-api
 
-go 1.19
+go 1.20
 
 require (
 	github.com/antihax/optional v1.0.0
-	github.com/obalunenko/getenv v1.2.1
+	github.com/obalunenko/getenv v1.3.0
 	github.com/stretchr/testify v1.8.1
 	golang.org/x/oauth2 v0.4.0
 )

@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/antihax/optional v1.0.0
-	github.com/obalunenko/getenv v1.3.0
+	github.com/obalunenko/getenv v1.4.2
 	github.com/stretchr/testify v1.8.1
 	golang.org/x/oauth2 v0.4.0
 )

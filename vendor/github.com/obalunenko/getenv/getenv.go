@@ -21,6 +21,8 @@
 // - []uint64
 // - uint
 // - []uint
+// - uintptr
+// - []uintptr
 // - uint32
 // - []uint32
 // - float32
@@ -32,10 +34,15 @@
 // - time.Duration
 // - []time.Duration
 // - bool
+// - []bool
 // - url.URL
 // - []url.URL
 // - net.IP
 // - []net.IP
+// - complex64
+// - []complex64
+// - complex128
+// - []complex128
 package getenv
 
 import (
@@ -43,9 +50,9 @@ import (
 	"github.com/obalunenko/getenv/option"
 )
 
-// EnvOrDefault retrieves the value of the environment variable named
-// by the key.
-// If variable not set or value is empty - defaultVal will be returned.
+// EnvOrDefault retrieves the value of the environment variable named by the key.
+// If the variable is present in the environment the value will be parsed and returned.
+// Otherwise, the default value will be returned.
 func EnvOrDefault[T internal.EnvParsable](key string, defaultVal T, options ...option.Option) T {
 	w := internal.NewEnvParser(defaultVal)
 
@@ -56,6 +63,7 @@ func EnvOrDefault[T internal.EnvParsable](key string, defaultVal T, options ...o
 	return val.(T)
 }
 
+// newParseParams creates new parameters from options.
 func newParseParams(opts []option.Option) internal.Parameters {
 	var p internal.Parameters
 

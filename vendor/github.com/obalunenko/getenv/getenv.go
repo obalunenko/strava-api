@@ -1,4 +1,5 @@
-// Package getenv provides functionality for loading environment variables and parse them into go builtin types.
+// Package getenv provides a simple way to get environment variables.
+// It's type-safe and supports built-in types and slices of them.
 //
 // Types supported:
 // - string
@@ -53,6 +54,7 @@ import (
 // EnvOrDefault retrieves the value of the environment variable named by the key.
 // If the variable is present in the environment the value will be parsed and returned.
 // Otherwise, the default value will be returned.
+// The value returned will be of the same type as the default value.
 func EnvOrDefault[T internal.EnvParsable](key string, defaultVal T, options ...option.Option) T {
 	w := internal.NewEnvParser(defaultVal)
 

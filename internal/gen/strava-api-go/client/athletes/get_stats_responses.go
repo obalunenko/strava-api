@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetStatsReader is a Reader for the GetStats structure.
@@ -52,7 +52,7 @@ GetStatsOK describes a response with status code 200, with default header values
 Activity stats of the athlete.
 */
 type GetStatsOK struct {
-	Payload *models2.ActivityStats
+	Payload *models.ActivityStats
 }
 
 // IsSuccess returns true when this get stats o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *GetStatsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get stats o k response
+func (o *GetStatsOK) Code() int {
+	return 200
+}
+
 func (o *GetStatsOK) Error() string {
 	return fmt.Sprintf("[GET /athletes/{id}/stats][%d] getStatsOK  %+v", 200, o.Payload)
 }
@@ -88,12 +93,12 @@ func (o *GetStatsOK) String() string {
 	return fmt.Sprintf("[GET /athletes/{id}/stats][%d] getStatsOK  %+v", 200, o.Payload)
 }
 
-func (o *GetStatsOK) GetPayload() *models2.ActivityStats {
+func (o *GetStatsOK) GetPayload() *models.ActivityStats {
 	return o.Payload
 }
 
 func (o *GetStatsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.ActivityStats)
+	o.Payload = new(models.ActivityStats)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -118,12 +123,7 @@ Unexpected error.
 type GetStatsDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get stats default response
-func (o *GetStatsDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get stats default response has a 2xx status code
@@ -151,6 +151,11 @@ func (o *GetStatsDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get stats default response
+func (o *GetStatsDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetStatsDefault) Error() string {
 	return fmt.Sprintf("[GET /athletes/{id}/stats][%d] getStats default  %+v", o._statusCode, o.Payload)
 }
@@ -159,12 +164,12 @@ func (o *GetStatsDefault) String() string {
 	return fmt.Sprintf("[GET /athletes/{id}/stats][%d] getStats default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetStatsDefault) GetPayload() *models2.Fault {
+func (o *GetStatsDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetStatsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

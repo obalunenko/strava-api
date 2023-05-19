@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // CreateUploadReader is a Reader for the CreateUpload structure.
@@ -52,7 +52,7 @@ CreateUploadCreated describes a response with status code 201, with default head
 A representation of the created upload.
 */
 type CreateUploadCreated struct {
-	Payload *models2.Upload
+	Payload *models.Upload
 }
 
 // IsSuccess returns true when this create upload created response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *CreateUploadCreated) IsCode(code int) bool {
 	return code == 201
 }
 
+// Code gets the status code for the create upload created response
+func (o *CreateUploadCreated) Code() int {
+	return 201
+}
+
 func (o *CreateUploadCreated) Error() string {
 	return fmt.Sprintf("[POST /uploads][%d] createUploadCreated  %+v", 201, o.Payload)
 }
@@ -88,12 +93,12 @@ func (o *CreateUploadCreated) String() string {
 	return fmt.Sprintf("[POST /uploads][%d] createUploadCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateUploadCreated) GetPayload() *models2.Upload {
+func (o *CreateUploadCreated) GetPayload() *models.Upload {
 	return o.Payload
 }
 
 func (o *CreateUploadCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Upload)
+	o.Payload = new(models.Upload)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -118,12 +123,7 @@ Unexpected error.
 type CreateUploadDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the create upload default response
-func (o *CreateUploadDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this create upload default response has a 2xx status code
@@ -151,6 +151,11 @@ func (o *CreateUploadDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the create upload default response
+func (o *CreateUploadDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *CreateUploadDefault) Error() string {
 	return fmt.Sprintf("[POST /uploads][%d] createUpload default  %+v", o._statusCode, o.Payload)
 }
@@ -159,12 +164,12 @@ func (o *CreateUploadDefault) String() string {
 	return fmt.Sprintf("[POST /uploads][%d] createUpload default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *CreateUploadDefault) GetPayload() *models2.Fault {
+func (o *CreateUploadDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *CreateUploadDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

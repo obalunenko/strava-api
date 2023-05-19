@@ -14,6 +14,7 @@ checkInstalled 'swagger'
 GEN_DIR="${REPO_ROOT}/internal/gen/strava-api-go"
 
 rm -rf "${GEN_DIR}"
+mkdir -p "${GEN_DIR}"
 
 go generate -x ./...
 

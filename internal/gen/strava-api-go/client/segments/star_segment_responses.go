@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // StarSegmentReader is a Reader for the StarSegment structure.
@@ -52,7 +52,7 @@ StarSegmentOK describes a response with status code 200, with default header val
 Representation of a segment.
 */
 type StarSegmentOK struct {
-	Payload *models2.DetailedSegment
+	Payload *models.DetailedSegment
 }
 
 // IsSuccess returns true when this star segment o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *StarSegmentOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the star segment o k response
+func (o *StarSegmentOK) Code() int {
+	return 200
+}
+
 func (o *StarSegmentOK) Error() string {
 	return fmt.Sprintf("[PUT /segments/{id}/starred][%d] starSegmentOK  %+v", 200, o.Payload)
 }
@@ -88,12 +93,12 @@ func (o *StarSegmentOK) String() string {
 	return fmt.Sprintf("[PUT /segments/{id}/starred][%d] starSegmentOK  %+v", 200, o.Payload)
 }
 
-func (o *StarSegmentOK) GetPayload() *models2.DetailedSegment {
+func (o *StarSegmentOK) GetPayload() *models.DetailedSegment {
 	return o.Payload
 }
 
 func (o *StarSegmentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.DetailedSegment)
+	o.Payload = new(models.DetailedSegment)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -118,12 +123,7 @@ Unexpected error.
 type StarSegmentDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the star segment default response
-func (o *StarSegmentDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this star segment default response has a 2xx status code
@@ -151,6 +151,11 @@ func (o *StarSegmentDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the star segment default response
+func (o *StarSegmentDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *StarSegmentDefault) Error() string {
 	return fmt.Sprintf("[PUT /segments/{id}/starred][%d] starSegment default  %+v", o._statusCode, o.Payload)
 }
@@ -159,12 +164,12 @@ func (o *StarSegmentDefault) String() string {
 	return fmt.Sprintf("[PUT /segments/{id}/starred][%d] starSegment default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *StarSegmentDefault) GetPayload() *models2.Fault {
+func (o *StarSegmentDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *StarSegmentDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

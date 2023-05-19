@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetCommentsByActivityIDReader is a Reader for the GetCommentsByActivityID structure.
@@ -52,7 +52,7 @@ GetCommentsByActivityIDOK describes a response with status code 200, with defaul
 Comments.
 */
 type GetCommentsByActivityIDOK struct {
-	Payload []*models2.Comment
+	Payload []*models.Comment
 }
 
 // IsSuccess returns true when this get comments by activity Id o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *GetCommentsByActivityIDOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get comments by activity Id o k response
+func (o *GetCommentsByActivityIDOK) Code() int {
+	return 200
+}
+
 func (o *GetCommentsByActivityIDOK) Error() string {
 	return fmt.Sprintf("[GET /activities/{id}/comments][%d] getCommentsByActivityIdOK  %+v", 200, o.Payload)
 }
@@ -88,7 +93,7 @@ func (o *GetCommentsByActivityIDOK) String() string {
 	return fmt.Sprintf("[GET /activities/{id}/comments][%d] getCommentsByActivityIdOK  %+v", 200, o.Payload)
 }
 
-func (o *GetCommentsByActivityIDOK) GetPayload() []*models2.Comment {
+func (o *GetCommentsByActivityIDOK) GetPayload() []*models.Comment {
 	return o.Payload
 }
 
@@ -116,12 +121,7 @@ Unexpected error.
 type GetCommentsByActivityIDDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get comments by activity Id default response
-func (o *GetCommentsByActivityIDDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get comments by activity Id default response has a 2xx status code
@@ -149,6 +149,11 @@ func (o *GetCommentsByActivityIDDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get comments by activity Id default response
+func (o *GetCommentsByActivityIDDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetCommentsByActivityIDDefault) Error() string {
 	return fmt.Sprintf("[GET /activities/{id}/comments][%d] getCommentsByActivityId default  %+v", o._statusCode, o.Payload)
 }
@@ -157,12 +162,12 @@ func (o *GetCommentsByActivityIDDefault) String() string {
 	return fmt.Sprintf("[GET /activities/{id}/comments][%d] getCommentsByActivityId default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetCommentsByActivityIDDefault) GetPayload() *models2.Fault {
+func (o *GetCommentsByActivityIDDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetCommentsByActivityIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

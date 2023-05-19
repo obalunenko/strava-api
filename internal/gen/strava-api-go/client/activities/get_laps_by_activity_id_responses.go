@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetLapsByActivityIDReader is a Reader for the GetLapsByActivityID structure.
@@ -52,7 +52,7 @@ GetLapsByActivityIDOK describes a response with status code 200, with default he
 Activity Laps.
 */
 type GetLapsByActivityIDOK struct {
-	Payload []*models2.Lap
+	Payload []*models.Lap
 }
 
 // IsSuccess returns true when this get laps by activity Id o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *GetLapsByActivityIDOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get laps by activity Id o k response
+func (o *GetLapsByActivityIDOK) Code() int {
+	return 200
+}
+
 func (o *GetLapsByActivityIDOK) Error() string {
 	return fmt.Sprintf("[GET /activities/{id}/laps][%d] getLapsByActivityIdOK  %+v", 200, o.Payload)
 }
@@ -88,7 +93,7 @@ func (o *GetLapsByActivityIDOK) String() string {
 	return fmt.Sprintf("[GET /activities/{id}/laps][%d] getLapsByActivityIdOK  %+v", 200, o.Payload)
 }
 
-func (o *GetLapsByActivityIDOK) GetPayload() []*models2.Lap {
+func (o *GetLapsByActivityIDOK) GetPayload() []*models.Lap {
 	return o.Payload
 }
 
@@ -116,12 +121,7 @@ Unexpected error.
 type GetLapsByActivityIDDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get laps by activity Id default response
-func (o *GetLapsByActivityIDDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get laps by activity Id default response has a 2xx status code
@@ -149,6 +149,11 @@ func (o *GetLapsByActivityIDDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get laps by activity Id default response
+func (o *GetLapsByActivityIDDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetLapsByActivityIDDefault) Error() string {
 	return fmt.Sprintf("[GET /activities/{id}/laps][%d] getLapsByActivityId default  %+v", o._statusCode, o.Payload)
 }
@@ -157,12 +162,12 @@ func (o *GetLapsByActivityIDDefault) String() string {
 	return fmt.Sprintf("[GET /activities/{id}/laps][%d] getLapsByActivityId default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetLapsByActivityIDDefault) GetPayload() *models2.Fault {
+func (o *GetLapsByActivityIDDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetLapsByActivityIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

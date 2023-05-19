@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetClubByIDReader is a Reader for the GetClubByID structure.
@@ -52,7 +52,7 @@ GetClubByIDOK describes a response with status code 200, with default header val
 The detailed representation of a club.
 */
 type GetClubByIDOK struct {
-	Payload *models2.DetailedClub
+	Payload *models.DetailedClub
 }
 
 // IsSuccess returns true when this get club by Id o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *GetClubByIDOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get club by Id o k response
+func (o *GetClubByIDOK) Code() int {
+	return 200
+}
+
 func (o *GetClubByIDOK) Error() string {
 	return fmt.Sprintf("[GET /clubs/{id}][%d] getClubByIdOK  %+v", 200, o.Payload)
 }
@@ -88,12 +93,12 @@ func (o *GetClubByIDOK) String() string {
 	return fmt.Sprintf("[GET /clubs/{id}][%d] getClubByIdOK  %+v", 200, o.Payload)
 }
 
-func (o *GetClubByIDOK) GetPayload() *models2.DetailedClub {
+func (o *GetClubByIDOK) GetPayload() *models.DetailedClub {
 	return o.Payload
 }
 
 func (o *GetClubByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.DetailedClub)
+	o.Payload = new(models.DetailedClub)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -118,12 +123,7 @@ Unexpected error.
 type GetClubByIDDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get club by Id default response
-func (o *GetClubByIDDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get club by Id default response has a 2xx status code
@@ -151,6 +151,11 @@ func (o *GetClubByIDDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get club by Id default response
+func (o *GetClubByIDDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetClubByIDDefault) Error() string {
 	return fmt.Sprintf("[GET /clubs/{id}][%d] getClubById default  %+v", o._statusCode, o.Payload)
 }
@@ -159,12 +164,12 @@ func (o *GetClubByIDDefault) String() string {
 	return fmt.Sprintf("[GET /clubs/{id}][%d] getClubById default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetClubByIDDefault) GetPayload() *models2.Fault {
+func (o *GetClubByIDDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetClubByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

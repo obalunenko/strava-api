@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetRoutesByAthleteIDReader is a Reader for the GetRoutesByAthleteID structure.
@@ -52,7 +52,7 @@ GetRoutesByAthleteIDOK describes a response with status code 200, with default h
 A representation of the route.
 */
 type GetRoutesByAthleteIDOK struct {
-	Payload []*models2.Route
+	Payload []*models.Route
 }
 
 // IsSuccess returns true when this get routes by athlete Id o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *GetRoutesByAthleteIDOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get routes by athlete Id o k response
+func (o *GetRoutesByAthleteIDOK) Code() int {
+	return 200
+}
+
 func (o *GetRoutesByAthleteIDOK) Error() string {
 	return fmt.Sprintf("[GET /athletes/{id}/routes][%d] getRoutesByAthleteIdOK  %+v", 200, o.Payload)
 }
@@ -88,7 +93,7 @@ func (o *GetRoutesByAthleteIDOK) String() string {
 	return fmt.Sprintf("[GET /athletes/{id}/routes][%d] getRoutesByAthleteIdOK  %+v", 200, o.Payload)
 }
 
-func (o *GetRoutesByAthleteIDOK) GetPayload() []*models2.Route {
+func (o *GetRoutesByAthleteIDOK) GetPayload() []*models.Route {
 	return o.Payload
 }
 
@@ -116,12 +121,7 @@ Unexpected error.
 type GetRoutesByAthleteIDDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get routes by athlete Id default response
-func (o *GetRoutesByAthleteIDDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get routes by athlete Id default response has a 2xx status code
@@ -149,6 +149,11 @@ func (o *GetRoutesByAthleteIDDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get routes by athlete Id default response
+func (o *GetRoutesByAthleteIDDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetRoutesByAthleteIDDefault) Error() string {
 	return fmt.Sprintf("[GET /athletes/{id}/routes][%d] getRoutesByAthleteId default  %+v", o._statusCode, o.Payload)
 }
@@ -157,12 +162,12 @@ func (o *GetRoutesByAthleteIDDefault) String() string {
 	return fmt.Sprintf("[GET /athletes/{id}/routes][%d] getRoutesByAthleteId default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetRoutesByAthleteIDDefault) GetPayload() *models2.Fault {
+func (o *GetRoutesByAthleteIDDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetRoutesByAthleteIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

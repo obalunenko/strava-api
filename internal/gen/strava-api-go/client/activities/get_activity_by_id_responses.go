@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetActivityByIDReader is a Reader for the GetActivityByID structure.
@@ -52,7 +52,7 @@ GetActivityByIDOK describes a response with status code 200, with default header
 The activity's detailed representation.
 */
 type GetActivityByIDOK struct {
-	Payload *models2.DetailedActivity
+	Payload *models.DetailedActivity
 }
 
 // IsSuccess returns true when this get activity by Id o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *GetActivityByIDOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get activity by Id o k response
+func (o *GetActivityByIDOK) Code() int {
+	return 200
+}
+
 func (o *GetActivityByIDOK) Error() string {
 	return fmt.Sprintf("[GET /activities/{id}][%d] getActivityByIdOK  %+v", 200, o.Payload)
 }
@@ -88,12 +93,12 @@ func (o *GetActivityByIDOK) String() string {
 	return fmt.Sprintf("[GET /activities/{id}][%d] getActivityByIdOK  %+v", 200, o.Payload)
 }
 
-func (o *GetActivityByIDOK) GetPayload() *models2.DetailedActivity {
+func (o *GetActivityByIDOK) GetPayload() *models.DetailedActivity {
 	return o.Payload
 }
 
 func (o *GetActivityByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.DetailedActivity)
+	o.Payload = new(models.DetailedActivity)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -118,12 +123,7 @@ Unexpected error.
 type GetActivityByIDDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get activity by Id default response
-func (o *GetActivityByIDDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get activity by Id default response has a 2xx status code
@@ -151,6 +151,11 @@ func (o *GetActivityByIDDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get activity by Id default response
+func (o *GetActivityByIDDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetActivityByIDDefault) Error() string {
 	return fmt.Sprintf("[GET /activities/{id}][%d] getActivityById default  %+v", o._statusCode, o.Payload)
 }
@@ -159,12 +164,12 @@ func (o *GetActivityByIDDefault) String() string {
 	return fmt.Sprintf("[GET /activities/{id}][%d] getActivityById default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetActivityByIDDefault) GetPayload() *models2.Fault {
+func (o *GetActivityByIDDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetActivityByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

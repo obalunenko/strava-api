@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetRouteStreamsReader is a Reader for the GetRouteStreams structure.
@@ -52,7 +52,7 @@ GetRouteStreamsOK describes a response with status code 200, with default header
 The set of requested streams.
 */
 type GetRouteStreamsOK struct {
-	Payload *models2.StreamSet
+	Payload *models.StreamSet
 }
 
 // IsSuccess returns true when this get route streams o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *GetRouteStreamsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get route streams o k response
+func (o *GetRouteStreamsOK) Code() int {
+	return 200
+}
+
 func (o *GetRouteStreamsOK) Error() string {
 	return fmt.Sprintf("[GET /routes/{id}/streams][%d] getRouteStreamsOK  %+v", 200, o.Payload)
 }
@@ -88,12 +93,12 @@ func (o *GetRouteStreamsOK) String() string {
 	return fmt.Sprintf("[GET /routes/{id}/streams][%d] getRouteStreamsOK  %+v", 200, o.Payload)
 }
 
-func (o *GetRouteStreamsOK) GetPayload() *models2.StreamSet {
+func (o *GetRouteStreamsOK) GetPayload() *models.StreamSet {
 	return o.Payload
 }
 
 func (o *GetRouteStreamsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.StreamSet)
+	o.Payload = new(models.StreamSet)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -118,12 +123,7 @@ Unexpected error.
 type GetRouteStreamsDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get route streams default response
-func (o *GetRouteStreamsDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get route streams default response has a 2xx status code
@@ -151,6 +151,11 @@ func (o *GetRouteStreamsDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get route streams default response
+func (o *GetRouteStreamsDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetRouteStreamsDefault) Error() string {
 	return fmt.Sprintf("[GET /routes/{id}/streams][%d] getRouteStreams default  %+v", o._statusCode, o.Payload)
 }
@@ -159,12 +164,12 @@ func (o *GetRouteStreamsDefault) String() string {
 	return fmt.Sprintf("[GET /routes/{id}/streams][%d] getRouteStreams default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetRouteStreamsDefault) GetPayload() *models2.Fault {
+func (o *GetRouteStreamsDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetRouteStreamsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

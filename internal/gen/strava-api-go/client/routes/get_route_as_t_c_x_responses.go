@@ -78,6 +78,11 @@ func (o *GetRouteAsTCXOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get route as t c x o k response
+func (o *GetRouteAsTCXOK) Code() int {
+	return 200
+}
+
 func (o *GetRouteAsTCXOK) Error() string {
 	return fmt.Sprintf("[GET /routes/{id}/export_tcx][%d] getRouteAsTCXOK ", 200)
 }
@@ -108,11 +113,6 @@ type GetRouteAsTCXDefault struct {
 	Payload *models.Fault
 }
 
-// Code gets the status code for the get route as t c x default response
-func (o *GetRouteAsTCXDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this get route as t c x default response has a 2xx status code
 func (o *GetRouteAsTCXDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -136,6 +136,11 @@ func (o *GetRouteAsTCXDefault) IsServerError() bool {
 // IsCode returns true when this get route as t c x default response a status code equal to that given
 func (o *GetRouteAsTCXDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the get route as t c x default response
+func (o *GetRouteAsTCXDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *GetRouteAsTCXDefault) Error() string {

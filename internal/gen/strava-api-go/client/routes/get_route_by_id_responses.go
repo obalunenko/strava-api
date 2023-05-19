@@ -17,7 +17,7 @@ import (
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetRouteByIDReader is a Reader for the GetRouteByID structure.
@@ -85,6 +85,11 @@ func (o *GetRouteByIDOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get route by Id o k response
+func (o *GetRouteByIDOK) Code() int {
+	return 200
+}
+
 func (o *GetRouteByIDOK) Error() string {
 	return fmt.Sprintf("[GET /routes/{id}][%d] getRouteByIdOK  %+v", 200, o.Payload)
 }
@@ -123,12 +128,7 @@ Unexpected error.
 type GetRouteByIDDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get route by Id default response
-func (o *GetRouteByIDDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get route by Id default response has a 2xx status code
@@ -156,6 +156,11 @@ func (o *GetRouteByIDDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get route by Id default response
+func (o *GetRouteByIDDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetRouteByIDDefault) Error() string {
 	return fmt.Sprintf("[GET /routes/{id}][%d] getRouteById default  %+v", o._statusCode, o.Payload)
 }
@@ -164,12 +169,12 @@ func (o *GetRouteByIDDefault) String() string {
 	return fmt.Sprintf("[GET /routes/{id}][%d] getRouteById default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetRouteByIDDefault) GetPayload() *models2.Fault {
+func (o *GetRouteByIDDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetRouteByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -185,7 +190,7 @@ swagger:model GetRouteByIDOKBody
 */
 type GetRouteByIDOKBody struct {
 	// athlete
-	Athlete *models2.SummaryAthlete `json:"athlete,omitempty"`
+	Athlete *models.SummaryAthlete `json:"athlete,omitempty"`
 
 	// The time at which the route was created
 	// Format: date-time
@@ -210,7 +215,7 @@ type GetRouteByIDOKBody struct {
 	IDStr string `json:"id_str,omitempty"`
 
 	// map
-	Map *models2.PolylineMap `json:"map,omitempty"`
+	Map *models.PolylineMap `json:"map,omitempty"`
 
 	// The name of this route
 	Name string `json:"name,omitempty"`
@@ -219,7 +224,7 @@ type GetRouteByIDOKBody struct {
 	Private bool `json:"private,omitempty"`
 
 	// The segments traversed by this route
-	Segments []*models2.SummarySegment `json:"segments"`
+	Segments []*models.SummarySegment `json:"segments"`
 
 	// Whether this route is starred by the logged-in athlete
 	Starred bool `json:"starred,omitempty"`

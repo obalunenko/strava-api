@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // ExploreSegmentsReader is a Reader for the ExploreSegments structure.
@@ -52,7 +52,7 @@ ExploreSegmentsOK describes a response with status code 200, with default header
 List of matching segments.
 */
 type ExploreSegmentsOK struct {
-	Payload *models2.ExplorerResponse
+	Payload *models.ExplorerResponse
 }
 
 // IsSuccess returns true when this explore segments o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *ExploreSegmentsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the explore segments o k response
+func (o *ExploreSegmentsOK) Code() int {
+	return 200
+}
+
 func (o *ExploreSegmentsOK) Error() string {
 	return fmt.Sprintf("[GET /segments/explore][%d] exploreSegmentsOK  %+v", 200, o.Payload)
 }
@@ -88,12 +93,12 @@ func (o *ExploreSegmentsOK) String() string {
 	return fmt.Sprintf("[GET /segments/explore][%d] exploreSegmentsOK  %+v", 200, o.Payload)
 }
 
-func (o *ExploreSegmentsOK) GetPayload() *models2.ExplorerResponse {
+func (o *ExploreSegmentsOK) GetPayload() *models.ExplorerResponse {
 	return o.Payload
 }
 
 func (o *ExploreSegmentsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.ExplorerResponse)
+	o.Payload = new(models.ExplorerResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -118,12 +123,7 @@ Unexpected error.
 type ExploreSegmentsDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the explore segments default response
-func (o *ExploreSegmentsDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this explore segments default response has a 2xx status code
@@ -151,6 +151,11 @@ func (o *ExploreSegmentsDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the explore segments default response
+func (o *ExploreSegmentsDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *ExploreSegmentsDefault) Error() string {
 	return fmt.Sprintf("[GET /segments/explore][%d] exploreSegments default  %+v", o._statusCode, o.Payload)
 }
@@ -159,12 +164,12 @@ func (o *ExploreSegmentsDefault) String() string {
 	return fmt.Sprintf("[GET /segments/explore][%d] exploreSegments default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *ExploreSegmentsDefault) GetPayload() *models2.Fault {
+func (o *ExploreSegmentsDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *ExploreSegmentsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

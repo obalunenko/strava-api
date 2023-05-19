@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // UpdateActivityByIDReader is a Reader for the UpdateActivityByID structure.
@@ -52,7 +52,7 @@ UpdateActivityByIDOK describes a response with status code 200, with default hea
 The activity's detailed representation.
 */
 type UpdateActivityByIDOK struct {
-	Payload *models2.DetailedActivity
+	Payload *models.DetailedActivity
 }
 
 // IsSuccess returns true when this update activity by Id o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *UpdateActivityByIDOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the update activity by Id o k response
+func (o *UpdateActivityByIDOK) Code() int {
+	return 200
+}
+
 func (o *UpdateActivityByIDOK) Error() string {
 	return fmt.Sprintf("[PUT /activities/{id}][%d] updateActivityByIdOK  %+v", 200, o.Payload)
 }
@@ -88,12 +93,12 @@ func (o *UpdateActivityByIDOK) String() string {
 	return fmt.Sprintf("[PUT /activities/{id}][%d] updateActivityByIdOK  %+v", 200, o.Payload)
 }
 
-func (o *UpdateActivityByIDOK) GetPayload() *models2.DetailedActivity {
+func (o *UpdateActivityByIDOK) GetPayload() *models.DetailedActivity {
 	return o.Payload
 }
 
 func (o *UpdateActivityByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.DetailedActivity)
+	o.Payload = new(models.DetailedActivity)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -118,12 +123,7 @@ Unexpected error.
 type UpdateActivityByIDDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the update activity by Id default response
-func (o *UpdateActivityByIDDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this update activity by Id default response has a 2xx status code
@@ -151,6 +151,11 @@ func (o *UpdateActivityByIDDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the update activity by Id default response
+func (o *UpdateActivityByIDDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *UpdateActivityByIDDefault) Error() string {
 	return fmt.Sprintf("[PUT /activities/{id}][%d] updateActivityById default  %+v", o._statusCode, o.Payload)
 }
@@ -159,12 +164,12 @@ func (o *UpdateActivityByIDDefault) String() string {
 	return fmt.Sprintf("[PUT /activities/{id}][%d] updateActivityById default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *UpdateActivityByIDDefault) GetPayload() *models2.Fault {
+func (o *UpdateActivityByIDDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *UpdateActivityByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetGearByIDReader is a Reader for the GetGearByID structure.
@@ -52,7 +52,7 @@ GetGearByIDOK describes a response with status code 200, with default header val
 A representation of the gear.
 */
 type GetGearByIDOK struct {
-	Payload *models2.DetailedGear
+	Payload *models.DetailedGear
 }
 
 // IsSuccess returns true when this get gear by Id o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *GetGearByIDOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get gear by Id o k response
+func (o *GetGearByIDOK) Code() int {
+	return 200
+}
+
 func (o *GetGearByIDOK) Error() string {
 	return fmt.Sprintf("[GET /gear/{id}][%d] getGearByIdOK  %+v", 200, o.Payload)
 }
@@ -88,12 +93,12 @@ func (o *GetGearByIDOK) String() string {
 	return fmt.Sprintf("[GET /gear/{id}][%d] getGearByIdOK  %+v", 200, o.Payload)
 }
 
-func (o *GetGearByIDOK) GetPayload() *models2.DetailedGear {
+func (o *GetGearByIDOK) GetPayload() *models.DetailedGear {
 	return o.Payload
 }
 
 func (o *GetGearByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.DetailedGear)
+	o.Payload = new(models.DetailedGear)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -118,12 +123,7 @@ Unexpected error.
 type GetGearByIDDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get gear by Id default response
-func (o *GetGearByIDDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get gear by Id default response has a 2xx status code
@@ -151,6 +151,11 @@ func (o *GetGearByIDDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get gear by Id default response
+func (o *GetGearByIDDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetGearByIDDefault) Error() string {
 	return fmt.Sprintf("[GET /gear/{id}][%d] getGearById default  %+v", o._statusCode, o.Payload)
 }
@@ -159,12 +164,12 @@ func (o *GetGearByIDDefault) String() string {
 	return fmt.Sprintf("[GET /gear/{id}][%d] getGearById default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetGearByIDDefault) GetPayload() *models2.Fault {
+func (o *GetGearByIDDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetGearByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

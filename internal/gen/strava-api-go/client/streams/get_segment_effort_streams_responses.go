@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetSegmentEffortStreamsReader is a Reader for the GetSegmentEffortStreams structure.
@@ -52,7 +52,7 @@ GetSegmentEffortStreamsOK describes a response with status code 200, with defaul
 The set of requested streams.
 */
 type GetSegmentEffortStreamsOK struct {
-	Payload *models2.StreamSet
+	Payload *models.StreamSet
 }
 
 // IsSuccess returns true when this get segment effort streams o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *GetSegmentEffortStreamsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get segment effort streams o k response
+func (o *GetSegmentEffortStreamsOK) Code() int {
+	return 200
+}
+
 func (o *GetSegmentEffortStreamsOK) Error() string {
 	return fmt.Sprintf("[GET /segment_efforts/{id}/streams][%d] getSegmentEffortStreamsOK  %+v", 200, o.Payload)
 }
@@ -88,12 +93,12 @@ func (o *GetSegmentEffortStreamsOK) String() string {
 	return fmt.Sprintf("[GET /segment_efforts/{id}/streams][%d] getSegmentEffortStreamsOK  %+v", 200, o.Payload)
 }
 
-func (o *GetSegmentEffortStreamsOK) GetPayload() *models2.StreamSet {
+func (o *GetSegmentEffortStreamsOK) GetPayload() *models.StreamSet {
 	return o.Payload
 }
 
 func (o *GetSegmentEffortStreamsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.StreamSet)
+	o.Payload = new(models.StreamSet)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -118,12 +123,7 @@ Unexpected error.
 type GetSegmentEffortStreamsDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get segment effort streams default response
-func (o *GetSegmentEffortStreamsDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get segment effort streams default response has a 2xx status code
@@ -151,6 +151,11 @@ func (o *GetSegmentEffortStreamsDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get segment effort streams default response
+func (o *GetSegmentEffortStreamsDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetSegmentEffortStreamsDefault) Error() string {
 	return fmt.Sprintf("[GET /segment_efforts/{id}/streams][%d] getSegmentEffortStreams default  %+v", o._statusCode, o.Payload)
 }
@@ -159,12 +164,12 @@ func (o *GetSegmentEffortStreamsDefault) String() string {
 	return fmt.Sprintf("[GET /segment_efforts/{id}/streams][%d] getSegmentEffortStreams default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetSegmentEffortStreamsDefault) GetPayload() *models2.Fault {
+func (o *GetSegmentEffortStreamsDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetSegmentEffortStreamsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

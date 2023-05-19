@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetLoggedInAthleteStarredSegmentsReader is a Reader for the GetLoggedInAthleteStarredSegments structure.
@@ -52,7 +52,7 @@ GetLoggedInAthleteStarredSegmentsOK describes a response with status code 200, w
 List of the authenticated athlete's starred segments.
 */
 type GetLoggedInAthleteStarredSegmentsOK struct {
-	Payload []*models2.SummarySegment
+	Payload []*models.SummarySegment
 }
 
 // IsSuccess returns true when this get logged in athlete starred segments o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *GetLoggedInAthleteStarredSegmentsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get logged in athlete starred segments o k response
+func (o *GetLoggedInAthleteStarredSegmentsOK) Code() int {
+	return 200
+}
+
 func (o *GetLoggedInAthleteStarredSegmentsOK) Error() string {
 	return fmt.Sprintf("[GET /segments/starred][%d] getLoggedInAthleteStarredSegmentsOK  %+v", 200, o.Payload)
 }
@@ -88,7 +93,7 @@ func (o *GetLoggedInAthleteStarredSegmentsOK) String() string {
 	return fmt.Sprintf("[GET /segments/starred][%d] getLoggedInAthleteStarredSegmentsOK  %+v", 200, o.Payload)
 }
 
-func (o *GetLoggedInAthleteStarredSegmentsOK) GetPayload() []*models2.SummarySegment {
+func (o *GetLoggedInAthleteStarredSegmentsOK) GetPayload() []*models.SummarySegment {
 	return o.Payload
 }
 
@@ -116,12 +121,7 @@ Unexpected error.
 type GetLoggedInAthleteStarredSegmentsDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get logged in athlete starred segments default response
-func (o *GetLoggedInAthleteStarredSegmentsDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get logged in athlete starred segments default response has a 2xx status code
@@ -149,6 +149,11 @@ func (o *GetLoggedInAthleteStarredSegmentsDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get logged in athlete starred segments default response
+func (o *GetLoggedInAthleteStarredSegmentsDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetLoggedInAthleteStarredSegmentsDefault) Error() string {
 	return fmt.Sprintf("[GET /segments/starred][%d] getLoggedInAthleteStarredSegments default  %+v", o._statusCode, o.Payload)
 }
@@ -157,12 +162,12 @@ func (o *GetLoggedInAthleteStarredSegmentsDefault) String() string {
 	return fmt.Sprintf("[GET /segments/starred][%d] getLoggedInAthleteStarredSegments default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetLoggedInAthleteStarredSegmentsDefault) GetPayload() *models2.Fault {
+func (o *GetLoggedInAthleteStarredSegmentsDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetLoggedInAthleteStarredSegmentsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

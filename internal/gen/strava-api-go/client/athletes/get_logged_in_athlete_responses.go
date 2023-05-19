@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetLoggedInAthleteReader is a Reader for the GetLoggedInAthlete structure.
@@ -52,7 +52,7 @@ GetLoggedInAthleteOK describes a response with status code 200, with default hea
 Profile information for the authenticated athlete.
 */
 type GetLoggedInAthleteOK struct {
-	Payload *models2.DetailedAthlete
+	Payload *models.DetailedAthlete
 }
 
 // IsSuccess returns true when this get logged in athlete o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *GetLoggedInAthleteOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get logged in athlete o k response
+func (o *GetLoggedInAthleteOK) Code() int {
+	return 200
+}
+
 func (o *GetLoggedInAthleteOK) Error() string {
 	return fmt.Sprintf("[GET /athlete][%d] getLoggedInAthleteOK  %+v", 200, o.Payload)
 }
@@ -88,12 +93,12 @@ func (o *GetLoggedInAthleteOK) String() string {
 	return fmt.Sprintf("[GET /athlete][%d] getLoggedInAthleteOK  %+v", 200, o.Payload)
 }
 
-func (o *GetLoggedInAthleteOK) GetPayload() *models2.DetailedAthlete {
+func (o *GetLoggedInAthleteOK) GetPayload() *models.DetailedAthlete {
 	return o.Payload
 }
 
 func (o *GetLoggedInAthleteOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.DetailedAthlete)
+	o.Payload = new(models.DetailedAthlete)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -118,12 +123,7 @@ Unexpected error.
 type GetLoggedInAthleteDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get logged in athlete default response
-func (o *GetLoggedInAthleteDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get logged in athlete default response has a 2xx status code
@@ -151,6 +151,11 @@ func (o *GetLoggedInAthleteDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get logged in athlete default response
+func (o *GetLoggedInAthleteDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetLoggedInAthleteDefault) Error() string {
 	return fmt.Sprintf("[GET /athlete][%d] getLoggedInAthlete default  %+v", o._statusCode, o.Payload)
 }
@@ -159,12 +164,12 @@ func (o *GetLoggedInAthleteDefault) String() string {
 	return fmt.Sprintf("[GET /athlete][%d] getLoggedInAthlete default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetLoggedInAthleteDefault) GetPayload() *models2.Fault {
+func (o *GetLoggedInAthleteDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetLoggedInAthleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

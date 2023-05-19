@@ -16,7 +16,7 @@ import (
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetSegmentEffortByIDReader is a Reader for the GetSegmentEffortByID structure.
@@ -84,6 +84,11 @@ func (o *GetSegmentEffortByIDOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get segment effort by Id o k response
+func (o *GetSegmentEffortByIDOK) Code() int {
+	return 200
+}
+
 func (o *GetSegmentEffortByIDOK) Error() string {
 	return fmt.Sprintf("[GET /segment_efforts/{id}][%d] getSegmentEffortByIdOK  %+v", 200, o.Payload)
 }
@@ -122,12 +127,7 @@ Unexpected error.
 type GetSegmentEffortByIDDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get segment effort by Id default response
-func (o *GetSegmentEffortByIDDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get segment effort by Id default response has a 2xx status code
@@ -155,6 +155,11 @@ func (o *GetSegmentEffortByIDDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get segment effort by Id default response
+func (o *GetSegmentEffortByIDDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetSegmentEffortByIDDefault) Error() string {
 	return fmt.Sprintf("[GET /segment_efforts/{id}][%d] getSegmentEffortById default  %+v", o._statusCode, o.Payload)
 }
@@ -163,12 +168,12 @@ func (o *GetSegmentEffortByIDDefault) String() string {
 	return fmt.Sprintf("[GET /segment_efforts/{id}][%d] getSegmentEffortById default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetSegmentEffortByIDDefault) GetPayload() *models2.Fault {
+func (o *GetSegmentEffortByIDDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetSegmentEffortByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -183,13 +188,13 @@ GetSegmentEffortByIDOKBody get segment effort by ID o k body
 swagger:model GetSegmentEffortByIDOKBody
 */
 type GetSegmentEffortByIDOKBody struct {
-	models2.SummarySegmentEffort
+	models.SummarySegmentEffort
 
 	// activity
-	Activity *models2.MetaActivity `json:"activity,omitempty"`
+	Activity *models.MetaActivity `json:"activity,omitempty"`
 
 	// athlete
-	Athlete *models2.MetaAthlete `json:"athlete,omitempty"`
+	Athlete *models.MetaAthlete `json:"athlete,omitempty"`
 
 	// The effort's average cadence
 	AverageCadence float32 `json:"average_cadence,omitempty"`
@@ -229,7 +234,7 @@ type GetSegmentEffortByIDOKBody struct {
 	PrRank int64 `json:"pr_rank,omitempty"`
 
 	// segment
-	Segment *models2.SummarySegment `json:"segment,omitempty"`
+	Segment *models.SummarySegment `json:"segment,omitempty"`
 
 	// The start index of this effort in its activity's stream
 	StartIndex int64 `json:"start_index,omitempty"`
@@ -238,7 +243,7 @@ type GetSegmentEffortByIDOKBody struct {
 // UnmarshalJSON unmarshals this object from a JSON structure
 func (o *GetSegmentEffortByIDOKBody) UnmarshalJSON(raw []byte) error {
 	// GetSegmentEffortByIDOKBodyAO0
-	var getSegmentEffortByIDOKBodyAO0 models2.SummarySegmentEffort
+	var getSegmentEffortByIDOKBodyAO0 models.SummarySegmentEffort
 	if err := swag.ReadJSON(raw, &getSegmentEffortByIDOKBodyAO0); err != nil {
 		return err
 	}
@@ -246,9 +251,9 @@ func (o *GetSegmentEffortByIDOKBody) UnmarshalJSON(raw []byte) error {
 
 	// GetSegmentEffortByIDOKBodyAO1
 	var dataGetSegmentEffortByIDOKBodyAO1 struct {
-		Activity *models2.MetaActivity `json:"activity,omitempty"`
+		Activity *models.MetaActivity `json:"activity,omitempty"`
 
-		Athlete *models2.MetaAthlete `json:"athlete,omitempty"`
+		Athlete *models.MetaAthlete `json:"athlete,omitempty"`
 
 		AverageCadence float32 `json:"average_cadence,omitempty"`
 
@@ -272,7 +277,7 @@ func (o *GetSegmentEffortByIDOKBody) UnmarshalJSON(raw []byte) error {
 
 		PrRank int64 `json:"pr_rank,omitempty"`
 
-		Segment *models2.SummarySegment `json:"segment,omitempty"`
+		Segment *models.SummarySegment `json:"segment,omitempty"`
 
 		StartIndex int64 `json:"start_index,omitempty"`
 	}
@@ -323,9 +328,9 @@ func (o GetSegmentEffortByIDOKBody) MarshalJSON() ([]byte, error) {
 	}
 	_parts = append(_parts, getSegmentEffortByIDOKBodyAO0)
 	var dataGetSegmentEffortByIDOKBodyAO1 struct {
-		Activity *models2.MetaActivity `json:"activity,omitempty"`
+		Activity *models.MetaActivity `json:"activity,omitempty"`
 
-		Athlete *models2.MetaAthlete `json:"athlete,omitempty"`
+		Athlete *models.MetaAthlete `json:"athlete,omitempty"`
 
 		AverageCadence float32 `json:"average_cadence,omitempty"`
 
@@ -349,7 +354,7 @@ func (o GetSegmentEffortByIDOKBody) MarshalJSON() ([]byte, error) {
 
 		PrRank int64 `json:"pr_rank,omitempty"`
 
-		Segment *models2.SummarySegment `json:"segment,omitempty"`
+		Segment *models.SummarySegment `json:"segment,omitempty"`
 
 		StartIndex int64 `json:"start_index,omitempty"`
 	}

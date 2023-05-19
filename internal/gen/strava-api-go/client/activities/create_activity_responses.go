@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // CreateActivityReader is a Reader for the CreateActivity structure.
@@ -52,7 +52,7 @@ CreateActivityCreated describes a response with status code 201, with default he
 The activity's detailed representation.
 */
 type CreateActivityCreated struct {
-	Payload *models2.DetailedActivity
+	Payload *models.DetailedActivity
 }
 
 // IsSuccess returns true when this create activity created response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *CreateActivityCreated) IsCode(code int) bool {
 	return code == 201
 }
 
+// Code gets the status code for the create activity created response
+func (o *CreateActivityCreated) Code() int {
+	return 201
+}
+
 func (o *CreateActivityCreated) Error() string {
 	return fmt.Sprintf("[POST /activities][%d] createActivityCreated  %+v", 201, o.Payload)
 }
@@ -88,12 +93,12 @@ func (o *CreateActivityCreated) String() string {
 	return fmt.Sprintf("[POST /activities][%d] createActivityCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateActivityCreated) GetPayload() *models2.DetailedActivity {
+func (o *CreateActivityCreated) GetPayload() *models.DetailedActivity {
 	return o.Payload
 }
 
 func (o *CreateActivityCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.DetailedActivity)
+	o.Payload = new(models.DetailedActivity)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -118,12 +123,7 @@ Unexpected error.
 type CreateActivityDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the create activity default response
-func (o *CreateActivityDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this create activity default response has a 2xx status code
@@ -151,6 +151,11 @@ func (o *CreateActivityDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the create activity default response
+func (o *CreateActivityDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *CreateActivityDefault) Error() string {
 	return fmt.Sprintf("[POST /activities][%d] createActivity default  %+v", o._statusCode, o.Payload)
 }
@@ -159,12 +164,12 @@ func (o *CreateActivityDefault) String() string {
 	return fmt.Sprintf("[POST /activities][%d] createActivity default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *CreateActivityDefault) GetPayload() *models2.Fault {
+func (o *CreateActivityDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *CreateActivityDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

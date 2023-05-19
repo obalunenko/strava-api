@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	models2 "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
 // GetZonesByActivityIDReader is a Reader for the GetZonesByActivityID structure.
@@ -52,7 +52,7 @@ GetZonesByActivityIDOK describes a response with status code 200, with default h
 Activity Zones.
 */
 type GetZonesByActivityIDOK struct {
-	Payload []*models2.ActivityZone
+	Payload []*models.ActivityZone
 }
 
 // IsSuccess returns true when this get zones by activity Id o k response has a 2xx status code
@@ -80,6 +80,11 @@ func (o *GetZonesByActivityIDOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the get zones by activity Id o k response
+func (o *GetZonesByActivityIDOK) Code() int {
+	return 200
+}
+
 func (o *GetZonesByActivityIDOK) Error() string {
 	return fmt.Sprintf("[GET /activities/{id}/zones][%d] getZonesByActivityIdOK  %+v", 200, o.Payload)
 }
@@ -88,7 +93,7 @@ func (o *GetZonesByActivityIDOK) String() string {
 	return fmt.Sprintf("[GET /activities/{id}/zones][%d] getZonesByActivityIdOK  %+v", 200, o.Payload)
 }
 
-func (o *GetZonesByActivityIDOK) GetPayload() []*models2.ActivityZone {
+func (o *GetZonesByActivityIDOK) GetPayload() []*models.ActivityZone {
 	return o.Payload
 }
 
@@ -116,12 +121,7 @@ Unexpected error.
 type GetZonesByActivityIDDefault struct {
 	_statusCode int
 
-	Payload *models2.Fault
-}
-
-// Code gets the status code for the get zones by activity Id default response
-func (o *GetZonesByActivityIDDefault) Code() int {
-	return o._statusCode
+	Payload *models.Fault
 }
 
 // IsSuccess returns true when this get zones by activity Id default response has a 2xx status code
@@ -149,6 +149,11 @@ func (o *GetZonesByActivityIDDefault) IsCode(code int) bool {
 	return o._statusCode == code
 }
 
+// Code gets the status code for the get zones by activity Id default response
+func (o *GetZonesByActivityIDDefault) Code() int {
+	return o._statusCode
+}
+
 func (o *GetZonesByActivityIDDefault) Error() string {
 	return fmt.Sprintf("[GET /activities/{id}/zones][%d] getZonesByActivityId default  %+v", o._statusCode, o.Payload)
 }
@@ -157,12 +162,12 @@ func (o *GetZonesByActivityIDDefault) String() string {
 	return fmt.Sprintf("[GET /activities/{id}/zones][%d] getZonesByActivityId default  %+v", o._statusCode, o.Payload)
 }
 
-func (o *GetZonesByActivityIDDefault) GetPayload() *models2.Fault {
+func (o *GetZonesByActivityIDDefault) GetPayload() *models.Fault {
 	return o.Payload
 }
 
 func (o *GetZonesByActivityIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(models2.Fault)
+	o.Payload = new(models.Fault)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

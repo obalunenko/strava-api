@@ -106,37 +106,217 @@ func (a activitiesService) CreateActivity(ctx context.Context, name string, acti
 	return *resp.Payload, nil
 }
 
-func (activitiesService) GetActivityById(ctx context.Context, id int64, opts ...GetActivityByIdOpts) (models.DetailedActivity, error) {
-	// TODO implement me
-	panic("implement me")
+func (a activitiesService) GetActivityById(ctx context.Context, id int64, opts ...GetActivityByIdOpts) (models.DetailedActivity, error) {
+	params := apiactivities.NewGetActivityByIDParams()
+	params.SetDefaults()
+
+	params.SetContext(ctx)
+	params.SetID(id)
+
+	for _, o := range opts {
+		if o.IncludeAllEfforts != nil {
+			params.SetIncludeAllEfforts(o.IncludeAllEfforts)
+		}
+	}
+
+	resp, err := a.client.Activities.GetActivityByID(params, a.auth)
+	if err != nil {
+		return models.DetailedActivity{}, err
+	}
+
+	return *resp.Payload, nil
 }
 
-func (activitiesService) GetCommentsByActivityId(ctx context.Context, id int64, opts ...GetCommentsByActivityIdOpts) ([]models.Comment, error) {
-	// TODO implement me
-	panic("implement me")
+func (a activitiesService) GetCommentsByActivityId(ctx context.Context, id int64, opts ...GetCommentsByActivityIdOpts) ([]models.Comment, error) {
+	params := apiactivities.NewGetCommentsByActivityIDParams()
+	params.SetDefaults()
+
+	params.SetContext(ctx)
+	params.SetID(id)
+
+	if len(opts) > 1 {
+		return nil, ErrTooManyOptions
+	}
+
+	if len(opts) == 1 {
+		if opts[0].Page != nil {
+			p := int64(*opts[0].Page)
+			params.SetPage(&p)
+		}
+
+		if opts[0].PerPage != nil {
+			p := int64(*opts[0].PerPage)
+			params.SetPerPage(&p)
+		}
+
+		if opts[0].PageSize != nil {
+			p := int64(*opts[0].PageSize)
+			params.SetPageSize(&p)
+		}
+
+		if opts[0].AfterCursor != nil {
+			params.SetAfterCursor(opts[0].AfterCursor)
+		}
+	}
+
+	resp, err := a.client.Activities.GetCommentsByActivityID(params, a.auth)
+	if err != nil {
+		return nil, err
+	}
+
+	list := make([]models.Comment, len(resp.Payload))
+
+	for i, c := range resp.Payload {
+		list[i] = *c
+	}
+
+	return list, nil
 }
 
-func (activitiesService) GetKudoersByActivityId(ctx context.Context, id int64, opts ...GetKudoersByActivityIdOpts) ([]models.SummaryAthlete, error) {
-	// TODO implement me
-	panic("implement me")
+func (a activitiesService) GetKudoersByActivityId(ctx context.Context, id int64, opts ...GetKudoersByActivityIdOpts) ([]models.SummaryAthlete, error) {
+	params := apiactivities.NewGetKudoersByActivityIDParams()
+	params.SetDefaults()
+
+	params.SetContext(ctx)
+	params.SetID(id)
+
+	if len(opts) > 1 {
+		return nil, ErrTooManyOptions
+	}
+
+	if len(opts) == 1 {
+		if opts[0].Page != nil {
+			p := int64(*opts[0].Page)
+			params.SetPage(&p)
+		}
+
+		if opts[0].PerPage != nil {
+			p := int64(*opts[0].PerPage)
+			params.SetPerPage(&p)
+		}
+	}
+
+	resp, err := a.client.Activities.GetKudoersByActivityID(params, a.auth)
+	if err != nil {
+		return nil, err
+	}
+
+	list := make([]models.SummaryAthlete, len(resp.Payload))
+
+	for i, a := range resp.Payload {
+		list[i] = *a
+	}
+
+	return list, nil
 }
 
-func (activitiesService) GetLapsByActivityId(ctx context.Context, id int64) ([]models.Lap, error) {
-	// TODO implement me
-	panic("implement me")
+func (a activitiesService) GetLapsByActivityId(ctx context.Context, id int64) ([]models.Lap, error) {
+	params := apiactivities.NewGetLapsByActivityIDParams()
+	params.SetDefaults()
+
+	params.SetContext(ctx)
+	params.SetID(id)
+
+	resp, err := a.client.Activities.GetLapsByActivityID(params, a.auth)
+	if err != nil {
+		return nil, err
+	}
+
+	list := make([]models.Lap, len(resp.Payload))
+
+	for i, l := range resp.Payload {
+		list[i] = *l
+	}
+
+	return list, nil
 }
 
-func (activitiesService) GetLoggedInAthleteActivities(ctx context.Context, opts ...GetLoggedInAthleteActivitiesOpts) ([]models.SummaryActivity, error) {
-	// TODO implement me
-	panic("implement me")
+func (a activitiesService) GetLoggedInAthleteActivities(ctx context.Context, opts ...GetLoggedInAthleteActivitiesOpts) ([]models.SummaryActivity, error) {
+	params := apiactivities.NewGetLoggedInAthleteActivitiesParams()
+	params.SetDefaults()
+
+	params.SetContext(ctx)
+
+	if len(opts) > 1 {
+		return nil, ErrTooManyOptions
+	}
+
+	if len(opts) == 1 {
+		if opts[0].Before != nil {
+			params.SetBefore(opts[0].Before)
+		}
+
+		if opts[0].After != nil {
+			params.SetAfter(opts[0].After)
+		}
+
+		if opts[0].Page != nil {
+			p := int64(*opts[0].Page)
+			params.SetPage(&p)
+		}
+
+		if opts[0].PerPage != nil {
+			p := int64(*opts[0].PerPage)
+			params.SetPerPage(&p)
+		}
+	}
+
+	resp, err := a.client.Activities.GetLoggedInAthleteActivities(params, a.auth)
+	if err != nil {
+		return nil, err
+	}
+
+	list := make([]models.SummaryActivity, len(resp.Payload))
+
+	for i, a := range resp.Payload {
+		list[i] = *a
+	}
+
+	return list, nil
 }
 
-func (activitiesService) GetZonesByActivityId(ctx context.Context, id int64) ([]models.ActivityZone, error) {
-	// TODO implement me
-	panic("implement me")
+func (a activitiesService) GetZonesByActivityId(ctx context.Context, id int64) ([]models.ActivityZone, error) {
+	params := apiactivities.NewGetZonesByActivityIDParams()
+	params.SetDefaults()
+
+	params.SetContext(ctx)
+	params.SetID(id)
+
+	resp, err := a.client.Activities.GetZonesByActivityID(params, a.auth)
+	if err != nil {
+		return nil, err
+	}
+
+	list := make([]models.ActivityZone, len(resp.Payload))
+
+	for i, z := range resp.Payload {
+		list[i] = *z
+	}
+
+	return list, nil
 }
 
-func (activitiesService) UpdateActivityById(ctx context.Context, id int64, opts ...UpdateActivityByIdOpts) (models.DetailedActivity, error) {
-	// TODO implement me
-	panic("implement me")
+func (a activitiesService) UpdateActivityById(ctx context.Context, id int64, opts ...UpdateActivityByIdOpts) (models.DetailedActivity, error) {
+	params := apiactivities.NewUpdateActivityByIDParams()
+	params.SetDefaults()
+
+	params.SetContext(ctx)
+	params.SetID(id)
+
+	if len(opts) > 1 {
+		return models.DetailedActivity{}, ErrTooManyOptions
+	}
+
+	if len(opts) == 1 {
+		if opts[0].Body != nil {
+			params.SetBody(opts[0].Body)
+		}
+	}
+
+	resp, err := a.client.Activities.UpdateActivityByID(params, a.auth)
+	if err != nil {
+		return models.DetailedActivity{}, err
+	}
+
+	return *resp.Payload, nil
 }

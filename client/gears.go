@@ -6,6 +6,7 @@ import (
 	"github.com/go-openapi/runtime"
 
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/client/gears"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
@@ -26,6 +27,15 @@ func newGearsApiService(client *strava.StravaAPIV3, auth runtime.ClientAuthInfoW
 }
 
 func (g gearsService) GetGearById(ctx context.Context, id string) (models.DetailedGear, error) {
-	// TODO implement me
-	panic("implement me")
+	params := gears.NewGetGearByIDParams()
+	params.SetDefaults()
+	params.SetContext(ctx)
+	params.SetID(id)
+
+	gear, err := g.client.Gears.GetGearByID(params, g.auth)
+	if err != nil {
+		return models.DetailedGear{}, err
+	}
+
+	return *gear.GetPayload(), nil
 }

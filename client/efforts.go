@@ -5,8 +5,10 @@ import (
 	"time"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/client/segment_efforts"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
@@ -34,11 +36,83 @@ type segmentsEffortsService struct {
 }
 
 func (s segmentsEffortsService) GetEffortsBySegmentId(ctx context.Context, segmentId int32, opts ...GetEffortsBySegmentIdOpts) ([]models.DetailedSegmentEffort, error) {
-	// TODO implement me
-	panic("implement me")
+	params := segment_efforts.NewGetEffortsBySegmentIDParams()
+
+	params.SetDefaults()
+	params.SetContext(ctx)
+
+	params.SetSegmentID(int64(segmentId))
+
+	if len(opts) > 1 {
+		return nil, ErrTooManyOptions
+	}
+
+	if len(opts) == 1 {
+		opt := opts[0]
+		if opt.StartDateLocal != nil {
+			d := strfmt.DateTime(*opt.StartDateLocal)
+			params.SetStartDateLocal(&d)
+		}
+
+		if opt.EndDateLocal != nil {
+			d := strfmt.DateTime(*opt.EndDateLocal)
+			params.SetEndDateLocal(&d)
+		}
+
+		if opt.PerPage != nil {
+			p := int64(*opt.PerPage)
+			params.SetPerPage(&p)
+		}
+	}
+
+	resp, err := s.client.SegmentEfforts.GetEffortsBySegmentID(params, s.auth)
+	if err != nil {
+		return nil, err
+	}
+
+	list := make([]models.DetailedSegmentEffort, len(resp.Payload))
+
+	for i, effort := range resp.Payload {
+		list[i] = *effort
+	}
+
+	return list, nil
 }
 
 func (s segmentsEffortsService) GetSegmentEffortById(ctx context.Context, id int64) (models.DetailedSegmentEffort, error) {
-	// TODO implement me
-	panic("implement me")
+	params := segment_efforts.NewGetSegmentEffortByIDParams()
+
+	params.SetDefaults()
+	params.SetContext(ctx)
+
+	params.SetID(id)
+
+	resp, err := s.client.SegmentEfforts.GetSegmentEffortByID(params, s.auth)
+	if err != nil {
+		return models.DetailedSegmentEffort{}, err
+	}
+
+	return convertToSegmentEffort(resp.GetPayload()), nil
+}
+
+// convert to models.DetailedSegmentEffort
+func convertToSegmentEffort(effort *segment_efforts.GetSegmentEffortByIDOKBody) models.DetailedSegmentEffort {
+	return models.DetailedSegmentEffort{
+		SummarySegmentEffort: effort.SummarySegmentEffort,
+		Activity:             effort.Activity,
+		Athlete:              effort.Athlete,
+		AverageCadence:       effort.AverageCadence,
+		AverageHeartrate:     effort.AverageHeartrate,
+		AverageWatts:         effort.AverageWatts,
+		DeviceWatts:          effort.DeviceWatts,
+		EndIndex:             effort.EndIndex,
+		Hidden:               effort.Hidden,
+		KomRank:              effort.KomRank,
+		MaxHeartrate:         effort.MaxHeartrate,
+		MovingTime:           effort.MovingTime,
+		Name:                 effort.Name,
+		PrRank:               effort.PrRank,
+		Segment:              effort.Segment,
+		StartIndex:           effort.StartIndex,
+	}
 }

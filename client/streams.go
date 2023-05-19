@@ -6,6 +6,7 @@ import (
 	"github.com/go-openapi/runtime"
 
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
+	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/client/streams"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
@@ -29,21 +30,83 @@ type streamsService struct {
 }
 
 func (s streamsService) GetActivityStreams(ctx context.Context, id int64, keys []string, keyByType bool) (models.StreamSet, error) {
-	// TODO implement me
-	panic("implement me")
+	params := streams.NewGetActivityStreamsParams()
+
+	params.SetDefaults()
+	params.SetContext(ctx)
+	params.SetID(id)
+	params.SetKeys(keys)
+	params.SetKeyByType(keyByType)
+
+	strm, err := s.client.Streams.GetActivityStreams(params, s.auth)
+	if err != nil {
+		return models.StreamSet{}, err
+	}
+
+	if strm.Payload == nil {
+		return models.StreamSet{}, nil
+	}
+
+	return *strm.Payload, nil
 }
 
 func (s streamsService) GetRouteStreams(ctx context.Context, id int64) (models.StreamSet, error) {
-	// TODO implement me
-	panic("implement me")
+	params := streams.NewGetRouteStreamsParams()
+
+	params.SetDefaults()
+	params.SetContext(ctx)
+	params.SetID(id)
+
+	strm, err := s.client.Streams.GetRouteStreams(params, s.auth)
+	if err != nil {
+		return models.StreamSet{}, err
+	}
+
+	if strm.Payload == nil {
+		return models.StreamSet{}, nil
+	}
+
+	return *strm.Payload, nil
 }
 
 func (s streamsService) GetSegmentEffortStreams(ctx context.Context, id int64, keys []string, keyByType bool) (models.StreamSet, error) {
-	// TODO implement me
-	panic("implement me")
+	params := streams.NewGetSegmentEffortStreamsParams()
+
+	params.SetDefaults()
+	params.SetContext(ctx)
+	params.SetID(id)
+	params.SetKeys(keys)
+	params.SetKeyByType(keyByType)
+
+	strm, err := s.client.Streams.GetSegmentEffortStreams(params, s.auth)
+	if err != nil {
+		return models.StreamSet{}, err
+	}
+
+	if strm.Payload == nil {
+		return models.StreamSet{}, nil
+	}
+
+	return *strm.Payload, nil
 }
 
 func (s streamsService) GetSegmentStreams(ctx context.Context, id int64, keys []string, keyByType bool) (models.StreamSet, error) {
-	// TODO implement me
-	panic("implement me")
+	params := streams.NewGetSegmentStreamsParams()
+
+	params.SetDefaults()
+	params.SetContext(ctx)
+	params.SetID(id)
+	params.SetKeys(keys)
+	params.SetKeyByType(keyByType)
+
+	strm, err := s.client.Streams.GetSegmentStreams(params, s.auth)
+	if err != nil {
+		return models.StreamSet{}, err
+	}
+
+	if strm.Payload == nil {
+		return models.StreamSet{}, nil
+	}
+
+	return *strm.Payload, nil
 }

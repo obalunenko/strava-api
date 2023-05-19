@@ -35,7 +35,7 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
 gen:
-	./scripts/codegen/go-generate.sh
+	$(COMPOSE_TOOLS_CMD_UP) generate generate
 .PHONY: gen
 
 codegen: gen sync-vendor format-code

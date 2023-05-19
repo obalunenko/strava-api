@@ -33,7 +33,7 @@ services:
       service: tools
     entrypoint: /bin/sh -c 'git config --global --add safe.directory /app && ./scripts/linting/run-linters.sh'
 
-  go-generate:
+  generate:
     extends:
       service: tools
     entrypoint: /bin/sh -c './scripts/codegen/go-generate.sh'

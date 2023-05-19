@@ -2,18 +2,16 @@ package examples
 
 import (
 	"context"
-	"fmt"
+	"encoding/json"
 	"log"
-	"net/http"
 	"testing"
 
 	"github.com/obalunenko/getenv"
-	"github.com/stretchr/testify/assert"
 
-	strava "github.com/obalunenko/strava-api/gen/strava-api-go"
+	"github.com/obalunenko/strava-api/client"
 )
 
-func TestGetLoggedInAthlete(t *testing.T) {
+func TestWrapper(t *testing.T) {
 	if getenv.EnvOrDefault("CI", false) {
 		t.Skip("Do not run on CI")
 	}
@@ -23,22 +21,23 @@ func TestGetLoggedInAthlete(t *testing.T) {
 		log.Fatal("STRAVA_ACCESS_TOKEN not set")
 	}
 
-	// Authentication is provided via context values.
-	ctx := context.WithValue(context.Background(), strava.ContextAccessToken, token)
-
-	client := strava.NewAPIClient(strava.NewConfiguration())
-
-	athlete, resp, err := client.AthletesApi.GetLoggedInAthlete(ctx)
+	apiClient, err := client.NewAPIClient(token)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if resp.StatusCode != http.StatusOK {
-		log.Fatal(fmt.Errorf("not ok: %s", http.StatusText(resp.StatusCode)))
+	ctx := context.Background()
+
+	athlete, err := apiClient.Athletes.GetLoggedInAthlete(ctx)
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	fmt.Println(athlete)
+	// Indent athlete
+	indent, err := json.MarshalIndent(athlete, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	// not empty
-	assert.NotEqual(t, strava.DetailedAthlete{}, athlete)
+	log.Println(string(indent))
 }

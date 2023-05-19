@@ -9,7 +9,11 @@ SCRIPTS_DIR="${REPO_ROOT}/scripts"
 
 source "${SCRIPTS_DIR}/helpers-source.sh"
 
-checkInstalled 'swagger-codegen'
+checkInstalled 'swagger'
+
+GEN_DIR="${REPO_ROOT}/internal/gen/strava-api-go"
+
+rm -rf "${GEN_DIR}"
 
 go generate -x ./...
 

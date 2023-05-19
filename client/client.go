@@ -1,3 +1,5 @@
+// Package client provides a wrapper around the generated Strava API client.
+// It provides a more convenient interface for interacting with the API.
 package client
 
 import (
@@ -7,6 +9,7 @@ import (
 )
 
 // APIClient is a wrapper around the generated Strava API client.
+// It provides a more convenient interface for interacting with the API.
 type APIClient struct {
 	Activities     ActivitiesAPI
 	Athletes       AthletesAPI

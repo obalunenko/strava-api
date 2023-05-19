@@ -10,10 +10,15 @@ import (
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
+// StreamsAPI is an interface for interacting with streams endpoints of Strava API
 type StreamsAPI interface {
+	// GetActivityStreams returns a set of streams for an activity identified by its id
 	GetActivityStreams(ctx context.Context, id int64, keys []string, keyByType bool) (models.StreamSet, error)
+	// GetRouteStreams returns a set of streams for a route identified by its id
 	GetRouteStreams(ctx context.Context, id int64) (models.StreamSet, error)
+	// GetSegmentEffortStreams returns a set of streams for a segment effort identified by its id
 	GetSegmentEffortStreams(ctx context.Context, id int64, keys []string, keyByType bool) (models.StreamSet, error)
+	// GetSegmentStreams returns a set of streams for a segment identified by its id
 	GetSegmentStreams(ctx context.Context, id int64, keys []string, keyByType bool) (models.StreamSet, error)
 }
 

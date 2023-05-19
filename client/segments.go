@@ -10,19 +10,26 @@ import (
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
+// SegmentsAPI is an interface for interacting with segments endpoints of Strava API
 type SegmentsAPI interface {
+	// ExploreSegments returns the top segments matching a specified query
 	ExploreSegments(ctx context.Context, bounds []float32, opts ...ExploreSegmentsOpts) (models.ExplorerResponse, error)
+	// GetLoggedInAthleteStarredSegments returns the segments starred by the authenticated user
 	GetLoggedInAthleteStarredSegments(ctx context.Context, opts ...GetLoggedInAthleteStarredSegmentsOpts) ([]models.SummarySegment, error)
+	// GetSegmentById returns the specified segment
 	GetSegmentById(ctx context.Context, id int64) (models.DetailedSegment, error)
+	// StarSegment stars/ unstars the given segment for the authenticated athlete
 	StarSegment(ctx context.Context, starred bool, id int64) (models.DetailedSegment, error)
 }
 
+// ExploreSegmentsOpts is a set of optional parameters for ExploreSegments method
 type ExploreSegmentsOpts struct {
 	MinCat       *int32
 	MaxCat       *int32
 	ActivityType *string
 }
 
+// GetLoggedInAthleteStarredSegmentsOpts is a set of optional parameters for GetLoggedInAthleteStarredSegments method
 type GetLoggedInAthleteStarredSegmentsOpts struct {
 	Page    *int32
 	PerPage *int32

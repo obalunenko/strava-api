@@ -10,10 +10,15 @@ import (
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
+// AthletesAPI is an interface for interacting with athletes endpoints of Strava API
 type AthletesAPI interface {
+	// GetLoggedInAthlete returns the currently authenticated athlete
 	GetLoggedInAthlete(ctx context.Context) (models.DetailedAthlete, error)
+	// GetLoggedInAthleteZones returns the the authenticated athlete's heart rate and power zones
 	GetLoggedInAthleteZones(ctx context.Context) (models.Zones, error)
+	// GetStats returns the activity stats of an athlete
 	GetStats(ctx context.Context, id int64) (models.ActivityStats, error)
+	// UpdateLoggedInAthlete updates the currently authenticated athlete
 	UpdateLoggedInAthlete(ctx context.Context, weight float32) (models.DetailedAthlete, error)
 }
 

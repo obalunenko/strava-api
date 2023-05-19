@@ -12,21 +12,32 @@ import (
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
+// ActivitiesAPI is an interface for interacting with activities endpoints of Strava API
 type ActivitiesAPI interface {
+	// CreateActivity creates a manual activity for an athlete, requires activity:write scope
 	CreateActivity(ctx context.Context, name string, activityType string, sportType string, startDateLocal time.Time, elapsedTime int32, description string, distance float32, trainer int32, commute int32) (models.DetailedActivity, error)
+	// GetActivityById gets the given activity, requires activity:read scope
 	GetActivityById(ctx context.Context, id int64, opts ...GetActivityByIdOpts) (models.DetailedActivity, error)
+	// GetCommentsByActivityId gets comments for the given activity id, requires activity:read scope
 	GetCommentsByActivityId(ctx context.Context, id int64, opts ...GetCommentsByActivityIdOpts) ([]models.Comment, error)
+	// GetKudoersByActivityId gets kudoers for the given activity id, requires activity:read scope
 	GetKudoersByActivityId(ctx context.Context, id int64, opts ...GetKudoersByActivityIdOpts) ([]models.SummaryAthlete, error)
+	// GetLapsByActivityId gets laps for the given activity id, requires activity:read scope
 	GetLapsByActivityId(ctx context.Context, id int64) ([]models.Lap, error)
+	// GetLoggedInAthleteActivities gets activities for the authenticated athlete, requires activity:read scope
 	GetLoggedInAthleteActivities(ctx context.Context, opts ...GetLoggedInAthleteActivitiesOpts) ([]models.SummaryActivity, error)
+	// GetZonesByActivityId gets zones for a given activity, requires activity:read_all scope
 	GetZonesByActivityId(ctx context.Context, id int64) ([]models.ActivityZone, error)
+	// UpdateActivityById updates the given activity, requires activity:write scope
 	UpdateActivityById(ctx context.Context, id int64, opts ...UpdateActivityByIdOpts) (models.DetailedActivity, error)
 }
 
+// GetActivityByIdOpts is an options type for GetActivityById
 type GetActivityByIdOpts struct {
 	IncludeAllEfforts *bool `json:"include_all_efforts,omitempty"`
 }
 
+// GetCommentsByActivityIdOpts is an options type for GetCommentsByActivityId
 type GetCommentsByActivityIdOpts struct {
 	Page        *int32  `json:"page,omitempty"`
 	PerPage     *int32  `json:"per_page,omitempty"`
@@ -34,11 +45,13 @@ type GetCommentsByActivityIdOpts struct {
 	AfterCursor *string `json:"after,omitempty"`
 }
 
+// GetKudoersByActivityIdOpts is an options type for GetKudoersByActivityId
 type GetKudoersByActivityIdOpts struct {
 	Page    *int32 `json:"page,omitempty"`
 	PerPage *int32 `json:"per_page,omitempty"`
 }
 
+// GetLoggedInAthleteActivitiesOpts is an options type for GetLoggedInAthleteActivities
 type GetLoggedInAthleteActivitiesOpts struct {
 	Before  *int64 `json:"before,omitempty"`
 	After   *int64 `json:"after,omitempty"`
@@ -46,6 +59,7 @@ type GetLoggedInAthleteActivitiesOpts struct {
 	PerPage *int32 `json:"per_page,omitempty"`
 }
 
+// UpdateActivityByIdOpts is an options type for UpdateActivityById
 type UpdateActivityByIdOpts struct {
 	Body *models.UpdatableActivity
 }

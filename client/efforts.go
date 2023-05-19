@@ -12,11 +12,15 @@ import (
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
+// SegmentEffortsAPI is an interface for interacting with segment_efforts endpoints of Strava API
 type SegmentEffortsAPI interface {
+	// GetEffortsBySegmentId returns a set of the authenticated athlete's segment efforts for a given segment
 	GetEffortsBySegmentId(ctx context.Context, segmentId int32, opts ...GetEffortsBySegmentIdOpts) ([]models.DetailedSegmentEffort, error)
+	// GetSegmentEffortById returns a segment effort from an activity that is owned by the authenticated athlete
 	GetSegmentEffortById(ctx context.Context, id int64) (models.DetailedSegmentEffort, error)
 }
 
+// GetEffortsBySegmentIdOpts is an options struct for GetEffortsBySegmentId method
 type GetEffortsBySegmentIdOpts struct {
 	StartDateLocal *time.Time
 	EndDateLocal   *time.Time

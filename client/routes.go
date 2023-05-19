@@ -10,10 +10,15 @@ import (
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
+// RoutesAPI is an interface for interacting with routes endpoints of Strava API
 type RoutesAPI interface {
+	// GetRouteAsGPX returns a GPX file of the route
 	GetRouteAsGPX(ctx context.Context, id int64) error
+	// GetRouteAsTCX returns a TCX file of the route
 	GetRouteAsTCX(ctx context.Context, id int64) error
+	// GetRouteById returns a route with given id
 	GetRouteById(ctx context.Context, id int64) (models.Route, error)
+	// GetRoutesByAthleteId returns a list of routes for the given athlete
 	GetRoutesByAthleteId(ctx context.Context, opts ...GetRoutesByAthleteIdOpts) ([]models.Route, error)
 }
 

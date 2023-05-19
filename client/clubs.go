@@ -10,29 +10,39 @@ import (
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
+// ClubsAPI is an interface for interacting with clubs endpoints of Strava API
 type ClubsAPI interface {
+	// GetClubActivitiesById returns a list of the recent activities performed by members of a given club
 	GetClubActivitiesById(ctx context.Context, id int64, opts ...GetClubActivitiesByIdOpts) ([]models.ClubActivity, error)
+	// GetClubAdminsById returns a list of the administrators of a given club
 	GetClubAdminsById(ctx context.Context, id int64, opts ...GetClubAdminsByIdOpts) ([]models.SummaryAthlete, error)
+	// GetClubById returns a given club using its identifier
 	GetClubById(ctx context.Context, id int64) (models.DetailedClub, error)
+	// GetClubMembersById returns a list of the athletes who are members of a given club
 	GetClubMembersById(ctx context.Context, id int64, opts ...GetClubMembersByIdOpts) ([]models.ClubAthlete, error)
+	// GetLoggedInAthleteClubs returns a list of the clubs whose membership includes the authenticated athlete
 	GetLoggedInAthleteClubs(ctx context.Context, opts ...GetLoggedInAthleteClubsOpts) ([]models.SummaryClub, error)
 }
 
+// GetClubActivitiesByIdOpts is an option for GetClubActivitiesById.
 type GetClubActivitiesByIdOpts struct {
 	Page    *int32
 	PerPage *int32
 }
 
+// GetClubAdminsByIdOpts is an option for GetClubAdminsById.
 type GetClubAdminsByIdOpts struct {
 	Page    *int32
 	PerPage *int32
 }
 
+// GetClubMembersByIdOpts is an option for GetClubMembersById.
 type GetClubMembersByIdOpts struct {
 	Page    *int32
 	PerPage *int32
 }
 
+// GetLoggedInAthleteClubsOpts is an option for GetLoggedInAthleteClubs.
 type GetLoggedInAthleteClubsOpts struct {
 	Page    *int32
 	PerPage *int32

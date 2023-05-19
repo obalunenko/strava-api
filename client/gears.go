@@ -10,7 +10,9 @@ import (
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
 
+// GearsAPI iis an interface for interacting with gears endpoints of Strava API
 type GearsAPI interface {
+	// GetGearById returns a detailed representation for the gear with given id
 	GetGearById(ctx context.Context, id string) (models.DetailedGear, error)
 }
 

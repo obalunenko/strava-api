@@ -6,7 +6,7 @@ VERSION ?= $(shell git describe --tags $(git rev-list --tags --max-count=1))
 APP_NAME?=strava-api
 SHELL := env APP_NAME=$(APP_NAME) $(SHELL)
 
-GOTOOLS_IMAGE_TAG?=v0.10.0
+GOTOOLS_IMAGE_TAG?=v0.11.0
 SHELL := env GOTOOLS_IMAGE_TAG=$(GOTOOLS_IMAGE_TAG) $(SHELL)
 
 COMPOSE_TOOLS_FILE=deployments/docker-compose/go-tools-docker-compose.yml
@@ -35,7 +35,7 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
 gen:
-	./scripts/generate.sh
+	$(COMPOSE_TOOLS_CMD_UP) generate generate
 .PHONY: gen
 
 codegen: gen sync-vendor format-code

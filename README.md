@@ -16,22 +16,28 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
-	strava "github.com/obalunenko/strava-api/gen/strava-api-go"
+	strava "github.com/obalunenko/strava-api/client"
 )
 
 func main() {
-	token := os.Getenv("STRAVA_ACCESS_TOKEN")
+	key := "STRAVA_ACCESS_TOKEN"
+	
+	token := os.Getenv(key)
 	if token == "" {
-		log.Fatal("STRAVA_ACCESS_TOKEN not set")
+		log.Fatalf("%q not set", key)
 	}
 
-	// Authentication is provided via context values.
-	ctx := context.WithValue(context.Background(), strava.ContextAccessToken, token)
+	apiClient, err := strava.NewAPIClient(token)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	client := strava.NewAPIClient(strava.NewConfiguration())
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
-	athlete, _, err := client.AthletesApi.GetLoggedInAthlete(ctx)
+	athlete, err := apiClient.Athletes.GetLoggedInAthlete(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}

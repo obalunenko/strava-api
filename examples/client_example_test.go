@@ -2,43 +2,92 @@ package examples
 
 import (
 	"context"
-	"fmt"
+	"encoding/json"
 	"log"
-	"net/http"
 	"testing"
 
 	"github.com/obalunenko/getenv"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
-	strava "github.com/obalunenko/strava-api/gen/strava-api-go"
+	"github.com/obalunenko/strava-api/client"
 )
 
-func TestGetLoggedInAthlete(t *testing.T) {
-	if getenv.EnvOrDefault("CI", false) {
-		t.Skip("Do not run on CI")
-	}
+// helper function to print JSON
+func printJSON(t testing.TB, v any) {
+	indent, err := json.MarshalIndent(v, "", "  ")
+	require.NoError(t, err)
 
+	t.Log(string(indent))
+}
+
+// helper to get a valid API client
+func getToken(t testing.TB) string {
 	token := getenv.EnvOrDefault("STRAVA_ACCESS_TOKEN", "")
 	if token == "" {
-		log.Fatal("STRAVA_ACCESS_TOKEN not set")
+		t.Skip("STRAVA_ACCESS_TOKEN not set")
 	}
 
-	// Authentication is provided via context values.
-	ctx := context.WithValue(context.Background(), strava.ContextAccessToken, token)
+	return token
+}
 
-	client := strava.NewAPIClient(strava.NewConfiguration())
+func TestGetLoggedInAthlete(t *testing.T) {
+	token := getToken(t)
 
-	athlete, resp, err := client.AthletesApi.GetLoggedInAthlete(ctx)
+	apiClient, err := client.NewAPIClient(token)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if resp.StatusCode != http.StatusOK {
-		log.Fatal(fmt.Errorf("not ok: %s", http.StatusText(resp.StatusCode)))
+	ctx := context.Background()
+
+	athlete, err := apiClient.Athletes.GetLoggedInAthlete(ctx)
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	fmt.Println(athlete)
+	// Indent athlete
+	printJSON(t, athlete)
+}
 
-	// not empty
-	assert.NotEqual(t, strava.DetailedAthlete{}, athlete)
+// Test Activites API
+func TestGetLoggedInAthleteActivities(t *testing.T) {
+	token := getToken(t)
+
+	apiClient, err := client.NewAPIClient(token)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	ctx := context.Background()
+
+	activities, err := apiClient.Activities.GetLoggedInAthleteActivities(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Indent activities
+	printJSON(t, activities)
+}
+
+// Test Gear API
+func TestGetLoggedInAthleteGear(t *testing.T) {
+	token := getToken(t)
+
+	apiClient, err := client.NewAPIClient(token)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	ctx := context.Background()
+
+	athlete, err := apiClient.Athletes.GetLoggedInAthlete(ctx)
+	require.NoError(t, err)
+
+	require.NotNil(t, athlete.Bikes)
+
+	gear, err := apiClient.Gears.GetGearById(ctx, athlete.Bikes[0].ID)
+	require.NoError(t, err)
+
+	// Indent gear
+	printJSON(t, gear)
 }

@@ -1753,13 +1753,13 @@ paths:
           default: 30
       responses:
         "200":
-          description: A list of summary athlete representations.
+          description: A list of club athlete representations.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/SummaryAthlete'
+                  $ref: '#/components/schemas/ClubAthlete'
                 x-content-type: application/json
               example:
               - resource_state: 2
@@ -1873,7 +1873,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/SummaryActivity'
+                  $ref: '#/components/schemas/ClubActivity'
                 x-content-type: application/json
               example:
               - resource_state: 2
@@ -3419,6 +3419,7 @@ components:
       enum:
       - AlpineSki
       - BackcountrySki
+      - Badminton
       - Canoeing
       - Crossfit
       - EBikeRide
@@ -3427,6 +3428,7 @@ components:
       - Golf
       - GravelRide
       - Handcycle
+      - HighIntensityIntervalTraining
       - Hike
       - IceSkate
       - InlineSkate
@@ -3434,6 +3436,9 @@ components:
       - Kitesurf
       - MountainBikeRide
       - NordicSki
+      - Pickleball
+      - Pilates
+      - Racquetball
       - Ride
       - RockClimbing
       - RollerSki
@@ -3444,13 +3449,17 @@ components:
       - Snowboard
       - Snowshoe
       - Soccer
+      - Squash
       - StairStepper
       - StandUpPaddling
       - Surfing
       - Swim
+      - TableTennis
+      - Tennis
       - TrailRun
       - Velomobile
       - VirtualRide
+      - VirtualRow
       - VirtualRun
       - Walk
       - WeightTraining
@@ -3697,6 +3706,75 @@ components:
             type: integer
             description: The number of athletes in the club that the logged-in athlete
               follows.
+    ClubAthlete:
+      type: object
+      properties:
+        resource_state:
+          type: integer
+          description: "Resource state, indicates level of detail. Possible values:\
+            \ 1 -> \"meta\", 2 -> \"summary\", 3 -> \"detail\""
+        firstname:
+          type: string
+          description: The athlete's first name.
+        lastname:
+          type: string
+          description: The athlete's last initial.
+        member:
+          type: string
+          description: The athlete's member status.
+        admin:
+          type: boolean
+          description: Whether the athlete is a club admin.
+        owner:
+          type: boolean
+          description: Whether the athlete is club owner.
+      example:
+        owner: true
+        firstname: firstname
+        resource_state: 0
+        member: member
+        admin: true
+        lastname: lastname
+    ClubActivity:
+      type: object
+      properties:
+        athlete:
+          $ref: '#/components/schemas/MetaAthlete'
+        name:
+          type: string
+          description: The name of the activity
+        distance:
+          type: number
+          description: "The activity's distance, in meters"
+          format: float
+        moving_time:
+          type: integer
+          description: "The activity's moving time, in seconds"
+        elapsed_time:
+          type: integer
+          description: "The activity's elapsed time, in seconds"
+        total_elevation_gain:
+          type: number
+          description: The activity's total elevation gain.
+          format: float
+        type:
+          $ref: '#/components/schemas/ActivityType'
+        sport_type:
+          $ref: '#/components/schemas/SportType'
+        workout_type:
+          type: integer
+          description: The activity's workout type
+      example:
+        distance: 0.8008282
+        athlete:
+          id: 1
+        workout_type: 5
+        name: name
+        elapsed_time: 1
+        total_elevation_gain: 5.962134
+        type: AlpineSki
+        moving_time: 6
+        sport_type: AlpineSki
     DetailedGear:
       allOf:
       - $ref: '#/components/schemas/SummaryGear'

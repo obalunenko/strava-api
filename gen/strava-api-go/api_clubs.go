@@ -34,7 +34,7 @@ Retrieve recent activities from members of a specific club. The authenticated at
  * @param optional nil or *ClubsApiGetClubActivitiesByIdOpts - Optional Parameters:
      * @param "Page" (optional.Int32) -  Page number. Defaults to 1.
      * @param "PerPage" (optional.Int32) -  Number of items per page. Defaults to 30.
-@return []SummaryActivity
+@return []ClubActivity
 */
 
 type ClubsApiGetClubActivitiesByIdOpts struct {
@@ -42,13 +42,13 @@ type ClubsApiGetClubActivitiesByIdOpts struct {
 	PerPage optional.Int32
 }
 
-func (a *ClubsApiService) GetClubActivitiesById(ctx context.Context, id int64, localVarOptionals *ClubsApiGetClubActivitiesByIdOpts) ([]SummaryActivity, *http.Response, error) {
+func (a *ClubsApiService) GetClubActivitiesById(ctx context.Context, id int64, localVarOptionals *ClubsApiGetClubActivitiesByIdOpts) ([]ClubActivity, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue []SummaryActivity
+		localVarReturnValue []ClubActivity
 	)
 
 	// create path and map variables
@@ -112,7 +112,7 @@ func (a *ClubsApiService) GetClubActivitiesById(ctx context.Context, id int64, l
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []SummaryActivity
+			var v []ClubActivity
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -353,7 +353,7 @@ Returns a list of the athletes who are members of a given club.
  * @param optional nil or *ClubsApiGetClubMembersByIdOpts - Optional Parameters:
      * @param "Page" (optional.Int32) -  Page number. Defaults to 1.
      * @param "PerPage" (optional.Int32) -  Number of items per page. Defaults to 30.
-@return []SummaryAthlete
+@return []ClubAthlete
 */
 
 type ClubsApiGetClubMembersByIdOpts struct {
@@ -361,13 +361,13 @@ type ClubsApiGetClubMembersByIdOpts struct {
 	PerPage optional.Int32
 }
 
-func (a *ClubsApiService) GetClubMembersById(ctx context.Context, id int64, localVarOptionals *ClubsApiGetClubMembersByIdOpts) ([]SummaryAthlete, *http.Response, error) {
+func (a *ClubsApiService) GetClubMembersById(ctx context.Context, id int64, localVarOptionals *ClubsApiGetClubMembersByIdOpts) ([]ClubAthlete, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue []SummaryAthlete
+		localVarReturnValue []ClubAthlete
 	)
 
 	// create path and map variables
@@ -431,7 +431,7 @@ func (a *ClubsApiService) GetClubMembersById(ctx context.Context, id int64, loca
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []SummaryAthlete
+			var v []ClubAthlete
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

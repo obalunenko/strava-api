@@ -66,6 +66,8 @@ Class | Method | HTTP request | Description
  - [AltitudeStream](docs/AltitudeStream.md)
  - [BaseStream](docs/BaseStream.md)
  - [CadenceStream](docs/CadenceStream.md)
+ - [ClubActivity](docs/ClubActivity.md)
+ - [ClubAthlete](docs/ClubAthlete.md)
  - [Comment](docs/Comment.md)
  - [DetailedActivity](docs/DetailedActivity.md)
  - [DetailedAthlete](docs/DetailedAthlete.md)

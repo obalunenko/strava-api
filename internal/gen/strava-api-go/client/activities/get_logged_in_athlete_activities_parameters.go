@@ -61,7 +61,6 @@ GetLoggedInAthleteActivitiesParams contains all the parameters to send to the AP
 	Typically these are written to a http.Request.
 */
 type GetLoggedInAthleteActivitiesParams struct {
-
 	/* After.
 
 	   An epoch timestamp to use for filtering activities that have taken place after a certain time.
@@ -105,9 +104,7 @@ func (o *GetLoggedInAthleteActivitiesParams) WithDefaults() *GetLoggedInAthleteA
 //
 // All values with no default are reset to their zero value.
 func (o *GetLoggedInAthleteActivitiesParams) SetDefaults() {
-	var (
-		perPageDefault = int64(30)
-	)
+	perPageDefault := int64(30)
 
 	val := GetLoggedInAthleteActivitiesParams{
 		PerPage: &perPageDefault,
@@ -198,7 +195,6 @@ func (o *GetLoggedInAthleteActivitiesParams) SetPerPage(perPage *int64) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetLoggedInAthleteActivitiesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}
@@ -214,7 +210,6 @@ func (o *GetLoggedInAthleteActivitiesParams) WriteToRequest(r runtime.ClientRequ
 		}
 		qAfter := swag.FormatInt64(qrAfter)
 		if qAfter != "" {
-
 			if err := r.SetQueryParam("after", qAfter); err != nil {
 				return err
 			}
@@ -231,7 +226,6 @@ func (o *GetLoggedInAthleteActivitiesParams) WriteToRequest(r runtime.ClientRequ
 		}
 		qBefore := swag.FormatInt64(qrBefore)
 		if qBefore != "" {
-
 			if err := r.SetQueryParam("before", qBefore); err != nil {
 				return err
 			}
@@ -248,7 +242,6 @@ func (o *GetLoggedInAthleteActivitiesParams) WriteToRequest(r runtime.ClientRequ
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
-
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
@@ -265,7 +258,6 @@ func (o *GetLoggedInAthleteActivitiesParams) WriteToRequest(r runtime.ClientRequ
 		}
 		qPerPage := swag.FormatInt64(qrPerPage)
 		if qPerPage != "" {
-
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {
 				return err
 			}

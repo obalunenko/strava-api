@@ -2,10 +2,12 @@ package client
 
 import (
 	"context"
+	"time"
+
 	"github.com/go-openapi/runtime"
+
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
-	"time"
 )
 
 type SegmentEffortsAPI interface {
@@ -32,11 +34,11 @@ type segmentsEffortsService struct {
 }
 
 func (s segmentsEffortsService) GetEffortsBySegmentId(ctx context.Context, segmentId int32, opts ...GetEffortsBySegmentIdOpts) ([]models.DetailedSegmentEffort, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (s segmentsEffortsService) GetSegmentEffortById(ctx context.Context, id int64) (models.DetailedSegmentEffort, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }

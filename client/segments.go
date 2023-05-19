@@ -2,7 +2,9 @@ package client
 
 import (
 	"context"
+
 	"github.com/go-openapi/runtime"
+
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
@@ -38,21 +40,21 @@ type segmentsService struct {
 }
 
 func (s segmentsService) ExploreSegments(ctx context.Context, bounds []float32, opts ...ExploreSegmentsOpts) (models.ExplorerResponse, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (s segmentsService) GetLoggedInAthleteStarredSegments(ctx context.Context, opts ...GetLoggedInAthleteStarredSegmentsOpts) ([]models.SummarySegment, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (s segmentsService) GetSegmentById(ctx context.Context, id int64) (models.DetailedSegment, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (s segmentsService) StarSegment(ctx context.Context, starred bool, id int64) (models.DetailedSegment, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }

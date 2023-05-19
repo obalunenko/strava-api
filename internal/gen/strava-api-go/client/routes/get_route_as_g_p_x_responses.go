@@ -51,8 +51,7 @@ GetRouteAsGPXOK describes a response with status code 200, with default header v
 
 A GPX file with the route.
 */
-type GetRouteAsGPXOK struct {
-}
+type GetRouteAsGPXOK struct{}
 
 // IsSuccess returns true when this get route as g p x o k response has a 2xx status code
 func (o *GetRouteAsGPXOK) IsSuccess() bool {
@@ -88,7 +87,6 @@ func (o *GetRouteAsGPXOK) String() string {
 }
 
 func (o *GetRouteAsGPXOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -153,7 +151,6 @@ func (o *GetRouteAsGPXDefault) GetPayload() *models.Fault {
 }
 
 func (o *GetRouteAsGPXDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models.Fault)
 
 	// response payload

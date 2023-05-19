@@ -16,7 +16,6 @@ import (
 //
 // swagger:model split
 type Split struct {
-
 	// The average speed of this split, in meters per second
 	AverageSpeed float32 `json:"average_speed,omitempty"`
 

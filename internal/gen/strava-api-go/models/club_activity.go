@@ -17,7 +17,6 @@ import (
 //
 // swagger:model clubActivity
 type ClubActivity struct {
-
 	// athlete
 	Athlete *MetaAthlete `json:"athlete,omitempty"`
 
@@ -144,7 +143,6 @@ func (m *ClubActivity) ContextValidate(ctx context.Context, formats strfmt.Regis
 }
 
 func (m *ClubActivity) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Athlete != nil {
 		if err := m.Athlete.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -160,7 +158,6 @@ func (m *ClubActivity) contextValidateAthlete(ctx context.Context, formats strfm
 }
 
 func (m *ClubActivity) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.SportType.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("sport_type")
@@ -174,7 +171,6 @@ func (m *ClubActivity) contextValidateSportType(ctx context.Context, formats str
 }
 
 func (m *ClubActivity) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.Type.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("type")

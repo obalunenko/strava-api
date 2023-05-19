@@ -16,7 +16,6 @@ import (
 //
 // swagger:model metaAthlete
 type MetaAthlete struct {
-
 	// The unique identifier of the athlete
 	ID int64 `json:"id,omitempty"`
 }

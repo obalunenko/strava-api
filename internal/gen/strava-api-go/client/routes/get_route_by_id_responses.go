@@ -98,7 +98,6 @@ func (o *GetRouteByIDOK) GetPayload() *GetRouteByIDOKBody {
 }
 
 func (o *GetRouteByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(GetRouteByIDOKBody)
 
 	// response payload
@@ -170,7 +169,6 @@ func (o *GetRouteByIDDefault) GetPayload() *models2.Fault {
 }
 
 func (o *GetRouteByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.Fault)
 
 	// response payload
@@ -186,7 +184,6 @@ GetRouteByIDOKBody get route by ID o k body
 swagger:model GetRouteByIDOKBody
 */
 type GetRouteByIDOKBody struct {
-
 	// athlete
 	Athlete *models2.SummaryAthlete `json:"athlete,omitempty"`
 
@@ -382,7 +379,6 @@ func (o *GetRouteByIDOKBody) ContextValidate(ctx context.Context, formats strfmt
 }
 
 func (o *GetRouteByIDOKBody) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
-
 	if o.Athlete != nil {
 		if err := o.Athlete.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -398,7 +394,6 @@ func (o *GetRouteByIDOKBody) contextValidateAthlete(ctx context.Context, formats
 }
 
 func (o *GetRouteByIDOKBody) contextValidateMap(ctx context.Context, formats strfmt.Registry) error {
-
 	if o.Map != nil {
 		if err := o.Map.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -414,9 +409,7 @@ func (o *GetRouteByIDOKBody) contextValidateMap(ctx context.Context, formats str
 }
 
 func (o *GetRouteByIDOKBody) contextValidateSegments(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(o.Segments); i++ {
-
 		if o.Segments[i] != nil {
 			if err := o.Segments[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
@@ -427,7 +420,6 @@ func (o *GetRouteByIDOKBody) contextValidateSegments(ctx context.Context, format
 				return err
 			}
 		}
-
 	}
 
 	return nil

@@ -223,7 +223,6 @@ func (m *DetailedActivity) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateBestEfforts(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BestEfforts) { // not required
 		return nil
 	}
@@ -250,7 +249,6 @@ func (m *DetailedActivity) validateBestEfforts(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateGear(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Gear) { // not required
 		return nil
 	}
@@ -270,7 +268,6 @@ func (m *DetailedActivity) validateGear(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateLaps(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Laps) { // not required
 		return nil
 	}
@@ -297,7 +294,6 @@ func (m *DetailedActivity) validateLaps(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validatePhotos(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Photos) { // not required
 		return nil
 	}
@@ -317,7 +313,6 @@ func (m *DetailedActivity) validatePhotos(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateSegmentEfforts(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SegmentEfforts) { // not required
 		return nil
 	}
@@ -344,7 +339,6 @@ func (m *DetailedActivity) validateSegmentEfforts(formats strfmt.Registry) error
 }
 
 func (m *DetailedActivity) validateSplitsMetric(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SplitsMetric) { // not required
 		return nil
 	}
@@ -371,7 +365,6 @@ func (m *DetailedActivity) validateSplitsMetric(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateSplitsStandard(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SplitsStandard) { // not required
 		return nil
 	}
@@ -441,9 +434,7 @@ func (m *DetailedActivity) ContextValidate(ctx context.Context, formats strfmt.R
 }
 
 func (m *DetailedActivity) contextValidateBestEfforts(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.BestEfforts); i++ {
-
 		if m.BestEfforts[i] != nil {
 			if err := m.BestEfforts[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
@@ -454,14 +445,12 @@ func (m *DetailedActivity) contextValidateBestEfforts(ctx context.Context, forma
 				return err
 			}
 		}
-
 	}
 
 	return nil
 }
 
 func (m *DetailedActivity) contextValidateGear(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Gear != nil {
 		if err := m.Gear.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -477,9 +466,7 @@ func (m *DetailedActivity) contextValidateGear(ctx context.Context, formats strf
 }
 
 func (m *DetailedActivity) contextValidateLaps(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Laps); i++ {
-
 		if m.Laps[i] != nil {
 			if err := m.Laps[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
@@ -490,14 +477,12 @@ func (m *DetailedActivity) contextValidateLaps(ctx context.Context, formats strf
 				return err
 			}
 		}
-
 	}
 
 	return nil
 }
 
 func (m *DetailedActivity) contextValidatePhotos(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Photos != nil {
 		if err := m.Photos.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -513,9 +498,7 @@ func (m *DetailedActivity) contextValidatePhotos(ctx context.Context, formats st
 }
 
 func (m *DetailedActivity) contextValidateSegmentEfforts(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.SegmentEfforts); i++ {
-
 		if m.SegmentEfforts[i] != nil {
 			if err := m.SegmentEfforts[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
@@ -526,16 +509,13 @@ func (m *DetailedActivity) contextValidateSegmentEfforts(ctx context.Context, fo
 				return err
 			}
 		}
-
 	}
 
 	return nil
 }
 
 func (m *DetailedActivity) contextValidateSplitsMetric(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.SplitsMetric); i++ {
-
 		if m.SplitsMetric[i] != nil {
 			if err := m.SplitsMetric[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
@@ -546,16 +526,13 @@ func (m *DetailedActivity) contextValidateSplitsMetric(ctx context.Context, form
 				return err
 			}
 		}
-
 	}
 
 	return nil
 }
 
 func (m *DetailedActivity) contextValidateSplitsStandard(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.SplitsStandard); i++ {
-
 		if m.SplitsStandard[i] != nil {
 			if err := m.SplitsStandard[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
@@ -566,7 +543,6 @@ func (m *DetailedActivity) contextValidateSplitsStandard(ctx context.Context, fo
 				return err
 			}
 		}
-
 	}
 
 	return nil

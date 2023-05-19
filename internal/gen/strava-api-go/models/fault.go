@@ -18,7 +18,6 @@ import (
 //
 // swagger:model fault
 type Fault struct {
-
 	// The set of specific errors associated with this fault, if any.
 	Errors []*Error `json:"errors"`
 
@@ -81,9 +80,7 @@ func (m *Fault) ContextValidate(ctx context.Context, formats strfmt.Registry) er
 }
 
 func (m *Fault) contextValidateErrors(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Errors); i++ {
-
 		if m.Errors[i] != nil {
 			if err := m.Errors[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
@@ -94,7 +91,6 @@ func (m *Fault) contextValidateErrors(ctx context.Context, formats strfmt.Regist
 				return err
 			}
 		}
-
 	}
 
 	return nil

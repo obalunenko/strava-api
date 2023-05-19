@@ -18,7 +18,6 @@ import (
 //
 // swagger:model explorerResponse
 type ExplorerResponse struct {
-
 	// The set of segments matching an explorer request
 	Segments []*ExplorerSegment `json:"segments"`
 }
@@ -78,9 +77,7 @@ func (m *ExplorerResponse) ContextValidate(ctx context.Context, formats strfmt.R
 }
 
 func (m *ExplorerResponse) contextValidateSegments(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Segments); i++ {
-
 		if m.Segments[i] != nil {
 			if err := m.Segments[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
@@ -91,7 +88,6 @@ func (m *ExplorerResponse) contextValidateSegments(ctx context.Context, formats 
 				return err
 			}
 		}
-
 	}
 
 	return nil

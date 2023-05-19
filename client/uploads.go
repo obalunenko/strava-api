@@ -2,10 +2,12 @@ package client
 
 import (
 	"context"
+	"io"
+
 	"github.com/go-openapi/runtime"
+
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
-	"io"
 )
 
 type UploadsAPI interface {
@@ -36,11 +38,11 @@ type uploadsService struct {
 }
 
 func (u uploadsService) CreateUpload(ctx context.Context, opts ...CreateUploadParams) (models.Upload, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (u uploadsService) GetUploadById(ctx context.Context, uploadId int64) (models.Upload, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }

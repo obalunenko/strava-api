@@ -233,7 +233,6 @@ func (m *SummaryAthlete) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SummaryAthlete) validateCreatedAt(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CreatedAt) { // not required
 		return nil
 	}
@@ -266,7 +265,6 @@ func (m *SummaryAthlete) validateSexEnum(path, location string, value string) er
 }
 
 func (m *SummaryAthlete) validateSex(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Sex) { // not required
 		return nil
 	}
@@ -280,7 +278,6 @@ func (m *SummaryAthlete) validateSex(formats strfmt.Registry) error {
 }
 
 func (m *SummaryAthlete) validateUpdatedAt(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.UpdatedAt) { // not required
 		return nil
 	}

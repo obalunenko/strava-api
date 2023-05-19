@@ -93,7 +93,6 @@ func (o *GetGearByIDOK) GetPayload() *models2.DetailedGear {
 }
 
 func (o *GetGearByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.DetailedGear)
 
 	// response payload
@@ -165,7 +164,6 @@ func (o *GetGearByIDDefault) GetPayload() *models2.Fault {
 }
 
 func (o *GetGearByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.Fault)
 
 	// response payload

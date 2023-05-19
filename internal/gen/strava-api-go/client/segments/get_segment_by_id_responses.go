@@ -93,7 +93,6 @@ func (o *GetSegmentByIDOK) GetPayload() *models2.DetailedSegment {
 }
 
 func (o *GetSegmentByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.DetailedSegment)
 
 	// response payload
@@ -165,7 +164,6 @@ func (o *GetSegmentByIDDefault) GetPayload() *models2.Fault {
 }
 
 func (o *GetSegmentByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.Fault)
 
 	// response payload

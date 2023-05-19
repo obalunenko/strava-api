@@ -61,7 +61,6 @@ GetRouteByIDParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type GetRouteByIDParams struct {
-
 	/* ID.
 
 	   The identifier of the route.
@@ -136,7 +135,6 @@ func (o *GetRouteByIDParams) SetID(id int64) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetRouteByIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}

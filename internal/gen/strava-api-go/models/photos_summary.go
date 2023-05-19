@@ -17,7 +17,6 @@ import (
 //
 // swagger:model photosSummary
 type PhotosSummary struct {
-
 	// The number of photos
 	Count int64 `json:"count,omitempty"`
 
@@ -73,7 +72,6 @@ func (m *PhotosSummary) ContextValidate(ctx context.Context, formats strfmt.Regi
 }
 
 func (m *PhotosSummary) contextValidatePrimary(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Primary != nil {
 		if err := m.Primary.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -110,7 +108,6 @@ func (m *PhotosSummary) UnmarshalBinary(b []byte) error {
 //
 // swagger:model PhotosSummaryPrimary
 type PhotosSummaryPrimary struct {
-
 	// id
 	ID int64 `json:"id,omitempty"`
 

@@ -93,7 +93,6 @@ func (o *GetUploadByIDOK) GetPayload() *models2.Upload {
 }
 
 func (o *GetUploadByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.Upload)
 
 	// response payload
@@ -165,7 +164,6 @@ func (o *GetUploadByIDDefault) GetPayload() *models2.Fault {
 }
 
 func (o *GetUploadByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.Fault)
 
 	// response payload

@@ -93,7 +93,6 @@ func (o *GetClubMembersByIDOK) GetPayload() []*models2.ClubAthlete {
 }
 
 func (o *GetClubMembersByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
@@ -163,7 +162,6 @@ func (o *GetClubMembersByIDDefault) GetPayload() *models2.Fault {
 }
 
 func (o *GetClubMembersByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.Fault)
 
 	// response payload

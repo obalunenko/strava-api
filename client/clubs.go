@@ -2,7 +2,9 @@ package client
 
 import (
 	"context"
+
 	"github.com/go-openapi/runtime"
+
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
@@ -48,26 +50,26 @@ func newClubsApiService(client *strava.StravaAPIV3, auth runtime.ClientAuthInfoW
 }
 
 func (clubsService) GetClubActivitiesById(ctx context.Context, id int64, opts ...GetClubActivitiesByIdOpts) ([]models.ClubActivity, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (clubsService) GetClubAdminsById(ctx context.Context, id int64, opts ...GetClubAdminsByIdOpts) ([]models.SummaryAthlete, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (clubsService) GetClubById(ctx context.Context, id int64) (models.DetailedClub, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (clubsService) GetClubMembersById(ctx context.Context, id int64, opts ...GetClubMembersByIdOpts) ([]models.ClubAthlete, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (clubsService) GetLoggedInAthleteClubs(ctx context.Context, opts ...GetLoggedInAthleteClubsOpts) ([]models.SummaryClub, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }

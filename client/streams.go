@@ -2,7 +2,9 @@ package client
 
 import (
 	"context"
+
 	"github.com/go-openapi/runtime"
+
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
@@ -27,21 +29,21 @@ type streamsService struct {
 }
 
 func (s streamsService) GetActivityStreams(ctx context.Context, id int64, keys []string, keyByType bool) (models.StreamSet, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (s streamsService) GetRouteStreams(ctx context.Context, id int64) (models.StreamSet, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (s streamsService) GetSegmentEffortStreams(ctx context.Context, id int64, keys []string, keyByType bool) (models.StreamSet, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (s streamsService) GetSegmentStreams(ctx context.Context, id int64, keys []string, keyByType bool) (models.StreamSet, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }

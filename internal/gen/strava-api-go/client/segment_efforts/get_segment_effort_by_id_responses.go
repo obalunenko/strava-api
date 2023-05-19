@@ -97,7 +97,6 @@ func (o *GetSegmentEffortByIDOK) GetPayload() *GetSegmentEffortByIDOKBody {
 }
 
 func (o *GetSegmentEffortByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(GetSegmentEffortByIDOKBody)
 
 	// response payload
@@ -169,7 +168,6 @@ func (o *GetSegmentEffortByIDDefault) GetPayload() *models2.Fault {
 }
 
 func (o *GetSegmentEffortByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.Fault)
 
 	// response payload
@@ -430,7 +428,6 @@ func (o *GetSegmentEffortByIDOKBody) Validate(formats strfmt.Registry) error {
 }
 
 func (o *GetSegmentEffortByIDOKBody) validateActivity(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Activity) { // not required
 		return nil
 	}
@@ -450,7 +447,6 @@ func (o *GetSegmentEffortByIDOKBody) validateActivity(formats strfmt.Registry) e
 }
 
 func (o *GetSegmentEffortByIDOKBody) validateAthlete(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Athlete) { // not required
 		return nil
 	}
@@ -470,7 +466,6 @@ func (o *GetSegmentEffortByIDOKBody) validateAthlete(formats strfmt.Registry) er
 }
 
 func (o *GetSegmentEffortByIDOKBody) validateKomRank(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.KomRank) { // not required
 		return nil
 	}
@@ -487,7 +482,6 @@ func (o *GetSegmentEffortByIDOKBody) validateKomRank(formats strfmt.Registry) er
 }
 
 func (o *GetSegmentEffortByIDOKBody) validatePrRank(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.PrRank) { // not required
 		return nil
 	}
@@ -504,7 +498,6 @@ func (o *GetSegmentEffortByIDOKBody) validatePrRank(formats strfmt.Registry) err
 }
 
 func (o *GetSegmentEffortByIDOKBody) validateSegment(formats strfmt.Registry) error {
-
 	if swag.IsZero(o.Segment) { // not required
 		return nil
 	}
@@ -551,7 +544,6 @@ func (o *GetSegmentEffortByIDOKBody) ContextValidate(ctx context.Context, format
 }
 
 func (o *GetSegmentEffortByIDOKBody) contextValidateActivity(ctx context.Context, formats strfmt.Registry) error {
-
 	if o.Activity != nil {
 		if err := o.Activity.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -567,7 +559,6 @@ func (o *GetSegmentEffortByIDOKBody) contextValidateActivity(ctx context.Context
 }
 
 func (o *GetSegmentEffortByIDOKBody) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
-
 	if o.Athlete != nil {
 		if err := o.Athlete.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -583,7 +574,6 @@ func (o *GetSegmentEffortByIDOKBody) contextValidateAthlete(ctx context.Context,
 }
 
 func (o *GetSegmentEffortByIDOKBody) contextValidateSegment(ctx context.Context, formats strfmt.Registry) error {
-
 	if o.Segment != nil {
 		if err := o.Segment.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {

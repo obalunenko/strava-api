@@ -61,7 +61,6 @@ GetSegmentStreamsParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type GetSegmentStreamsParams struct {
-
 	/* ID.
 
 	   The identifier of the segment.
@@ -101,9 +100,7 @@ func (o *GetSegmentStreamsParams) WithDefaults() *GetSegmentStreamsParams {
 //
 // All values with no default are reset to their zero value.
 func (o *GetSegmentStreamsParams) SetDefaults() {
-	var (
-		keyByTypeDefault = bool(true)
-	)
+	keyByTypeDefault := bool(true)
 
 	val := GetSegmentStreamsParams{
 		KeyByType: keyByTypeDefault,
@@ -183,7 +180,6 @@ func (o *GetSegmentStreamsParams) SetKeys(keys []string) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetSegmentStreamsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}
@@ -198,7 +194,6 @@ func (o *GetSegmentStreamsParams) WriteToRequest(r runtime.ClientRequest, reg st
 	qrKeyByType := o.KeyByType
 	qKeyByType := swag.FormatBool(qrKeyByType)
 	if qKeyByType != "" {
-
 		if err := r.SetQueryParam("key_by_type", qKeyByType); err != nil {
 			return err
 		}

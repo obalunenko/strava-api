@@ -93,7 +93,6 @@ func (o *ExploreSegmentsOK) GetPayload() *models2.ExplorerResponse {
 }
 
 func (o *ExploreSegmentsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.ExplorerResponse)
 
 	// response payload
@@ -165,7 +164,6 @@ func (o *ExploreSegmentsDefault) GetPayload() *models2.Fault {
 }
 
 func (o *ExploreSegmentsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.Fault)
 
 	// response payload

@@ -17,7 +17,6 @@ import (
 //
 // swagger:model updatableActivity
 type UpdatableActivity struct {
-
 	// Whether this activity is a commute
 	Commute bool `json:"commute,omitempty"`
 
@@ -114,7 +113,6 @@ func (m *UpdatableActivity) ContextValidate(ctx context.Context, formats strfmt.
 }
 
 func (m *UpdatableActivity) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.SportType.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("sport_type")
@@ -128,7 +126,6 @@ func (m *UpdatableActivity) contextValidateSportType(ctx context.Context, format
 }
 
 func (m *UpdatableActivity) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.Type.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("type")

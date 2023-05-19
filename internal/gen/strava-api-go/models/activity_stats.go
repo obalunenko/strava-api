@@ -17,7 +17,6 @@ import (
 //
 // swagger:model activityStats
 type ActivityStats struct {
-
 	// all ride totals
 	AllRideTotals *ActivityTotal `json:"all_ride_totals,omitempty"`
 
@@ -316,7 +315,6 @@ func (m *ActivityStats) ContextValidate(ctx context.Context, formats strfmt.Regi
 }
 
 func (m *ActivityStats) contextValidateAllRideTotals(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.AllRideTotals != nil {
 		if err := m.AllRideTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -332,7 +330,6 @@ func (m *ActivityStats) contextValidateAllRideTotals(ctx context.Context, format
 }
 
 func (m *ActivityStats) contextValidateAllRunTotals(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.AllRunTotals != nil {
 		if err := m.AllRunTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -348,7 +345,6 @@ func (m *ActivityStats) contextValidateAllRunTotals(ctx context.Context, formats
 }
 
 func (m *ActivityStats) contextValidateAllSwimTotals(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.AllSwimTotals != nil {
 		if err := m.AllSwimTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -364,7 +360,6 @@ func (m *ActivityStats) contextValidateAllSwimTotals(ctx context.Context, format
 }
 
 func (m *ActivityStats) contextValidateRecentRideTotals(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.RecentRideTotals != nil {
 		if err := m.RecentRideTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -380,7 +375,6 @@ func (m *ActivityStats) contextValidateRecentRideTotals(ctx context.Context, for
 }
 
 func (m *ActivityStats) contextValidateRecentRunTotals(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.RecentRunTotals != nil {
 		if err := m.RecentRunTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -396,7 +390,6 @@ func (m *ActivityStats) contextValidateRecentRunTotals(ctx context.Context, form
 }
 
 func (m *ActivityStats) contextValidateRecentSwimTotals(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.RecentSwimTotals != nil {
 		if err := m.RecentSwimTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -412,7 +405,6 @@ func (m *ActivityStats) contextValidateRecentSwimTotals(ctx context.Context, for
 }
 
 func (m *ActivityStats) contextValidateYtdRideTotals(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.YtdRideTotals != nil {
 		if err := m.YtdRideTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -428,7 +420,6 @@ func (m *ActivityStats) contextValidateYtdRideTotals(ctx context.Context, format
 }
 
 func (m *ActivityStats) contextValidateYtdRunTotals(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.YtdRunTotals != nil {
 		if err := m.YtdRunTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
@@ -444,7 +435,6 @@ func (m *ActivityStats) contextValidateYtdRunTotals(ctx context.Context, formats
 }
 
 func (m *ActivityStats) contextValidateYtdSwimTotals(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.YtdSwimTotals != nil {
 		if err := m.YtdSwimTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {

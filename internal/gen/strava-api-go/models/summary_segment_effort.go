@@ -18,7 +18,6 @@ import (
 //
 // swagger:model summarySegmentEffort
 type SummarySegmentEffort struct {
-
 	// The unique identifier of the activity related to this effort
 	ActivityID int64 `json:"activity_id,omitempty"`
 

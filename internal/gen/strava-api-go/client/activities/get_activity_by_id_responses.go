@@ -93,7 +93,6 @@ func (o *GetActivityByIDOK) GetPayload() *models2.DetailedActivity {
 }
 
 func (o *GetActivityByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.DetailedActivity)
 
 	// response payload
@@ -165,7 +164,6 @@ func (o *GetActivityByIDDefault) GetPayload() *models2.Fault {
 }
 
 func (o *GetActivityByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.Fault)
 
 	// response payload

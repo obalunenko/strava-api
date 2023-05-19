@@ -93,7 +93,6 @@ func (o *GetKudoersByActivityIDOK) GetPayload() []*models2.SummaryAthlete {
 }
 
 func (o *GetKudoersByActivityIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
@@ -163,7 +162,6 @@ func (o *GetKudoersByActivityIDDefault) GetPayload() *models2.Fault {
 }
 
 func (o *GetKudoersByActivityIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.Fault)
 
 	// response payload

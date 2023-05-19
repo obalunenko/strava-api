@@ -107,36 +107,36 @@ func (a activitiesService) CreateActivity(ctx context.Context, name string, acti
 }
 
 func (activitiesService) GetActivityById(ctx context.Context, id int64, opts ...GetActivityByIdOpts) (models.DetailedActivity, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (activitiesService) GetCommentsByActivityId(ctx context.Context, id int64, opts ...GetCommentsByActivityIdOpts) ([]models.Comment, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (activitiesService) GetKudoersByActivityId(ctx context.Context, id int64, opts ...GetKudoersByActivityIdOpts) ([]models.SummaryAthlete, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (activitiesService) GetLapsByActivityId(ctx context.Context, id int64) ([]models.Lap, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (activitiesService) GetLoggedInAthleteActivities(ctx context.Context, opts ...GetLoggedInAthleteActivitiesOpts) ([]models.SummaryActivity, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (activitiesService) GetZonesByActivityId(ctx context.Context, id int64) ([]models.ActivityZone, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (activitiesService) UpdateActivityById(ctx context.Context, id int64, opts ...UpdateActivityByIdOpts) (models.DetailedActivity, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }

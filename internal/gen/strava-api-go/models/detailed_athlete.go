@@ -181,7 +181,6 @@ func (m *DetailedAthlete) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DetailedAthlete) validateBikes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Bikes) { // not required
 		return nil
 	}
@@ -208,7 +207,6 @@ func (m *DetailedAthlete) validateBikes(formats strfmt.Registry) error {
 }
 
 func (m *DetailedAthlete) validateClubs(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Clubs) { // not required
 		return nil
 	}
@@ -255,7 +253,6 @@ func (m *DetailedAthlete) validateMeasurementPreferenceEnum(path, location strin
 }
 
 func (m *DetailedAthlete) validateMeasurementPreference(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MeasurementPreference) { // not required
 		return nil
 	}
@@ -269,7 +266,6 @@ func (m *DetailedAthlete) validateMeasurementPreference(formats strfmt.Registry)
 }
 
 func (m *DetailedAthlete) validateShoes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Shoes) { // not required
 		return nil
 	}
@@ -323,9 +319,7 @@ func (m *DetailedAthlete) ContextValidate(ctx context.Context, formats strfmt.Re
 }
 
 func (m *DetailedAthlete) contextValidateBikes(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Bikes); i++ {
-
 		if m.Bikes[i] != nil {
 			if err := m.Bikes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
@@ -336,16 +330,13 @@ func (m *DetailedAthlete) contextValidateBikes(ctx context.Context, formats strf
 				return err
 			}
 		}
-
 	}
 
 	return nil
 }
 
 func (m *DetailedAthlete) contextValidateClubs(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Clubs); i++ {
-
 		if m.Clubs[i] != nil {
 			if err := m.Clubs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
@@ -356,16 +347,13 @@ func (m *DetailedAthlete) contextValidateClubs(ctx context.Context, formats strf
 				return err
 			}
 		}
-
 	}
 
 	return nil
 }
 
 func (m *DetailedAthlete) contextValidateShoes(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Shoes); i++ {
-
 		if m.Shoes[i] != nil {
 			if err := m.Shoes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
@@ -376,7 +364,6 @@ func (m *DetailedAthlete) contextValidateShoes(ctx context.Context, formats strf
 				return err
 			}
 		}
-
 	}
 
 	return nil

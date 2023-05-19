@@ -93,7 +93,6 @@ func (o *GetClubByIDOK) GetPayload() *models2.DetailedClub {
 }
 
 func (o *GetClubByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.DetailedClub)
 
 	// response payload
@@ -165,7 +164,6 @@ func (o *GetClubByIDDefault) GetPayload() *models2.Fault {
 }
 
 func (o *GetClubByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.Fault)
 
 	// response payload

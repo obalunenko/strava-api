@@ -2,7 +2,9 @@ package client
 
 import (
 	"context"
+
 	"github.com/go-openapi/runtime"
+
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
@@ -24,6 +26,6 @@ func newGearsApiService(client *strava.StravaAPIV3, auth runtime.ClientAuthInfoW
 }
 
 func (g gearsService) GetGearById(ctx context.Context, id string) (models.DetailedGear, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }

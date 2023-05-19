@@ -2,7 +2,9 @@ package client
 
 import (
 	"context"
+
 	"github.com/go-openapi/runtime"
+
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
@@ -32,21 +34,21 @@ type routesService struct {
 }
 
 func (routesService) GetRouteAsGPX(ctx context.Context, id int64) error {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (routesService) GetRouteAsTCX(ctx context.Context, id int64) error {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (routesService) GetRouteById(ctx context.Context, id int64) (models.Route, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
 func (routesService) GetRoutesByAthleteId(ctx context.Context, opts ...GetRoutesByAthleteIdOpts) ([]models.Route, error) {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }

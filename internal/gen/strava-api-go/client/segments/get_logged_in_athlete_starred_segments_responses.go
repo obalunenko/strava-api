@@ -93,7 +93,6 @@ func (o *GetLoggedInAthleteStarredSegmentsOK) GetPayload() []*models2.SummarySeg
 }
 
 func (o *GetLoggedInAthleteStarredSegmentsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
@@ -163,7 +162,6 @@ func (o *GetLoggedInAthleteStarredSegmentsDefault) GetPayload() *models2.Fault {
 }
 
 func (o *GetLoggedInAthleteStarredSegmentsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.Fault)
 
 	// response payload

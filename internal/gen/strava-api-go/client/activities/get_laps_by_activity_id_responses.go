@@ -93,7 +93,6 @@ func (o *GetLapsByActivityIDOK) GetPayload() []*models2.Lap {
 }
 
 func (o *GetLapsByActivityIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
@@ -163,7 +162,6 @@ func (o *GetLapsByActivityIDDefault) GetPayload() *models2.Fault {
 }
 
 func (o *GetLapsByActivityIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models2.Fault)
 
 	// response payload

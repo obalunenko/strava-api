@@ -19,7 +19,6 @@ import (
 //
 // swagger:model activityZone
 type ActivityZone struct {
-
 	// custom zones
 	CustomZones bool `json:"custom_zones,omitempty"`
 
@@ -135,7 +134,6 @@ func (m *ActivityZone) ContextValidate(ctx context.Context, formats strfmt.Regis
 }
 
 func (m *ActivityZone) contextValidateDistributionBuckets(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.DistributionBuckets.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("distribution_buckets")

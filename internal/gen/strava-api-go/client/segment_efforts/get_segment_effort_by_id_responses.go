@@ -550,6 +550,11 @@ func (o *GetSegmentEffortByIDOKBody) ContextValidate(ctx context.Context, format
 
 func (o *GetSegmentEffortByIDOKBody) contextValidateActivity(ctx context.Context, formats strfmt.Registry) error {
 	if o.Activity != nil {
+
+		if swag.IsZero(o.Activity) { // not required
+			return nil
+		}
+
 		if err := o.Activity.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("getSegmentEffortByIdOK" + "." + "activity")
@@ -565,6 +570,11 @@ func (o *GetSegmentEffortByIDOKBody) contextValidateActivity(ctx context.Context
 
 func (o *GetSegmentEffortByIDOKBody) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
 	if o.Athlete != nil {
+
+		if swag.IsZero(o.Athlete) { // not required
+			return nil
+		}
+
 		if err := o.Athlete.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("getSegmentEffortByIdOK" + "." + "athlete")
@@ -580,6 +590,11 @@ func (o *GetSegmentEffortByIDOKBody) contextValidateAthlete(ctx context.Context,
 
 func (o *GetSegmentEffortByIDOKBody) contextValidateSegment(ctx context.Context, formats strfmt.Registry) error {
 	if o.Segment != nil {
+
+		if swag.IsZero(o.Segment) { // not required
+			return nil
+		}
+
 		if err := o.Segment.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("getSegmentEffortByIdOK" + "." + "segment")

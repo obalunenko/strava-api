@@ -239,6 +239,11 @@ func (m *DetailedSegment) ContextValidate(ctx context.Context, formats strfmt.Re
 
 func (m *DetailedSegment) contextValidateMap(ctx context.Context, formats strfmt.Registry) error {
 	if m.Map != nil {
+
+		if swag.IsZero(m.Map) { // not required
+			return nil
+		}
+
 		if err := m.Map.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("map")

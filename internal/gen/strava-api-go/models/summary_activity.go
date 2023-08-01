@@ -746,6 +746,11 @@ func (m *SummaryActivity) ContextValidate(ctx context.Context, formats strfmt.Re
 
 func (m *SummaryActivity) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
 	if m.Athlete != nil {
+
+		if swag.IsZero(m.Athlete) { // not required
+			return nil
+		}
+
 		if err := m.Athlete.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("athlete")
@@ -774,6 +779,11 @@ func (m *SummaryActivity) contextValidateEndLatlng(ctx context.Context, formats 
 
 func (m *SummaryActivity) contextValidateMap(ctx context.Context, formats strfmt.Registry) error {
 	if m.Map != nil {
+
+		if swag.IsZero(m.Map) { // not required
+			return nil
+		}
+
 		if err := m.Map.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("map")
@@ -788,6 +798,10 @@ func (m *SummaryActivity) contextValidateMap(ctx context.Context, formats strfmt
 }
 
 func (m *SummaryActivity) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
+	if swag.IsZero(m.SportType) { // not required
+		return nil
+	}
+
 	if err := m.SportType.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("sport_type")
@@ -814,6 +828,10 @@ func (m *SummaryActivity) contextValidateStartLatlng(ctx context.Context, format
 }
 
 func (m *SummaryActivity) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+	if swag.IsZero(m.Type) { // not required
+		return nil
+	}
+
 	if err := m.Type.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("type")

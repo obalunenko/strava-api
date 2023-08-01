@@ -370,6 +370,11 @@ func (m *StreamSet) ContextValidate(ctx context.Context, formats strfmt.Registry
 
 func (m *StreamSet) contextValidateAltitude(ctx context.Context, formats strfmt.Registry) error {
 	if m.Altitude != nil {
+
+		if swag.IsZero(m.Altitude) { // not required
+			return nil
+		}
+
 		if err := m.Altitude.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("altitude")
@@ -385,6 +390,11 @@ func (m *StreamSet) contextValidateAltitude(ctx context.Context, formats strfmt.
 
 func (m *StreamSet) contextValidateCadence(ctx context.Context, formats strfmt.Registry) error {
 	if m.Cadence != nil {
+
+		if swag.IsZero(m.Cadence) { // not required
+			return nil
+		}
+
 		if err := m.Cadence.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cadence")
@@ -400,6 +410,11 @@ func (m *StreamSet) contextValidateCadence(ctx context.Context, formats strfmt.R
 
 func (m *StreamSet) contextValidateDistance(ctx context.Context, formats strfmt.Registry) error {
 	if m.Distance != nil {
+
+		if swag.IsZero(m.Distance) { // not required
+			return nil
+		}
+
 		if err := m.Distance.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("distance")
@@ -415,6 +430,11 @@ func (m *StreamSet) contextValidateDistance(ctx context.Context, formats strfmt.
 
 func (m *StreamSet) contextValidateGradeSmooth(ctx context.Context, formats strfmt.Registry) error {
 	if m.GradeSmooth != nil {
+
+		if swag.IsZero(m.GradeSmooth) { // not required
+			return nil
+		}
+
 		if err := m.GradeSmooth.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("grade_smooth")
@@ -430,6 +450,11 @@ func (m *StreamSet) contextValidateGradeSmooth(ctx context.Context, formats strf
 
 func (m *StreamSet) contextValidateHeartrate(ctx context.Context, formats strfmt.Registry) error {
 	if m.Heartrate != nil {
+
+		if swag.IsZero(m.Heartrate) { // not required
+			return nil
+		}
+
 		if err := m.Heartrate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("heartrate")
@@ -445,6 +470,11 @@ func (m *StreamSet) contextValidateHeartrate(ctx context.Context, formats strfmt
 
 func (m *StreamSet) contextValidateLatlng(ctx context.Context, formats strfmt.Registry) error {
 	if m.Latlng != nil {
+
+		if swag.IsZero(m.Latlng) { // not required
+			return nil
+		}
+
 		if err := m.Latlng.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("latlng")
@@ -460,6 +490,11 @@ func (m *StreamSet) contextValidateLatlng(ctx context.Context, formats strfmt.Re
 
 func (m *StreamSet) contextValidateMoving(ctx context.Context, formats strfmt.Registry) error {
 	if m.Moving != nil {
+
+		if swag.IsZero(m.Moving) { // not required
+			return nil
+		}
+
 		if err := m.Moving.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("moving")
@@ -475,6 +510,11 @@ func (m *StreamSet) contextValidateMoving(ctx context.Context, formats strfmt.Re
 
 func (m *StreamSet) contextValidateTemp(ctx context.Context, formats strfmt.Registry) error {
 	if m.Temp != nil {
+
+		if swag.IsZero(m.Temp) { // not required
+			return nil
+		}
+
 		if err := m.Temp.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("temp")
@@ -490,6 +530,11 @@ func (m *StreamSet) contextValidateTemp(ctx context.Context, formats strfmt.Regi
 
 func (m *StreamSet) contextValidateTime(ctx context.Context, formats strfmt.Registry) error {
 	if m.Time != nil {
+
+		if swag.IsZero(m.Time) { // not required
+			return nil
+		}
+
 		if err := m.Time.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("time")
@@ -505,6 +550,11 @@ func (m *StreamSet) contextValidateTime(ctx context.Context, formats strfmt.Regi
 
 func (m *StreamSet) contextValidateVelocitySmooth(ctx context.Context, formats strfmt.Registry) error {
 	if m.VelocitySmooth != nil {
+
+		if swag.IsZero(m.VelocitySmooth) { // not required
+			return nil
+		}
+
 		if err := m.VelocitySmooth.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("velocity_smooth")
@@ -520,6 +570,11 @@ func (m *StreamSet) contextValidateVelocitySmooth(ctx context.Context, formats s
 
 func (m *StreamSet) contextValidateWatts(ctx context.Context, formats strfmt.Registry) error {
 	if m.Watts != nil {
+
+		if swag.IsZero(m.Watts) { // not required
+			return nil
+		}
+
 		if err := m.Watts.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("watts")

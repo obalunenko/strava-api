@@ -300,6 +300,11 @@ func (m *SummaryClub) ContextValidate(ctx context.Context, formats strfmt.Regist
 
 func (m *SummaryClub) contextValidateActivityTypes(ctx context.Context, formats strfmt.Registry) error {
 	for i := 0; i < len(m.ActivityTypes); i++ {
+
+		if swag.IsZero(m.ActivityTypes[i]) { // not required
+			return nil
+		}
+
 		if err := m.ActivityTypes[i].ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("activity_types" + "." + strconv.Itoa(i))
@@ -308,6 +313,7 @@ func (m *SummaryClub) contextValidateActivityTypes(ctx context.Context, formats 
 			}
 			return err
 		}
+
 	}
 
 	return nil

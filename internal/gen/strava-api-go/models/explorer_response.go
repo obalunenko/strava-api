@@ -79,6 +79,11 @@ func (m *ExplorerResponse) ContextValidate(ctx context.Context, formats strfmt.R
 func (m *ExplorerResponse) contextValidateSegments(ctx context.Context, formats strfmt.Registry) error {
 	for i := 0; i < len(m.Segments); i++ {
 		if m.Segments[i] != nil {
+
+			if swag.IsZero(m.Segments[i]) { // not required
+				return nil
+			}
+
 			if err := m.Segments[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("segments" + "." + strconv.Itoa(i))

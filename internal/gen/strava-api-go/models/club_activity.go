@@ -144,6 +144,11 @@ func (m *ClubActivity) ContextValidate(ctx context.Context, formats strfmt.Regis
 
 func (m *ClubActivity) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
 	if m.Athlete != nil {
+
+		if swag.IsZero(m.Athlete) { // not required
+			return nil
+		}
+
 		if err := m.Athlete.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("athlete")
@@ -158,6 +163,10 @@ func (m *ClubActivity) contextValidateAthlete(ctx context.Context, formats strfm
 }
 
 func (m *ClubActivity) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
+	if swag.IsZero(m.SportType) { // not required
+		return nil
+	}
+
 	if err := m.SportType.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("sport_type")
@@ -171,6 +180,10 @@ func (m *ClubActivity) contextValidateSportType(ctx context.Context, formats str
 }
 
 func (m *ClubActivity) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+	if swag.IsZero(m.Type) { // not required
+		return nil
+	}
+
 	if err := m.Type.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("type")

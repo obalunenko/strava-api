@@ -100,6 +100,11 @@ func (m *Zones) ContextValidate(ctx context.Context, formats strfmt.Registry) er
 
 func (m *Zones) contextValidateHeartRate(ctx context.Context, formats strfmt.Registry) error {
 	if m.HeartRate != nil {
+
+		if swag.IsZero(m.HeartRate) { // not required
+			return nil
+		}
+
 		if err := m.HeartRate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("heart_rate")
@@ -115,6 +120,11 @@ func (m *Zones) contextValidateHeartRate(ctx context.Context, formats strfmt.Reg
 
 func (m *Zones) contextValidatePower(ctx context.Context, formats strfmt.Registry) error {
 	if m.Power != nil {
+
+		if swag.IsZero(m.Power) { // not required
+			return nil
+		}
+
 		if err := m.Power.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("power")

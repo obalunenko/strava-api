@@ -113,6 +113,10 @@ func (m *UpdatableActivity) ContextValidate(ctx context.Context, formats strfmt.
 }
 
 func (m *UpdatableActivity) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
+	if swag.IsZero(m.SportType) { // not required
+		return nil
+	}
+
 	if err := m.SportType.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("sport_type")
@@ -126,6 +130,10 @@ func (m *UpdatableActivity) contextValidateSportType(ctx context.Context, format
 }
 
 func (m *UpdatableActivity) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+	if swag.IsZero(m.Type) { // not required
+		return nil
+	}
+
 	if err := m.Type.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("type")

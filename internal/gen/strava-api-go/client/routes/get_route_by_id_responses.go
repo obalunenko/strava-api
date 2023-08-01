@@ -385,6 +385,11 @@ func (o *GetRouteByIDOKBody) ContextValidate(ctx context.Context, formats strfmt
 
 func (o *GetRouteByIDOKBody) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
 	if o.Athlete != nil {
+
+		if swag.IsZero(o.Athlete) { // not required
+			return nil
+		}
+
 		if err := o.Athlete.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("getRouteByIdOK" + "." + "athlete")
@@ -400,6 +405,11 @@ func (o *GetRouteByIDOKBody) contextValidateAthlete(ctx context.Context, formats
 
 func (o *GetRouteByIDOKBody) contextValidateMap(ctx context.Context, formats strfmt.Registry) error {
 	if o.Map != nil {
+
+		if swag.IsZero(o.Map) { // not required
+			return nil
+		}
+
 		if err := o.Map.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("getRouteByIdOK" + "." + "map")
@@ -416,6 +426,11 @@ func (o *GetRouteByIDOKBody) contextValidateMap(ctx context.Context, formats str
 func (o *GetRouteByIDOKBody) contextValidateSegments(ctx context.Context, formats strfmt.Registry) error {
 	for i := 0; i < len(o.Segments); i++ {
 		if o.Segments[i] != nil {
+
+			if swag.IsZero(o.Segments[i]) { // not required
+				return nil
+			}
+
 			if err := o.Segments[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("getRouteByIdOK" + "." + "segments" + "." + strconv.Itoa(i))

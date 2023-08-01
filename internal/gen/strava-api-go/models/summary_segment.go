@@ -244,6 +244,11 @@ func (m *SummarySegment) ContextValidate(ctx context.Context, formats strfmt.Reg
 
 func (m *SummarySegment) contextValidateAthletePrEffort(ctx context.Context, formats strfmt.Registry) error {
 	if m.AthletePrEffort != nil {
+
+		if swag.IsZero(m.AthletePrEffort) { // not required
+			return nil
+		}
+
 		if err := m.AthletePrEffort.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("athlete_pr_effort")
@@ -259,6 +264,11 @@ func (m *SummarySegment) contextValidateAthletePrEffort(ctx context.Context, for
 
 func (m *SummarySegment) contextValidateAthleteSegmentStats(ctx context.Context, formats strfmt.Registry) error {
 	if m.AthleteSegmentStats != nil {
+
+		if swag.IsZero(m.AthleteSegmentStats) { // not required
+			return nil
+		}
+
 		if err := m.AthleteSegmentStats.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("athlete_segment_stats")

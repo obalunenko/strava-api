@@ -316,6 +316,11 @@ func (m *ActivityStats) ContextValidate(ctx context.Context, formats strfmt.Regi
 
 func (m *ActivityStats) contextValidateAllRideTotals(ctx context.Context, formats strfmt.Registry) error {
 	if m.AllRideTotals != nil {
+
+		if swag.IsZero(m.AllRideTotals) { // not required
+			return nil
+		}
+
 		if err := m.AllRideTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("all_ride_totals")
@@ -331,6 +336,11 @@ func (m *ActivityStats) contextValidateAllRideTotals(ctx context.Context, format
 
 func (m *ActivityStats) contextValidateAllRunTotals(ctx context.Context, formats strfmt.Registry) error {
 	if m.AllRunTotals != nil {
+
+		if swag.IsZero(m.AllRunTotals) { // not required
+			return nil
+		}
+
 		if err := m.AllRunTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("all_run_totals")
@@ -346,6 +356,11 @@ func (m *ActivityStats) contextValidateAllRunTotals(ctx context.Context, formats
 
 func (m *ActivityStats) contextValidateAllSwimTotals(ctx context.Context, formats strfmt.Registry) error {
 	if m.AllSwimTotals != nil {
+
+		if swag.IsZero(m.AllSwimTotals) { // not required
+			return nil
+		}
+
 		if err := m.AllSwimTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("all_swim_totals")
@@ -361,6 +376,11 @@ func (m *ActivityStats) contextValidateAllSwimTotals(ctx context.Context, format
 
 func (m *ActivityStats) contextValidateRecentRideTotals(ctx context.Context, formats strfmt.Registry) error {
 	if m.RecentRideTotals != nil {
+
+		if swag.IsZero(m.RecentRideTotals) { // not required
+			return nil
+		}
+
 		if err := m.RecentRideTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("recent_ride_totals")
@@ -376,6 +396,11 @@ func (m *ActivityStats) contextValidateRecentRideTotals(ctx context.Context, for
 
 func (m *ActivityStats) contextValidateRecentRunTotals(ctx context.Context, formats strfmt.Registry) error {
 	if m.RecentRunTotals != nil {
+
+		if swag.IsZero(m.RecentRunTotals) { // not required
+			return nil
+		}
+
 		if err := m.RecentRunTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("recent_run_totals")
@@ -391,6 +416,11 @@ func (m *ActivityStats) contextValidateRecentRunTotals(ctx context.Context, form
 
 func (m *ActivityStats) contextValidateRecentSwimTotals(ctx context.Context, formats strfmt.Registry) error {
 	if m.RecentSwimTotals != nil {
+
+		if swag.IsZero(m.RecentSwimTotals) { // not required
+			return nil
+		}
+
 		if err := m.RecentSwimTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("recent_swim_totals")
@@ -406,6 +436,11 @@ func (m *ActivityStats) contextValidateRecentSwimTotals(ctx context.Context, for
 
 func (m *ActivityStats) contextValidateYtdRideTotals(ctx context.Context, formats strfmt.Registry) error {
 	if m.YtdRideTotals != nil {
+
+		if swag.IsZero(m.YtdRideTotals) { // not required
+			return nil
+		}
+
 		if err := m.YtdRideTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ytd_ride_totals")
@@ -421,6 +456,11 @@ func (m *ActivityStats) contextValidateYtdRideTotals(ctx context.Context, format
 
 func (m *ActivityStats) contextValidateYtdRunTotals(ctx context.Context, formats strfmt.Registry) error {
 	if m.YtdRunTotals != nil {
+
+		if swag.IsZero(m.YtdRunTotals) { // not required
+			return nil
+		}
+
 		if err := m.YtdRunTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ytd_run_totals")
@@ -436,6 +476,11 @@ func (m *ActivityStats) contextValidateYtdRunTotals(ctx context.Context, formats
 
 func (m *ActivityStats) contextValidateYtdSwimTotals(ctx context.Context, formats strfmt.Registry) error {
 	if m.YtdSwimTotals != nil {
+
+		if swag.IsZero(m.YtdSwimTotals) { // not required
+			return nil
+		}
+
 		if err := m.YtdSwimTotals.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ytd_swim_totals")

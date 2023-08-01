@@ -436,6 +436,11 @@ func (m *DetailedActivity) ContextValidate(ctx context.Context, formats strfmt.R
 func (m *DetailedActivity) contextValidateBestEfforts(ctx context.Context, formats strfmt.Registry) error {
 	for i := 0; i < len(m.BestEfforts); i++ {
 		if m.BestEfforts[i] != nil {
+
+			if swag.IsZero(m.BestEfforts[i]) { // not required
+				return nil
+			}
+
 			if err := m.BestEfforts[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("best_efforts" + "." + strconv.Itoa(i))
@@ -452,6 +457,11 @@ func (m *DetailedActivity) contextValidateBestEfforts(ctx context.Context, forma
 
 func (m *DetailedActivity) contextValidateGear(ctx context.Context, formats strfmt.Registry) error {
 	if m.Gear != nil {
+
+		if swag.IsZero(m.Gear) { // not required
+			return nil
+		}
+
 		if err := m.Gear.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("gear")
@@ -468,6 +478,11 @@ func (m *DetailedActivity) contextValidateGear(ctx context.Context, formats strf
 func (m *DetailedActivity) contextValidateLaps(ctx context.Context, formats strfmt.Registry) error {
 	for i := 0; i < len(m.Laps); i++ {
 		if m.Laps[i] != nil {
+
+			if swag.IsZero(m.Laps[i]) { // not required
+				return nil
+			}
+
 			if err := m.Laps[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("laps" + "." + strconv.Itoa(i))
@@ -484,6 +499,11 @@ func (m *DetailedActivity) contextValidateLaps(ctx context.Context, formats strf
 
 func (m *DetailedActivity) contextValidatePhotos(ctx context.Context, formats strfmt.Registry) error {
 	if m.Photos != nil {
+
+		if swag.IsZero(m.Photos) { // not required
+			return nil
+		}
+
 		if err := m.Photos.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("photos")
@@ -500,6 +520,11 @@ func (m *DetailedActivity) contextValidatePhotos(ctx context.Context, formats st
 func (m *DetailedActivity) contextValidateSegmentEfforts(ctx context.Context, formats strfmt.Registry) error {
 	for i := 0; i < len(m.SegmentEfforts); i++ {
 		if m.SegmentEfforts[i] != nil {
+
+			if swag.IsZero(m.SegmentEfforts[i]) { // not required
+				return nil
+			}
+
 			if err := m.SegmentEfforts[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("segment_efforts" + "." + strconv.Itoa(i))
@@ -517,6 +542,11 @@ func (m *DetailedActivity) contextValidateSegmentEfforts(ctx context.Context, fo
 func (m *DetailedActivity) contextValidateSplitsMetric(ctx context.Context, formats strfmt.Registry) error {
 	for i := 0; i < len(m.SplitsMetric); i++ {
 		if m.SplitsMetric[i] != nil {
+
+			if swag.IsZero(m.SplitsMetric[i]) { // not required
+				return nil
+			}
+
 			if err := m.SplitsMetric[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("splits_metric" + "." + strconv.Itoa(i))
@@ -534,6 +564,11 @@ func (m *DetailedActivity) contextValidateSplitsMetric(ctx context.Context, form
 func (m *DetailedActivity) contextValidateSplitsStandard(ctx context.Context, formats strfmt.Registry) error {
 	for i := 0; i < len(m.SplitsStandard); i++ {
 		if m.SplitsStandard[i] != nil {
+
+			if swag.IsZero(m.SplitsStandard[i]) { // not required
+				return nil
+			}
+
 			if err := m.SplitsStandard[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("splits_standard" + "." + strconv.Itoa(i))

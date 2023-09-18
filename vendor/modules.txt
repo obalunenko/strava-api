@@ -69,7 +69,7 @@ github.com/mailru/easyjson/jwriter
 # github.com/mitchellh/mapstructure v1.5.0
 ## explicit; go 1.14
 github.com/mitchellh/mapstructure
-# github.com/obalunenko/getenv v1.12.0
+# github.com/obalunenko/getenv v1.12.1
 ## explicit; go 1.21
 github.com/obalunenko/getenv
 github.com/obalunenko/getenv/internal

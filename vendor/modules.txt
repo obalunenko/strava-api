@@ -33,7 +33,7 @@ github.com/go-openapi/jsonreference/internal
 # github.com/go-openapi/loads v0.21.5
 ## explicit; go 1.19
 github.com/go-openapi/loads
-# github.com/go-openapi/runtime v0.26.2
+# github.com/go-openapi/runtime v0.27.0
 ## explicit; go 1.19
 github.com/go-openapi/runtime
 github.com/go-openapi/runtime/client
@@ -123,6 +123,9 @@ go.opentelemetry.io/otel/trace
 # golang.org/x/exp v0.0.0-20230809150735-7b3493d9a819
 ## explicit; go 1.20
 golang.org/x/exp/constraints
+# golang.org/x/sync v0.5.0
+## explicit; go 1.18
+golang.org/x/sync/errgroup
 # gopkg.in/yaml.v3 v3.0.1
 ## explicit
 gopkg.in/yaml.v3

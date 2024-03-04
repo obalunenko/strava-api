@@ -20,6 +20,8 @@ import (
 type SummaryActivity struct {
 	MetaActivity
 
+	HeartRateDetails
+
 	// The number of achievements gained during this activity
 	AchievementCount int64 `json:"achievement_count,omitempty"`
 
@@ -157,7 +159,14 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 	m.MetaActivity = aO0
 
 	// AO1
-	var dataAO1 struct {
+	var aO1 HeartRateDetails
+	if err := swag.ReadJSON(raw, &aO1); err != nil {
+		return err
+	}
+	m.HeartRateDetails = aO1
+
+	// AO2
+	var dataAO2 struct {
 		AchievementCount int64 `json:"achievement_count,omitempty"`
 
 		Athlete *MetaAthlete `json:"athlete,omitempty"`
@@ -240,105 +249,111 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 
 		WorkoutType int64 `json:"workout_type,omitempty"`
 	}
-	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
+	if err := swag.ReadJSON(raw, &dataAO2); err != nil {
 		return err
 	}
 
-	m.AchievementCount = dataAO1.AchievementCount
+	m.AchievementCount = dataAO2.AchievementCount
 
-	m.Athlete = dataAO1.Athlete
+	m.Athlete = dataAO2.Athlete
 
-	m.AthleteCount = dataAO1.AthleteCount
+	m.AthleteCount = dataAO2.AthleteCount
 
-	m.AverageSpeed = dataAO1.AverageSpeed
+	m.AverageSpeed = dataAO2.AverageSpeed
 
-	m.AverageWatts = dataAO1.AverageWatts
+	m.AverageWatts = dataAO2.AverageWatts
 
-	m.CommentCount = dataAO1.CommentCount
+	m.CommentCount = dataAO2.CommentCount
 
-	m.Commute = dataAO1.Commute
+	m.Commute = dataAO2.Commute
 
-	m.DeviceWatts = dataAO1.DeviceWatts
+	m.DeviceWatts = dataAO2.DeviceWatts
 
-	m.Distance = dataAO1.Distance
+	m.Distance = dataAO2.Distance
 
-	m.ElapsedTime = dataAO1.ElapsedTime
+	m.ElapsedTime = dataAO2.ElapsedTime
 
-	m.ElevHigh = dataAO1.ElevHigh
+	m.ElevHigh = dataAO2.ElevHigh
 
-	m.ElevLow = dataAO1.ElevLow
+	m.ElevLow = dataAO2.ElevLow
 
-	m.EndLatlng = dataAO1.EndLatlng
+	m.EndLatlng = dataAO2.EndLatlng
 
-	m.ExternalID = dataAO1.ExternalID
+	m.ExternalID = dataAO2.ExternalID
 
-	m.Flagged = dataAO1.Flagged
+	m.Flagged = dataAO2.Flagged
 
-	m.GearID = dataAO1.GearID
+	m.GearID = dataAO2.GearID
 
-	m.HasKudoed = dataAO1.HasKudoed
+	m.HasKudoed = dataAO2.HasKudoed
 
-	m.HideFromHome = dataAO1.HideFromHome
+	m.HideFromHome = dataAO2.HideFromHome
 
-	m.Kilojoules = dataAO1.Kilojoules
+	m.Kilojoules = dataAO2.Kilojoules
 
-	m.KudosCount = dataAO1.KudosCount
+	m.KudosCount = dataAO2.KudosCount
 
-	m.Manual = dataAO1.Manual
+	m.Manual = dataAO2.Manual
 
-	m.Map = dataAO1.Map
+	m.Map = dataAO2.Map
 
-	m.MaxSpeed = dataAO1.MaxSpeed
+	m.MaxSpeed = dataAO2.MaxSpeed
 
-	m.MaxWatts = dataAO1.MaxWatts
+	m.MaxWatts = dataAO2.MaxWatts
 
-	m.MovingTime = dataAO1.MovingTime
+	m.MovingTime = dataAO2.MovingTime
 
-	m.Name = dataAO1.Name
+	m.Name = dataAO2.Name
 
-	m.PhotoCount = dataAO1.PhotoCount
+	m.PhotoCount = dataAO2.PhotoCount
 
-	m.Private = dataAO1.Private
+	m.Private = dataAO2.Private
 
-	m.SportType = dataAO1.SportType
+	m.SportType = dataAO2.SportType
 
-	m.StartDate = dataAO1.StartDate
+	m.StartDate = dataAO2.StartDate
 
-	m.StartDateLocal = dataAO1.StartDateLocal
+	m.StartDateLocal = dataAO2.StartDateLocal
 
-	m.StartLatlng = dataAO1.StartLatlng
+	m.StartLatlng = dataAO2.StartLatlng
 
-	m.Timezone = dataAO1.Timezone
+	m.Timezone = dataAO2.Timezone
 
-	m.TotalElevationGain = dataAO1.TotalElevationGain
+	m.TotalElevationGain = dataAO2.TotalElevationGain
 
-	m.TotalPhotoCount = dataAO1.TotalPhotoCount
+	m.TotalPhotoCount = dataAO2.TotalPhotoCount
 
-	m.Trainer = dataAO1.Trainer
+	m.Trainer = dataAO2.Trainer
 
-	m.Type = dataAO1.Type
+	m.Type = dataAO2.Type
 
-	m.UploadID = dataAO1.UploadID
+	m.UploadID = dataAO2.UploadID
 
-	m.UploadIDStr = dataAO1.UploadIDStr
+	m.UploadIDStr = dataAO2.UploadIDStr
 
-	m.WeightedAverageWatts = dataAO1.WeightedAverageWatts
+	m.WeightedAverageWatts = dataAO2.WeightedAverageWatts
 
-	m.WorkoutType = dataAO1.WorkoutType
+	m.WorkoutType = dataAO2.WorkoutType
 
 	return nil
 }
 
 // MarshalJSON marshals this object to a JSON structure
 func (m SummaryActivity) MarshalJSON() ([]byte, error) {
-	_parts := make([][]byte, 0, 2)
+	_parts := make([][]byte, 0, 3)
 
 	aO0, err := swag.WriteJSON(m.MetaActivity)
 	if err != nil {
 		return nil, err
 	}
 	_parts = append(_parts, aO0)
-	var dataAO1 struct {
+
+	aO1, err := swag.WriteJSON(m.HeartRateDetails)
+	if err != nil {
+		return nil, err
+	}
+	_parts = append(_parts, aO1)
+	var dataAO2 struct {
 		AchievementCount int64 `json:"achievement_count,omitempty"`
 
 		Athlete *MetaAthlete `json:"athlete,omitempty"`
@@ -422,93 +437,93 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 		WorkoutType int64 `json:"workout_type,omitempty"`
 	}
 
-	dataAO1.AchievementCount = m.AchievementCount
+	dataAO2.AchievementCount = m.AchievementCount
 
-	dataAO1.Athlete = m.Athlete
+	dataAO2.Athlete = m.Athlete
 
-	dataAO1.AthleteCount = m.AthleteCount
+	dataAO2.AthleteCount = m.AthleteCount
 
-	dataAO1.AverageSpeed = m.AverageSpeed
+	dataAO2.AverageSpeed = m.AverageSpeed
 
-	dataAO1.AverageWatts = m.AverageWatts
+	dataAO2.AverageWatts = m.AverageWatts
 
-	dataAO1.CommentCount = m.CommentCount
+	dataAO2.CommentCount = m.CommentCount
 
-	dataAO1.Commute = m.Commute
+	dataAO2.Commute = m.Commute
 
-	dataAO1.DeviceWatts = m.DeviceWatts
+	dataAO2.DeviceWatts = m.DeviceWatts
 
-	dataAO1.Distance = m.Distance
+	dataAO2.Distance = m.Distance
 
-	dataAO1.ElapsedTime = m.ElapsedTime
+	dataAO2.ElapsedTime = m.ElapsedTime
 
-	dataAO1.ElevHigh = m.ElevHigh
+	dataAO2.ElevHigh = m.ElevHigh
 
-	dataAO1.ElevLow = m.ElevLow
+	dataAO2.ElevLow = m.ElevLow
 
-	dataAO1.EndLatlng = m.EndLatlng
+	dataAO2.EndLatlng = m.EndLatlng
 
-	dataAO1.ExternalID = m.ExternalID
+	dataAO2.ExternalID = m.ExternalID
 
-	dataAO1.Flagged = m.Flagged
+	dataAO2.Flagged = m.Flagged
 
-	dataAO1.GearID = m.GearID
+	dataAO2.GearID = m.GearID
 
-	dataAO1.HasKudoed = m.HasKudoed
+	dataAO2.HasKudoed = m.HasKudoed
 
-	dataAO1.HideFromHome = m.HideFromHome
+	dataAO2.HideFromHome = m.HideFromHome
 
-	dataAO1.Kilojoules = m.Kilojoules
+	dataAO2.Kilojoules = m.Kilojoules
 
-	dataAO1.KudosCount = m.KudosCount
+	dataAO2.KudosCount = m.KudosCount
 
-	dataAO1.Manual = m.Manual
+	dataAO2.Manual = m.Manual
 
-	dataAO1.Map = m.Map
+	dataAO2.Map = m.Map
 
-	dataAO1.MaxSpeed = m.MaxSpeed
+	dataAO2.MaxSpeed = m.MaxSpeed
 
-	dataAO1.MaxWatts = m.MaxWatts
+	dataAO2.MaxWatts = m.MaxWatts
 
-	dataAO1.MovingTime = m.MovingTime
+	dataAO2.MovingTime = m.MovingTime
 
-	dataAO1.Name = m.Name
+	dataAO2.Name = m.Name
 
-	dataAO1.PhotoCount = m.PhotoCount
+	dataAO2.PhotoCount = m.PhotoCount
 
-	dataAO1.Private = m.Private
+	dataAO2.Private = m.Private
 
-	dataAO1.SportType = m.SportType
+	dataAO2.SportType = m.SportType
 
-	dataAO1.StartDate = m.StartDate
+	dataAO2.StartDate = m.StartDate
 
-	dataAO1.StartDateLocal = m.StartDateLocal
+	dataAO2.StartDateLocal = m.StartDateLocal
 
-	dataAO1.StartLatlng = m.StartLatlng
+	dataAO2.StartLatlng = m.StartLatlng
 
-	dataAO1.Timezone = m.Timezone
+	dataAO2.Timezone = m.Timezone
 
-	dataAO1.TotalElevationGain = m.TotalElevationGain
+	dataAO2.TotalElevationGain = m.TotalElevationGain
 
-	dataAO1.TotalPhotoCount = m.TotalPhotoCount
+	dataAO2.TotalPhotoCount = m.TotalPhotoCount
 
-	dataAO1.Trainer = m.Trainer
+	dataAO2.Trainer = m.Trainer
 
-	dataAO1.Type = m.Type
+	dataAO2.Type = m.Type
 
-	dataAO1.UploadID = m.UploadID
+	dataAO2.UploadID = m.UploadID
 
-	dataAO1.UploadIDStr = m.UploadIDStr
+	dataAO2.UploadIDStr = m.UploadIDStr
 
-	dataAO1.WeightedAverageWatts = m.WeightedAverageWatts
+	dataAO2.WeightedAverageWatts = m.WeightedAverageWatts
 
-	dataAO1.WorkoutType = m.WorkoutType
+	dataAO2.WorkoutType = m.WorkoutType
 
-	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
-	if errAO1 != nil {
-		return nil, errAO1
+	jsonDataAO2, errAO2 := swag.WriteJSON(dataAO2)
+	if errAO2 != nil {
+		return nil, errAO2
 	}
-	_parts = append(_parts, jsonDataAO1)
+	_parts = append(_parts, jsonDataAO2)
 	return swag.ConcatJSON(_parts...), nil
 }
 
@@ -518,6 +533,10 @@ func (m *SummaryActivity) Validate(formats strfmt.Registry) error {
 
 	// validation for a type composition with MetaActivity
 	if err := m.MetaActivity.Validate(formats); err != nil {
+		res = append(res, err)
+	}
+	// validation for a type composition with HeartRateDetails
+	if err := m.HeartRateDetails.Validate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -711,6 +730,10 @@ func (m *SummaryActivity) ContextValidate(ctx context.Context, formats strfmt.Re
 
 	// validation for a type composition with MetaActivity
 	if err := m.MetaActivity.ContextValidate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+	// validation for a type composition with HeartRateDetails
+	if err := m.HeartRateDetails.ContextValidate(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 

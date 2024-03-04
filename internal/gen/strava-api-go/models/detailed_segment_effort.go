@@ -20,6 +20,8 @@ import (
 type DetailedSegmentEffort struct {
 	SummarySegmentEffort
 
+	HeartRateDetails
+
 	// activity
 	Activity *MetaActivity `json:"activity,omitempty"`
 
@@ -28,9 +30,6 @@ type DetailedSegmentEffort struct {
 
 	// The effort's average cadence
 	AverageCadence float32 `json:"average_cadence,omitempty"`
-
-	// The heart heart rate of the athlete during this effort
-	AverageHeartrate float32 `json:"average_heartrate,omitempty"`
 
 	// The average wattage of this effort
 	AverageWatts float32 `json:"average_watts,omitempty"`
@@ -48,9 +47,6 @@ type DetailedSegmentEffort struct {
 	// Maximum: 10
 	// Minimum: 1
 	KomRank int64 `json:"kom_rank,omitempty"`
-
-	// The maximum heart rate of the athlete during this effort
-	MaxHeartrate float32 `json:"max_heartrate,omitempty"`
 
 	// The effort's moving time
 	MovingTime int64 `json:"moving_time,omitempty"`
@@ -80,14 +76,19 @@ func (m *DetailedSegmentEffort) UnmarshalJSON(raw []byte) error {
 	m.SummarySegmentEffort = aO0
 
 	// AO1
-	var dataAO1 struct {
+	var aO1 HeartRateDetails
+	if err := swag.ReadJSON(raw, &aO1); err != nil {
+		return err
+	}
+	m.HeartRateDetails = aO1
+
+	// AO2
+	var dataAO2 struct {
 		Activity *MetaActivity `json:"activity,omitempty"`
 
 		Athlete *MetaAthlete `json:"athlete,omitempty"`
 
 		AverageCadence float32 `json:"average_cadence,omitempty"`
-
-		AverageHeartrate float32 `json:"average_heartrate,omitempty"`
 
 		AverageWatts float32 `json:"average_watts,omitempty"`
 
@@ -99,8 +100,6 @@ func (m *DetailedSegmentEffort) UnmarshalJSON(raw []byte) error {
 
 		KomRank int64 `json:"kom_rank,omitempty"`
 
-		MaxHeartrate float32 `json:"max_heartrate,omitempty"`
-
 		MovingTime int64 `json:"moving_time,omitempty"`
 
 		Name string `json:"name,omitempty"`
@@ -111,60 +110,60 @@ func (m *DetailedSegmentEffort) UnmarshalJSON(raw []byte) error {
 
 		StartIndex int64 `json:"start_index,omitempty"`
 	}
-	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
+	if err := swag.ReadJSON(raw, &dataAO2); err != nil {
 		return err
 	}
 
-	m.Activity = dataAO1.Activity
+	m.Activity = dataAO2.Activity
 
-	m.Athlete = dataAO1.Athlete
+	m.Athlete = dataAO2.Athlete
 
-	m.AverageCadence = dataAO1.AverageCadence
+	m.AverageCadence = dataAO2.AverageCadence
 
-	m.AverageHeartrate = dataAO1.AverageHeartrate
+	m.AverageWatts = dataAO2.AverageWatts
 
-	m.AverageWatts = dataAO1.AverageWatts
+	m.DeviceWatts = dataAO2.DeviceWatts
 
-	m.DeviceWatts = dataAO1.DeviceWatts
+	m.EndIndex = dataAO2.EndIndex
 
-	m.EndIndex = dataAO1.EndIndex
+	m.Hidden = dataAO2.Hidden
 
-	m.Hidden = dataAO1.Hidden
+	m.KomRank = dataAO2.KomRank
 
-	m.KomRank = dataAO1.KomRank
+	m.MovingTime = dataAO2.MovingTime
 
-	m.MaxHeartrate = dataAO1.MaxHeartrate
+	m.Name = dataAO2.Name
 
-	m.MovingTime = dataAO1.MovingTime
+	m.PrRank = dataAO2.PrRank
 
-	m.Name = dataAO1.Name
+	m.Segment = dataAO2.Segment
 
-	m.PrRank = dataAO1.PrRank
-
-	m.Segment = dataAO1.Segment
-
-	m.StartIndex = dataAO1.StartIndex
+	m.StartIndex = dataAO2.StartIndex
 
 	return nil
 }
 
 // MarshalJSON marshals this object to a JSON structure
 func (m DetailedSegmentEffort) MarshalJSON() ([]byte, error) {
-	_parts := make([][]byte, 0, 2)
+	_parts := make([][]byte, 0, 3)
 
 	aO0, err := swag.WriteJSON(m.SummarySegmentEffort)
 	if err != nil {
 		return nil, err
 	}
 	_parts = append(_parts, aO0)
-	var dataAO1 struct {
+
+	aO1, err := swag.WriteJSON(m.HeartRateDetails)
+	if err != nil {
+		return nil, err
+	}
+	_parts = append(_parts, aO1)
+	var dataAO2 struct {
 		Activity *MetaActivity `json:"activity,omitempty"`
 
 		Athlete *MetaAthlete `json:"athlete,omitempty"`
 
 		AverageCadence float32 `json:"average_cadence,omitempty"`
-
-		AverageHeartrate float32 `json:"average_heartrate,omitempty"`
 
 		AverageWatts float32 `json:"average_watts,omitempty"`
 
@@ -175,8 +174,6 @@ func (m DetailedSegmentEffort) MarshalJSON() ([]byte, error) {
 		Hidden bool `json:"hidden,omitempty"`
 
 		KomRank int64 `json:"kom_rank,omitempty"`
-
-		MaxHeartrate float32 `json:"max_heartrate,omitempty"`
 
 		MovingTime int64 `json:"moving_time,omitempty"`
 
@@ -189,41 +186,37 @@ func (m DetailedSegmentEffort) MarshalJSON() ([]byte, error) {
 		StartIndex int64 `json:"start_index,omitempty"`
 	}
 
-	dataAO1.Activity = m.Activity
+	dataAO2.Activity = m.Activity
 
-	dataAO1.Athlete = m.Athlete
+	dataAO2.Athlete = m.Athlete
 
-	dataAO1.AverageCadence = m.AverageCadence
+	dataAO2.AverageCadence = m.AverageCadence
 
-	dataAO1.AverageHeartrate = m.AverageHeartrate
+	dataAO2.AverageWatts = m.AverageWatts
 
-	dataAO1.AverageWatts = m.AverageWatts
+	dataAO2.DeviceWatts = m.DeviceWatts
 
-	dataAO1.DeviceWatts = m.DeviceWatts
+	dataAO2.EndIndex = m.EndIndex
 
-	dataAO1.EndIndex = m.EndIndex
+	dataAO2.Hidden = m.Hidden
 
-	dataAO1.Hidden = m.Hidden
+	dataAO2.KomRank = m.KomRank
 
-	dataAO1.KomRank = m.KomRank
+	dataAO2.MovingTime = m.MovingTime
 
-	dataAO1.MaxHeartrate = m.MaxHeartrate
+	dataAO2.Name = m.Name
 
-	dataAO1.MovingTime = m.MovingTime
+	dataAO2.PrRank = m.PrRank
 
-	dataAO1.Name = m.Name
+	dataAO2.Segment = m.Segment
 
-	dataAO1.PrRank = m.PrRank
+	dataAO2.StartIndex = m.StartIndex
 
-	dataAO1.Segment = m.Segment
-
-	dataAO1.StartIndex = m.StartIndex
-
-	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
-	if errAO1 != nil {
-		return nil, errAO1
+	jsonDataAO2, errAO2 := swag.WriteJSON(dataAO2)
+	if errAO2 != nil {
+		return nil, errAO2
 	}
-	_parts = append(_parts, jsonDataAO1)
+	_parts = append(_parts, jsonDataAO2)
 	return swag.ConcatJSON(_parts...), nil
 }
 
@@ -233,6 +226,10 @@ func (m *DetailedSegmentEffort) Validate(formats strfmt.Registry) error {
 
 	// validation for a type composition with SummarySegmentEffort
 	if err := m.SummarySegmentEffort.Validate(formats); err != nil {
+		res = append(res, err)
+	}
+	// validation for a type composition with HeartRateDetails
+	if err := m.HeartRateDetails.Validate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -357,6 +354,10 @@ func (m *DetailedSegmentEffort) ContextValidate(ctx context.Context, formats str
 
 	// validation for a type composition with SummarySegmentEffort
 	if err := m.SummarySegmentEffort.ContextValidate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+	// validation for a type composition with HeartRateDetails
+	if err := m.HeartRateDetails.ContextValidate(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 

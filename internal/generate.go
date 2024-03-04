@@ -1,3 +1,3 @@
 package internal
 
-//go:generate swagger generate client --spec=https://developers.strava.com/swagger/swagger.json --target=./gen/strava-api-go --skip-validation
+//go:generate swagger generate client --spec=./../docs/swagger.json --target=./gen/strava-api-go --skip-validation

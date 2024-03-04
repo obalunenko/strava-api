@@ -71,10 +71,6 @@ type Route struct {
 	// The time at which the route was last updated
 	// Format: date-time
 	UpdatedAt strfmt.DateTime `json:"updated_at,omitempty"`
-
-	// The custom waypoints along this route
-	// Min Items: 0
-	Waypoints []*Waypoint `json:"waypoints"`
 }
 
 // Validate validates this route
@@ -98,10 +94,6 @@ func (m *Route) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateUpdatedAt(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateWaypoints(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -199,38 +191,6 @@ func (m *Route) validateUpdatedAt(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Route) validateWaypoints(formats strfmt.Registry) error {
-	if swag.IsZero(m.Waypoints) { // not required
-		return nil
-	}
-
-	iWaypointsSize := int64(len(m.Waypoints))
-
-	if err := validate.MinItems("waypoints", "body", iWaypointsSize, 0); err != nil {
-		return err
-	}
-
-	for i := 0; i < len(m.Waypoints); i++ {
-		if swag.IsZero(m.Waypoints[i]) { // not required
-			continue
-		}
-
-		if m.Waypoints[i] != nil {
-			if err := m.Waypoints[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("waypoints" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("waypoints" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
 // ContextValidate validate this route based on the context it is used
 func (m *Route) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -244,10 +204,6 @@ func (m *Route) ContextValidate(ctx context.Context, formats strfmt.Registry) er
 	}
 
 	if err := m.contextValidateSegments(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateWaypoints(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -310,28 +266,6 @@ func (m *Route) contextValidateSegments(ctx context.Context, formats strfmt.Regi
 					return ve.ValidateName("segments" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
 					return ce.ValidateName("segments" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-	}
-
-	return nil
-}
-
-func (m *Route) contextValidateWaypoints(ctx context.Context, formats strfmt.Registry) error {
-	for i := 0; i < len(m.Waypoints); i++ {
-		if m.Waypoints[i] != nil {
-
-			if swag.IsZero(m.Waypoints[i]) { // not required
-				return nil
-			}
-
-			if err := m.Waypoints[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("waypoints" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("waypoints" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

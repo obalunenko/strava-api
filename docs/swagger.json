@@ -3530,6 +3530,9 @@
           "$ref": "#/definitions/summarySegmentEffort"
         },
         {
+          "$ref": "#/definitions/heartRateDetails"
+        },
+        {
           "properties": {
             "activity": {
               "$ref": "#/definitions/metaActivity"
@@ -3539,11 +3542,6 @@
             },
             "average_cadence": {
               "description": "The effort's average cadence",
-              "type": "number",
-              "format": "float"
-            },
-            "average_heartrate": {
-              "description": "The heart heart rate of the athlete during this effort",
               "type": "number",
               "format": "float"
             },
@@ -3569,11 +3567,6 @@
               "type": "integer",
               "maximum": 10,
               "minimum": 1
-            },
-            "max_heartrate": {
-              "description": "The maximum heart rate of the athlete during this effort",
-              "type": "number",
-              "format": "float"
             },
             "moving_time": {
               "description": "The effort's moving time",
@@ -4244,6 +4237,9 @@
           "$ref": "#/definitions/metaActivity"
         },
         {
+          "$ref": "#/definitions/heartRateDetails"
+        },
+        {
           "properties": {
             "achievement_count": {
               "description": "The number of achievements gained during this activity",
@@ -4418,6 +4414,25 @@
           }
         }
       ]
+    },
+    "heartRateDetails": {
+      "description": "An enumeration of the activity's heart rate zones",
+      "properties": {
+        "has_heartrate": {
+          "description": "Whether the logged-in athlete has heart rate data for this activity",
+          "type": "boolean"
+        },
+        "max_heartrate": {
+          "description": "The maximum heart rate of the athlete during this effort",
+          "type": "number",
+          "format": "float"
+        },
+        "average_heartrate": {
+          "description": "The heart heart rate of the athlete during this effort",
+          "type": "number",
+          "format": "float"
+        }
+      }
     },
     "summaryAthlete": {
       "allOf": [

@@ -1928,6 +1928,14 @@
                   "description": "The time at which the route was last updated",
                   "type": "string",
                   "format": "date-time"
+                },
+                "waypoints": {
+                  "description": "The custom waypoints along this route",
+                  "type": "array",
+                  "minItems": 0,
+                  "items": {
+                    "$ref": "#/definitions/waypoint"
+                  }
                 }
               }
             }
@@ -4060,6 +4068,14 @@
           "description": "The time at which the route was last updated",
           "type": "string",
           "format": "date-time"
+        },
+        "waypoints": {
+          "description": "The custom waypoints along this route",
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/waypoint"
+          }
         }
       }
     },
@@ -4842,6 +4858,37 @@
         },
         "status": {
           "description": "The status of this upload",
+          "type": "string"
+        }
+      }
+    },
+    "waypoint": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "description": "Categories that the waypoint belongs to",
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "description": "A description of the waypoint (optional)",
+          "type": "string"
+        },
+        "distance_into_route": {
+          "description": "The number meters along the route that the waypoint is located",
+          "type": "integer"
+        },
+        "latlng": {
+          "$ref": "#/definitions/latLng"
+        },
+        "target_latlng": {
+          "$ref": "#/definitions/latLng"
+        },
+        "title": {
+          "description": "A title for the waypoint",
           "type": "string"
         }
       }

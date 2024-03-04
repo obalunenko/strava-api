@@ -4415,25 +4415,6 @@
         }
       ]
     },
-    "heartRateDetails": {
-      "description": "An enumeration of the activity's heart rate zones",
-      "properties": {
-        "has_heartrate": {
-          "description": "Whether the logged-in athlete has heart rate data for this activity",
-          "type": "boolean"
-        },
-        "max_heartrate": {
-          "description": "The maximum heart rate of the athlete during this effort",
-          "type": "number",
-          "format": "float"
-        },
-        "average_heartrate": {
-          "description": "The heart heart rate of the athlete during this effort",
-          "type": "number",
-          "format": "float"
-        }
-      }
-    },
     "summaryAthlete": {
       "allOf": [
         {
@@ -4892,6 +4873,25 @@
         },
         "power": {
           "$ref": "#/definitions/powerZoneRanges"
+        }
+      }
+    },
+    "heartRateDetails": {
+      "description": "An enumeration of the activity's heart rate zones",
+      "properties": {
+        "has_heartrate": {
+          "description": "Whether the logged-in athlete has heart rate data for this activity",
+          "type": "boolean"
+        },
+        "max_heartrate": {
+          "description": "The maximum heart rate of the athlete during this effort",
+          "type": "number",
+          "format": "float"
+        },
+        "average_heartrate": {
+          "description": "The heart heart rate of the athlete during this effort",
+          "type": "number",
+          "format": "float"
         }
       }
     }

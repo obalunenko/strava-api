@@ -11,6 +11,8 @@ COMPOSE_TOOLS_CMD_BASE=docker compose -f $(COMPOSE_TOOLS_FILE)
 COMPOSE_TOOLS_CMD_UP=$(COMPOSE_TOOLS_CMD_BASE) up --exit-code-from
 COMPOSE_TOOLS_CMD_PULL=$(COMPOSE_TOOLS_CMD_BASE) build
 
+GOVERSION:=1.22
+
 TARGET_MAX_CHAR_NUM=20
 
 ## Show help
@@ -32,10 +34,11 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
 gen:
-	$(COMPOSE_TOOLS_CMD_UP) generate generate
+	$(COMPOSE_TOOLS_CMD_UP) go-generate go-generate
 .PHONY: gen
 
 codegen: gen sync-vendor format-code
+
 
 sync-vendor:
 	./scripts/sync-vendor.sh
@@ -68,5 +71,9 @@ vet:
 lint-full:
 	$(COMPOSE_TOOLS_CMD_UP) lint-full lint-full
 .PHONY: lint-full
+
+bump-go-version:
+	./scripts/bump-go.sh $(GOVERSION)
+.PHONY: bump-go-version
 
 .DEFAULT_GOAL := help

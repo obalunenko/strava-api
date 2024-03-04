@@ -3,7 +3,6 @@ package examples
 import (
 	"context"
 	"encoding/json"
-	"log"
 	"testing"
 
 	"github.com/obalunenko/getenv"
@@ -34,16 +33,12 @@ func TestGetLoggedInAthlete(t *testing.T) {
 	token := getToken(t)
 
 	apiClient, err := client.NewAPIClient(token)
-	if err != nil {
-		log.Fatal(err)
-	}
+	require.NoError(t, err)
 
 	ctx := context.Background()
 
 	athlete, err := apiClient.Athletes.GetLoggedInAthlete(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
+	require.NoError(t, err)
 
 	// Indent athlete
 	printJSON(t, athlete)
@@ -54,16 +49,12 @@ func TestGetLoggedInAthleteActivities(t *testing.T) {
 	token := getToken(t)
 
 	apiClient, err := client.NewAPIClient(token)
-	if err != nil {
-		log.Fatal(err)
-	}
+	require.NoError(t, err)
 
 	ctx := context.Background()
 
 	activities, err := apiClient.Activities.GetLoggedInAthleteActivities(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
+	require.NoError(t, err)
 
 	// Indent activities
 	printJSON(t, activities)
@@ -74,9 +65,7 @@ func TestGetLoggedInAthleteGear(t *testing.T) {
 	token := getToken(t)
 
 	apiClient, err := client.NewAPIClient(token)
-	if err != nil {
-		log.Fatal(err)
-	}
+	require.NoError(t, err)
 
 	ctx := context.Background()
 

@@ -8,7 +8,7 @@ require (
 	github.com/go-openapi/strfmt v0.22.1
 	github.com/go-openapi/swag v0.22.9
 	github.com/go-openapi/validate v0.23.0
-	github.com/obalunenko/getenv v1.12.1
+	github.com/obalunenko/getenv v1.13.0
 	github.com/stretchr/testify v1.9.0
 )
 
@@ -33,7 +33,7 @@ require (
 	go.opentelemetry.io/otel v1.17.0 // indirect
 	go.opentelemetry.io/otel/metric v1.17.0 // indirect
 	go.opentelemetry.io/otel/trace v1.17.0 // indirect
-	golang.org/x/exp v0.0.0-20230809150735-7b3493d9a819 // indirect
+	golang.org/x/exp v0.0.0-20240213143201-ec583247a57a // indirect
 	golang.org/x/sync v0.5.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

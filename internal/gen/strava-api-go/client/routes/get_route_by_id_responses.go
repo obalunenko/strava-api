@@ -241,6 +241,10 @@ type GetRouteByIDOKBody struct {
 	// The time at which the route was last updated
 	// Format: date-time
 	UpdatedAt strfmt.DateTime `json:"updated_at,omitempty"`
+
+	// The custom waypoints along this route
+	// Min Items: 0
+	Waypoints []*models.Waypoint `json:"waypoints"`
 }
 
 // Validate validates this get route by ID o k body
@@ -264,6 +268,10 @@ func (o *GetRouteByIDOKBody) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := o.validateUpdatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateWaypoints(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -361,6 +369,38 @@ func (o *GetRouteByIDOKBody) validateUpdatedAt(formats strfmt.Registry) error {
 	return nil
 }
 
+func (o *GetRouteByIDOKBody) validateWaypoints(formats strfmt.Registry) error {
+	if swag.IsZero(o.Waypoints) { // not required
+		return nil
+	}
+
+	iWaypointsSize := int64(len(o.Waypoints))
+
+	if err := validate.MinItems("getRouteByIdOK"+"."+"waypoints", "body", iWaypointsSize, 0); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(o.Waypoints); i++ {
+		if swag.IsZero(o.Waypoints[i]) { // not required
+			continue
+		}
+
+		if o.Waypoints[i] != nil {
+			if err := o.Waypoints[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getRouteByIdOK" + "." + "waypoints" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("getRouteByIdOK" + "." + "waypoints" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 // ContextValidate validate this get route by ID o k body based on the context it is used
 func (o *GetRouteByIDOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -374,6 +414,10 @@ func (o *GetRouteByIDOKBody) ContextValidate(ctx context.Context, formats strfmt
 	}
 
 	if err := o.contextValidateSegments(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateWaypoints(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -436,6 +480,28 @@ func (o *GetRouteByIDOKBody) contextValidateSegments(ctx context.Context, format
 					return ve.ValidateName("getRouteByIdOK" + "." + "segments" + "." + strconv.Itoa(i))
 				} else if ce, ok := err.(*errors.CompositeError); ok {
 					return ce.ValidateName("getRouteByIdOK" + "." + "segments" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+	}
+
+	return nil
+}
+
+func (o *GetRouteByIDOKBody) contextValidateWaypoints(ctx context.Context, formats strfmt.Registry) error {
+	for i := 0; i < len(o.Waypoints); i++ {
+		if o.Waypoints[i] != nil {
+
+			if swag.IsZero(o.Waypoints[i]) { // not required
+				return nil
+			}
+
+			if err := o.Waypoints[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getRouteByIdOK" + "." + "waypoints" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("getRouteByIdOK" + "." + "waypoints" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

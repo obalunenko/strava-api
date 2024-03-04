@@ -6,6 +6,8 @@ VERSION ?= $(shell git describe --tags $(git rev-list --tags --max-count=1))
 APP_NAME?=strava-api
 SHELL := env APP_NAME=$(APP_NAME) $(SHELL)
 
+API_DOC_URL?=https://developers.strava.com/swagger/swagger.json
+
 COMPOSE_TOOLS_FILE=deployments/docker-compose/go-tools-docker-compose.yml
 COMPOSE_TOOLS_CMD_BASE=docker compose -f $(COMPOSE_TOOLS_FILE)
 COMPOSE_TOOLS_CMD_UP=$(COMPOSE_TOOLS_CMD_BASE) up --exit-code-from
@@ -37,8 +39,8 @@ gen:
 	$(COMPOSE_TOOLS_CMD_UP) go-generate go-generate
 .PHONY: gen
 
-codegen: gen sync-vendor format-code
-
+codegen: gen sync-vendor format-code vet
+.PHONY: codegen
 
 sync-vendor:
 	./scripts/sync-vendor.sh
@@ -75,5 +77,10 @@ lint-full:
 bump-go-version:
 	./scripts/bump-go.sh $(GOVERSION)
 .PHONY: bump-go-version
+
+update-swagger-spec:
+	swagger flatten --format=json --with-flatten=minimal --output=./docs/swagger.json $(API_DOC_URL)
+.PHONY: update-swagger-spec
+
 
 .DEFAULT_GOAL := help

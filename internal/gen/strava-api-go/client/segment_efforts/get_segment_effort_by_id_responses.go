@@ -190,6 +190,8 @@ swagger:model GetSegmentEffortByIDOKBody
 type GetSegmentEffortByIDOKBody struct {
 	models.SummarySegmentEffort
 
+	models.HeartRateDetails
+
 	// activity
 	Activity *models.MetaActivity `json:"activity,omitempty"`
 
@@ -198,9 +200,6 @@ type GetSegmentEffortByIDOKBody struct {
 
 	// The effort's average cadence
 	AverageCadence float32 `json:"average_cadence,omitempty"`
-
-	// The heart heart rate of the athlete during this effort
-	AverageHeartrate float32 `json:"average_heartrate,omitempty"`
 
 	// The average wattage of this effort
 	AverageWatts float32 `json:"average_watts,omitempty"`
@@ -218,9 +217,6 @@ type GetSegmentEffortByIDOKBody struct {
 	// Maximum: 10
 	// Minimum: 1
 	KomRank int64 `json:"kom_rank,omitempty"`
-
-	// The maximum heart rate of the athlete during this effort
-	MaxHeartrate float32 `json:"max_heartrate,omitempty"`
 
 	// The effort's moving time
 	MovingTime int64 `json:"moving_time,omitempty"`
@@ -250,14 +246,19 @@ func (o *GetSegmentEffortByIDOKBody) UnmarshalJSON(raw []byte) error {
 	o.SummarySegmentEffort = getSegmentEffortByIDOKBodyAO0
 
 	// GetSegmentEffortByIDOKBodyAO1
-	var dataGetSegmentEffortByIDOKBodyAO1 struct {
+	var getSegmentEffortByIDOKBodyAO1 models.HeartRateDetails
+	if err := swag.ReadJSON(raw, &getSegmentEffortByIDOKBodyAO1); err != nil {
+		return err
+	}
+	o.HeartRateDetails = getSegmentEffortByIDOKBodyAO1
+
+	// GetSegmentEffortByIDOKBodyAO2
+	var dataGetSegmentEffortByIDOKBodyAO2 struct {
 		Activity *models.MetaActivity `json:"activity,omitempty"`
 
 		Athlete *models.MetaAthlete `json:"athlete,omitempty"`
 
 		AverageCadence float32 `json:"average_cadence,omitempty"`
-
-		AverageHeartrate float32 `json:"average_heartrate,omitempty"`
 
 		AverageWatts float32 `json:"average_watts,omitempty"`
 
@@ -269,8 +270,6 @@ func (o *GetSegmentEffortByIDOKBody) UnmarshalJSON(raw []byte) error {
 
 		KomRank int64 `json:"kom_rank,omitempty"`
 
-		MaxHeartrate float32 `json:"max_heartrate,omitempty"`
-
 		MovingTime int64 `json:"moving_time,omitempty"`
 
 		Name string `json:"name,omitempty"`
@@ -281,60 +280,60 @@ func (o *GetSegmentEffortByIDOKBody) UnmarshalJSON(raw []byte) error {
 
 		StartIndex int64 `json:"start_index,omitempty"`
 	}
-	if err := swag.ReadJSON(raw, &dataGetSegmentEffortByIDOKBodyAO1); err != nil {
+	if err := swag.ReadJSON(raw, &dataGetSegmentEffortByIDOKBodyAO2); err != nil {
 		return err
 	}
 
-	o.Activity = dataGetSegmentEffortByIDOKBodyAO1.Activity
+	o.Activity = dataGetSegmentEffortByIDOKBodyAO2.Activity
 
-	o.Athlete = dataGetSegmentEffortByIDOKBodyAO1.Athlete
+	o.Athlete = dataGetSegmentEffortByIDOKBodyAO2.Athlete
 
-	o.AverageCadence = dataGetSegmentEffortByIDOKBodyAO1.AverageCadence
+	o.AverageCadence = dataGetSegmentEffortByIDOKBodyAO2.AverageCadence
 
-	o.AverageHeartrate = dataGetSegmentEffortByIDOKBodyAO1.AverageHeartrate
+	o.AverageWatts = dataGetSegmentEffortByIDOKBodyAO2.AverageWatts
 
-	o.AverageWatts = dataGetSegmentEffortByIDOKBodyAO1.AverageWatts
+	o.DeviceWatts = dataGetSegmentEffortByIDOKBodyAO2.DeviceWatts
 
-	o.DeviceWatts = dataGetSegmentEffortByIDOKBodyAO1.DeviceWatts
+	o.EndIndex = dataGetSegmentEffortByIDOKBodyAO2.EndIndex
 
-	o.EndIndex = dataGetSegmentEffortByIDOKBodyAO1.EndIndex
+	o.Hidden = dataGetSegmentEffortByIDOKBodyAO2.Hidden
 
-	o.Hidden = dataGetSegmentEffortByIDOKBodyAO1.Hidden
+	o.KomRank = dataGetSegmentEffortByIDOKBodyAO2.KomRank
 
-	o.KomRank = dataGetSegmentEffortByIDOKBodyAO1.KomRank
+	o.MovingTime = dataGetSegmentEffortByIDOKBodyAO2.MovingTime
 
-	o.MaxHeartrate = dataGetSegmentEffortByIDOKBodyAO1.MaxHeartrate
+	o.Name = dataGetSegmentEffortByIDOKBodyAO2.Name
 
-	o.MovingTime = dataGetSegmentEffortByIDOKBodyAO1.MovingTime
+	o.PrRank = dataGetSegmentEffortByIDOKBodyAO2.PrRank
 
-	o.Name = dataGetSegmentEffortByIDOKBodyAO1.Name
+	o.Segment = dataGetSegmentEffortByIDOKBodyAO2.Segment
 
-	o.PrRank = dataGetSegmentEffortByIDOKBodyAO1.PrRank
-
-	o.Segment = dataGetSegmentEffortByIDOKBodyAO1.Segment
-
-	o.StartIndex = dataGetSegmentEffortByIDOKBodyAO1.StartIndex
+	o.StartIndex = dataGetSegmentEffortByIDOKBodyAO2.StartIndex
 
 	return nil
 }
 
 // MarshalJSON marshals this object to a JSON structure
 func (o GetSegmentEffortByIDOKBody) MarshalJSON() ([]byte, error) {
-	_parts := make([][]byte, 0, 2)
+	_parts := make([][]byte, 0, 3)
 
 	getSegmentEffortByIDOKBodyAO0, err := swag.WriteJSON(o.SummarySegmentEffort)
 	if err != nil {
 		return nil, err
 	}
 	_parts = append(_parts, getSegmentEffortByIDOKBodyAO0)
-	var dataGetSegmentEffortByIDOKBodyAO1 struct {
+
+	getSegmentEffortByIDOKBodyAO1, err := swag.WriteJSON(o.HeartRateDetails)
+	if err != nil {
+		return nil, err
+	}
+	_parts = append(_parts, getSegmentEffortByIDOKBodyAO1)
+	var dataGetSegmentEffortByIDOKBodyAO2 struct {
 		Activity *models.MetaActivity `json:"activity,omitempty"`
 
 		Athlete *models.MetaAthlete `json:"athlete,omitempty"`
 
 		AverageCadence float32 `json:"average_cadence,omitempty"`
-
-		AverageHeartrate float32 `json:"average_heartrate,omitempty"`
 
 		AverageWatts float32 `json:"average_watts,omitempty"`
 
@@ -345,8 +344,6 @@ func (o GetSegmentEffortByIDOKBody) MarshalJSON() ([]byte, error) {
 		Hidden bool `json:"hidden,omitempty"`
 
 		KomRank int64 `json:"kom_rank,omitempty"`
-
-		MaxHeartrate float32 `json:"max_heartrate,omitempty"`
 
 		MovingTime int64 `json:"moving_time,omitempty"`
 
@@ -359,41 +356,37 @@ func (o GetSegmentEffortByIDOKBody) MarshalJSON() ([]byte, error) {
 		StartIndex int64 `json:"start_index,omitempty"`
 	}
 
-	dataGetSegmentEffortByIDOKBodyAO1.Activity = o.Activity
+	dataGetSegmentEffortByIDOKBodyAO2.Activity = o.Activity
 
-	dataGetSegmentEffortByIDOKBodyAO1.Athlete = o.Athlete
+	dataGetSegmentEffortByIDOKBodyAO2.Athlete = o.Athlete
 
-	dataGetSegmentEffortByIDOKBodyAO1.AverageCadence = o.AverageCadence
+	dataGetSegmentEffortByIDOKBodyAO2.AverageCadence = o.AverageCadence
 
-	dataGetSegmentEffortByIDOKBodyAO1.AverageHeartrate = o.AverageHeartrate
+	dataGetSegmentEffortByIDOKBodyAO2.AverageWatts = o.AverageWatts
 
-	dataGetSegmentEffortByIDOKBodyAO1.AverageWatts = o.AverageWatts
+	dataGetSegmentEffortByIDOKBodyAO2.DeviceWatts = o.DeviceWatts
 
-	dataGetSegmentEffortByIDOKBodyAO1.DeviceWatts = o.DeviceWatts
+	dataGetSegmentEffortByIDOKBodyAO2.EndIndex = o.EndIndex
 
-	dataGetSegmentEffortByIDOKBodyAO1.EndIndex = o.EndIndex
+	dataGetSegmentEffortByIDOKBodyAO2.Hidden = o.Hidden
 
-	dataGetSegmentEffortByIDOKBodyAO1.Hidden = o.Hidden
+	dataGetSegmentEffortByIDOKBodyAO2.KomRank = o.KomRank
 
-	dataGetSegmentEffortByIDOKBodyAO1.KomRank = o.KomRank
+	dataGetSegmentEffortByIDOKBodyAO2.MovingTime = o.MovingTime
 
-	dataGetSegmentEffortByIDOKBodyAO1.MaxHeartrate = o.MaxHeartrate
+	dataGetSegmentEffortByIDOKBodyAO2.Name = o.Name
 
-	dataGetSegmentEffortByIDOKBodyAO1.MovingTime = o.MovingTime
+	dataGetSegmentEffortByIDOKBodyAO2.PrRank = o.PrRank
 
-	dataGetSegmentEffortByIDOKBodyAO1.Name = o.Name
+	dataGetSegmentEffortByIDOKBodyAO2.Segment = o.Segment
 
-	dataGetSegmentEffortByIDOKBodyAO1.PrRank = o.PrRank
+	dataGetSegmentEffortByIDOKBodyAO2.StartIndex = o.StartIndex
 
-	dataGetSegmentEffortByIDOKBodyAO1.Segment = o.Segment
-
-	dataGetSegmentEffortByIDOKBodyAO1.StartIndex = o.StartIndex
-
-	jsonDataGetSegmentEffortByIDOKBodyAO1, errGetSegmentEffortByIDOKBodyAO1 := swag.WriteJSON(dataGetSegmentEffortByIDOKBodyAO1)
-	if errGetSegmentEffortByIDOKBodyAO1 != nil {
-		return nil, errGetSegmentEffortByIDOKBodyAO1
+	jsonDataGetSegmentEffortByIDOKBodyAO2, errGetSegmentEffortByIDOKBodyAO2 := swag.WriteJSON(dataGetSegmentEffortByIDOKBodyAO2)
+	if errGetSegmentEffortByIDOKBodyAO2 != nil {
+		return nil, errGetSegmentEffortByIDOKBodyAO2
 	}
-	_parts = append(_parts, jsonDataGetSegmentEffortByIDOKBodyAO1)
+	_parts = append(_parts, jsonDataGetSegmentEffortByIDOKBodyAO2)
 	return swag.ConcatJSON(_parts...), nil
 }
 
@@ -403,6 +396,10 @@ func (o *GetSegmentEffortByIDOKBody) Validate(formats strfmt.Registry) error {
 
 	// validation for a type composition with models.SummarySegmentEffort
 	if err := o.SummarySegmentEffort.Validate(formats); err != nil {
+		res = append(res, err)
+	}
+	// validation for a type composition with models.HeartRateDetails
+	if err := o.HeartRateDetails.Validate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -527,6 +524,10 @@ func (o *GetSegmentEffortByIDOKBody) ContextValidate(ctx context.Context, format
 
 	// validation for a type composition with models.SummarySegmentEffort
 	if err := o.SummarySegmentEffort.ContextValidate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+	// validation for a type composition with models.HeartRateDetails
+	if err := o.HeartRateDetails.ContextValidate(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 

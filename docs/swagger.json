@@ -2215,6 +2215,9 @@
                   "$ref": "#/definitions/summarySegmentEffort"
                 },
                 {
+                  "$ref": "#/definitions/heartRateDetails"
+                },
+                {
                   "properties": {
                     "activity": {
                       "$ref": "#/definitions/metaActivity"
@@ -2224,11 +2227,6 @@
                     },
                     "average_cadence": {
                       "description": "The effort's average cadence",
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "average_heartrate": {
-                      "description": "The heart heart rate of the athlete during this effort",
                       "type": "number",
                       "format": "float"
                     },
@@ -2254,11 +2252,6 @@
                       "type": "integer",
                       "maximum": 10,
                       "minimum": 1
-                    },
-                    "max_heartrate": {
-                      "description": "The maximum heart rate of the athlete during this effort",
-                      "type": "number",
-                      "format": "float"
                     },
                     "moving_time": {
                       "description": "The effort's moving time",

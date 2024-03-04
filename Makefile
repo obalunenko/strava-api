@@ -39,8 +39,8 @@ gen:
 	$(COMPOSE_TOOLS_CMD_UP) go-generate go-generate
 .PHONY: gen
 
-codegen: gen sync-vendor format-code
-
+codegen: gen sync-vendor format-code vet
+.PHONY: codegen
 
 sync-vendor:
 	./scripts/sync-vendor.sh

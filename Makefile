@@ -78,4 +78,9 @@ bump-go-version:
 	./scripts/bump-go.sh $(GOVERSION)
 .PHONY: bump-go-version
 
+update-swagger-spec:
+	swagger flatten --format=json --with-flatten=minimal --output=./docs/swagger.json $(API_DOC_URL)
+.PHONY: update-swagger-spec
+
+
 .DEFAULT_GOAL := help

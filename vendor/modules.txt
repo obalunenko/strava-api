@@ -47,8 +47,8 @@ github.com/go-openapi/runtime/yamlpc
 # github.com/go-openapi/spec v0.20.15
 ## explicit; go 1.19
 github.com/go-openapi/spec
-# github.com/go-openapi/strfmt v0.22.2
-## explicit; go 1.19
+# github.com/go-openapi/strfmt v0.23.0
+## explicit; go 1.20
 github.com/go-openapi/strfmt
 # github.com/go-openapi/swag v0.22.10
 ## explicit; go 1.19

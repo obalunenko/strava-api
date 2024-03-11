@@ -6,7 +6,7 @@ require (
 	github.com/go-openapi/errors v0.22.0
 	github.com/go-openapi/runtime v0.27.2
 	github.com/go-openapi/strfmt v0.23.0
-	github.com/go-openapi/swag v0.22.10
+	github.com/go-openapi/swag v0.23.0
 	github.com/go-openapi/validate v0.23.2
 	github.com/obalunenko/getenv v1.13.0
 	github.com/stretchr/testify v1.9.0

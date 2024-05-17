@@ -6,6 +6,7 @@ package routes
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -84,11 +85,11 @@ func (o *GetRouteAsTCXOK) Code() int {
 }
 
 func (o *GetRouteAsTCXOK) Error() string {
-	return fmt.Sprintf("[GET /routes/{id}/export_tcx][%d] getRouteAsTCXOK ", 200)
+	return fmt.Sprintf("[GET /routes/{id}/export_tcx][%d] getRouteAsTCXOK", 200)
 }
 
 func (o *GetRouteAsTCXOK) String() string {
-	return fmt.Sprintf("[GET /routes/{id}/export_tcx][%d] getRouteAsTCXOK ", 200)
+	return fmt.Sprintf("[GET /routes/{id}/export_tcx][%d] getRouteAsTCXOK", 200)
 }
 
 func (o *GetRouteAsTCXOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -144,11 +145,13 @@ func (o *GetRouteAsTCXDefault) Code() int {
 }
 
 func (o *GetRouteAsTCXDefault) Error() string {
-	return fmt.Sprintf("[GET /routes/{id}/export_tcx][%d] getRouteAsTCX default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /routes/{id}/export_tcx][%d] getRouteAsTCX default %s", o._statusCode, payload)
 }
 
 func (o *GetRouteAsTCXDefault) String() string {
-	return fmt.Sprintf("[GET /routes/{id}/export_tcx][%d] getRouteAsTCX default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /routes/{id}/export_tcx][%d] getRouteAsTCX default %s", o._statusCode, payload)
 }
 
 func (o *GetRouteAsTCXDefault) GetPayload() *models.Fault {

@@ -22,7 +22,7 @@ type Comment struct {
 	ActivityID int64 `json:"activity_id,omitempty"`
 
 	// athlete
-	Athlete *SummaryAthlete `json:"athlete,omitempty"`
+	Athlete *CommentAthlete `json:"athlete,omitempty"`
 
 	// The time at which this comment was created.
 	// Format: date-time

@@ -6,6 +6,7 @@ package clubs
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *GetClubAdminsByIDOK) Code() int {
 }
 
 func (o *GetClubAdminsByIDOK) Error() string {
-	return fmt.Sprintf("[GET /clubs/{id}/admins][%d] getClubAdminsByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /clubs/{id}/admins][%d] getClubAdminsByIdOK %s", 200, payload)
 }
 
 func (o *GetClubAdminsByIDOK) String() string {
-	return fmt.Sprintf("[GET /clubs/{id}/admins][%d] getClubAdminsByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /clubs/{id}/admins][%d] getClubAdminsByIdOK %s", 200, payload)
 }
 
 func (o *GetClubAdminsByIDOK) GetPayload() []*models.SummaryAthlete {
@@ -155,11 +158,13 @@ func (o *GetClubAdminsByIDDefault) Code() int {
 }
 
 func (o *GetClubAdminsByIDDefault) Error() string {
-	return fmt.Sprintf("[GET /clubs/{id}/admins][%d] getClubAdminsById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /clubs/{id}/admins][%d] getClubAdminsById default %s", o._statusCode, payload)
 }
 
 func (o *GetClubAdminsByIDDefault) String() string {
-	return fmt.Sprintf("[GET /clubs/{id}/admins][%d] getClubAdminsById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /clubs/{id}/admins][%d] getClubAdminsById default %s", o._statusCode, payload)
 }
 
 func (o *GetClubAdminsByIDDefault) GetPayload() *models.Fault {

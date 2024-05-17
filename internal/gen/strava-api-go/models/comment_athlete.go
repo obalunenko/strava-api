@@ -15,10 +15,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// SummaryAthlete summary athlete
+// CommentAthlete comment athlete
 //
-// swagger:model summaryAthlete
-type SummaryAthlete struct {
+// swagger:model commentAthlete
+type CommentAthlete struct {
 	MetaAthlete
 
 	// The athlete's city.
@@ -65,7 +65,7 @@ type SummaryAthlete struct {
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
-func (m *SummaryAthlete) UnmarshalJSON(raw []byte) error {
+func (m *CommentAthlete) UnmarshalJSON(raw []byte) error {
 	// AO0
 	var aO0 MetaAthlete
 	if err := swag.ReadJSON(raw, &aO0); err != nil {
@@ -135,7 +135,7 @@ func (m *SummaryAthlete) UnmarshalJSON(raw []byte) error {
 }
 
 // MarshalJSON marshals this object to a JSON structure
-func (m SummaryAthlete) MarshalJSON() ([]byte, error) {
+func (m CommentAthlete) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
 	aO0, err := swag.WriteJSON(m.MetaAthlete)
@@ -205,8 +205,8 @@ func (m SummaryAthlete) MarshalJSON() ([]byte, error) {
 	return swag.ConcatJSON(_parts...), nil
 }
 
-// Validate validates this summary athlete
-func (m *SummaryAthlete) Validate(formats strfmt.Registry) error {
+// Validate validates this comment athlete
+func (m *CommentAthlete) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	// validation for a type composition with MetaAthlete
@@ -232,7 +232,7 @@ func (m *SummaryAthlete) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SummaryAthlete) validateCreatedAt(formats strfmt.Registry) error {
+func (m *CommentAthlete) validateCreatedAt(formats strfmt.Registry) error {
 	if swag.IsZero(m.CreatedAt) { // not required
 		return nil
 	}
@@ -244,7 +244,7 @@ func (m *SummaryAthlete) validateCreatedAt(formats strfmt.Registry) error {
 	return nil
 }
 
-var summaryAthleteTypeSexPropEnum []interface{}
+var commentAthleteTypeSexPropEnum []interface{}
 
 func init() {
 	var res []string
@@ -252,19 +252,19 @@ func init() {
 		panic(err)
 	}
 	for _, v := range res {
-		summaryAthleteTypeSexPropEnum = append(summaryAthleteTypeSexPropEnum, v)
+		commentAthleteTypeSexPropEnum = append(commentAthleteTypeSexPropEnum, v)
 	}
 }
 
 // property enum
-func (m *SummaryAthlete) validateSexEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, summaryAthleteTypeSexPropEnum, true); err != nil {
+func (m *CommentAthlete) validateSexEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, commentAthleteTypeSexPropEnum, true); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *SummaryAthlete) validateSex(formats strfmt.Registry) error {
+func (m *CommentAthlete) validateSex(formats strfmt.Registry) error {
 	if swag.IsZero(m.Sex) { // not required
 		return nil
 	}
@@ -277,7 +277,7 @@ func (m *SummaryAthlete) validateSex(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SummaryAthlete) validateUpdatedAt(formats strfmt.Registry) error {
+func (m *CommentAthlete) validateUpdatedAt(formats strfmt.Registry) error {
 	if swag.IsZero(m.UpdatedAt) { // not required
 		return nil
 	}
@@ -289,8 +289,8 @@ func (m *SummaryAthlete) validateUpdatedAt(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validate this summary athlete based on the context it is used
-func (m *SummaryAthlete) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this comment athlete based on the context it is used
+func (m *CommentAthlete) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	// validation for a type composition with MetaAthlete
@@ -305,7 +305,7 @@ func (m *SummaryAthlete) ContextValidate(ctx context.Context, formats strfmt.Reg
 }
 
 // MarshalBinary interface implementation
-func (m *SummaryAthlete) MarshalBinary() ([]byte, error) {
+func (m *CommentAthlete) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -313,8 +313,8 @@ func (m *SummaryAthlete) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *SummaryAthlete) UnmarshalBinary(b []byte) error {
-	var res SummaryAthlete
+func (m *CommentAthlete) UnmarshalBinary(b []byte) error {
+	var res CommentAthlete
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

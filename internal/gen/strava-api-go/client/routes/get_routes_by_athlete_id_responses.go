@@ -6,6 +6,7 @@ package routes
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *GetRoutesByAthleteIDOK) Code() int {
 }
 
 func (o *GetRoutesByAthleteIDOK) Error() string {
-	return fmt.Sprintf("[GET /athletes/{id}/routes][%d] getRoutesByAthleteIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /athletes/{id}/routes][%d] getRoutesByAthleteIdOK %s", 200, payload)
 }
 
 func (o *GetRoutesByAthleteIDOK) String() string {
-	return fmt.Sprintf("[GET /athletes/{id}/routes][%d] getRoutesByAthleteIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /athletes/{id}/routes][%d] getRoutesByAthleteIdOK %s", 200, payload)
 }
 
 func (o *GetRoutesByAthleteIDOK) GetPayload() []*models.Route {
@@ -155,11 +158,13 @@ func (o *GetRoutesByAthleteIDDefault) Code() int {
 }
 
 func (o *GetRoutesByAthleteIDDefault) Error() string {
-	return fmt.Sprintf("[GET /athletes/{id}/routes][%d] getRoutesByAthleteId default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /athletes/{id}/routes][%d] getRoutesByAthleteId default %s", o._statusCode, payload)
 }
 
 func (o *GetRoutesByAthleteIDDefault) String() string {
-	return fmt.Sprintf("[GET /athletes/{id}/routes][%d] getRoutesByAthleteId default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /athletes/{id}/routes][%d] getRoutesByAthleteId default %s", o._statusCode, payload)
 }
 
 func (o *GetRoutesByAthleteIDDefault) GetPayload() *models.Fault {

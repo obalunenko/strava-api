@@ -6,6 +6,7 @@ package segments
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *GetSegmentByIDOK) Code() int {
 }
 
 func (o *GetSegmentByIDOK) Error() string {
-	return fmt.Sprintf("[GET /segments/{id}][%d] getSegmentByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments/{id}][%d] getSegmentByIdOK %s", 200, payload)
 }
 
 func (o *GetSegmentByIDOK) String() string {
-	return fmt.Sprintf("[GET /segments/{id}][%d] getSegmentByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments/{id}][%d] getSegmentByIdOK %s", 200, payload)
 }
 
 func (o *GetSegmentByIDOK) GetPayload() *models.DetailedSegment {
@@ -157,11 +160,13 @@ func (o *GetSegmentByIDDefault) Code() int {
 }
 
 func (o *GetSegmentByIDDefault) Error() string {
-	return fmt.Sprintf("[GET /segments/{id}][%d] getSegmentById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments/{id}][%d] getSegmentById default %s", o._statusCode, payload)
 }
 
 func (o *GetSegmentByIDDefault) String() string {
-	return fmt.Sprintf("[GET /segments/{id}][%d] getSegmentById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments/{id}][%d] getSegmentById default %s", o._statusCode, payload)
 }
 
 func (o *GetSegmentByIDDefault) GetPayload() *models.Fault {

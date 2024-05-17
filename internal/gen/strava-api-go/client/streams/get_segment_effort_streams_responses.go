@@ -6,6 +6,7 @@ package streams
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *GetSegmentEffortStreamsOK) Code() int {
 }
 
 func (o *GetSegmentEffortStreamsOK) Error() string {
-	return fmt.Sprintf("[GET /segment_efforts/{id}/streams][%d] getSegmentEffortStreamsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segment_efforts/{id}/streams][%d] getSegmentEffortStreamsOK %s", 200, payload)
 }
 
 func (o *GetSegmentEffortStreamsOK) String() string {
-	return fmt.Sprintf("[GET /segment_efforts/{id}/streams][%d] getSegmentEffortStreamsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segment_efforts/{id}/streams][%d] getSegmentEffortStreamsOK %s", 200, payload)
 }
 
 func (o *GetSegmentEffortStreamsOK) GetPayload() *models.StreamSet {
@@ -157,11 +160,13 @@ func (o *GetSegmentEffortStreamsDefault) Code() int {
 }
 
 func (o *GetSegmentEffortStreamsDefault) Error() string {
-	return fmt.Sprintf("[GET /segment_efforts/{id}/streams][%d] getSegmentEffortStreams default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segment_efforts/{id}/streams][%d] getSegmentEffortStreams default %s", o._statusCode, payload)
 }
 
 func (o *GetSegmentEffortStreamsDefault) String() string {
-	return fmt.Sprintf("[GET /segment_efforts/{id}/streams][%d] getSegmentEffortStreams default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segment_efforts/{id}/streams][%d] getSegmentEffortStreams default %s", o._statusCode, payload)
 }
 
 func (o *GetSegmentEffortStreamsDefault) GetPayload() *models.Fault {

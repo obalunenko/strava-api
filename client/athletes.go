@@ -44,7 +44,7 @@ func (a athletesAPI) GetLoggedInAthlete(ctx context.Context) (models.DetailedAth
 		return models.DetailedAthlete{}, err
 	}
 
-	return *athlete.Payload, nil
+	return convertToDetailedAthlete(athlete.GetPayload()), nil
 }
 
 func (a athletesAPI) GetLoggedInAthleteZones(ctx context.Context) (models.Zones, error) {
@@ -57,7 +57,7 @@ func (a athletesAPI) GetLoggedInAthleteZones(ctx context.Context) (models.Zones,
 		return models.Zones{}, err
 	}
 
-	return *athlete.Payload, nil
+	return convertToZones(athlete.GetPayload()), nil
 }
 
 func (a athletesAPI) GetStats(ctx context.Context, id int64) (models.ActivityStats, error) {
@@ -71,7 +71,7 @@ func (a athletesAPI) GetStats(ctx context.Context, id int64) (models.ActivitySta
 		return models.ActivityStats{}, err
 	}
 
-	return *stats.Payload, nil
+	return convertToActivityStats(stats.GetPayload()), nil
 }
 
 func (a athletesAPI) UpdateLoggedInAthlete(ctx context.Context, weight float32) (models.DetailedAthlete, error) {
@@ -85,5 +85,29 @@ func (a athletesAPI) UpdateLoggedInAthlete(ctx context.Context, weight float32) 
 		return models.DetailedAthlete{}, err
 	}
 
-	return *athlete.Payload, nil
+	return convertToDetailedAthlete(athlete.GetPayload()), nil
+}
+
+func convertToDetailedAthlete(athlete *models.DetailedAthlete) models.DetailedAthlete {
+	if athlete == nil {
+		return models.DetailedAthlete{}
+	}
+
+	return *athlete
+}
+
+func convertToActivityStats(stats *models.ActivityStats) models.ActivityStats {
+	if stats == nil {
+		return models.ActivityStats{}
+	}
+
+	return *stats
+}
+
+func convertToZones(zones *models.Zones) models.Zones {
+	if zones == nil {
+		return models.Zones{}
+	}
+
+	return *zones
 }

@@ -6,6 +6,7 @@ package uploads
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *GetUploadByIDOK) Code() int {
 }
 
 func (o *GetUploadByIDOK) Error() string {
-	return fmt.Sprintf("[GET /uploads/{uploadId}][%d] getUploadByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /uploads/{uploadId}][%d] getUploadByIdOK %s", 200, payload)
 }
 
 func (o *GetUploadByIDOK) String() string {
-	return fmt.Sprintf("[GET /uploads/{uploadId}][%d] getUploadByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /uploads/{uploadId}][%d] getUploadByIdOK %s", 200, payload)
 }
 
 func (o *GetUploadByIDOK) GetPayload() *models.Upload {
@@ -157,11 +160,13 @@ func (o *GetUploadByIDDefault) Code() int {
 }
 
 func (o *GetUploadByIDDefault) Error() string {
-	return fmt.Sprintf("[GET /uploads/{uploadId}][%d] getUploadById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /uploads/{uploadId}][%d] getUploadById default %s", o._statusCode, payload)
 }
 
 func (o *GetUploadByIDDefault) String() string {
-	return fmt.Sprintf("[GET /uploads/{uploadId}][%d] getUploadById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /uploads/{uploadId}][%d] getUploadById default %s", o._statusCode, payload)
 }
 
 func (o *GetUploadByIDDefault) GetPayload() *models.Fault {

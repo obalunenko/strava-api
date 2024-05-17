@@ -6,6 +6,7 @@ package activities
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *GetCommentsByActivityIDOK) Code() int {
 }
 
 func (o *GetCommentsByActivityIDOK) Error() string {
-	return fmt.Sprintf("[GET /activities/{id}/comments][%d] getCommentsByActivityIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /activities/{id}/comments][%d] getCommentsByActivityIdOK %s", 200, payload)
 }
 
 func (o *GetCommentsByActivityIDOK) String() string {
-	return fmt.Sprintf("[GET /activities/{id}/comments][%d] getCommentsByActivityIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /activities/{id}/comments][%d] getCommentsByActivityIdOK %s", 200, payload)
 }
 
 func (o *GetCommentsByActivityIDOK) GetPayload() []*models.Comment {
@@ -155,11 +158,13 @@ func (o *GetCommentsByActivityIDDefault) Code() int {
 }
 
 func (o *GetCommentsByActivityIDDefault) Error() string {
-	return fmt.Sprintf("[GET /activities/{id}/comments][%d] getCommentsByActivityId default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /activities/{id}/comments][%d] getCommentsByActivityId default %s", o._statusCode, payload)
 }
 
 func (o *GetCommentsByActivityIDDefault) String() string {
-	return fmt.Sprintf("[GET /activities/{id}/comments][%d] getCommentsByActivityId default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /activities/{id}/comments][%d] getCommentsByActivityId default %s", o._statusCode, payload)
 }
 
 func (o *GetCommentsByActivityIDDefault) GetPayload() *models.Fault {

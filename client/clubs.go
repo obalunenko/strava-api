@@ -90,13 +90,7 @@ func (c clubsService) GetClubActivitiesById(ctx context.Context, id int64, opts 
 		return nil, err
 	}
 
-	resp := make([]models.ClubActivity, 0, len(activities.GetPayload()))
-
-	for _, a := range activities.GetPayload() {
-		resp = append(resp, *a)
-	}
-
-	return resp, nil
+	return convertToListClubActivity(activities.GetPayload()), nil
 }
 
 func (c clubsService) GetClubAdminsById(ctx context.Context, id int64, opts ...GetClubAdminsByIdOpts) ([]models.SummaryAthlete, error) {
@@ -129,13 +123,7 @@ func (c clubsService) GetClubAdminsById(ctx context.Context, id int64, opts ...G
 		return nil, err
 	}
 
-	resp := make([]models.SummaryAthlete, 0, len(admins.GetPayload()))
-
-	for _, a := range admins.GetPayload() {
-		resp = append(resp, *a)
-	}
-
-	return resp, nil
+	return convertToListSummaryAthlete(admins.GetPayload()), nil
 }
 
 func (c clubsService) GetClubById(ctx context.Context, id int64) (models.DetailedClub, error) {
@@ -150,7 +138,7 @@ func (c clubsService) GetClubById(ctx context.Context, id int64) (models.Detaile
 		return models.DetailedClub{}, err
 	}
 
-	return *club.GetPayload(), nil
+	return convertToDetailedClub(club.GetPayload()), nil
 }
 
 func (c clubsService) GetClubMembersById(ctx context.Context, id int64, opts ...GetClubMembersByIdOpts) ([]models.ClubAthlete, error) {
@@ -183,13 +171,7 @@ func (c clubsService) GetClubMembersById(ctx context.Context, id int64, opts ...
 		return nil, err
 	}
 
-	resp := make([]models.ClubAthlete, 0, len(members.GetPayload()))
-
-	for _, m := range members.GetPayload() {
-		resp = append(resp, *m)
-	}
-
-	return resp, nil
+	return convertToListClubAthlete(members.GetPayload()), nil
 }
 
 func (c clubsService) GetLoggedInAthleteClubs(ctx context.Context, opts ...GetLoggedInAthleteClubsOpts) ([]models.SummaryClub, error) {
@@ -221,11 +203,101 @@ func (c clubsService) GetLoggedInAthleteClubs(ctx context.Context, opts ...GetLo
 		return nil, err
 	}
 
-	resp := make([]models.SummaryClub, 0, len(list.GetPayload()))
+	return convertToListSummaryClub(list.GetPayload()), nil
+}
 
-	for _, cl := range list.GetPayload() {
-		resp = append(resp, *cl)
+func convertToClubActivity(activity *models.ClubActivity) models.ClubActivity {
+	if activity == nil {
+		return models.ClubActivity{}
 	}
 
-	return resp, nil
+	return *activity
+}
+
+func convertToSummaryAthlete(athlete *models.SummaryAthlete) models.SummaryAthlete {
+	if athlete == nil {
+		return models.SummaryAthlete{}
+	}
+
+	return *athlete
+}
+
+func convertToClubAthlete(athlete *models.ClubAthlete) models.ClubAthlete {
+	if athlete == nil {
+		return models.ClubAthlete{}
+	}
+
+	return *athlete
+}
+
+func convertToSummaryClub(club *models.SummaryClub) models.SummaryClub {
+	if club == nil {
+		return models.SummaryClub{}
+	}
+
+	return *club
+}
+
+func convertToDetailedClub(club *models.DetailedClub) models.DetailedClub {
+	if club == nil {
+		return models.DetailedClub{}
+	}
+
+	return *club
+}
+
+func convertToListSummaryClub(clubs []*models.SummaryClub) []models.SummaryClub {
+	if clubs == nil {
+		return nil
+	}
+
+	list := make([]models.SummaryClub, len(clubs))
+
+	for i, club := range clubs {
+		list[i] = convertToSummaryClub(club)
+	}
+
+	return list
+}
+
+func convertToListClubActivity(activities []*models.ClubActivity) []models.ClubActivity {
+	if activities == nil {
+		return nil
+	}
+
+	list := make([]models.ClubActivity, len(activities))
+
+	for i, activity := range activities {
+		list[i] = convertToClubActivity(activity)
+	}
+
+	return list
+}
+
+func convertToListClubAthlete(athletes []*models.ClubAthlete) []models.ClubAthlete {
+	if athletes == nil {
+		return nil
+	}
+
+	list := make([]models.ClubAthlete, len(athletes))
+
+	for i, athlete := range athletes {
+		list[i] = convertToClubAthlete(athlete)
+	}
+
+	return list
+}
+
+func convertToListSummaryAthlete(athletes []*models.SummaryAthlete) []models.SummaryAthlete {
+	if athletes == nil {
+		return nil
+	}
+
+	list := make([]models.SummaryAthlete, len(athletes))
+
+	for i, athlete := range athletes {
+		list[i] = convertToSummaryAthlete(athlete)
+	}
+
+	return list
 }

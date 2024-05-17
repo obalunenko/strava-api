@@ -6,6 +6,7 @@ package routes
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -84,11 +85,11 @@ func (o *GetRouteAsGPXOK) Code() int {
 }
 
 func (o *GetRouteAsGPXOK) Error() string {
-	return fmt.Sprintf("[GET /routes/{id}/export_gpx][%d] getRouteAsGPXOK ", 200)
+	return fmt.Sprintf("[GET /routes/{id}/export_gpx][%d] getRouteAsGPXOK", 200)
 }
 
 func (o *GetRouteAsGPXOK) String() string {
-	return fmt.Sprintf("[GET /routes/{id}/export_gpx][%d] getRouteAsGPXOK ", 200)
+	return fmt.Sprintf("[GET /routes/{id}/export_gpx][%d] getRouteAsGPXOK", 200)
 }
 
 func (o *GetRouteAsGPXOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -144,11 +145,13 @@ func (o *GetRouteAsGPXDefault) Code() int {
 }
 
 func (o *GetRouteAsGPXDefault) Error() string {
-	return fmt.Sprintf("[GET /routes/{id}/export_gpx][%d] getRouteAsGPX default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /routes/{id}/export_gpx][%d] getRouteAsGPX default %s", o._statusCode, payload)
 }
 
 func (o *GetRouteAsGPXDefault) String() string {
-	return fmt.Sprintf("[GET /routes/{id}/export_gpx][%d] getRouteAsGPX default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /routes/{id}/export_gpx][%d] getRouteAsGPX default %s", o._statusCode, payload)
 }
 
 func (o *GetRouteAsGPXDefault) GetPayload() *models.Fault {

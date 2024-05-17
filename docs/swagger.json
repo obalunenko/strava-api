@@ -1853,91 +1853,7 @@
           "200": {
             "description": "A representation of the route.",
             "schema": {
-              "type": "object",
-              "properties": {
-                "athlete": {
-                  "$ref": "#/definitions/summaryAthlete"
-                },
-                "created_at": {
-                  "description": "The time at which the route was created",
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "description": {
-                  "description": "The description of the route",
-                  "type": "string"
-                },
-                "distance": {
-                  "description": "The route's distance, in meters",
-                  "type": "number",
-                  "format": "float"
-                },
-                "elevation_gain": {
-                  "description": "The route's elevation gain.",
-                  "type": "number",
-                  "format": "float"
-                },
-                "estimated_moving_time": {
-                  "description": "Estimated time in seconds for the authenticated athlete to complete route",
-                  "type": "integer"
-                },
-                "id": {
-                  "description": "The unique identifier of this route",
-                  "type": "integer",
-                  "format": "int64"
-                },
-                "id_str": {
-                  "description": "The unique identifier of the route in string format",
-                  "type": "string"
-                },
-                "map": {
-                  "$ref": "#/definitions/polylineMap"
-                },
-                "name": {
-                  "description": "The name of this route",
-                  "type": "string"
-                },
-                "private": {
-                  "description": "Whether this route is private",
-                  "type": "boolean"
-                },
-                "segments": {
-                  "description": "The segments traversed by this route",
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/summarySegment"
-                  }
-                },
-                "starred": {
-                  "description": "Whether this route is starred by the logged-in athlete",
-                  "type": "boolean"
-                },
-                "sub_type": {
-                  "description": "This route's sub-type (1 for road, 2 for mountain bike, 3 for cross, 4 for trail, 5 for mixed)",
-                  "type": "integer"
-                },
-                "timestamp": {
-                  "description": "An epoch timestamp of when the route was created",
-                  "type": "integer"
-                },
-                "type": {
-                  "description": "This route's type (1 for ride, 2 for runs)",
-                  "type": "integer"
-                },
-                "updated_at": {
-                  "description": "The time at which the route was last updated",
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "waypoints": {
-                  "description": "The custom waypoints along this route",
-                  "type": "array",
-                  "minItems": 0,
-                  "items": {
-                    "$ref": "#/definitions/waypoint"
-                  }
-                }
-              }
+              "$ref": "#/definitions/route"
             }
           },
           "default": {
@@ -2210,73 +2126,7 @@
           "200": {
             "description": "Representation of a segment effort.",
             "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/summarySegmentEffort"
-                },
-                {
-                  "$ref": "#/definitions/heartRateDetails"
-                },
-                {
-                  "properties": {
-                    "activity": {
-                      "$ref": "#/definitions/metaActivity"
-                    },
-                    "athlete": {
-                      "$ref": "#/definitions/metaAthlete"
-                    },
-                    "average_cadence": {
-                      "description": "The effort's average cadence",
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "average_watts": {
-                      "description": "The average wattage of this effort",
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "device_watts": {
-                      "description": "For riding efforts, whether the wattage was reported by a dedicated recording device",
-                      "type": "boolean"
-                    },
-                    "end_index": {
-                      "description": "The end index of this effort in its activity's stream",
-                      "type": "integer"
-                    },
-                    "hidden": {
-                      "description": "Whether this effort should be hidden when viewed within an activity",
-                      "type": "boolean"
-                    },
-                    "kom_rank": {
-                      "description": "The rank of the effort on the global leaderboard if it belongs in the top 10 at the time of upload",
-                      "type": "integer",
-                      "maximum": 10,
-                      "minimum": 1
-                    },
-                    "moving_time": {
-                      "description": "The effort's moving time",
-                      "type": "integer"
-                    },
-                    "name": {
-                      "description": "The name of the segment on which this effort was performed",
-                      "type": "string"
-                    },
-                    "pr_rank": {
-                      "description": "The rank of the effort on the athlete's leaderboard if it belongs in the top 3 at the time of upload",
-                      "type": "integer",
-                      "maximum": 3,
-                      "minimum": 1
-                    },
-                    "segment": {
-                      "$ref": "#/definitions/summarySegment"
-                    },
-                    "start_index": {
-                      "description": "The start index of this effort in its activity's stream",
-                      "type": "integer"
-                    }
-                  }
-                }
-              ]
+              "$ref": "#/definitions/detailedSegmentEffort"
             },
             "examples": {
               "application/json": {
@@ -3281,7 +3131,7 @@
           "format": "int64"
         },
         "athlete": {
-          "$ref": "#/definitions/summaryAthlete"
+          "$ref": "#/definitions/commentAthlete"
         },
         "created_at": {
           "description": "The time at which this comment was created.",
@@ -3299,17 +3149,265 @@
         }
       }
     },
+    "commentAthlete": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/metaAthlete"
+        },
+        {
+          "properties": {
+            "city": {
+              "description": "The athlete's city.",
+              "type": "string"
+            },
+            "country": {
+              "description": "The athlete's country.",
+              "type": "string"
+            },
+            "created_at": {
+              "description": "The time at which the athlete was created.",
+              "type": "string",
+              "format": "date-time"
+            },
+            "firstname": {
+              "description": "The athlete's first name.",
+              "type": "string"
+            },
+            "lastname": {
+              "description": "The athlete's last name.",
+              "type": "string"
+            },
+            "premium": {
+              "description": "Deprecated.  Use summit field instead. Whether the athlete has any Summit subscription.",
+              "type": "boolean"
+            },
+            "profile": {
+              "description": "URL to a 124x124 pixel profile picture.",
+              "type": "string"
+            },
+            "profile_medium": {
+              "description": "URL to a 62x62 pixel profile picture.",
+              "type": "string"
+            },
+            "resource_state": {
+              "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
+              "type": "integer"
+            },
+            "sex": {
+              "description": "The athlete's sex.",
+              "type": "string",
+              "enum": [
+                "M",
+                "F"
+              ]
+            },
+            "state": {
+              "description": "The athlete's state or geographical region.",
+              "type": "string"
+            },
+            "summit": {
+              "description": "Whether the athlete has any Summit subscription.",
+              "type": "boolean"
+            },
+            "updated_at": {
+              "description": "The time at which the athlete was last updated.",
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      ],
+      "x-go-gen-location": "models"
+    },
     "detailedActivity": {
       "allOf": [
         {
-          "$ref": "#/definitions/summaryActivity"
+          "allOf": [
+            {
+              "$ref": "#/definitions/metaActivity"
+            },
+            {
+              "properties": {
+                "achievement_count": {
+                  "description": "The number of achievements gained during this activity",
+                  "type": "integer"
+                },
+                "athlete": {
+                  "$ref": "#/definitions/metaAthlete"
+                },
+                "athlete_count": {
+                  "description": "The number of athletes for taking part in a group activity",
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "average_speed": {
+                  "description": "The activity's average speed, in meters per second",
+                  "type": "number",
+                  "format": "float"
+                },
+                "average_watts": {
+                  "description": "Average power output in watts during this activity. Rides only",
+                  "type": "number",
+                  "format": "float"
+                },
+                "comment_count": {
+                  "description": "The number of comments for this activity",
+                  "type": "integer"
+                },
+                "commute": {
+                  "description": "Whether this activity is a commute",
+                  "type": "boolean"
+                },
+                "device_watts": {
+                  "description": "Whether the watts are from a power meter, false if estimated",
+                  "type": "boolean"
+                },
+                "distance": {
+                  "description": "The activity's distance, in meters",
+                  "type": "number",
+                  "format": "float"
+                },
+                "elapsed_time": {
+                  "description": "The activity's elapsed time, in seconds",
+                  "type": "integer"
+                },
+                "elev_high": {
+                  "description": "The activity's highest elevation, in meters",
+                  "type": "number",
+                  "format": "float"
+                },
+                "elev_low": {
+                  "description": "The activity's lowest elevation, in meters",
+                  "type": "number",
+                  "format": "float"
+                },
+                "end_latlng": {
+                  "$ref": "#/definitions/latLng"
+                },
+                "external_id": {
+                  "description": "The identifier provided at upload time",
+                  "type": "string"
+                },
+                "flagged": {
+                  "description": "Whether this activity is flagged",
+                  "type": "boolean"
+                },
+                "gear_id": {
+                  "description": "The id of the gear for the activity",
+                  "type": "string"
+                },
+                "has_kudoed": {
+                  "description": "Whether the logged-in athlete has kudoed this activity",
+                  "type": "boolean"
+                },
+                "hide_from_home": {
+                  "description": "Whether the activity is muted",
+                  "type": "boolean"
+                },
+                "kilojoules": {
+                  "description": "The total work done in kilojoules during this activity. Rides only",
+                  "type": "number",
+                  "format": "float"
+                },
+                "kudos_count": {
+                  "description": "The number of kudos given for this activity",
+                  "type": "integer"
+                },
+                "manual": {
+                  "description": "Whether this activity was created manually",
+                  "type": "boolean"
+                },
+                "map": {
+                  "$ref": "#/definitions/polylineMap"
+                },
+                "max_speed": {
+                  "description": "The activity's max speed, in meters per second",
+                  "type": "number",
+                  "format": "float"
+                },
+                "max_watts": {
+                  "description": "Rides with power meter data only",
+                  "type": "integer"
+                },
+                "moving_time": {
+                  "description": "The activity's moving time, in seconds",
+                  "type": "integer"
+                },
+                "name": {
+                  "description": "The name of the activity",
+                  "type": "string"
+                },
+                "photo_count": {
+                  "description": "The number of Instagram photos for this activity",
+                  "type": "integer"
+                },
+                "private": {
+                  "description": "Whether this activity is private",
+                  "type": "boolean"
+                },
+                "sport_type": {
+                  "$ref": "#/definitions/sportType"
+                },
+                "start_date": {
+                  "description": "The time at which the activity was started.",
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "start_date_local": {
+                  "description": "The time at which the activity was started in the local timezone.",
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "start_latlng": {
+                  "$ref": "#/definitions/latLng"
+                },
+                "timezone": {
+                  "description": "The timezone of the activity",
+                  "type": "string"
+                },
+                "total_elevation_gain": {
+                  "description": "The activity's total elevation gain.",
+                  "type": "number",
+                  "format": "float"
+                },
+                "total_photo_count": {
+                  "description": "The number of Instagram and Strava photos for this activity",
+                  "type": "integer"
+                },
+                "trainer": {
+                  "description": "Whether this activity was recorded on a training machine",
+                  "type": "boolean"
+                },
+                "type": {
+                  "$ref": "#/definitions/activityType"
+                },
+                "upload_id": {
+                  "description": "The identifier of the upload that resulted in this activity",
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "upload_id_str": {
+                  "description": "The unique identifier of the upload in string format",
+                  "type": "string"
+                },
+                "weighted_average_watts": {
+                  "description": "Similar to Normalized Power. Rides with power meter data only",
+                  "type": "integer"
+                },
+                "workout_type": {
+                  "description": "The activity's workout type",
+                  "type": "integer"
+                }
+              }
+            }
+          ]
         },
         {
           "properties": {
             "best_efforts": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/detailedSegmentEffort"
+                "$ref": "#/definitions/detailedActivityAllOf1BestEffortsItems"
               }
             },
             "calories": {
@@ -3335,7 +3433,86 @@
             "laps": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/lap"
+                "type": "object",
+                "properties": {
+                  "activity": {
+                    "$ref": "#/definitions/metaActivity"
+                  },
+                  "athlete": {
+                    "$ref": "#/definitions/metaAthlete"
+                  },
+                  "average_cadence": {
+                    "description": "The lap's average cadence",
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "average_speed": {
+                    "description": "The lap's average speed",
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "distance": {
+                    "description": "The lap's distance, in meters",
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "elapsed_time": {
+                    "description": "The lap's elapsed time, in seconds",
+                    "type": "integer"
+                  },
+                  "end_index": {
+                    "description": "The end index of this effort in its activity's stream",
+                    "type": "integer"
+                  },
+                  "id": {
+                    "description": "The unique identifier of this lap",
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "lap_index": {
+                    "description": "The index of this lap in the activity it belongs to",
+                    "type": "integer"
+                  },
+                  "max_speed": {
+                    "description": "The maximum speed of this lat, in meters per second",
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "moving_time": {
+                    "description": "The lap's moving time, in seconds",
+                    "type": "integer"
+                  },
+                  "name": {
+                    "description": "The name of the lap",
+                    "type": "string"
+                  },
+                  "pace_zone": {
+                    "description": "The athlete's pace zone during this lap",
+                    "type": "integer"
+                  },
+                  "split": {
+                    "type": "integer"
+                  },
+                  "start_date": {
+                    "description": "The time at which the lap was started.",
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "start_date_local": {
+                    "description": "The time at which the lap was started in the local timezone.",
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "start_index": {
+                    "description": "The start index of this effort in its activity's stream",
+                    "type": "integer"
+                  },
+                  "total_elevation_gain": {
+                    "description": "The elevation gain of this lap, in meters",
+                    "type": "number",
+                    "format": "float"
+                  }
+                }
               }
             },
             "photos": {
@@ -3344,7 +3521,7 @@
             "segment_efforts": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/detailedSegmentEffort"
+                "$ref": "#/definitions/detailedActivityAllOf1BestEffortsItems"
               }
             },
             "splits_metric": {
@@ -3365,10 +3542,87 @@
         }
       ]
     },
+    "detailedActivityAllOf1BestEffortsItems": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/summarySegmentEffort"
+        },
+        {
+          "properties": {
+            "activity": {
+              "$ref": "#/definitions/metaActivity"
+            },
+            "athlete": {
+              "$ref": "#/definitions/metaAthlete"
+            },
+            "average_cadence": {
+              "description": "The effort's average cadence",
+              "type": "number",
+              "format": "float"
+            },
+            "average_heartrate": {
+              "description": "The heart heart rate of the athlete during this effort",
+              "type": "number",
+              "format": "float"
+            },
+            "average_watts": {
+              "description": "The average wattage of this effort",
+              "type": "number",
+              "format": "float"
+            },
+            "device_watts": {
+              "description": "For riding efforts, whether the wattage was reported by a dedicated recording device",
+              "type": "boolean"
+            },
+            "end_index": {
+              "description": "The end index of this effort in its activity's stream",
+              "type": "integer"
+            },
+            "hidden": {
+              "description": "Whether this effort should be hidden when viewed within an activity",
+              "type": "boolean"
+            },
+            "kom_rank": {
+              "description": "The rank of the effort on the global leaderboard if it belongs in the top 10 at the time of upload",
+              "type": "integer",
+              "maximum": 10,
+              "minimum": 1
+            },
+            "max_heartrate": {
+              "description": "The maximum heart rate of the athlete during this effort",
+              "type": "number",
+              "format": "float"
+            },
+            "moving_time": {
+              "description": "The effort's moving time",
+              "type": "integer"
+            },
+            "name": {
+              "description": "The name of the segment on which this effort was performed",
+              "type": "string"
+            },
+            "pr_rank": {
+              "description": "The rank of the effort on the athlete's leaderboard if it belongs in the top 3 at the time of upload",
+              "type": "integer",
+              "maximum": 3,
+              "minimum": 1
+            },
+            "segment": {
+              "$ref": "#/definitions/detailedSegmentAllOf0"
+            },
+            "start_index": {
+              "description": "The start index of this effort in its activity's stream",
+              "type": "integer"
+            }
+          }
+        }
+      ],
+      "x-go-gen-location": "models"
+    },
     "detailedAthlete": {
       "allOf": [
         {
-          "$ref": "#/definitions/summaryAthlete"
+          "$ref": "#/definitions/commentAthlete"
         },
         {
           "properties": {
@@ -3383,7 +3637,7 @@
               "description": "The athlete's clubs.",
               "type": "array",
               "items": {
-                "$ref": "#/definitions/summaryClub"
+                "$ref": "#/definitions/detailedClubAllOf0"
               }
             },
             "follower_count": {
@@ -3425,7 +3679,7 @@
     "detailedClub": {
       "allOf": [
         {
-          "$ref": "#/definitions/summaryClub"
+          "$ref": "#/definitions/detailedClubAllOf0"
         },
         {
           "properties": {
@@ -3452,6 +3706,79 @@
           }
         }
       ]
+    },
+    "detailedClubAllOf0": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/metaClub"
+        },
+        {
+          "properties": {
+            "activity_types": {
+              "description": "The activity types that count for a club. This takes precedence over sport_type.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/activityType"
+              }
+            },
+            "city": {
+              "description": "The club's city.",
+              "type": "string"
+            },
+            "country": {
+              "description": "The club's country.",
+              "type": "string"
+            },
+            "cover_photo": {
+              "description": "URL to a ~1185x580 pixel cover photo.",
+              "type": "string"
+            },
+            "cover_photo_small": {
+              "description": "URL to a ~360x176  pixel cover photo.",
+              "type": "string"
+            },
+            "featured": {
+              "description": "Whether the club is featured or not.",
+              "type": "boolean"
+            },
+            "member_count": {
+              "description": "The club's member count.",
+              "type": "integer"
+            },
+            "private": {
+              "description": "Whether the club is private.",
+              "type": "boolean"
+            },
+            "profile_medium": {
+              "description": "URL to a 60x60 pixel profile picture.",
+              "type": "string"
+            },
+            "sport_type": {
+              "description": "Deprecated. Prefer to use activity_types.",
+              "type": "string",
+              "enum": [
+                "cycling",
+                "running",
+                "triathlon",
+                "other"
+              ]
+            },
+            "state": {
+              "description": "The club's state or geographical region.",
+              "type": "string"
+            },
+            "url": {
+              "description": "The club's vanity URL.",
+              "type": "string"
+            },
+            "verified": {
+              "description": "Whether the club is verified or not.",
+              "type": "boolean"
+            }
+          }
+        }
+      ],
+      "x-go-gen-location": "models"
     },
     "detailedGear": {
       "allOf": [
@@ -3483,7 +3810,7 @@
     "detailedSegment": {
       "allOf": [
         {
-          "$ref": "#/definitions/summarySegment"
+          "$ref": "#/definitions/detailedSegmentAllOf0"
         },
         {
           "properties": {
@@ -3525,13 +3852,89 @@
         }
       ]
     },
+    "detailedSegmentAllOf0": {
+      "type": "object",
+      "properties": {
+        "activity_type": {
+          "type": "string",
+          "enum": [
+            "Ride",
+            "Run"
+          ]
+        },
+        "athlete_pr_effort": {
+          "$ref": "#/definitions/summaryPRSegmentEffort"
+        },
+        "athlete_segment_stats": {
+          "$ref": "#/definitions/summarySegmentEffort"
+        },
+        "average_grade": {
+          "description": "The segment's average grade, in percents",
+          "type": "number",
+          "format": "float"
+        },
+        "city": {
+          "description": "The segments's city.",
+          "type": "string"
+        },
+        "climb_category": {
+          "description": "The category of the climb [0, 5]. Higher is harder ie. 5 is Hors catégorie, 0 is uncategorized in climb_category.",
+          "type": "integer"
+        },
+        "country": {
+          "description": "The segment's country.",
+          "type": "string"
+        },
+        "distance": {
+          "description": "The segment's distance, in meters",
+          "type": "number",
+          "format": "float"
+        },
+        "elevation_high": {
+          "description": "The segments's highest elevation, in meters",
+          "type": "number",
+          "format": "float"
+        },
+        "elevation_low": {
+          "description": "The segments's lowest elevation, in meters",
+          "type": "number",
+          "format": "float"
+        },
+        "end_latlng": {
+          "$ref": "#/definitions/latLng"
+        },
+        "id": {
+          "description": "The unique identifier of this segment",
+          "type": "integer",
+          "format": "int64"
+        },
+        "maximum_grade": {
+          "description": "The segments's maximum grade, in percents",
+          "type": "number",
+          "format": "float"
+        },
+        "name": {
+          "description": "The name of this segment",
+          "type": "string"
+        },
+        "private": {
+          "description": "Whether this segment is private.",
+          "type": "boolean"
+        },
+        "start_latlng": {
+          "$ref": "#/definitions/latLng"
+        },
+        "state": {
+          "description": "The segments's state or geographical region.",
+          "type": "string"
+        }
+      },
+      "x-go-gen-location": "models"
+    },
     "detailedSegmentEffort": {
       "allOf": [
         {
           "$ref": "#/definitions/summarySegmentEffort"
-        },
-        {
-          "$ref": "#/definitions/heartRateDetails"
         },
         {
           "properties": {
@@ -3543,6 +3946,11 @@
             },
             "average_cadence": {
               "description": "The effort's average cadence",
+              "type": "number",
+              "format": "float"
+            },
+            "average_heartrate": {
+              "description": "The heart heart rate of the athlete during this effort",
               "type": "number",
               "format": "float"
             },
@@ -3569,6 +3977,11 @@
               "maximum": 10,
               "minimum": 1
             },
+            "max_heartrate": {
+              "description": "The maximum heart rate of the athlete during this effort",
+              "type": "number",
+              "format": "float"
+            },
             "moving_time": {
               "description": "The effort's moving time",
               "type": "integer"
@@ -3584,7 +3997,7 @@
               "minimum": 1
             },
             "segment": {
-              "$ref": "#/definitions/summarySegment"
+              "$ref": "#/definitions/detailedSegmentAllOf0"
             },
             "start_index": {
               "description": "The start index of this effort in its activity's stream",
@@ -3989,7 +4402,7 @@
       "type": "object",
       "properties": {
         "athlete": {
-          "$ref": "#/definitions/summaryAthlete"
+          "$ref": "#/definitions/commentAthlete"
         },
         "created_at": {
           "description": "The time at which the route was created",
@@ -4038,7 +4451,7 @@
           "description": "The segments traversed by this route",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/summarySegment"
+            "$ref": "#/definitions/detailedSegmentAllOf0"
           }
         },
         "starred": {

@@ -6,6 +6,7 @@ package segments
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *ExploreSegmentsOK) Code() int {
 }
 
 func (o *ExploreSegmentsOK) Error() string {
-	return fmt.Sprintf("[GET /segments/explore][%d] exploreSegmentsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments/explore][%d] exploreSegmentsOK %s", 200, payload)
 }
 
 func (o *ExploreSegmentsOK) String() string {
-	return fmt.Sprintf("[GET /segments/explore][%d] exploreSegmentsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments/explore][%d] exploreSegmentsOK %s", 200, payload)
 }
 
 func (o *ExploreSegmentsOK) GetPayload() *models.ExplorerResponse {
@@ -157,11 +160,13 @@ func (o *ExploreSegmentsDefault) Code() int {
 }
 
 func (o *ExploreSegmentsDefault) Error() string {
-	return fmt.Sprintf("[GET /segments/explore][%d] exploreSegments default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments/explore][%d] exploreSegments default %s", o._statusCode, payload)
 }
 
 func (o *ExploreSegmentsDefault) String() string {
-	return fmt.Sprintf("[GET /segments/explore][%d] exploreSegments default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments/explore][%d] exploreSegments default %s", o._statusCode, payload)
 }
 
 func (o *ExploreSegmentsDefault) GetPayload() *models.Fault {

@@ -79,7 +79,7 @@ func (s segmentsService) ExploreSegments(ctx context.Context, bounds []float32, 
 		return models.ExplorerResponse{}, err
 	}
 
-	return *resp.Payload, nil
+	return convertToExplorerResponse(resp.GetPayload()), nil
 }
 
 func (s segmentsService) GetLoggedInAthleteStarredSegments(ctx context.Context, opts ...GetLoggedInAthleteStarredSegmentsOpts) ([]models.SummarySegment, error) {
@@ -110,13 +110,7 @@ func (s segmentsService) GetLoggedInAthleteStarredSegments(ctx context.Context, 
 		return nil, err
 	}
 
-	list := make([]models.SummarySegment, len(resp.Payload))
-
-	for i, v := range resp.Payload {
-		list[i] = *v
-	}
-
-	return list, nil
+	return convertToListSummarySegment(resp.GetPayload()), nil
 }
 
 func (s segmentsService) GetSegmentById(ctx context.Context, id int64) (models.DetailedSegment, error) {
@@ -131,7 +125,7 @@ func (s segmentsService) GetSegmentById(ctx context.Context, id int64) (models.D
 		return models.DetailedSegment{}, err
 	}
 
-	return *resp.Payload, nil
+	return convertToDetailedSegment(resp.GetPayload()), nil
 }
 
 func (s segmentsService) StarSegment(ctx context.Context, starred bool, id int64) (models.DetailedSegment, error) {
@@ -147,5 +141,43 @@ func (s segmentsService) StarSegment(ctx context.Context, starred bool, id int64
 		return models.DetailedSegment{}, err
 	}
 
-	return *resp.Payload, nil
+	return convertToDetailedSegment(resp.GetPayload()), nil
+}
+
+func convertToDetailedSegment(segment *models.DetailedSegment) models.DetailedSegment {
+	if segment == nil {
+		return models.DetailedSegment{}
+	}
+
+	return *segment
+}
+
+func convertToSummarySegment(segment *models.SummarySegment) models.SummarySegment {
+	if segment == nil {
+		return models.SummarySegment{}
+	}
+
+	return *segment
+}
+
+func convertToListSummarySegment(segments []*models.SummarySegment) []models.SummarySegment {
+	if segments == nil {
+		return nil
+	}
+
+	list := make([]models.SummarySegment, len(segments))
+
+	for i, segment := range segments {
+		list[i] = convertToSummarySegment(segment)
+	}
+
+	return list
+}
+
+func convertToExplorerResponse(response *models.ExplorerResponse) models.ExplorerResponse {
+	if response == nil {
+		return models.ExplorerResponse{}
+	}
+
+	return *response
 }

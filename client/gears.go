@@ -39,5 +39,13 @@ func (g gearsService) GetGearById(ctx context.Context, id string) (models.Detail
 		return models.DetailedGear{}, err
 	}
 
-	return *gear.GetPayload(), nil
+	return convertToDetailedGear(gear.GetPayload()), nil
+}
+
+func convertToDetailedGear(gear *models.DetailedGear) models.DetailedGear {
+	if gear == nil {
+		return models.DetailedGear{}
+	}
+
+	return *gear
 }

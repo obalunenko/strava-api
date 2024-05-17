@@ -6,6 +6,7 @@ package gears
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *GetGearByIDOK) Code() int {
 }
 
 func (o *GetGearByIDOK) Error() string {
-	return fmt.Sprintf("[GET /gear/{id}][%d] getGearByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /gear/{id}][%d] getGearByIdOK %s", 200, payload)
 }
 
 func (o *GetGearByIDOK) String() string {
-	return fmt.Sprintf("[GET /gear/{id}][%d] getGearByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /gear/{id}][%d] getGearByIdOK %s", 200, payload)
 }
 
 func (o *GetGearByIDOK) GetPayload() *models.DetailedGear {
@@ -157,11 +160,13 @@ func (o *GetGearByIDDefault) Code() int {
 }
 
 func (o *GetGearByIDDefault) Error() string {
-	return fmt.Sprintf("[GET /gear/{id}][%d] getGearById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /gear/{id}][%d] getGearById default %s", o._statusCode, payload)
 }
 
 func (o *GetGearByIDDefault) String() string {
-	return fmt.Sprintf("[GET /gear/{id}][%d] getGearById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /gear/{id}][%d] getGearById default %s", o._statusCode, payload)
 }
 
 func (o *GetGearByIDDefault) GetPayload() *models.Fault {

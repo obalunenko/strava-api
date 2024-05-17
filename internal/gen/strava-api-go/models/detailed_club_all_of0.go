@@ -16,10 +16,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// SummaryClub summary club
+// DetailedClubAllOf0 detailed club all of0
 //
-// swagger:model summaryClub
-type SummaryClub struct {
+// swagger:model detailedClubAllOf0
+type DetailedClubAllOf0 struct {
 	MetaClub
 
 	// The activity types that count for a club. This takes precedence over sport_type.
@@ -64,7 +64,7 @@ type SummaryClub struct {
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
-func (m *SummaryClub) UnmarshalJSON(raw []byte) error {
+func (m *DetailedClubAllOf0) UnmarshalJSON(raw []byte) error {
 	// AO0
 	var aO0 MetaClub
 	if err := swag.ReadJSON(raw, &aO0); err != nil {
@@ -134,7 +134,7 @@ func (m *SummaryClub) UnmarshalJSON(raw []byte) error {
 }
 
 // MarshalJSON marshals this object to a JSON structure
-func (m SummaryClub) MarshalJSON() ([]byte, error) {
+func (m DetailedClubAllOf0) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
 	aO0, err := swag.WriteJSON(m.MetaClub)
@@ -204,8 +204,8 @@ func (m SummaryClub) MarshalJSON() ([]byte, error) {
 	return swag.ConcatJSON(_parts...), nil
 }
 
-// Validate validates this summary club
-func (m *SummaryClub) Validate(formats strfmt.Registry) error {
+// Validate validates this detailed club all of0
+func (m *DetailedClubAllOf0) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	// validation for a type composition with MetaClub
@@ -227,7 +227,7 @@ func (m *SummaryClub) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SummaryClub) validateActivityTypes(formats strfmt.Registry) error {
+func (m *DetailedClubAllOf0) validateActivityTypes(formats strfmt.Registry) error {
 	if swag.IsZero(m.ActivityTypes) { // not required
 		return nil
 	}
@@ -246,7 +246,7 @@ func (m *SummaryClub) validateActivityTypes(formats strfmt.Registry) error {
 	return nil
 }
 
-var summaryClubTypeSportTypePropEnum []interface{}
+var detailedClubAllOf0TypeSportTypePropEnum []interface{}
 
 func init() {
 	var res []string
@@ -254,19 +254,19 @@ func init() {
 		panic(err)
 	}
 	for _, v := range res {
-		summaryClubTypeSportTypePropEnum = append(summaryClubTypeSportTypePropEnum, v)
+		detailedClubAllOf0TypeSportTypePropEnum = append(detailedClubAllOf0TypeSportTypePropEnum, v)
 	}
 }
 
 // property enum
-func (m *SummaryClub) validateSportTypeEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, summaryClubTypeSportTypePropEnum, true); err != nil {
+func (m *DetailedClubAllOf0) validateSportTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, detailedClubAllOf0TypeSportTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *SummaryClub) validateSportType(formats strfmt.Registry) error {
+func (m *DetailedClubAllOf0) validateSportType(formats strfmt.Registry) error {
 	if swag.IsZero(m.SportType) { // not required
 		return nil
 	}
@@ -279,8 +279,8 @@ func (m *SummaryClub) validateSportType(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validate this summary club based on the context it is used
-func (m *SummaryClub) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this detailed club all of0 based on the context it is used
+func (m *DetailedClubAllOf0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	// validation for a type composition with MetaClub
@@ -298,7 +298,7 @@ func (m *SummaryClub) ContextValidate(ctx context.Context, formats strfmt.Regist
 	return nil
 }
 
-func (m *SummaryClub) contextValidateActivityTypes(ctx context.Context, formats strfmt.Registry) error {
+func (m *DetailedClubAllOf0) contextValidateActivityTypes(ctx context.Context, formats strfmt.Registry) error {
 	for i := 0; i < len(m.ActivityTypes); i++ {
 
 		if swag.IsZero(m.ActivityTypes[i]) { // not required
@@ -320,7 +320,7 @@ func (m *SummaryClub) contextValidateActivityTypes(ctx context.Context, formats 
 }
 
 // MarshalBinary interface implementation
-func (m *SummaryClub) MarshalBinary() ([]byte, error) {
+func (m *DetailedClubAllOf0) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -328,8 +328,8 @@ func (m *SummaryClub) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *SummaryClub) UnmarshalBinary(b []byte) error {
-	var res SummaryClub
+func (m *DetailedClubAllOf0) UnmarshalBinary(b []byte) error {
+	var res DetailedClubAllOf0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

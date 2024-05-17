@@ -48,11 +48,7 @@ func (s streamsService) GetActivityStreams(ctx context.Context, id int64, keys [
 		return models.StreamSet{}, err
 	}
 
-	if strm.Payload == nil {
-		return models.StreamSet{}, nil
-	}
-
-	return *strm.Payload, nil
+	return convertToStreamSet(strm.GetPayload()), nil
 }
 
 func (s streamsService) GetRouteStreams(ctx context.Context, id int64) (models.StreamSet, error) {
@@ -67,11 +63,7 @@ func (s streamsService) GetRouteStreams(ctx context.Context, id int64) (models.S
 		return models.StreamSet{}, err
 	}
 
-	if strm.Payload == nil {
-		return models.StreamSet{}, nil
-	}
-
-	return *strm.Payload, nil
+	return convertToStreamSet(strm.GetPayload()), nil
 }
 
 func (s streamsService) GetSegmentEffortStreams(ctx context.Context, id int64, keys []string, keyByType bool) (models.StreamSet, error) {
@@ -88,11 +80,7 @@ func (s streamsService) GetSegmentEffortStreams(ctx context.Context, id int64, k
 		return models.StreamSet{}, err
 	}
 
-	if strm.Payload == nil {
-		return models.StreamSet{}, nil
-	}
-
-	return *strm.Payload, nil
+	return convertToStreamSet(strm.GetPayload()), nil
 }
 
 func (s streamsService) GetSegmentStreams(ctx context.Context, id int64, keys []string, keyByType bool) (models.StreamSet, error) {
@@ -109,9 +97,13 @@ func (s streamsService) GetSegmentStreams(ctx context.Context, id int64, keys []
 		return models.StreamSet{}, err
 	}
 
-	if strm.Payload == nil {
-		return models.StreamSet{}, nil
+	return convertToStreamSet(strm.GetPayload()), nil
+}
+
+func convertToStreamSet(streams *models.StreamSet) models.StreamSet {
+	if streams == nil {
+		return models.StreamSet{}
 	}
 
-	return *strm.Payload, nil
+	return *streams
 }

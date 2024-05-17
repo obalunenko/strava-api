@@ -18,7 +18,7 @@ import (
 //
 // swagger:model detailedSegment
 type DetailedSegment struct {
-	SummarySegment
+	DetailedSegmentAllOf0
 
 	// The number of unique athletes who have an effort for this segment
 	AthleteCount int64 `json:"athlete_count,omitempty"`
@@ -50,11 +50,11 @@ type DetailedSegment struct {
 // UnmarshalJSON unmarshals this object from a JSON structure
 func (m *DetailedSegment) UnmarshalJSON(raw []byte) error {
 	// AO0
-	var aO0 SummarySegment
+	var aO0 DetailedSegmentAllOf0
 	if err := swag.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
-	m.SummarySegment = aO0
+	m.DetailedSegmentAllOf0 = aO0
 
 	// AO1
 	var dataAO1 struct {
@@ -101,7 +101,7 @@ func (m *DetailedSegment) UnmarshalJSON(raw []byte) error {
 func (m DetailedSegment) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	aO0, err := swag.WriteJSON(m.SummarySegment)
+	aO0, err := swag.WriteJSON(m.DetailedSegmentAllOf0)
 	if err != nil {
 		return nil, err
 	}
@@ -152,8 +152,8 @@ func (m DetailedSegment) MarshalJSON() ([]byte, error) {
 func (m *DetailedSegment) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with SummarySegment
-	if err := m.SummarySegment.Validate(formats); err != nil {
+	// validation for a type composition with DetailedSegmentAllOf0
+	if err := m.DetailedSegmentAllOf0.Validate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -222,8 +222,8 @@ func (m *DetailedSegment) validateUpdatedAt(formats strfmt.Registry) error {
 func (m *DetailedSegment) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with SummarySegment
-	if err := m.SummarySegment.ContextValidate(ctx, formats); err != nil {
+	// validation for a type composition with DetailedSegmentAllOf0
+	if err := m.DetailedSegmentAllOf0.ContextValidate(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 

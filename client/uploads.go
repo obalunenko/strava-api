@@ -82,7 +82,7 @@ func (u uploadsService) CreateUpload(ctx context.Context, opts ...CreateUploadPa
 		return models.Upload{}, err
 	}
 
-	return *resp.Payload, nil
+	return convertToUpload(resp.Payload), nil
 }
 
 func (u uploadsService) GetUploadById(ctx context.Context, uploadId int64) (models.Upload, error) {
@@ -98,5 +98,13 @@ func (u uploadsService) GetUploadById(ctx context.Context, uploadId int64) (mode
 		return models.Upload{}, err
 	}
 
-	return *resp.Payload, nil
+	return convertToUpload(resp.Payload), nil
+}
+
+func convertToUpload(upload *models.Upload) models.Upload {
+	if upload == nil {
+		return models.Upload{}
+	}
+
+	return *upload
 }

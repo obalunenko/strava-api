@@ -116,24 +116,10 @@ func (r routesService) GetRoutesByAthleteId(ctx context.Context, opts ...GetRout
 }
 
 // convertToModelsRoute converts routes.GetRouteByIDOKBody to models.Route
-func convertToModelsRoute(route *routes.GetRouteByIDOKBody) models.Route {
-	return models.Route{
-		Athlete:             route.Athlete,
-		CreatedAt:           route.CreatedAt,
-		Description:         route.Description,
-		Distance:            route.Distance,
-		ElevationGain:       route.ElevationGain,
-		EstimatedMovingTime: route.EstimatedMovingTime,
-		ID:                  route.ID,
-		IDStr:               route.IDStr,
-		Map:                 route.Map,
-		Name:                route.Name,
-		Private:             route.Private,
-		Segments:            route.Segments,
-		Starred:             route.Starred,
-		SubType:             route.SubType,
-		Timestamp:           route.Timestamp,
-		Type:                route.Type,
-		UpdatedAt:           route.UpdatedAt,
+func convertToModelsRoute(route *models.Route) models.Route {
+	if route == nil {
+		return models.Route{}
 	}
+
+	return *route
 }

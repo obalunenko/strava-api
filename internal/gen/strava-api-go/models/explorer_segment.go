@@ -28,7 +28,7 @@ type ExplorerSegment struct {
 	ClimbCategory *int64 `json:"climb_category,omitempty"`
 
 	// The description for the category of the climb
-	// Enum: [NC 4 3 2 1 HC]
+	// Enum: ["NC","4","3","2","1","HC"]
 	ClimbCategoryDesc string `json:"climb_category_desc,omitempty"`
 
 	// The segment's distance, in meters

@@ -14,10 +14,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// DetailedSegmentEffort detailed segment effort
+// DetailedActivityAllOf1BestEffortsItems detailed activity all of1 best efforts items
 //
-// swagger:model detailedSegmentEffort
-type DetailedSegmentEffort struct {
+// swagger:model detailedActivityAllOf1BestEffortsItems
+type DetailedActivityAllOf1BestEffortsItems struct {
 	SummarySegmentEffort
 
 	// activity
@@ -71,7 +71,7 @@ type DetailedSegmentEffort struct {
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
-func (m *DetailedSegmentEffort) UnmarshalJSON(raw []byte) error {
+func (m *DetailedActivityAllOf1BestEffortsItems) UnmarshalJSON(raw []byte) error {
 	// AO0
 	var aO0 SummarySegmentEffort
 	if err := swag.ReadJSON(raw, &aO0); err != nil {
@@ -149,7 +149,7 @@ func (m *DetailedSegmentEffort) UnmarshalJSON(raw []byte) error {
 }
 
 // MarshalJSON marshals this object to a JSON structure
-func (m DetailedSegmentEffort) MarshalJSON() ([]byte, error) {
+func (m DetailedActivityAllOf1BestEffortsItems) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
 	aO0, err := swag.WriteJSON(m.SummarySegmentEffort)
@@ -227,8 +227,8 @@ func (m DetailedSegmentEffort) MarshalJSON() ([]byte, error) {
 	return swag.ConcatJSON(_parts...), nil
 }
 
-// Validate validates this detailed segment effort
-func (m *DetailedSegmentEffort) Validate(formats strfmt.Registry) error {
+// Validate validates this detailed activity all of1 best efforts items
+func (m *DetailedActivityAllOf1BestEffortsItems) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	// validation for a type composition with SummarySegmentEffort
@@ -262,7 +262,7 @@ func (m *DetailedSegmentEffort) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DetailedSegmentEffort) validateActivity(formats strfmt.Registry) error {
+func (m *DetailedActivityAllOf1BestEffortsItems) validateActivity(formats strfmt.Registry) error {
 	if swag.IsZero(m.Activity) { // not required
 		return nil
 	}
@@ -281,7 +281,7 @@ func (m *DetailedSegmentEffort) validateActivity(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *DetailedSegmentEffort) validateAthlete(formats strfmt.Registry) error {
+func (m *DetailedActivityAllOf1BestEffortsItems) validateAthlete(formats strfmt.Registry) error {
 	if swag.IsZero(m.Athlete) { // not required
 		return nil
 	}
@@ -300,7 +300,7 @@ func (m *DetailedSegmentEffort) validateAthlete(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DetailedSegmentEffort) validateKomRank(formats strfmt.Registry) error {
+func (m *DetailedActivityAllOf1BestEffortsItems) validateKomRank(formats strfmt.Registry) error {
 	if swag.IsZero(m.KomRank) { // not required
 		return nil
 	}
@@ -316,7 +316,7 @@ func (m *DetailedSegmentEffort) validateKomRank(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DetailedSegmentEffort) validatePrRank(formats strfmt.Registry) error {
+func (m *DetailedActivityAllOf1BestEffortsItems) validatePrRank(formats strfmt.Registry) error {
 	if swag.IsZero(m.PrRank) { // not required
 		return nil
 	}
@@ -332,7 +332,7 @@ func (m *DetailedSegmentEffort) validatePrRank(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DetailedSegmentEffort) validateSegment(formats strfmt.Registry) error {
+func (m *DetailedActivityAllOf1BestEffortsItems) validateSegment(formats strfmt.Registry) error {
 	if swag.IsZero(m.Segment) { // not required
 		return nil
 	}
@@ -351,8 +351,8 @@ func (m *DetailedSegmentEffort) validateSegment(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validate this detailed segment effort based on the context it is used
-func (m *DetailedSegmentEffort) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this detailed activity all of1 best efforts items based on the context it is used
+func (m *DetailedActivityAllOf1BestEffortsItems) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	// validation for a type composition with SummarySegmentEffort
@@ -378,7 +378,7 @@ func (m *DetailedSegmentEffort) ContextValidate(ctx context.Context, formats str
 	return nil
 }
 
-func (m *DetailedSegmentEffort) contextValidateActivity(ctx context.Context, formats strfmt.Registry) error {
+func (m *DetailedActivityAllOf1BestEffortsItems) contextValidateActivity(ctx context.Context, formats strfmt.Registry) error {
 	if m.Activity != nil {
 
 		if swag.IsZero(m.Activity) { // not required
@@ -398,7 +398,7 @@ func (m *DetailedSegmentEffort) contextValidateActivity(ctx context.Context, for
 	return nil
 }
 
-func (m *DetailedSegmentEffort) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
+func (m *DetailedActivityAllOf1BestEffortsItems) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required
@@ -418,7 +418,7 @@ func (m *DetailedSegmentEffort) contextValidateAthlete(ctx context.Context, form
 	return nil
 }
 
-func (m *DetailedSegmentEffort) contextValidateSegment(ctx context.Context, formats strfmt.Registry) error {
+func (m *DetailedActivityAllOf1BestEffortsItems) contextValidateSegment(ctx context.Context, formats strfmt.Registry) error {
 	if m.Segment != nil {
 
 		if swag.IsZero(m.Segment) { // not required
@@ -439,7 +439,7 @@ func (m *DetailedSegmentEffort) contextValidateSegment(ctx context.Context, form
 }
 
 // MarshalBinary interface implementation
-func (m *DetailedSegmentEffort) MarshalBinary() ([]byte, error) {
+func (m *DetailedActivityAllOf1BestEffortsItems) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -447,8 +447,8 @@ func (m *DetailedSegmentEffort) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *DetailedSegmentEffort) UnmarshalBinary(b []byte) error {
-	var res DetailedSegmentEffort
+func (m *DetailedActivityAllOf1BestEffortsItems) UnmarshalBinary(b []byte) error {
+	var res DetailedActivityAllOf1BestEffortsItems
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

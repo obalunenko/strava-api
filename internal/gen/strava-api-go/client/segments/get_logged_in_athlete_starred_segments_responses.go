@@ -6,6 +6,7 @@ package segments
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *GetLoggedInAthleteStarredSegmentsOK) Code() int {
 }
 
 func (o *GetLoggedInAthleteStarredSegmentsOK) Error() string {
-	return fmt.Sprintf("[GET /segments/starred][%d] getLoggedInAthleteStarredSegmentsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments/starred][%d] getLoggedInAthleteStarredSegmentsOK %s", 200, payload)
 }
 
 func (o *GetLoggedInAthleteStarredSegmentsOK) String() string {
-	return fmt.Sprintf("[GET /segments/starred][%d] getLoggedInAthleteStarredSegmentsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments/starred][%d] getLoggedInAthleteStarredSegmentsOK %s", 200, payload)
 }
 
 func (o *GetLoggedInAthleteStarredSegmentsOK) GetPayload() []*models.SummarySegment {
@@ -155,11 +158,13 @@ func (o *GetLoggedInAthleteStarredSegmentsDefault) Code() int {
 }
 
 func (o *GetLoggedInAthleteStarredSegmentsDefault) Error() string {
-	return fmt.Sprintf("[GET /segments/starred][%d] getLoggedInAthleteStarredSegments default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments/starred][%d] getLoggedInAthleteStarredSegments default %s", o._statusCode, payload)
 }
 
 func (o *GetLoggedInAthleteStarredSegmentsDefault) String() string {
-	return fmt.Sprintf("[GET /segments/starred][%d] getLoggedInAthleteStarredSegments default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segments/starred][%d] getLoggedInAthleteStarredSegments default %s", o._statusCode, payload)
 }
 
 func (o *GetLoggedInAthleteStarredSegmentsDefault) GetPayload() *models.Fault {

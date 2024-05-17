@@ -6,6 +6,7 @@ package streams
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *GetActivityStreamsOK) Code() int {
 }
 
 func (o *GetActivityStreamsOK) Error() string {
-	return fmt.Sprintf("[GET /activities/{id}/streams][%d] getActivityStreamsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /activities/{id}/streams][%d] getActivityStreamsOK %s", 200, payload)
 }
 
 func (o *GetActivityStreamsOK) String() string {
-	return fmt.Sprintf("[GET /activities/{id}/streams][%d] getActivityStreamsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /activities/{id}/streams][%d] getActivityStreamsOK %s", 200, payload)
 }
 
 func (o *GetActivityStreamsOK) GetPayload() *models.StreamSet {
@@ -157,11 +160,13 @@ func (o *GetActivityStreamsDefault) Code() int {
 }
 
 func (o *GetActivityStreamsDefault) Error() string {
-	return fmt.Sprintf("[GET /activities/{id}/streams][%d] getActivityStreams default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /activities/{id}/streams][%d] getActivityStreams default %s", o._statusCode, payload)
 }
 
 func (o *GetActivityStreamsDefault) String() string {
-	return fmt.Sprintf("[GET /activities/{id}/streams][%d] getActivityStreams default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /activities/{id}/streams][%d] getActivityStreams default %s", o._statusCode, payload)
 }
 
 func (o *GetActivityStreamsDefault) GetPayload() *models.Fault {

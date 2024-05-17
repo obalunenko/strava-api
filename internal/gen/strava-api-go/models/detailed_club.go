@@ -19,7 +19,7 @@ import (
 //
 // swagger:model detailedClub
 type DetailedClub struct {
-	SummaryClub
+	DetailedClubAllOf0
 
 	// Whether the currently logged-in athlete is an administrator of this club.
 	Admin bool `json:"admin,omitempty"`
@@ -28,7 +28,7 @@ type DetailedClub struct {
 	FollowingCount int64 `json:"following_count,omitempty"`
 
 	// The membership status of the logged-in athlete.
-	// Enum: [member pending]
+	// Enum: ["member","pending"]
 	Membership string `json:"membership,omitempty"`
 
 	// Whether the currently logged-in athlete is the owner of this club.
@@ -38,11 +38,11 @@ type DetailedClub struct {
 // UnmarshalJSON unmarshals this object from a JSON structure
 func (m *DetailedClub) UnmarshalJSON(raw []byte) error {
 	// AO0
-	var aO0 SummaryClub
+	var aO0 DetailedClubAllOf0
 	if err := swag.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
-	m.SummaryClub = aO0
+	m.DetailedClubAllOf0 = aO0
 
 	// AO1
 	var dataAO1 struct {
@@ -73,7 +73,7 @@ func (m *DetailedClub) UnmarshalJSON(raw []byte) error {
 func (m DetailedClub) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	aO0, err := swag.WriteJSON(m.SummaryClub)
+	aO0, err := swag.WriteJSON(m.DetailedClubAllOf0)
 	if err != nil {
 		return nil, err
 	}
@@ -108,8 +108,8 @@ func (m DetailedClub) MarshalJSON() ([]byte, error) {
 func (m *DetailedClub) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with SummaryClub
-	if err := m.SummaryClub.Validate(formats); err != nil {
+	// validation for a type composition with DetailedClubAllOf0
+	if err := m.DetailedClubAllOf0.Validate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -160,8 +160,8 @@ func (m *DetailedClub) validateMembership(formats strfmt.Registry) error {
 func (m *DetailedClub) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with SummaryClub
-	if err := m.SummaryClub.ContextValidate(ctx, formats); err != nil {
+	// validation for a type composition with DetailedClubAllOf0
+	if err := m.DetailedClubAllOf0.ContextValidate(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 

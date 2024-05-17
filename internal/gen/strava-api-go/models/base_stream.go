@@ -23,11 +23,11 @@ type BaseStream struct {
 	OriginalSize int64 `json:"original_size,omitempty"`
 
 	// The level of detail (sampling) in which this stream was returned
-	// Enum: [low medium high]
+	// Enum: ["low","medium","high"]
 	Resolution string `json:"resolution,omitempty"`
 
 	// The base series used in the case the stream was downsampled
-	// Enum: [distance time]
+	// Enum: ["distance","time"]
 	SeriesType string `json:"series_type,omitempty"`
 }
 

@@ -6,6 +6,7 @@ package segments
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *StarSegmentOK) Code() int {
 }
 
 func (o *StarSegmentOK) Error() string {
-	return fmt.Sprintf("[PUT /segments/{id}/starred][%d] starSegmentOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /segments/{id}/starred][%d] starSegmentOK %s", 200, payload)
 }
 
 func (o *StarSegmentOK) String() string {
-	return fmt.Sprintf("[PUT /segments/{id}/starred][%d] starSegmentOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /segments/{id}/starred][%d] starSegmentOK %s", 200, payload)
 }
 
 func (o *StarSegmentOK) GetPayload() *models.DetailedSegment {
@@ -157,11 +160,13 @@ func (o *StarSegmentDefault) Code() int {
 }
 
 func (o *StarSegmentDefault) Error() string {
-	return fmt.Sprintf("[PUT /segments/{id}/starred][%d] starSegment default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /segments/{id}/starred][%d] starSegment default %s", o._statusCode, payload)
 }
 
 func (o *StarSegmentDefault) String() string {
-	return fmt.Sprintf("[PUT /segments/{id}/starred][%d] starSegment default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /segments/{id}/starred][%d] starSegment default %s", o._statusCode, payload)
 }
 
 func (o *StarSegmentDefault) GetPayload() *models.Fault {

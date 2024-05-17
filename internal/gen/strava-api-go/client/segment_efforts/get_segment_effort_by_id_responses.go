@@ -6,15 +6,12 @@ package segment_efforts
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
@@ -56,7 +53,7 @@ GetSegmentEffortByIDOK describes a response with status code 200, with default h
 Representation of a segment effort.
 */
 type GetSegmentEffortByIDOK struct {
-	Payload *GetSegmentEffortByIDOKBody
+	Payload *models.DetailedSegmentEffort
 }
 
 // IsSuccess returns true when this get segment effort by Id o k response has a 2xx status code
@@ -90,19 +87,21 @@ func (o *GetSegmentEffortByIDOK) Code() int {
 }
 
 func (o *GetSegmentEffortByIDOK) Error() string {
-	return fmt.Sprintf("[GET /segment_efforts/{id}][%d] getSegmentEffortByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segment_efforts/{id}][%d] getSegmentEffortByIdOK %s", 200, payload)
 }
 
 func (o *GetSegmentEffortByIDOK) String() string {
-	return fmt.Sprintf("[GET /segment_efforts/{id}][%d] getSegmentEffortByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segment_efforts/{id}][%d] getSegmentEffortByIdOK %s", 200, payload)
 }
 
-func (o *GetSegmentEffortByIDOK) GetPayload() *GetSegmentEffortByIDOKBody {
+func (o *GetSegmentEffortByIDOK) GetPayload() *models.DetailedSegmentEffort {
 	return o.Payload
 }
 
 func (o *GetSegmentEffortByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(GetSegmentEffortByIDOKBody)
+	o.Payload = new(models.DetailedSegmentEffort)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -161,11 +160,13 @@ func (o *GetSegmentEffortByIDDefault) Code() int {
 }
 
 func (o *GetSegmentEffortByIDDefault) Error() string {
-	return fmt.Sprintf("[GET /segment_efforts/{id}][%d] getSegmentEffortById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segment_efforts/{id}][%d] getSegmentEffortById default %s", o._statusCode, payload)
 }
 
 func (o *GetSegmentEffortByIDDefault) String() string {
-	return fmt.Sprintf("[GET /segment_efforts/{id}][%d] getSegmentEffortById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /segment_efforts/{id}][%d] getSegmentEffortById default %s", o._statusCode, payload)
 }
 
 func (o *GetSegmentEffortByIDDefault) GetPayload() *models.Fault {
@@ -180,449 +181,5 @@ func (o *GetSegmentEffortByIDDefault) readResponse(response runtime.ClientRespon
 		return err
 	}
 
-	return nil
-}
-
-/*
-GetSegmentEffortByIDOKBody get segment effort by ID o k body
-swagger:model GetSegmentEffortByIDOKBody
-*/
-type GetSegmentEffortByIDOKBody struct {
-	models.SummarySegmentEffort
-
-	models.HeartRateDetails
-
-	// activity
-	Activity *models.MetaActivity `json:"activity,omitempty"`
-
-	// athlete
-	Athlete *models.MetaAthlete `json:"athlete,omitempty"`
-
-	// The effort's average cadence
-	AverageCadence float32 `json:"average_cadence,omitempty"`
-
-	// The average wattage of this effort
-	AverageWatts float32 `json:"average_watts,omitempty"`
-
-	// For riding efforts, whether the wattage was reported by a dedicated recording device
-	DeviceWatts bool `json:"device_watts,omitempty"`
-
-	// The end index of this effort in its activity's stream
-	EndIndex int64 `json:"end_index,omitempty"`
-
-	// Whether this effort should be hidden when viewed within an activity
-	Hidden bool `json:"hidden,omitempty"`
-
-	// The rank of the effort on the global leaderboard if it belongs in the top 10 at the time of upload
-	// Maximum: 10
-	// Minimum: 1
-	KomRank int64 `json:"kom_rank,omitempty"`
-
-	// The effort's moving time
-	MovingTime int64 `json:"moving_time,omitempty"`
-
-	// The name of the segment on which this effort was performed
-	Name string `json:"name,omitempty"`
-
-	// The rank of the effort on the athlete's leaderboard if it belongs in the top 3 at the time of upload
-	// Maximum: 3
-	// Minimum: 1
-	PrRank int64 `json:"pr_rank,omitempty"`
-
-	// segment
-	Segment *models.SummarySegment `json:"segment,omitempty"`
-
-	// The start index of this effort in its activity's stream
-	StartIndex int64 `json:"start_index,omitempty"`
-}
-
-// UnmarshalJSON unmarshals this object from a JSON structure
-func (o *GetSegmentEffortByIDOKBody) UnmarshalJSON(raw []byte) error {
-	// GetSegmentEffortByIDOKBodyAO0
-	var getSegmentEffortByIDOKBodyAO0 models.SummarySegmentEffort
-	if err := swag.ReadJSON(raw, &getSegmentEffortByIDOKBodyAO0); err != nil {
-		return err
-	}
-	o.SummarySegmentEffort = getSegmentEffortByIDOKBodyAO0
-
-	// GetSegmentEffortByIDOKBodyAO1
-	var getSegmentEffortByIDOKBodyAO1 models.HeartRateDetails
-	if err := swag.ReadJSON(raw, &getSegmentEffortByIDOKBodyAO1); err != nil {
-		return err
-	}
-	o.HeartRateDetails = getSegmentEffortByIDOKBodyAO1
-
-	// GetSegmentEffortByIDOKBodyAO2
-	var dataGetSegmentEffortByIDOKBodyAO2 struct {
-		Activity *models.MetaActivity `json:"activity,omitempty"`
-
-		Athlete *models.MetaAthlete `json:"athlete,omitempty"`
-
-		AverageCadence float32 `json:"average_cadence,omitempty"`
-
-		AverageWatts float32 `json:"average_watts,omitempty"`
-
-		DeviceWatts bool `json:"device_watts,omitempty"`
-
-		EndIndex int64 `json:"end_index,omitempty"`
-
-		Hidden bool `json:"hidden,omitempty"`
-
-		KomRank int64 `json:"kom_rank,omitempty"`
-
-		MovingTime int64 `json:"moving_time,omitempty"`
-
-		Name string `json:"name,omitempty"`
-
-		PrRank int64 `json:"pr_rank,omitempty"`
-
-		Segment *models.SummarySegment `json:"segment,omitempty"`
-
-		StartIndex int64 `json:"start_index,omitempty"`
-	}
-	if err := swag.ReadJSON(raw, &dataGetSegmentEffortByIDOKBodyAO2); err != nil {
-		return err
-	}
-
-	o.Activity = dataGetSegmentEffortByIDOKBodyAO2.Activity
-
-	o.Athlete = dataGetSegmentEffortByIDOKBodyAO2.Athlete
-
-	o.AverageCadence = dataGetSegmentEffortByIDOKBodyAO2.AverageCadence
-
-	o.AverageWatts = dataGetSegmentEffortByIDOKBodyAO2.AverageWatts
-
-	o.DeviceWatts = dataGetSegmentEffortByIDOKBodyAO2.DeviceWatts
-
-	o.EndIndex = dataGetSegmentEffortByIDOKBodyAO2.EndIndex
-
-	o.Hidden = dataGetSegmentEffortByIDOKBodyAO2.Hidden
-
-	o.KomRank = dataGetSegmentEffortByIDOKBodyAO2.KomRank
-
-	o.MovingTime = dataGetSegmentEffortByIDOKBodyAO2.MovingTime
-
-	o.Name = dataGetSegmentEffortByIDOKBodyAO2.Name
-
-	o.PrRank = dataGetSegmentEffortByIDOKBodyAO2.PrRank
-
-	o.Segment = dataGetSegmentEffortByIDOKBodyAO2.Segment
-
-	o.StartIndex = dataGetSegmentEffortByIDOKBodyAO2.StartIndex
-
-	return nil
-}
-
-// MarshalJSON marshals this object to a JSON structure
-func (o GetSegmentEffortByIDOKBody) MarshalJSON() ([]byte, error) {
-	_parts := make([][]byte, 0, 3)
-
-	getSegmentEffortByIDOKBodyAO0, err := swag.WriteJSON(o.SummarySegmentEffort)
-	if err != nil {
-		return nil, err
-	}
-	_parts = append(_parts, getSegmentEffortByIDOKBodyAO0)
-
-	getSegmentEffortByIDOKBodyAO1, err := swag.WriteJSON(o.HeartRateDetails)
-	if err != nil {
-		return nil, err
-	}
-	_parts = append(_parts, getSegmentEffortByIDOKBodyAO1)
-	var dataGetSegmentEffortByIDOKBodyAO2 struct {
-		Activity *models.MetaActivity `json:"activity,omitempty"`
-
-		Athlete *models.MetaAthlete `json:"athlete,omitempty"`
-
-		AverageCadence float32 `json:"average_cadence,omitempty"`
-
-		AverageWatts float32 `json:"average_watts,omitempty"`
-
-		DeviceWatts bool `json:"device_watts,omitempty"`
-
-		EndIndex int64 `json:"end_index,omitempty"`
-
-		Hidden bool `json:"hidden,omitempty"`
-
-		KomRank int64 `json:"kom_rank,omitempty"`
-
-		MovingTime int64 `json:"moving_time,omitempty"`
-
-		Name string `json:"name,omitempty"`
-
-		PrRank int64 `json:"pr_rank,omitempty"`
-
-		Segment *models.SummarySegment `json:"segment,omitempty"`
-
-		StartIndex int64 `json:"start_index,omitempty"`
-	}
-
-	dataGetSegmentEffortByIDOKBodyAO2.Activity = o.Activity
-
-	dataGetSegmentEffortByIDOKBodyAO2.Athlete = o.Athlete
-
-	dataGetSegmentEffortByIDOKBodyAO2.AverageCadence = o.AverageCadence
-
-	dataGetSegmentEffortByIDOKBodyAO2.AverageWatts = o.AverageWatts
-
-	dataGetSegmentEffortByIDOKBodyAO2.DeviceWatts = o.DeviceWatts
-
-	dataGetSegmentEffortByIDOKBodyAO2.EndIndex = o.EndIndex
-
-	dataGetSegmentEffortByIDOKBodyAO2.Hidden = o.Hidden
-
-	dataGetSegmentEffortByIDOKBodyAO2.KomRank = o.KomRank
-
-	dataGetSegmentEffortByIDOKBodyAO2.MovingTime = o.MovingTime
-
-	dataGetSegmentEffortByIDOKBodyAO2.Name = o.Name
-
-	dataGetSegmentEffortByIDOKBodyAO2.PrRank = o.PrRank
-
-	dataGetSegmentEffortByIDOKBodyAO2.Segment = o.Segment
-
-	dataGetSegmentEffortByIDOKBodyAO2.StartIndex = o.StartIndex
-
-	jsonDataGetSegmentEffortByIDOKBodyAO2, errGetSegmentEffortByIDOKBodyAO2 := swag.WriteJSON(dataGetSegmentEffortByIDOKBodyAO2)
-	if errGetSegmentEffortByIDOKBodyAO2 != nil {
-		return nil, errGetSegmentEffortByIDOKBodyAO2
-	}
-	_parts = append(_parts, jsonDataGetSegmentEffortByIDOKBodyAO2)
-	return swag.ConcatJSON(_parts...), nil
-}
-
-// Validate validates this get segment effort by ID o k body
-func (o *GetSegmentEffortByIDOKBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	// validation for a type composition with models.SummarySegmentEffort
-	if err := o.SummarySegmentEffort.Validate(formats); err != nil {
-		res = append(res, err)
-	}
-	// validation for a type composition with models.HeartRateDetails
-	if err := o.HeartRateDetails.Validate(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateActivity(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateAthlete(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateKomRank(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validatePrRank(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateSegment(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *GetSegmentEffortByIDOKBody) validateActivity(formats strfmt.Registry) error {
-	if swag.IsZero(o.Activity) { // not required
-		return nil
-	}
-
-	if o.Activity != nil {
-		if err := o.Activity.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("getSegmentEffortByIdOK" + "." + "activity")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("getSegmentEffortByIdOK" + "." + "activity")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (o *GetSegmentEffortByIDOKBody) validateAthlete(formats strfmt.Registry) error {
-	if swag.IsZero(o.Athlete) { // not required
-		return nil
-	}
-
-	if o.Athlete != nil {
-		if err := o.Athlete.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("getSegmentEffortByIdOK" + "." + "athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("getSegmentEffortByIdOK" + "." + "athlete")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (o *GetSegmentEffortByIDOKBody) validateKomRank(formats strfmt.Registry) error {
-	if swag.IsZero(o.KomRank) { // not required
-		return nil
-	}
-
-	if err := validate.MinimumInt("getSegmentEffortByIdOK"+"."+"kom_rank", "body", o.KomRank, 1, false); err != nil {
-		return err
-	}
-
-	if err := validate.MaximumInt("getSegmentEffortByIdOK"+"."+"kom_rank", "body", o.KomRank, 10, false); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetSegmentEffortByIDOKBody) validatePrRank(formats strfmt.Registry) error {
-	if swag.IsZero(o.PrRank) { // not required
-		return nil
-	}
-
-	if err := validate.MinimumInt("getSegmentEffortByIdOK"+"."+"pr_rank", "body", o.PrRank, 1, false); err != nil {
-		return err
-	}
-
-	if err := validate.MaximumInt("getSegmentEffortByIdOK"+"."+"pr_rank", "body", o.PrRank, 3, false); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetSegmentEffortByIDOKBody) validateSegment(formats strfmt.Registry) error {
-	if swag.IsZero(o.Segment) { // not required
-		return nil
-	}
-
-	if o.Segment != nil {
-		if err := o.Segment.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("getSegmentEffortByIdOK" + "." + "segment")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("getSegmentEffortByIdOK" + "." + "segment")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this get segment effort by ID o k body based on the context it is used
-func (o *GetSegmentEffortByIDOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	// validation for a type composition with models.SummarySegmentEffort
-	if err := o.SummarySegmentEffort.ContextValidate(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-	// validation for a type composition with models.HeartRateDetails
-	if err := o.HeartRateDetails.ContextValidate(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.contextValidateActivity(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.contextValidateAthlete(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.contextValidateSegment(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *GetSegmentEffortByIDOKBody) contextValidateActivity(ctx context.Context, formats strfmt.Registry) error {
-	if o.Activity != nil {
-
-		if swag.IsZero(o.Activity) { // not required
-			return nil
-		}
-
-		if err := o.Activity.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("getSegmentEffortByIdOK" + "." + "activity")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("getSegmentEffortByIdOK" + "." + "activity")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (o *GetSegmentEffortByIDOKBody) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
-	if o.Athlete != nil {
-
-		if swag.IsZero(o.Athlete) { // not required
-			return nil
-		}
-
-		if err := o.Athlete.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("getSegmentEffortByIdOK" + "." + "athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("getSegmentEffortByIdOK" + "." + "athlete")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (o *GetSegmentEffortByIDOKBody) contextValidateSegment(ctx context.Context, formats strfmt.Registry) error {
-	if o.Segment != nil {
-
-		if swag.IsZero(o.Segment) { // not required
-			return nil
-		}
-
-		if err := o.Segment.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("getSegmentEffortByIdOK" + "." + "segment")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("getSegmentEffortByIdOK" + "." + "segment")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *GetSegmentEffortByIDOKBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *GetSegmentEffortByIDOKBody) UnmarshalBinary(b []byte) error {
-	var res GetSegmentEffortByIDOKBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

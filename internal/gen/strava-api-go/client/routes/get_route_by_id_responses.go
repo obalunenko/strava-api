@@ -6,16 +6,12 @@ package routes
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
-	"strconv"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 )
@@ -57,7 +53,7 @@ GetRouteByIDOK describes a response with status code 200, with default header va
 A representation of the route.
 */
 type GetRouteByIDOK struct {
-	Payload *GetRouteByIDOKBody
+	Payload *models.Route
 }
 
 // IsSuccess returns true when this get route by Id o k response has a 2xx status code
@@ -91,19 +87,21 @@ func (o *GetRouteByIDOK) Code() int {
 }
 
 func (o *GetRouteByIDOK) Error() string {
-	return fmt.Sprintf("[GET /routes/{id}][%d] getRouteByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /routes/{id}][%d] getRouteByIdOK %s", 200, payload)
 }
 
 func (o *GetRouteByIDOK) String() string {
-	return fmt.Sprintf("[GET /routes/{id}][%d] getRouteByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /routes/{id}][%d] getRouteByIdOK %s", 200, payload)
 }
 
-func (o *GetRouteByIDOK) GetPayload() *GetRouteByIDOKBody {
+func (o *GetRouteByIDOK) GetPayload() *models.Route {
 	return o.Payload
 }
 
 func (o *GetRouteByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-	o.Payload = new(GetRouteByIDOKBody)
+	o.Payload = new(models.Route)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -162,11 +160,13 @@ func (o *GetRouteByIDDefault) Code() int {
 }
 
 func (o *GetRouteByIDDefault) Error() string {
-	return fmt.Sprintf("[GET /routes/{id}][%d] getRouteById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /routes/{id}][%d] getRouteById default %s", o._statusCode, payload)
 }
 
 func (o *GetRouteByIDDefault) String() string {
-	return fmt.Sprintf("[GET /routes/{id}][%d] getRouteById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /routes/{id}][%d] getRouteById default %s", o._statusCode, payload)
 }
 
 func (o *GetRouteByIDDefault) GetPayload() *models.Fault {
@@ -181,350 +181,5 @@ func (o *GetRouteByIDDefault) readResponse(response runtime.ClientResponse, cons
 		return err
 	}
 
-	return nil
-}
-
-/*
-GetRouteByIDOKBody get route by ID o k body
-swagger:model GetRouteByIDOKBody
-*/
-type GetRouteByIDOKBody struct {
-	// athlete
-	Athlete *models.SummaryAthlete `json:"athlete,omitempty"`
-
-	// The time at which the route was created
-	// Format: date-time
-	CreatedAt strfmt.DateTime `json:"created_at,omitempty"`
-
-	// The description of the route
-	Description string `json:"description,omitempty"`
-
-	// The route's distance, in meters
-	Distance float32 `json:"distance,omitempty"`
-
-	// The route's elevation gain.
-	ElevationGain float32 `json:"elevation_gain,omitempty"`
-
-	// Estimated time in seconds for the authenticated athlete to complete route
-	EstimatedMovingTime int64 `json:"estimated_moving_time,omitempty"`
-
-	// The unique identifier of this route
-	ID int64 `json:"id,omitempty"`
-
-	// The unique identifier of the route in string format
-	IDStr string `json:"id_str,omitempty"`
-
-	// map
-	Map *models.PolylineMap `json:"map,omitempty"`
-
-	// The name of this route
-	Name string `json:"name,omitempty"`
-
-	// Whether this route is private
-	Private bool `json:"private,omitempty"`
-
-	// The segments traversed by this route
-	Segments []*models.SummarySegment `json:"segments"`
-
-	// Whether this route is starred by the logged-in athlete
-	Starred bool `json:"starred,omitempty"`
-
-	// This route's sub-type (1 for road, 2 for mountain bike, 3 for cross, 4 for trail, 5 for mixed)
-	SubType int64 `json:"sub_type,omitempty"`
-
-	// An epoch timestamp of when the route was created
-	Timestamp int64 `json:"timestamp,omitempty"`
-
-	// This route's type (1 for ride, 2 for runs)
-	Type int64 `json:"type,omitempty"`
-
-	// The time at which the route was last updated
-	// Format: date-time
-	UpdatedAt strfmt.DateTime `json:"updated_at,omitempty"`
-
-	// The custom waypoints along this route
-	// Min Items: 0
-	Waypoints []*models.Waypoint `json:"waypoints"`
-}
-
-// Validate validates this get route by ID o k body
-func (o *GetRouteByIDOKBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateAthlete(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateCreatedAt(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateMap(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateSegments(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateUpdatedAt(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateWaypoints(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *GetRouteByIDOKBody) validateAthlete(formats strfmt.Registry) error {
-	if swag.IsZero(o.Athlete) { // not required
-		return nil
-	}
-
-	if o.Athlete != nil {
-		if err := o.Athlete.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("getRouteByIdOK" + "." + "athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("getRouteByIdOK" + "." + "athlete")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (o *GetRouteByIDOKBody) validateCreatedAt(formats strfmt.Registry) error {
-	if swag.IsZero(o.CreatedAt) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("getRouteByIdOK"+"."+"created_at", "body", "date-time", o.CreatedAt.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetRouteByIDOKBody) validateMap(formats strfmt.Registry) error {
-	if swag.IsZero(o.Map) { // not required
-		return nil
-	}
-
-	if o.Map != nil {
-		if err := o.Map.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("getRouteByIdOK" + "." + "map")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("getRouteByIdOK" + "." + "map")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (o *GetRouteByIDOKBody) validateSegments(formats strfmt.Registry) error {
-	if swag.IsZero(o.Segments) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(o.Segments); i++ {
-		if swag.IsZero(o.Segments[i]) { // not required
-			continue
-		}
-
-		if o.Segments[i] != nil {
-			if err := o.Segments[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("getRouteByIdOK" + "." + "segments" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("getRouteByIdOK" + "." + "segments" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (o *GetRouteByIDOKBody) validateUpdatedAt(formats strfmt.Registry) error {
-	if swag.IsZero(o.UpdatedAt) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("getRouteByIdOK"+"."+"updated_at", "body", "date-time", o.UpdatedAt.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetRouteByIDOKBody) validateWaypoints(formats strfmt.Registry) error {
-	if swag.IsZero(o.Waypoints) { // not required
-		return nil
-	}
-
-	iWaypointsSize := int64(len(o.Waypoints))
-
-	if err := validate.MinItems("getRouteByIdOK"+"."+"waypoints", "body", iWaypointsSize, 0); err != nil {
-		return err
-	}
-
-	for i := 0; i < len(o.Waypoints); i++ {
-		if swag.IsZero(o.Waypoints[i]) { // not required
-			continue
-		}
-
-		if o.Waypoints[i] != nil {
-			if err := o.Waypoints[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("getRouteByIdOK" + "." + "waypoints" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("getRouteByIdOK" + "." + "waypoints" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// ContextValidate validate this get route by ID o k body based on the context it is used
-func (o *GetRouteByIDOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.contextValidateAthlete(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.contextValidateMap(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.contextValidateSegments(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.contextValidateWaypoints(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *GetRouteByIDOKBody) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
-	if o.Athlete != nil {
-
-		if swag.IsZero(o.Athlete) { // not required
-			return nil
-		}
-
-		if err := o.Athlete.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("getRouteByIdOK" + "." + "athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("getRouteByIdOK" + "." + "athlete")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (o *GetRouteByIDOKBody) contextValidateMap(ctx context.Context, formats strfmt.Registry) error {
-	if o.Map != nil {
-
-		if swag.IsZero(o.Map) { // not required
-			return nil
-		}
-
-		if err := o.Map.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("getRouteByIdOK" + "." + "map")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("getRouteByIdOK" + "." + "map")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (o *GetRouteByIDOKBody) contextValidateSegments(ctx context.Context, formats strfmt.Registry) error {
-	for i := 0; i < len(o.Segments); i++ {
-		if o.Segments[i] != nil {
-
-			if swag.IsZero(o.Segments[i]) { // not required
-				return nil
-			}
-
-			if err := o.Segments[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("getRouteByIdOK" + "." + "segments" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("getRouteByIdOK" + "." + "segments" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-	}
-
-	return nil
-}
-
-func (o *GetRouteByIDOKBody) contextValidateWaypoints(ctx context.Context, formats strfmt.Registry) error {
-	for i := 0; i < len(o.Waypoints); i++ {
-		if o.Waypoints[i] != nil {
-
-			if swag.IsZero(o.Waypoints[i]) { // not required
-				return nil
-			}
-
-			if err := o.Waypoints[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("getRouteByIdOK" + "." + "waypoints" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
-					return ce.ValidateName("getRouteByIdOK" + "." + "waypoints" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *GetRouteByIDOKBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *GetRouteByIDOKBody) UnmarshalBinary(b []byte) error {
-	var res GetRouteByIDOKBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

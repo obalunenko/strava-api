@@ -6,6 +6,7 @@ package activities
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *CreateActivityCreated) Code() int {
 }
 
 func (o *CreateActivityCreated) Error() string {
-	return fmt.Sprintf("[POST /activities][%d] createActivityCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activities][%d] createActivityCreated %s", 201, payload)
 }
 
 func (o *CreateActivityCreated) String() string {
-	return fmt.Sprintf("[POST /activities][%d] createActivityCreated  %+v", 201, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activities][%d] createActivityCreated %s", 201, payload)
 }
 
 func (o *CreateActivityCreated) GetPayload() *models.DetailedActivity {
@@ -157,11 +160,13 @@ func (o *CreateActivityDefault) Code() int {
 }
 
 func (o *CreateActivityDefault) Error() string {
-	return fmt.Sprintf("[POST /activities][%d] createActivity default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activities][%d] createActivity default %s", o._statusCode, payload)
 }
 
 func (o *CreateActivityDefault) String() string {
-	return fmt.Sprintf("[POST /activities][%d] createActivity default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /activities][%d] createActivity default %s", o._statusCode, payload)
 }
 
 func (o *CreateActivityDefault) GetPayload() *models.Fault {

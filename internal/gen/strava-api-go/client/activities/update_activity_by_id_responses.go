@@ -6,6 +6,7 @@ package activities
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *UpdateActivityByIDOK) Code() int {
 }
 
 func (o *UpdateActivityByIDOK) Error() string {
-	return fmt.Sprintf("[PUT /activities/{id}][%d] updateActivityByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /activities/{id}][%d] updateActivityByIdOK %s", 200, payload)
 }
 
 func (o *UpdateActivityByIDOK) String() string {
-	return fmt.Sprintf("[PUT /activities/{id}][%d] updateActivityByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /activities/{id}][%d] updateActivityByIdOK %s", 200, payload)
 }
 
 func (o *UpdateActivityByIDOK) GetPayload() *models.DetailedActivity {
@@ -157,11 +160,13 @@ func (o *UpdateActivityByIDDefault) Code() int {
 }
 
 func (o *UpdateActivityByIDDefault) Error() string {
-	return fmt.Sprintf("[PUT /activities/{id}][%d] updateActivityById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /activities/{id}][%d] updateActivityById default %s", o._statusCode, payload)
 }
 
 func (o *UpdateActivityByIDDefault) String() string {
-	return fmt.Sprintf("[PUT /activities/{id}][%d] updateActivityById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /activities/{id}][%d] updateActivityById default %s", o._statusCode, payload)
 }
 
 func (o *UpdateActivityByIDDefault) GetPayload() *models.Fault {

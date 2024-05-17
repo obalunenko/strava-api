@@ -20,7 +20,7 @@ import (
 // swagger:model route
 type Route struct {
 	// athlete
-	Athlete *SummaryAthlete `json:"athlete,omitempty"`
+	Athlete *CommentAthlete `json:"athlete,omitempty"`
 
 	// The time at which the route was created
 	// Format: date-time
@@ -54,7 +54,7 @@ type Route struct {
 	Private bool `json:"private,omitempty"`
 
 	// The segments traversed by this route
-	Segments []*SummarySegment `json:"segments"`
+	Segments []*DetailedSegmentAllOf0 `json:"segments"`
 
 	// Whether this route is starred by the logged-in athlete
 	Starred bool `json:"starred,omitempty"`

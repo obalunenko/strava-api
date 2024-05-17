@@ -6,6 +6,7 @@ package activities
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *GetActivityByIDOK) Code() int {
 }
 
 func (o *GetActivityByIDOK) Error() string {
-	return fmt.Sprintf("[GET /activities/{id}][%d] getActivityByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /activities/{id}][%d] getActivityByIdOK %s", 200, payload)
 }
 
 func (o *GetActivityByIDOK) String() string {
-	return fmt.Sprintf("[GET /activities/{id}][%d] getActivityByIdOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /activities/{id}][%d] getActivityByIdOK %s", 200, payload)
 }
 
 func (o *GetActivityByIDOK) GetPayload() *models.DetailedActivity {
@@ -157,11 +160,13 @@ func (o *GetActivityByIDDefault) Code() int {
 }
 
 func (o *GetActivityByIDDefault) Error() string {
-	return fmt.Sprintf("[GET /activities/{id}][%d] getActivityById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /activities/{id}][%d] getActivityById default %s", o._statusCode, payload)
 }
 
 func (o *GetActivityByIDDefault) String() string {
-	return fmt.Sprintf("[GET /activities/{id}][%d] getActivityById default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /activities/{id}][%d] getActivityById default %s", o._statusCode, payload)
 }
 
 func (o *GetActivityByIDDefault) GetPayload() *models.Fault {

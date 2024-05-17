@@ -20,13 +20,13 @@ import (
 //
 // swagger:model detailedAthlete
 type DetailedAthlete struct {
-	SummaryAthlete
+	CommentAthlete
 
 	// The athlete's bikes.
 	Bikes []*SummaryGear `json:"bikes"`
 
 	// The athlete's clubs.
-	Clubs []*SummaryClub `json:"clubs"`
+	Clubs []*DetailedClubAllOf0 `json:"clubs"`
 
 	// The athlete's follower count.
 	FollowerCount int64 `json:"follower_count,omitempty"`
@@ -38,7 +38,7 @@ type DetailedAthlete struct {
 	Ftp int64 `json:"ftp,omitempty"`
 
 	// The athlete's preferred unit system.
-	// Enum: [feet meters]
+	// Enum: ["feet","meters"]
 	MeasurementPreference string `json:"measurement_preference,omitempty"`
 
 	// The athlete's shoes.
@@ -51,17 +51,17 @@ type DetailedAthlete struct {
 // UnmarshalJSON unmarshals this object from a JSON structure
 func (m *DetailedAthlete) UnmarshalJSON(raw []byte) error {
 	// AO0
-	var aO0 SummaryAthlete
+	var aO0 CommentAthlete
 	if err := swag.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
-	m.SummaryAthlete = aO0
+	m.CommentAthlete = aO0
 
 	// AO1
 	var dataAO1 struct {
 		Bikes []*SummaryGear `json:"bikes"`
 
-		Clubs []*SummaryClub `json:"clubs"`
+		Clubs []*DetailedClubAllOf0 `json:"clubs"`
 
 		FollowerCount int64 `json:"follower_count,omitempty"`
 
@@ -102,7 +102,7 @@ func (m *DetailedAthlete) UnmarshalJSON(raw []byte) error {
 func (m DetailedAthlete) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	aO0, err := swag.WriteJSON(m.SummaryAthlete)
+	aO0, err := swag.WriteJSON(m.CommentAthlete)
 	if err != nil {
 		return nil, err
 	}
@@ -110,7 +110,7 @@ func (m DetailedAthlete) MarshalJSON() ([]byte, error) {
 	var dataAO1 struct {
 		Bikes []*SummaryGear `json:"bikes"`
 
-		Clubs []*SummaryClub `json:"clubs"`
+		Clubs []*DetailedClubAllOf0 `json:"clubs"`
 
 		FollowerCount int64 `json:"follower_count,omitempty"`
 
@@ -153,8 +153,8 @@ func (m DetailedAthlete) MarshalJSON() ([]byte, error) {
 func (m *DetailedAthlete) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with SummaryAthlete
-	if err := m.SummaryAthlete.Validate(formats); err != nil {
+	// validation for a type composition with CommentAthlete
+	if err := m.CommentAthlete.Validate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -295,8 +295,8 @@ func (m *DetailedAthlete) validateShoes(formats strfmt.Registry) error {
 func (m *DetailedAthlete) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with SummaryAthlete
-	if err := m.SummaryAthlete.ContextValidate(ctx, formats); err != nil {
+	// validation for a type composition with CommentAthlete
+	if err := m.CommentAthlete.ContextValidate(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 

@@ -6,6 +6,7 @@ package athletes
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *GetLoggedInAthleteZonesOK) Code() int {
 }
 
 func (o *GetLoggedInAthleteZonesOK) Error() string {
-	return fmt.Sprintf("[GET /athlete/zones][%d] getLoggedInAthleteZonesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /athlete/zones][%d] getLoggedInAthleteZonesOK %s", 200, payload)
 }
 
 func (o *GetLoggedInAthleteZonesOK) String() string {
-	return fmt.Sprintf("[GET /athlete/zones][%d] getLoggedInAthleteZonesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /athlete/zones][%d] getLoggedInAthleteZonesOK %s", 200, payload)
 }
 
 func (o *GetLoggedInAthleteZonesOK) GetPayload() *models.Zones {
@@ -157,11 +160,13 @@ func (o *GetLoggedInAthleteZonesDefault) Code() int {
 }
 
 func (o *GetLoggedInAthleteZonesDefault) Error() string {
-	return fmt.Sprintf("[GET /athlete/zones][%d] getLoggedInAthleteZones default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /athlete/zones][%d] getLoggedInAthleteZones default %s", o._statusCode, payload)
 }
 
 func (o *GetLoggedInAthleteZonesDefault) String() string {
-	return fmt.Sprintf("[GET /athlete/zones][%d] getLoggedInAthleteZones default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /athlete/zones][%d] getLoggedInAthleteZones default %s", o._statusCode, payload)
 }
 
 func (o *GetLoggedInAthleteZonesDefault) GetPayload() *models.Fault {

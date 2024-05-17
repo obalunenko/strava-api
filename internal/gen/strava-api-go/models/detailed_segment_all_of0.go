@@ -15,10 +15,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// SummarySegment summary segment
+// DetailedSegmentAllOf0 detailed segment all of0
 //
-// swagger:model summarySegment
-type SummarySegment struct {
+// swagger:model detailedSegmentAllOf0
+type DetailedSegmentAllOf0 struct {
 	// activity type
 	// Enum: ["Ride","Run"]
 	ActivityType string `json:"activity_type,omitempty"`
@@ -72,8 +72,8 @@ type SummarySegment struct {
 	State string `json:"state,omitempty"`
 }
 
-// Validate validates this summary segment
-func (m *SummarySegment) Validate(formats strfmt.Registry) error {
+// Validate validates this detailed segment all of0
+func (m *DetailedSegmentAllOf0) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateActivityType(formats); err != nil {
@@ -102,7 +102,7 @@ func (m *SummarySegment) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-var summarySegmentTypeActivityTypePropEnum []interface{}
+var detailedSegmentAllOf0TypeActivityTypePropEnum []interface{}
 
 func init() {
 	var res []string
@@ -110,28 +110,28 @@ func init() {
 		panic(err)
 	}
 	for _, v := range res {
-		summarySegmentTypeActivityTypePropEnum = append(summarySegmentTypeActivityTypePropEnum, v)
+		detailedSegmentAllOf0TypeActivityTypePropEnum = append(detailedSegmentAllOf0TypeActivityTypePropEnum, v)
 	}
 }
 
 const (
 
-	// SummarySegmentActivityTypeRide captures enum value "Ride"
-	SummarySegmentActivityTypeRide string = "Ride"
+	// DetailedSegmentAllOf0ActivityTypeRide captures enum value "Ride"
+	DetailedSegmentAllOf0ActivityTypeRide string = "Ride"
 
-	// SummarySegmentActivityTypeRun captures enum value "Run"
-	SummarySegmentActivityTypeRun string = "Run"
+	// DetailedSegmentAllOf0ActivityTypeRun captures enum value "Run"
+	DetailedSegmentAllOf0ActivityTypeRun string = "Run"
 )
 
 // prop value enum
-func (m *SummarySegment) validateActivityTypeEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, summarySegmentTypeActivityTypePropEnum, true); err != nil {
+func (m *DetailedSegmentAllOf0) validateActivityTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, detailedSegmentAllOf0TypeActivityTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *SummarySegment) validateActivityType(formats strfmt.Registry) error {
+func (m *DetailedSegmentAllOf0) validateActivityType(formats strfmt.Registry) error {
 	if swag.IsZero(m.ActivityType) { // not required
 		return nil
 	}
@@ -144,7 +144,7 @@ func (m *SummarySegment) validateActivityType(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SummarySegment) validateAthletePrEffort(formats strfmt.Registry) error {
+func (m *DetailedSegmentAllOf0) validateAthletePrEffort(formats strfmt.Registry) error {
 	if swag.IsZero(m.AthletePrEffort) { // not required
 		return nil
 	}
@@ -163,7 +163,7 @@ func (m *SummarySegment) validateAthletePrEffort(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *SummarySegment) validateAthleteSegmentStats(formats strfmt.Registry) error {
+func (m *DetailedSegmentAllOf0) validateAthleteSegmentStats(formats strfmt.Registry) error {
 	if swag.IsZero(m.AthleteSegmentStats) { // not required
 		return nil
 	}
@@ -182,7 +182,7 @@ func (m *SummarySegment) validateAthleteSegmentStats(formats strfmt.Registry) er
 	return nil
 }
 
-func (m *SummarySegment) validateEndLatlng(formats strfmt.Registry) error {
+func (m *DetailedSegmentAllOf0) validateEndLatlng(formats strfmt.Registry) error {
 	if swag.IsZero(m.EndLatlng) { // not required
 		return nil
 	}
@@ -199,7 +199,7 @@ func (m *SummarySegment) validateEndLatlng(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SummarySegment) validateStartLatlng(formats strfmt.Registry) error {
+func (m *DetailedSegmentAllOf0) validateStartLatlng(formats strfmt.Registry) error {
 	if swag.IsZero(m.StartLatlng) { // not required
 		return nil
 	}
@@ -216,8 +216,8 @@ func (m *SummarySegment) validateStartLatlng(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validate this summary segment based on the context it is used
-func (m *SummarySegment) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this detailed segment all of0 based on the context it is used
+func (m *DetailedSegmentAllOf0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateAthletePrEffort(ctx, formats); err != nil {
@@ -242,7 +242,7 @@ func (m *SummarySegment) ContextValidate(ctx context.Context, formats strfmt.Reg
 	return nil
 }
 
-func (m *SummarySegment) contextValidateAthletePrEffort(ctx context.Context, formats strfmt.Registry) error {
+func (m *DetailedSegmentAllOf0) contextValidateAthletePrEffort(ctx context.Context, formats strfmt.Registry) error {
 	if m.AthletePrEffort != nil {
 
 		if swag.IsZero(m.AthletePrEffort) { // not required
@@ -262,7 +262,7 @@ func (m *SummarySegment) contextValidateAthletePrEffort(ctx context.Context, for
 	return nil
 }
 
-func (m *SummarySegment) contextValidateAthleteSegmentStats(ctx context.Context, formats strfmt.Registry) error {
+func (m *DetailedSegmentAllOf0) contextValidateAthleteSegmentStats(ctx context.Context, formats strfmt.Registry) error {
 	if m.AthleteSegmentStats != nil {
 
 		if swag.IsZero(m.AthleteSegmentStats) { // not required
@@ -282,7 +282,7 @@ func (m *SummarySegment) contextValidateAthleteSegmentStats(ctx context.Context,
 	return nil
 }
 
-func (m *SummarySegment) contextValidateEndLatlng(ctx context.Context, formats strfmt.Registry) error {
+func (m *DetailedSegmentAllOf0) contextValidateEndLatlng(ctx context.Context, formats strfmt.Registry) error {
 	if err := m.EndLatlng.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("end_latlng")
@@ -295,7 +295,7 @@ func (m *SummarySegment) contextValidateEndLatlng(ctx context.Context, formats s
 	return nil
 }
 
-func (m *SummarySegment) contextValidateStartLatlng(ctx context.Context, formats strfmt.Registry) error {
+func (m *DetailedSegmentAllOf0) contextValidateStartLatlng(ctx context.Context, formats strfmt.Registry) error {
 	if err := m.StartLatlng.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("start_latlng")
@@ -309,7 +309,7 @@ func (m *SummarySegment) contextValidateStartLatlng(ctx context.Context, formats
 }
 
 // MarshalBinary interface implementation
-func (m *SummarySegment) MarshalBinary() ([]byte, error) {
+func (m *DetailedSegmentAllOf0) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -317,8 +317,8 @@ func (m *SummarySegment) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *SummarySegment) UnmarshalBinary(b []byte) error {
-	var res SummarySegment
+func (m *DetailedSegmentAllOf0) UnmarshalBinary(b []byte) error {
+	var res DetailedSegmentAllOf0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

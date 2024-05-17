@@ -6,6 +6,7 @@ package athletes
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -86,11 +87,13 @@ func (o *UpdateLoggedInAthleteOK) Code() int {
 }
 
 func (o *UpdateLoggedInAthleteOK) Error() string {
-	return fmt.Sprintf("[PUT /athlete][%d] updateLoggedInAthleteOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /athlete][%d] updateLoggedInAthleteOK %s", 200, payload)
 }
 
 func (o *UpdateLoggedInAthleteOK) String() string {
-	return fmt.Sprintf("[PUT /athlete][%d] updateLoggedInAthleteOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /athlete][%d] updateLoggedInAthleteOK %s", 200, payload)
 }
 
 func (o *UpdateLoggedInAthleteOK) GetPayload() *models.DetailedAthlete {
@@ -157,11 +160,13 @@ func (o *UpdateLoggedInAthleteDefault) Code() int {
 }
 
 func (o *UpdateLoggedInAthleteDefault) Error() string {
-	return fmt.Sprintf("[PUT /athlete][%d] updateLoggedInAthlete default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /athlete][%d] updateLoggedInAthlete default %s", o._statusCode, payload)
 }
 
 func (o *UpdateLoggedInAthleteDefault) String() string {
-	return fmt.Sprintf("[PUT /athlete][%d] updateLoggedInAthlete default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /athlete][%d] updateLoggedInAthlete default %s", o._statusCode, payload)
 }
 
 func (o *UpdateLoggedInAthleteDefault) GetPayload() *models.Fault {

@@ -100,26 +100,10 @@ func (s segmentsEffortsService) GetSegmentEffortById(ctx context.Context, id int
 }
 
 // convert to models.DetailedSegmentEffort
-func convertToSegmentEffort(effort *segment_efforts.GetSegmentEffortByIDOKBody) models.DetailedSegmentEffort {
-	if effort.HeartRateDetails.AverageHeartrate != 0 || effort.HeartRateDetails.MaxHeartrate != 0 {
-		effort.HeartRateDetails.HasHeartrate = true
+func convertToSegmentEffort(effort *models.DetailedSegmentEffort) models.DetailedSegmentEffort {
+	if effort == nil {
+		return models.DetailedSegmentEffort{}
 	}
 
-	return models.DetailedSegmentEffort{
-		SummarySegmentEffort: effort.SummarySegmentEffort,
-		HeartRateDetails:     effort.HeartRateDetails,
-		Activity:             effort.Activity,
-		Athlete:              effort.Athlete,
-		AverageCadence:       effort.AverageCadence,
-		AverageWatts:         effort.AverageWatts,
-		DeviceWatts:          effort.DeviceWatts,
-		EndIndex:             effort.EndIndex,
-		Hidden:               effort.Hidden,
-		KomRank:              effort.KomRank,
-		MovingTime:           effort.MovingTime,
-		Name:                 effort.Name,
-		PrRank:               effort.PrRank,
-		Segment:              effort.Segment,
-		StartIndex:           effort.StartIndex,
-	}
+	return *effort
 }

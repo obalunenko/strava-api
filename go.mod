@@ -1,6 +1,6 @@
 module github.com/obalunenko/strava-api
 
-go 1.22
+go 1.23
 
 require (
 	github.com/go-openapi/errors v0.22.0

@@ -42,8 +42,8 @@ github.com/mailru/easyjson v0.7.7 h1:UGYAvKxe3sBsEDzO8ZeWOSlIQfWFlxbzLZe7hwFURr0
 github.com/mailru/easyjson v0.7.7/go.mod h1:xzfreul335JAWq5oZzymOObrkdz5UnU4kGfJJLY9Nlc=
 github.com/mitchellh/mapstructure v1.5.0 h1:jeMsZIYE/09sWLaz43PL7Gy6RuMjD2eJVyuac5Z2hdY=
 github.com/mitchellh/mapstructure v1.5.0/go.mod h1:bFUtVrKA4DC2yAKiSyO/QUcy7e+RRV2QTWOzhPopBRo=
-github.com/obalunenko/getenv v1.13.0 h1:KE6Kky3OMLkvOgzfZkaOjodnnMawhEEuju4Hbs7DCt0=
-github.com/obalunenko/getenv v1.13.0/go.mod h1:z/14VQJlEBeaa/JI/RNufa/EQOSDVA2RRUz56ukYOM0=
+github.com/obalunenko/getenv v1.14.0 h1:Q8ClxnNMr5a6N0xNg7nHbdhZI4UUfhZMCjabGruq4gA=
+github.com/obalunenko/getenv v1.14.0/go.mod h1:PsuPvyLaE71FF7ikdCvPGqILTAWuXq7/+dtlOhab5K4=
 github.com/oklog/ulid v1.3.1 h1:EGfNDEx6MqHz8B3uNV6QAib1UR2Lm97sHi3ocA6ESJ4=
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=
 github.com/opentracing/opentracing-go v1.2.0 h1:uEJPy/1a5RIPAJ0Ov+OIO8OxWu77jEv+1B0VhjKrZUs=

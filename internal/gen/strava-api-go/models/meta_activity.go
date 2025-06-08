@@ -16,6 +16,7 @@ import (
 //
 // swagger:model metaActivity
 type MetaActivity struct {
+
 	// The unique identifier of the activity
 	ID int64 `json:"id,omitempty"`
 }

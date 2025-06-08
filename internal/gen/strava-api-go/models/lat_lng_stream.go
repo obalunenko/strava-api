@@ -89,11 +89,13 @@ func (m *LatLngStream) Validate(formats strfmt.Registry) error {
 }
 
 func (m *LatLngStream) validateData(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Data) { // not required
 		return nil
 	}
 
 	for i := 0; i < len(m.Data); i++ {
+
 		if err := m.Data[i].Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("data" + "." + strconv.Itoa(i))
@@ -102,6 +104,7 @@ func (m *LatLngStream) validateData(formats strfmt.Registry) error {
 			}
 			return err
 		}
+
 	}
 
 	return nil
@@ -127,7 +130,9 @@ func (m *LatLngStream) ContextValidate(ctx context.Context, formats strfmt.Regis
 }
 
 func (m *LatLngStream) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
 	for i := 0; i < len(m.Data); i++ {
+
 		if err := m.Data[i].ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("data" + "." + strconv.Itoa(i))
@@ -136,6 +141,7 @@ func (m *LatLngStream) contextValidateData(ctx context.Context, formats strfmt.R
 			}
 			return err
 		}
+
 	}
 
 	return nil

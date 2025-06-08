@@ -101,6 +101,7 @@ func (o *ExploreSegmentsOK) GetPayload() *models.ExplorerResponse {
 }
 
 func (o *ExploreSegmentsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.ExplorerResponse)
 
 	// response payload
@@ -174,6 +175,7 @@ func (o *ExploreSegmentsDefault) GetPayload() *models.Fault {
 }
 
 func (o *ExploreSegmentsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Fault)
 
 	// response payload

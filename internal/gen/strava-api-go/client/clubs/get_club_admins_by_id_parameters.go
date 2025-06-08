@@ -61,6 +61,7 @@ GetClubAdminsByIDParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type GetClubAdminsByIDParams struct {
+
 	/* ID.
 
 	   The identifier of the club.
@@ -100,7 +101,9 @@ func (o *GetClubAdminsByIDParams) WithDefaults() *GetClubAdminsByIDParams {
 //
 // All values with no default are reset to their zero value.
 func (o *GetClubAdminsByIDParams) SetDefaults() {
-	perPageDefault := int64(30)
+	var (
+		perPageDefault = int64(30)
+	)
 
 	val := GetClubAdminsByIDParams{
 		PerPage: &perPageDefault,
@@ -180,6 +183,7 @@ func (o *GetClubAdminsByIDParams) SetPerPage(perPage *int64) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetClubAdminsByIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
+
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}
@@ -200,6 +204,7 @@ func (o *GetClubAdminsByIDParams) WriteToRequest(r runtime.ClientRequest, reg st
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
+
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
@@ -216,6 +221,7 @@ func (o *GetClubAdminsByIDParams) WriteToRequest(r runtime.ClientRequest, reg st
 		}
 		qPerPage := swag.FormatInt64(qrPerPage)
 		if qPerPage != "" {
+
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {
 				return err
 			}

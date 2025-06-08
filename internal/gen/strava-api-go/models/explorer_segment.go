@@ -19,6 +19,7 @@ import (
 //
 // swagger:model explorerSegment
 type ExplorerSegment struct {
+
 	// The segment's average grade, in percents
 	AvgGrade float32 `json:"avg_grade,omitempty"`
 
@@ -202,6 +203,7 @@ func (m *ExplorerSegment) ContextValidate(ctx context.Context, formats strfmt.Re
 }
 
 func (m *ExplorerSegment) contextValidateEndLatlng(ctx context.Context, formats strfmt.Registry) error {
+
 	if err := m.EndLatlng.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("end_latlng")
@@ -215,6 +217,7 @@ func (m *ExplorerSegment) contextValidateEndLatlng(ctx context.Context, formats 
 }
 
 func (m *ExplorerSegment) contextValidateStartLatlng(ctx context.Context, formats strfmt.Registry) error {
+
 	if err := m.StartLatlng.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("start_latlng")

@@ -101,6 +101,7 @@ func (o *GetZonesByActivityIDOK) GetPayload() []*models.ActivityZone {
 }
 
 func (o *GetZonesByActivityIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
@@ -172,6 +173,7 @@ func (o *GetZonesByActivityIDDefault) GetPayload() *models.Fault {
 }
 
 func (o *GetZonesByActivityIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Fault)
 
 	// response payload

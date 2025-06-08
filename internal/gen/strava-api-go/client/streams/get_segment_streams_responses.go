@@ -101,6 +101,7 @@ func (o *GetSegmentStreamsOK) GetPayload() *models.StreamSet {
 }
 
 func (o *GetSegmentStreamsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.StreamSet)
 
 	// response payload
@@ -174,6 +175,7 @@ func (o *GetSegmentStreamsDefault) GetPayload() *models.Fault {
 }
 
 func (o *GetSegmentStreamsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Fault)
 
 	// response payload

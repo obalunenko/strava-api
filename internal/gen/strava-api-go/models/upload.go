@@ -16,6 +16,7 @@ import (
 //
 // swagger:model upload
 type Upload struct {
+
 	// The identifier of the activity this upload resulted into
 	ActivityID int64 `json:"activity_id,omitempty"`
 

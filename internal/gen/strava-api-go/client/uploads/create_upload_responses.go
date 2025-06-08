@@ -101,6 +101,7 @@ func (o *CreateUploadCreated) GetPayload() *models.Upload {
 }
 
 func (o *CreateUploadCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Upload)
 
 	// response payload
@@ -174,6 +175,7 @@ func (o *CreateUploadDefault) GetPayload() *models.Fault {
 }
 
 func (o *CreateUploadDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Fault)
 
 	// response payload

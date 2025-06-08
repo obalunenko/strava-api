@@ -16,6 +16,7 @@ import (
 //
 // swagger:model polylineMap
 type PolylineMap struct {
+
 	// The identifier of the map
 	ID string `json:"id,omitempty"`
 

@@ -233,6 +233,7 @@ func (m *CommentAthlete) Validate(formats strfmt.Registry) error {
 }
 
 func (m *CommentAthlete) validateCreatedAt(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CreatedAt) { // not required
 		return nil
 	}
@@ -265,6 +266,7 @@ func (m *CommentAthlete) validateSexEnum(path, location string, value string) er
 }
 
 func (m *CommentAthlete) validateSex(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Sex) { // not required
 		return nil
 	}
@@ -278,6 +280,7 @@ func (m *CommentAthlete) validateSex(formats strfmt.Registry) error {
 }
 
 func (m *CommentAthlete) validateUpdatedAt(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.UpdatedAt) { // not required
 		return nil
 	}

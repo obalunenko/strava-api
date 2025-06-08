@@ -18,6 +18,7 @@ import (
 //
 // swagger:model waypoint
 type Waypoint struct {
+
 	// Categories that the waypoint belongs to
 	// Min Items: 0
 	Categories []string `json:"categories"`
@@ -127,6 +128,7 @@ func (m *Waypoint) ContextValidate(ctx context.Context, formats strfmt.Registry)
 }
 
 func (m *Waypoint) contextValidateLatlng(ctx context.Context, formats strfmt.Registry) error {
+
 	if err := m.Latlng.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("latlng")
@@ -140,6 +142,7 @@ func (m *Waypoint) contextValidateLatlng(ctx context.Context, formats strfmt.Reg
 }
 
 func (m *Waypoint) contextValidateTargetLatlng(ctx context.Context, formats strfmt.Registry) error {
+
 	if err := m.TargetLatlng.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("target_latlng")

@@ -52,6 +52,7 @@ func (m ZoneRanges) ContextValidate(ctx context.Context, formats strfmt.Registry
 	var res []error
 
 	for i := 0; i < len(m); i++ {
+
 		if m[i] != nil {
 
 			if swag.IsZero(m[i]) { // not required
@@ -67,6 +68,7 @@ func (m ZoneRanges) ContextValidate(ctx context.Context, formats strfmt.Registry
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {

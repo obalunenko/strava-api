@@ -583,6 +583,7 @@ func (m *SummaryActivity) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateAthlete(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Athlete) { // not required
 		return nil
 	}
@@ -602,6 +603,7 @@ func (m *SummaryActivity) validateAthlete(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateAthleteCount(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AthleteCount) { // not required
 		return nil
 	}
@@ -614,6 +616,7 @@ func (m *SummaryActivity) validateAthleteCount(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateEndLatlng(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EndLatlng) { // not required
 		return nil
 	}
@@ -631,6 +634,7 @@ func (m *SummaryActivity) validateEndLatlng(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateMap(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Map) { // not required
 		return nil
 	}
@@ -650,6 +654,7 @@ func (m *SummaryActivity) validateMap(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateSportType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SportType) { // not required
 		return nil
 	}
@@ -667,6 +672,7 @@ func (m *SummaryActivity) validateSportType(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateStartDate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.StartDate) { // not required
 		return nil
 	}
@@ -679,6 +685,7 @@ func (m *SummaryActivity) validateStartDate(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateStartDateLocal(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.StartDateLocal) { // not required
 		return nil
 	}
@@ -691,6 +698,7 @@ func (m *SummaryActivity) validateStartDateLocal(formats strfmt.Registry) error 
 }
 
 func (m *SummaryActivity) validateStartLatlng(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.StartLatlng) { // not required
 		return nil
 	}
@@ -708,6 +716,7 @@ func (m *SummaryActivity) validateStartLatlng(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
@@ -768,6 +777,7 @@ func (m *SummaryActivity) ContextValidate(ctx context.Context, formats strfmt.Re
 }
 
 func (m *SummaryActivity) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required
@@ -788,6 +798,7 @@ func (m *SummaryActivity) contextValidateAthlete(ctx context.Context, formats st
 }
 
 func (m *SummaryActivity) contextValidateEndLatlng(ctx context.Context, formats strfmt.Registry) error {
+
 	if err := m.EndLatlng.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("end_latlng")
@@ -801,6 +812,7 @@ func (m *SummaryActivity) contextValidateEndLatlng(ctx context.Context, formats 
 }
 
 func (m *SummaryActivity) contextValidateMap(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Map != nil {
 
 		if swag.IsZero(m.Map) { // not required
@@ -821,6 +833,7 @@ func (m *SummaryActivity) contextValidateMap(ctx context.Context, formats strfmt
 }
 
 func (m *SummaryActivity) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SportType) { // not required
 		return nil
 	}
@@ -838,6 +851,7 @@ func (m *SummaryActivity) contextValidateSportType(ctx context.Context, formats 
 }
 
 func (m *SummaryActivity) contextValidateStartLatlng(ctx context.Context, formats strfmt.Registry) error {
+
 	if err := m.StartLatlng.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("start_latlng")
@@ -851,6 +865,7 @@ func (m *SummaryActivity) contextValidateStartLatlng(ctx context.Context, format
 }
 
 func (m *SummaryActivity) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}

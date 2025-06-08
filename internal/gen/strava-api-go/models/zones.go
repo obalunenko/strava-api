@@ -17,6 +17,7 @@ import (
 //
 // swagger:model zones
 type Zones struct {
+
 	// heart rate
 	HeartRate *HeartRateZoneRanges `json:"heart_rate,omitempty"`
 
@@ -99,6 +100,7 @@ func (m *Zones) ContextValidate(ctx context.Context, formats strfmt.Registry) er
 }
 
 func (m *Zones) contextValidateHeartRate(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.HeartRate != nil {
 
 		if swag.IsZero(m.HeartRate) { // not required
@@ -119,6 +121,7 @@ func (m *Zones) contextValidateHeartRate(ctx context.Context, formats strfmt.Reg
 }
 
 func (m *Zones) contextValidatePower(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Power != nil {
 
 		if swag.IsZero(m.Power) { // not required

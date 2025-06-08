@@ -101,6 +101,7 @@ func (o *GetActivityStreamsOK) GetPayload() *models.StreamSet {
 }
 
 func (o *GetActivityStreamsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.StreamSet)
 
 	// response payload
@@ -174,6 +175,7 @@ func (o *GetActivityStreamsDefault) GetPayload() *models.Fault {
 }
 
 func (o *GetActivityStreamsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Fault)
 
 	// response payload

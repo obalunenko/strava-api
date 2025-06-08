@@ -19,6 +19,7 @@ import (
 //
 // swagger:model route
 type Route struct {
+
 	// athlete
 	Athlete *CommentAthlete `json:"athlete,omitempty"`
 
@@ -258,6 +259,7 @@ func (m *Route) ContextValidate(ctx context.Context, formats strfmt.Registry) er
 }
 
 func (m *Route) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required
@@ -278,6 +280,7 @@ func (m *Route) contextValidateAthlete(ctx context.Context, formats strfmt.Regis
 }
 
 func (m *Route) contextValidateMap(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Map != nil {
 
 		if swag.IsZero(m.Map) { // not required
@@ -298,7 +301,9 @@ func (m *Route) contextValidateMap(ctx context.Context, formats strfmt.Registry)
 }
 
 func (m *Route) contextValidateSegments(ctx context.Context, formats strfmt.Registry) error {
+
 	for i := 0; i < len(m.Segments); i++ {
+
 		if m.Segments[i] != nil {
 
 			if swag.IsZero(m.Segments[i]) { // not required
@@ -314,13 +319,16 @@ func (m *Route) contextValidateSegments(ctx context.Context, formats strfmt.Regi
 				return err
 			}
 		}
+
 	}
 
 	return nil
 }
 
 func (m *Route) contextValidateWaypoints(ctx context.Context, formats strfmt.Registry) error {
+
 	for i := 0; i < len(m.Waypoints); i++ {
+
 		if m.Waypoints[i] != nil {
 
 			if swag.IsZero(m.Waypoints[i]) { // not required
@@ -336,6 +344,7 @@ func (m *Route) contextValidateWaypoints(ctx context.Context, formats strfmt.Reg
 				return err
 			}
 		}
+
 	}
 
 	return nil

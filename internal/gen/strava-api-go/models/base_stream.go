@@ -19,6 +19,7 @@ import (
 //
 // swagger:model baseStream
 type BaseStream struct {
+
 	// The number of data points in this stream
 	OriginalSize int64 `json:"original_size,omitempty"`
 

@@ -144,6 +144,7 @@ func (m *DetailedClub) validateMembershipEnum(path, location string, value strin
 }
 
 func (m *DetailedClub) validateMembership(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Membership) { // not required
 		return nil
 	}

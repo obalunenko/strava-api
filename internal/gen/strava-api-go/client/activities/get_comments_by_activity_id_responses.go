@@ -101,6 +101,7 @@ func (o *GetCommentsByActivityIDOK) GetPayload() []*models.Comment {
 }
 
 func (o *GetCommentsByActivityIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
@@ -172,6 +173,7 @@ func (o *GetCommentsByActivityIDDefault) GetPayload() *models.Fault {
 }
 
 func (o *GetCommentsByActivityIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Fault)
 
 	// response payload

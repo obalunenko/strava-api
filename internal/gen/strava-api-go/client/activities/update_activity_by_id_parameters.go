@@ -63,6 +63,7 @@ UpdateActivityByIDParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type UpdateActivityByIDParams struct {
+
 	// Body.
 	Body *models.UpdatableActivity
 
@@ -151,6 +152,7 @@ func (o *UpdateActivityByIDParams) SetID(id int64) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateActivityByIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
+
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}

@@ -17,6 +17,7 @@ import (
 //
 // swagger:model streamSet
 type StreamSet struct {
+
 	// altitude
 	Altitude *AltitudeStream `json:"altitude,omitempty"`
 
@@ -369,6 +370,7 @@ func (m *StreamSet) ContextValidate(ctx context.Context, formats strfmt.Registry
 }
 
 func (m *StreamSet) contextValidateAltitude(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Altitude != nil {
 
 		if swag.IsZero(m.Altitude) { // not required
@@ -389,6 +391,7 @@ func (m *StreamSet) contextValidateAltitude(ctx context.Context, formats strfmt.
 }
 
 func (m *StreamSet) contextValidateCadence(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Cadence != nil {
 
 		if swag.IsZero(m.Cadence) { // not required
@@ -409,6 +412,7 @@ func (m *StreamSet) contextValidateCadence(ctx context.Context, formats strfmt.R
 }
 
 func (m *StreamSet) contextValidateDistance(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Distance != nil {
 
 		if swag.IsZero(m.Distance) { // not required
@@ -429,6 +433,7 @@ func (m *StreamSet) contextValidateDistance(ctx context.Context, formats strfmt.
 }
 
 func (m *StreamSet) contextValidateGradeSmooth(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.GradeSmooth != nil {
 
 		if swag.IsZero(m.GradeSmooth) { // not required
@@ -449,6 +454,7 @@ func (m *StreamSet) contextValidateGradeSmooth(ctx context.Context, formats strf
 }
 
 func (m *StreamSet) contextValidateHeartrate(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Heartrate != nil {
 
 		if swag.IsZero(m.Heartrate) { // not required
@@ -469,6 +475,7 @@ func (m *StreamSet) contextValidateHeartrate(ctx context.Context, formats strfmt
 }
 
 func (m *StreamSet) contextValidateLatlng(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Latlng != nil {
 
 		if swag.IsZero(m.Latlng) { // not required
@@ -489,6 +496,7 @@ func (m *StreamSet) contextValidateLatlng(ctx context.Context, formats strfmt.Re
 }
 
 func (m *StreamSet) contextValidateMoving(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Moving != nil {
 
 		if swag.IsZero(m.Moving) { // not required
@@ -509,6 +517,7 @@ func (m *StreamSet) contextValidateMoving(ctx context.Context, formats strfmt.Re
 }
 
 func (m *StreamSet) contextValidateTemp(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Temp != nil {
 
 		if swag.IsZero(m.Temp) { // not required
@@ -529,6 +538,7 @@ func (m *StreamSet) contextValidateTemp(ctx context.Context, formats strfmt.Regi
 }
 
 func (m *StreamSet) contextValidateTime(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Time != nil {
 
 		if swag.IsZero(m.Time) { // not required
@@ -549,6 +559,7 @@ func (m *StreamSet) contextValidateTime(ctx context.Context, formats strfmt.Regi
 }
 
 func (m *StreamSet) contextValidateVelocitySmooth(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.VelocitySmooth != nil {
 
 		if swag.IsZero(m.VelocitySmooth) { // not required
@@ -569,6 +580,7 @@ func (m *StreamSet) contextValidateVelocitySmooth(ctx context.Context, formats s
 }
 
 func (m *StreamSet) contextValidateWatts(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Watts != nil {
 
 		if swag.IsZero(m.Watts) { // not required

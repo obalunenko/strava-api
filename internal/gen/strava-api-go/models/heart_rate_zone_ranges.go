@@ -17,6 +17,7 @@ import (
 //
 // swagger:model heartRateZoneRanges
 type HeartRateZoneRanges struct {
+
 	// Whether the athlete has set their own custom heart rate zones
 	CustomZones bool `json:"custom_zones,omitempty"`
 
@@ -70,6 +71,7 @@ func (m *HeartRateZoneRanges) ContextValidate(ctx context.Context, formats strfm
 }
 
 func (m *HeartRateZoneRanges) contextValidateZones(ctx context.Context, formats strfmt.Registry) error {
+
 	if err := m.Zones.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("zones")

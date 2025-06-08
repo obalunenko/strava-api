@@ -61,6 +61,7 @@ StarSegmentParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type StarSegmentParams struct {
+
 	/* ID.
 
 	   The identifier of the segment to star.
@@ -92,7 +93,9 @@ func (o *StarSegmentParams) WithDefaults() *StarSegmentParams {
 //
 // All values with no default are reset to their zero value.
 func (o *StarSegmentParams) SetDefaults() {
-	starredDefault := bool(false)
+	var (
+		starredDefault = bool(false)
+	)
 
 	val := StarSegmentParams{
 		Starred: starredDefault,
@@ -161,6 +164,7 @@ func (o *StarSegmentParams) SetStarred(starred bool) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *StarSegmentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
+
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}

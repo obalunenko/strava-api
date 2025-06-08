@@ -61,6 +61,7 @@ GetCommentsByActivityIDParams contains all the parameters to send to the API end
 	Typically these are written to a http.Request.
 */
 type GetCommentsByActivityIDParams struct {
+
 	/* AfterCursor.
 
 	   Cursor of the last item in the previous page of results, used to request the subsequent page of results.  When omitted, the first page of results is fetched.
@@ -221,6 +222,7 @@ func (o *GetCommentsByActivityIDParams) SetPerPage(perPage *int64) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetCommentsByActivityIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
+
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}
@@ -236,6 +238,7 @@ func (o *GetCommentsByActivityIDParams) WriteToRequest(r runtime.ClientRequest, 
 		}
 		qAfterCursor := qrAfterCursor
 		if qAfterCursor != "" {
+
 			if err := r.SetQueryParam("after_cursor", qAfterCursor); err != nil {
 				return err
 			}
@@ -257,6 +260,7 @@ func (o *GetCommentsByActivityIDParams) WriteToRequest(r runtime.ClientRequest, 
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
+
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
@@ -273,6 +277,7 @@ func (o *GetCommentsByActivityIDParams) WriteToRequest(r runtime.ClientRequest, 
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
+
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
 				return err
 			}
@@ -289,6 +294,7 @@ func (o *GetCommentsByActivityIDParams) WriteToRequest(r runtime.ClientRequest, 
 		}
 		qPerPage := swag.FormatInt64(qrPerPage)
 		if qPerPage != "" {
+
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {
 				return err
 			}

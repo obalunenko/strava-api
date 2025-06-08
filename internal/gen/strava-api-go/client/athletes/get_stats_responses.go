@@ -101,6 +101,7 @@ func (o *GetStatsOK) GetPayload() *models.ActivityStats {
 }
 
 func (o *GetStatsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.ActivityStats)
 
 	// response payload
@@ -174,6 +175,7 @@ func (o *GetStatsDefault) GetPayload() *models.Fault {
 }
 
 func (o *GetStatsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Fault)
 
 	// response payload

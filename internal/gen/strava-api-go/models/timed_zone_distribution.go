@@ -52,6 +52,7 @@ func (m TimedZoneDistribution) ContextValidate(ctx context.Context, formats strf
 	var res []error
 
 	for i := 0; i < len(m); i++ {
+
 		if m[i] != nil {
 
 			if swag.IsZero(m[i]) { // not required
@@ -67,6 +68,7 @@ func (m TimedZoneDistribution) ContextValidate(ctx context.Context, formats strf
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {

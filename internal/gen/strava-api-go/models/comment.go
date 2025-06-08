@@ -18,6 +18,7 @@ import (
 //
 // swagger:model comment
 type Comment struct {
+
 	// The identifier of the activity this comment is related to
 	ActivityID int64 `json:"activity_id,omitempty"`
 
@@ -99,6 +100,7 @@ func (m *Comment) ContextValidate(ctx context.Context, formats strfmt.Registry) 
 }
 
 func (m *Comment) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required

@@ -101,6 +101,7 @@ func (o *CreateActivityCreated) GetPayload() *models.DetailedActivity {
 }
 
 func (o *CreateActivityCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.DetailedActivity)
 
 	// response payload
@@ -174,6 +175,7 @@ func (o *CreateActivityDefault) GetPayload() *models.Fault {
 }
 
 func (o *CreateActivityDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Fault)
 
 	// response payload

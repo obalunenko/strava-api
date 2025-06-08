@@ -17,6 +17,7 @@ import (
 //
 // swagger:model updatableActivity
 type UpdatableActivity struct {
+
 	// Whether this activity is a commute
 	Commute bool `json:"commute,omitempty"`
 
@@ -113,6 +114,7 @@ func (m *UpdatableActivity) ContextValidate(ctx context.Context, formats strfmt.
 }
 
 func (m *UpdatableActivity) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SportType) { // not required
 		return nil
 	}
@@ -130,6 +132,7 @@ func (m *UpdatableActivity) contextValidateSportType(ctx context.Context, format
 }
 
 func (m *UpdatableActivity) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}

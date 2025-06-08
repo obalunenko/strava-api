@@ -101,6 +101,7 @@ func (o *GetLoggedInAthleteOK) GetPayload() *models.DetailedAthlete {
 }
 
 func (o *GetLoggedInAthleteOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.DetailedAthlete)
 
 	// response payload
@@ -174,6 +175,7 @@ func (o *GetLoggedInAthleteDefault) GetPayload() *models.Fault {
 }
 
 func (o *GetLoggedInAthleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Fault)
 
 	// response payload

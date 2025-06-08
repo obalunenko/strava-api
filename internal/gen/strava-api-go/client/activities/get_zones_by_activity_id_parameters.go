@@ -61,6 +61,7 @@ GetZonesByActivityIDParams contains all the parameters to send to the API endpoi
 	Typically these are written to a http.Request.
 */
 type GetZonesByActivityIDParams struct {
+
 	/* ID.
 
 	   The identifier of the activity.
@@ -135,6 +136,7 @@ func (o *GetZonesByActivityIDParams) SetID(id int64) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetZonesByActivityIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
+
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}

@@ -101,6 +101,7 @@ func (o *GetRouteByIDOK) GetPayload() *models.Route {
 }
 
 func (o *GetRouteByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Route)
 
 	// response payload
@@ -174,6 +175,7 @@ func (o *GetRouteByIDDefault) GetPayload() *models.Fault {
 }
 
 func (o *GetRouteByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Fault)
 
 	// response payload

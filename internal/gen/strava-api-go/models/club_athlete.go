@@ -16,6 +16,7 @@ import (
 //
 // swagger:model clubAthlete
 type ClubAthlete struct {
+
 	// Whether the athlete is a club admin.
 	Admin bool `json:"admin,omitempty"`
 

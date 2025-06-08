@@ -263,6 +263,7 @@ func (m *DetailedSegmentEffort) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DetailedSegmentEffort) validateActivity(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Activity) { // not required
 		return nil
 	}
@@ -282,6 +283,7 @@ func (m *DetailedSegmentEffort) validateActivity(formats strfmt.Registry) error 
 }
 
 func (m *DetailedSegmentEffort) validateAthlete(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Athlete) { // not required
 		return nil
 	}
@@ -301,6 +303,7 @@ func (m *DetailedSegmentEffort) validateAthlete(formats strfmt.Registry) error {
 }
 
 func (m *DetailedSegmentEffort) validateKomRank(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.KomRank) { // not required
 		return nil
 	}
@@ -317,6 +320,7 @@ func (m *DetailedSegmentEffort) validateKomRank(formats strfmt.Registry) error {
 }
 
 func (m *DetailedSegmentEffort) validatePrRank(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.PrRank) { // not required
 		return nil
 	}
@@ -333,6 +337,7 @@ func (m *DetailedSegmentEffort) validatePrRank(formats strfmt.Registry) error {
 }
 
 func (m *DetailedSegmentEffort) validateSegment(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Segment) { // not required
 		return nil
 	}
@@ -379,6 +384,7 @@ func (m *DetailedSegmentEffort) ContextValidate(ctx context.Context, formats str
 }
 
 func (m *DetailedSegmentEffort) contextValidateActivity(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Activity != nil {
 
 		if swag.IsZero(m.Activity) { // not required
@@ -399,6 +405,7 @@ func (m *DetailedSegmentEffort) contextValidateActivity(ctx context.Context, for
 }
 
 func (m *DetailedSegmentEffort) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required
@@ -419,6 +426,7 @@ func (m *DetailedSegmentEffort) contextValidateAthlete(ctx context.Context, form
 }
 
 func (m *DetailedSegmentEffort) contextValidateSegment(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Segment != nil {
 
 		if swag.IsZero(m.Segment) { // not required

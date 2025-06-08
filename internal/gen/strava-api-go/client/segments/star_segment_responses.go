@@ -101,6 +101,7 @@ func (o *StarSegmentOK) GetPayload() *models.DetailedSegment {
 }
 
 func (o *StarSegmentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.DetailedSegment)
 
 	// response payload
@@ -174,6 +175,7 @@ func (o *StarSegmentDefault) GetPayload() *models.Fault {
 }
 
 func (o *StarSegmentDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Fault)
 
 	// response payload

@@ -224,6 +224,7 @@ func (m *DetailedActivity) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateBestEfforts(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.BestEfforts) { // not required
 		return nil
 	}
@@ -250,6 +251,7 @@ func (m *DetailedActivity) validateBestEfforts(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateGear(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Gear) { // not required
 		return nil
 	}
@@ -269,6 +271,7 @@ func (m *DetailedActivity) validateGear(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateLaps(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Laps) { // not required
 		return nil
 	}
@@ -295,6 +298,7 @@ func (m *DetailedActivity) validateLaps(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validatePhotos(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Photos) { // not required
 		return nil
 	}
@@ -314,6 +318,7 @@ func (m *DetailedActivity) validatePhotos(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateSegmentEfforts(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SegmentEfforts) { // not required
 		return nil
 	}
@@ -340,6 +345,7 @@ func (m *DetailedActivity) validateSegmentEfforts(formats strfmt.Registry) error
 }
 
 func (m *DetailedActivity) validateSplitsMetric(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SplitsMetric) { // not required
 		return nil
 	}
@@ -366,6 +372,7 @@ func (m *DetailedActivity) validateSplitsMetric(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateSplitsStandard(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SplitsStandard) { // not required
 		return nil
 	}
@@ -435,7 +442,9 @@ func (m *DetailedActivity) ContextValidate(ctx context.Context, formats strfmt.R
 }
 
 func (m *DetailedActivity) contextValidateBestEfforts(ctx context.Context, formats strfmt.Registry) error {
+
 	for i := 0; i < len(m.BestEfforts); i++ {
+
 		if m.BestEfforts[i] != nil {
 
 			if swag.IsZero(m.BestEfforts[i]) { // not required
@@ -451,12 +460,14 @@ func (m *DetailedActivity) contextValidateBestEfforts(ctx context.Context, forma
 				return err
 			}
 		}
+
 	}
 
 	return nil
 }
 
 func (m *DetailedActivity) contextValidateGear(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Gear != nil {
 
 		if swag.IsZero(m.Gear) { // not required
@@ -477,7 +488,9 @@ func (m *DetailedActivity) contextValidateGear(ctx context.Context, formats strf
 }
 
 func (m *DetailedActivity) contextValidateLaps(ctx context.Context, formats strfmt.Registry) error {
+
 	for i := 0; i < len(m.Laps); i++ {
+
 		if m.Laps[i] != nil {
 
 			if swag.IsZero(m.Laps[i]) { // not required
@@ -493,12 +506,14 @@ func (m *DetailedActivity) contextValidateLaps(ctx context.Context, formats strf
 				return err
 			}
 		}
+
 	}
 
 	return nil
 }
 
 func (m *DetailedActivity) contextValidatePhotos(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Photos != nil {
 
 		if swag.IsZero(m.Photos) { // not required
@@ -519,7 +534,9 @@ func (m *DetailedActivity) contextValidatePhotos(ctx context.Context, formats st
 }
 
 func (m *DetailedActivity) contextValidateSegmentEfforts(ctx context.Context, formats strfmt.Registry) error {
+
 	for i := 0; i < len(m.SegmentEfforts); i++ {
+
 		if m.SegmentEfforts[i] != nil {
 
 			if swag.IsZero(m.SegmentEfforts[i]) { // not required
@@ -535,13 +552,16 @@ func (m *DetailedActivity) contextValidateSegmentEfforts(ctx context.Context, fo
 				return err
 			}
 		}
+
 	}
 
 	return nil
 }
 
 func (m *DetailedActivity) contextValidateSplitsMetric(ctx context.Context, formats strfmt.Registry) error {
+
 	for i := 0; i < len(m.SplitsMetric); i++ {
+
 		if m.SplitsMetric[i] != nil {
 
 			if swag.IsZero(m.SplitsMetric[i]) { // not required
@@ -557,13 +577,16 @@ func (m *DetailedActivity) contextValidateSplitsMetric(ctx context.Context, form
 				return err
 			}
 		}
+
 	}
 
 	return nil
 }
 
 func (m *DetailedActivity) contextValidateSplitsStandard(ctx context.Context, formats strfmt.Registry) error {
+
 	for i := 0; i < len(m.SplitsStandard); i++ {
+
 		if m.SplitsStandard[i] != nil {
 
 			if swag.IsZero(m.SplitsStandard[i]) { // not required
@@ -579,6 +602,7 @@ func (m *DetailedActivity) contextValidateSplitsStandard(ctx context.Context, fo
 				return err
 			}
 		}
+
 	}
 
 	return nil
@@ -1152,6 +1176,7 @@ func (m *DetailedActivityAllOf0) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivityAllOf0) validateAthlete(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Athlete) { // not required
 		return nil
 	}
@@ -1171,6 +1196,7 @@ func (m *DetailedActivityAllOf0) validateAthlete(formats strfmt.Registry) error 
 }
 
 func (m *DetailedActivityAllOf0) validateAthleteCount(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AthleteCount) { // not required
 		return nil
 	}
@@ -1183,6 +1209,7 @@ func (m *DetailedActivityAllOf0) validateAthleteCount(formats strfmt.Registry) e
 }
 
 func (m *DetailedActivityAllOf0) validateEndLatlng(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EndLatlng) { // not required
 		return nil
 	}
@@ -1200,6 +1227,7 @@ func (m *DetailedActivityAllOf0) validateEndLatlng(formats strfmt.Registry) erro
 }
 
 func (m *DetailedActivityAllOf0) validateMap(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Map) { // not required
 		return nil
 	}
@@ -1219,6 +1247,7 @@ func (m *DetailedActivityAllOf0) validateMap(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivityAllOf0) validateSportType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SportType) { // not required
 		return nil
 	}
@@ -1236,6 +1265,7 @@ func (m *DetailedActivityAllOf0) validateSportType(formats strfmt.Registry) erro
 }
 
 func (m *DetailedActivityAllOf0) validateStartDate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.StartDate) { // not required
 		return nil
 	}
@@ -1248,6 +1278,7 @@ func (m *DetailedActivityAllOf0) validateStartDate(formats strfmt.Registry) erro
 }
 
 func (m *DetailedActivityAllOf0) validateStartDateLocal(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.StartDateLocal) { // not required
 		return nil
 	}
@@ -1260,6 +1291,7 @@ func (m *DetailedActivityAllOf0) validateStartDateLocal(formats strfmt.Registry)
 }
 
 func (m *DetailedActivityAllOf0) validateStartLatlng(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.StartLatlng) { // not required
 		return nil
 	}
@@ -1277,6 +1309,7 @@ func (m *DetailedActivityAllOf0) validateStartLatlng(formats strfmt.Registry) er
 }
 
 func (m *DetailedActivityAllOf0) validateType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
@@ -1333,6 +1366,7 @@ func (m *DetailedActivityAllOf0) ContextValidate(ctx context.Context, formats st
 }
 
 func (m *DetailedActivityAllOf0) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required
@@ -1353,6 +1387,7 @@ func (m *DetailedActivityAllOf0) contextValidateAthlete(ctx context.Context, for
 }
 
 func (m *DetailedActivityAllOf0) contextValidateEndLatlng(ctx context.Context, formats strfmt.Registry) error {
+
 	if err := m.EndLatlng.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("end_latlng")
@@ -1366,6 +1401,7 @@ func (m *DetailedActivityAllOf0) contextValidateEndLatlng(ctx context.Context, f
 }
 
 func (m *DetailedActivityAllOf0) contextValidateMap(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Map != nil {
 
 		if swag.IsZero(m.Map) { // not required
@@ -1386,6 +1422,7 @@ func (m *DetailedActivityAllOf0) contextValidateMap(ctx context.Context, formats
 }
 
 func (m *DetailedActivityAllOf0) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SportType) { // not required
 		return nil
 	}
@@ -1403,6 +1440,7 @@ func (m *DetailedActivityAllOf0) contextValidateSportType(ctx context.Context, f
 }
 
 func (m *DetailedActivityAllOf0) contextValidateStartLatlng(ctx context.Context, formats strfmt.Registry) error {
+
 	if err := m.StartLatlng.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("start_latlng")
@@ -1416,6 +1454,7 @@ func (m *DetailedActivityAllOf0) contextValidateStartLatlng(ctx context.Context,
 }
 
 func (m *DetailedActivityAllOf0) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
@@ -1454,6 +1493,7 @@ func (m *DetailedActivityAllOf0) UnmarshalBinary(b []byte) error {
 //
 // swagger:model DetailedActivityLapsItems0
 type DetailedActivityLapsItems0 struct {
+
 	// activity
 	Activity *MetaActivity `json:"activity,omitempty"`
 
@@ -1618,6 +1658,7 @@ func (m *DetailedActivityLapsItems0) ContextValidate(ctx context.Context, format
 }
 
 func (m *DetailedActivityLapsItems0) contextValidateActivity(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Activity != nil {
 
 		if swag.IsZero(m.Activity) { // not required
@@ -1638,6 +1679,7 @@ func (m *DetailedActivityLapsItems0) contextValidateActivity(ctx context.Context
 }
 
 func (m *DetailedActivityLapsItems0) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required

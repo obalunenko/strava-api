@@ -101,6 +101,7 @@ func (o *GetSegmentEffortByIDOK) GetPayload() *models.DetailedSegmentEffort {
 }
 
 func (o *GetSegmentEffortByIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.DetailedSegmentEffort)
 
 	// response payload
@@ -174,6 +175,7 @@ func (o *GetSegmentEffortByIDDefault) GetPayload() *models.Fault {
 }
 
 func (o *GetSegmentEffortByIDDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Fault)
 
 	// response payload

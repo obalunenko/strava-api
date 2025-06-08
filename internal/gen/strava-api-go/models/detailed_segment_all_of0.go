@@ -19,6 +19,7 @@ import (
 //
 // swagger:model detailedSegmentAllOf0
 type DetailedSegmentAllOf0 struct {
+
 	// activity type
 	// Enum: ["Ride","Run"]
 	ActivityType string `json:"activity_type,omitempty"`
@@ -243,6 +244,7 @@ func (m *DetailedSegmentAllOf0) ContextValidate(ctx context.Context, formats str
 }
 
 func (m *DetailedSegmentAllOf0) contextValidateAthletePrEffort(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.AthletePrEffort != nil {
 
 		if swag.IsZero(m.AthletePrEffort) { // not required
@@ -263,6 +265,7 @@ func (m *DetailedSegmentAllOf0) contextValidateAthletePrEffort(ctx context.Conte
 }
 
 func (m *DetailedSegmentAllOf0) contextValidateAthleteSegmentStats(ctx context.Context, formats strfmt.Registry) error {
+
 	if m.AthleteSegmentStats != nil {
 
 		if swag.IsZero(m.AthleteSegmentStats) { // not required
@@ -283,6 +286,7 @@ func (m *DetailedSegmentAllOf0) contextValidateAthleteSegmentStats(ctx context.C
 }
 
 func (m *DetailedSegmentAllOf0) contextValidateEndLatlng(ctx context.Context, formats strfmt.Registry) error {
+
 	if err := m.EndLatlng.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("end_latlng")
@@ -296,6 +300,7 @@ func (m *DetailedSegmentAllOf0) contextValidateEndLatlng(ctx context.Context, fo
 }
 
 func (m *DetailedSegmentAllOf0) contextValidateStartLatlng(ctx context.Context, formats strfmt.Registry) error {
+
 	if err := m.StartLatlng.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("start_latlng")

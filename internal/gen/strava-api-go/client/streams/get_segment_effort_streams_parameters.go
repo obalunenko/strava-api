@@ -61,6 +61,7 @@ GetSegmentEffortStreamsParams contains all the parameters to send to the API end
 	Typically these are written to a http.Request.
 */
 type GetSegmentEffortStreamsParams struct {
+
 	/* ID.
 
 	   The identifier of the segment effort.
@@ -100,7 +101,9 @@ func (o *GetSegmentEffortStreamsParams) WithDefaults() *GetSegmentEffortStreamsP
 //
 // All values with no default are reset to their zero value.
 func (o *GetSegmentEffortStreamsParams) SetDefaults() {
-	keyByTypeDefault := bool(true)
+	var (
+		keyByTypeDefault = bool(true)
+	)
 
 	val := GetSegmentEffortStreamsParams{
 		KeyByType: keyByTypeDefault,
@@ -180,6 +183,7 @@ func (o *GetSegmentEffortStreamsParams) SetKeys(keys []string) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetSegmentEffortStreamsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
+
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}
@@ -194,6 +198,7 @@ func (o *GetSegmentEffortStreamsParams) WriteToRequest(r runtime.ClientRequest, 
 	qrKeyByType := o.KeyByType
 	qKeyByType := swag.FormatBool(qrKeyByType)
 	if qKeyByType != "" {
+
 		if err := r.SetQueryParam("key_by_type", qKeyByType); err != nil {
 			return err
 		}

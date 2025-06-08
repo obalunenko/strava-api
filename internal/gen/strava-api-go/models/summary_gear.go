@@ -16,6 +16,7 @@ import (
 //
 // swagger:model summaryGear
 type SummaryGear struct {
+
 	// The distance logged with this gear.
 	Distance float32 `json:"distance,omitempty"`
 

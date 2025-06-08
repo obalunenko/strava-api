@@ -101,6 +101,7 @@ func (o *GetLoggedInAthleteActivitiesOK) GetPayload() []*models.SummaryActivity 
 }
 
 func (o *GetLoggedInAthleteActivitiesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
@@ -172,6 +173,7 @@ func (o *GetLoggedInAthleteActivitiesDefault) GetPayload() *models.Fault {
 }
 
 func (o *GetLoggedInAthleteActivitiesDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
 	o.Payload = new(models.Fault)
 
 	// response payload

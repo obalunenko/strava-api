@@ -17,6 +17,7 @@ import (
 //
 // swagger:model powerZoneRanges
 type PowerZoneRanges struct {
+
 	// zones
 	Zones ZoneRanges `json:"zones,omitempty"`
 }
@@ -67,6 +68,7 @@ func (m *PowerZoneRanges) ContextValidate(ctx context.Context, formats strfmt.Re
 }
 
 func (m *PowerZoneRanges) contextValidateZones(ctx context.Context, formats strfmt.Registry) error {
+
 	if err := m.Zones.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("zones")

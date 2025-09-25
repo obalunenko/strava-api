@@ -42,7 +42,7 @@ jobs:
       max-parallel: 3
       matrix:
         os: [ 'ubuntu-24.04' ]
-        go-version: [1.24.x]
+        go-version: [1.25.x]
     runs-on: ${{ matrix.os }}
     name: Build
     steps:

@@ -150,7 +150,7 @@ func (a *Client) GetClubAdminsByID(params *GetClubAdminsByIDParams, authInfo run
 /*
 GetClubByID gets club
 
-Returns a given club using its identifier.
+Returns a given a club using its identifier.
 */
 func (a *Client) GetClubByID(params *GetClubByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubByIDOK, error) {
 	// TODO: Validate the params before sending

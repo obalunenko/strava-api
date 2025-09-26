@@ -1528,7 +1528,7 @@
     },
     "/clubs/{id}": {
       "get": {
-        "description": "Returns a given club using its identifier.",
+        "description": "Returns a given a club using its identifier.",
         "tags": [
           "Clubs"
         ],

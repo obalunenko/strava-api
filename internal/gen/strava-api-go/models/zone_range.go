@@ -16,7 +16,6 @@ import (
 //
 // swagger:model zoneRange
 type ZoneRange struct {
-
 	// The maximum value in the range.
 	Max int64 `json:"max,omitempty"`
 

@@ -16,7 +16,6 @@ import (
 //
 // swagger:model error
 type Error struct {
-
 	// The code associated with this error.
 	Code string `json:"code,omitempty"`
 

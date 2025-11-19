@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	stderrors "errors"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -18,7 +19,6 @@ import (
 //
 // swagger:model lap
 type Lap struct {
-
 	// activity
 	Activity *MetaActivity `json:"activity,omitempty"`
 
@@ -109,11 +109,15 @@ func (m *Lap) validateActivity(formats strfmt.Registry) error {
 
 	if m.Activity != nil {
 		if err := m.Activity.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("activity")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("activity")
 			}
+
 			return err
 		}
 	}
@@ -128,11 +132,15 @@ func (m *Lap) validateAthlete(formats strfmt.Registry) error {
 
 	if m.Athlete != nil {
 		if err := m.Athlete.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}
@@ -183,7 +191,6 @@ func (m *Lap) ContextValidate(ctx context.Context, formats strfmt.Registry) erro
 }
 
 func (m *Lap) contextValidateActivity(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Activity != nil {
 
 		if swag.IsZero(m.Activity) { // not required
@@ -191,11 +198,15 @@ func (m *Lap) contextValidateActivity(ctx context.Context, formats strfmt.Regist
 		}
 
 		if err := m.Activity.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("activity")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("activity")
 			}
+
 			return err
 		}
 	}
@@ -204,7 +215,6 @@ func (m *Lap) contextValidateActivity(ctx context.Context, formats strfmt.Regist
 }
 
 func (m *Lap) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required
@@ -212,11 +222,15 @@ func (m *Lap) contextValidateAthlete(ctx context.Context, formats strfmt.Registr
 		}
 
 		if err := m.Athlete.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}

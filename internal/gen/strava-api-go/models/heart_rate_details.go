@@ -16,7 +16,6 @@ import (
 //
 // swagger:model heartRateDetails
 type HeartRateDetails struct {
-
 	// The heart heart rate of the athlete during this effort
 	AverageHeartrate float32 `json:"average_heartrate,omitempty"`
 

@@ -95,7 +95,7 @@ GetLoggedInAthlete gets authenticated athlete
 Returns the currently authenticated athlete. Tokens with profile:read_all scope will receive a detailed athlete representation; all others will receive a summary representation.
 */
 func (a *Client) GetLoggedInAthlete(params *GetLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetLoggedInAthleteParams()
 	}
@@ -115,17 +115,22 @@ func (a *Client) GetLoggedInAthlete(params *GetLoggedInAthleteParams, authInfo r
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetLoggedInAthleteOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetLoggedInAthleteDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -135,7 +140,7 @@ GetLoggedInAthleteZones gets zones
 Returns the the authenticated athlete's heart rate and power zones. Requires profile:read_all.
 */
 func (a *Client) GetLoggedInAthleteZones(params *GetLoggedInAthleteZonesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteZonesOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetLoggedInAthleteZonesParams()
 	}
@@ -155,17 +160,22 @@ func (a *Client) GetLoggedInAthleteZones(params *GetLoggedInAthleteZonesParams, 
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetLoggedInAthleteZonesOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetLoggedInAthleteZonesDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -175,7 +185,7 @@ GetStats gets athlete stats
 Returns the activity stats of an athlete. Only includes data from activities set to Everyone visibilty.
 */
 func (a *Client) GetStats(params *GetStatsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetStatsOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetStatsParams()
 	}
@@ -195,17 +205,22 @@ func (a *Client) GetStats(params *GetStatsParams, authInfo runtime.ClientAuthInf
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetStatsOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetStatsDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -215,7 +230,7 @@ UpdateLoggedInAthlete updates athlete
 Update the currently authenticated athlete. Requires profile:write scope.
 */
 func (a *Client) UpdateLoggedInAthlete(params *UpdateLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateLoggedInAthleteOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewUpdateLoggedInAthleteParams()
 	}
@@ -235,17 +250,22 @@ func (a *Client) UpdateLoggedInAthlete(params *UpdateLoggedInAthleteParams, auth
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*UpdateLoggedInAthleteOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*UpdateLoggedInAthleteDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

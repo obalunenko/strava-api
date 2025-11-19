@@ -91,7 +91,7 @@ CreateUpload uploads activity
 Uploads a new data file to create an activity from. Requires activity:write scope.
 */
 func (a *Client) CreateUpload(params *CreateUploadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUploadCreated, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewCreateUploadParams()
 	}
@@ -111,17 +111,22 @@ func (a *Client) CreateUpload(params *CreateUploadParams, authInfo runtime.Clien
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*CreateUploadCreated)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*CreateUploadDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -131,7 +136,7 @@ GetUploadByID gets upload
 Returns an upload for a given identifier. Requires activity:write scope.
 */
 func (a *Client) GetUploadByID(params *GetUploadByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUploadByIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetUploadByIDParams()
 	}
@@ -151,17 +156,22 @@ func (a *Client) GetUploadByID(params *GetUploadByIDParams, authInfo runtime.Cli
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetUploadByIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetUploadByIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

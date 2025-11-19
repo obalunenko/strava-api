@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 	"encoding/json"
+	stderrors "errors"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -19,7 +20,6 @@ import (
 //
 // swagger:model explorerSegment
 type ExplorerSegment struct {
-
 	// The segment's average grade, in percents
 	AvgGrade float32 `json:"avg_grade,omitempty"`
 
@@ -96,7 +96,7 @@ func (m *ExplorerSegment) validateClimbCategory(formats strfmt.Registry) error {
 	return nil
 }
 
-var explorerSegmentTypeClimbCategoryDescPropEnum []interface{}
+var explorerSegmentTypeClimbCategoryDescPropEnum []any
 
 func init() {
 	var res []string
@@ -156,11 +156,15 @@ func (m *ExplorerSegment) validateEndLatlng(formats strfmt.Registry) error {
 	}
 
 	if err := m.EndLatlng.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("end_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("end_latlng")
 		}
+
 		return err
 	}
 
@@ -173,11 +177,15 @@ func (m *ExplorerSegment) validateStartLatlng(formats strfmt.Registry) error {
 	}
 
 	if err := m.StartLatlng.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("start_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("start_latlng")
 		}
+
 		return err
 	}
 
@@ -203,13 +211,16 @@ func (m *ExplorerSegment) ContextValidate(ctx context.Context, formats strfmt.Re
 }
 
 func (m *ExplorerSegment) contextValidateEndLatlng(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.EndLatlng.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("end_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("end_latlng")
 		}
+
 		return err
 	}
 
@@ -217,13 +228,16 @@ func (m *ExplorerSegment) contextValidateEndLatlng(ctx context.Context, formats 
 }
 
 func (m *ExplorerSegment) contextValidateStartLatlng(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.StartLatlng.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("start_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("start_latlng")
 		}
+
 		return err
 	}
 

@@ -19,7 +19,6 @@ import (
 //
 // swagger:model baseStream
 type BaseStream struct {
-
 	// The number of data points in this stream
 	OriginalSize int64 `json:"original_size,omitempty"`
 
@@ -50,7 +49,7 @@ func (m *BaseStream) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-var baseStreamTypeResolutionPropEnum []interface{}
+var baseStreamTypeResolutionPropEnum []any
 
 func init() {
 	var res []string
@@ -95,7 +94,7 @@ func (m *BaseStream) validateResolution(formats strfmt.Registry) error {
 	return nil
 }
 
-var baseStreamTypeSeriesTypePropEnum []interface{}
+var baseStreamTypeSeriesTypePropEnum []any
 
 func init() {
 	var res []string

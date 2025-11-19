@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	stderrors "errors"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -18,7 +19,6 @@ import (
 //
 // swagger:model waypoint
 type Waypoint struct {
-
 	// Categories that the waypoint belongs to
 	// Min Items: 0
 	Categories []string `json:"categories"`
@@ -81,11 +81,15 @@ func (m *Waypoint) validateLatlng(formats strfmt.Registry) error {
 	}
 
 	if err := m.Latlng.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("latlng")
 		}
+
 		return err
 	}
 
@@ -98,11 +102,15 @@ func (m *Waypoint) validateTargetLatlng(formats strfmt.Registry) error {
 	}
 
 	if err := m.TargetLatlng.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("target_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("target_latlng")
 		}
+
 		return err
 	}
 
@@ -128,13 +136,16 @@ func (m *Waypoint) ContextValidate(ctx context.Context, formats strfmt.Registry)
 }
 
 func (m *Waypoint) contextValidateLatlng(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.Latlng.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("latlng")
 		}
+
 		return err
 	}
 
@@ -142,13 +153,16 @@ func (m *Waypoint) contextValidateLatlng(ctx context.Context, formats strfmt.Reg
 }
 
 func (m *Waypoint) contextValidateTargetLatlng(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.TargetLatlng.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("target_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("target_latlng")
 		}
+
 		return err
 	}
 

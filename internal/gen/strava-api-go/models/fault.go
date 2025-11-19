@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	stderrors "errors"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -18,7 +19,6 @@ import (
 //
 // swagger:model fault
 type Fault struct {
-
 	// The set of specific errors associated with this fault, if any.
 	Errors []*Error `json:"errors"`
 
@@ -52,11 +52,15 @@ func (m *Fault) validateErrors(formats strfmt.Registry) error {
 
 		if m.Errors[i] != nil {
 			if err := m.Errors[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("errors" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("errors" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
@@ -81,9 +85,7 @@ func (m *Fault) ContextValidate(ctx context.Context, formats strfmt.Registry) er
 }
 
 func (m *Fault) contextValidateErrors(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Errors); i++ {
-
 		if m.Errors[i] != nil {
 
 			if swag.IsZero(m.Errors[i]) { // not required
@@ -91,15 +93,18 @@ func (m *Fault) contextValidateErrors(ctx context.Context, formats strfmt.Regist
 			}
 
 			if err := m.Errors[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("errors" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("errors" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
-
 	}
 
 	return nil

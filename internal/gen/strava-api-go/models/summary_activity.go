@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	stderrors "errors"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -43,6 +44,9 @@ type SummaryActivity struct {
 
 	// Whether this activity is a commute
 	Commute bool `json:"commute,omitempty"`
+
+	// The name of the device used to record the activity
+	DeviceName string `json:"device_name,omitempty"`
 
 	// Whether the watts are from a power meter, false if estimated
 	DeviceWatts bool `json:"device_watts,omitempty"`
@@ -181,6 +185,8 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 
 		Commute bool `json:"commute,omitempty"`
 
+		DeviceName string `json:"device_name,omitempty"`
+
 		DeviceWatts bool `json:"device_watts,omitempty"`
 
 		Distance float32 `json:"distance,omitempty"`
@@ -266,6 +272,8 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 	m.CommentCount = dataAO2.CommentCount
 
 	m.Commute = dataAO2.Commute
+
+	m.DeviceName = dataAO2.DeviceName
 
 	m.DeviceWatts = dataAO2.DeviceWatts
 
@@ -368,6 +376,8 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 
 		Commute bool `json:"commute,omitempty"`
 
+		DeviceName string `json:"device_name,omitempty"`
+
 		DeviceWatts bool `json:"device_watts,omitempty"`
 
 		Distance float32 `json:"distance,omitempty"`
@@ -450,6 +460,8 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 	dataAO2.CommentCount = m.CommentCount
 
 	dataAO2.Commute = m.Commute
+
+	dataAO2.DeviceName = m.DeviceName
 
 	dataAO2.DeviceWatts = m.DeviceWatts
 
@@ -583,18 +595,21 @@ func (m *SummaryActivity) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateAthlete(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Athlete) { // not required
 		return nil
 	}
 
 	if m.Athlete != nil {
 		if err := m.Athlete.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}
@@ -603,7 +618,6 @@ func (m *SummaryActivity) validateAthlete(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateAthleteCount(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AthleteCount) { // not required
 		return nil
 	}
@@ -616,17 +630,20 @@ func (m *SummaryActivity) validateAthleteCount(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateEndLatlng(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.EndLatlng) { // not required
 		return nil
 	}
 
 	if err := m.EndLatlng.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("end_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("end_latlng")
 		}
+
 		return err
 	}
 
@@ -634,18 +651,21 @@ func (m *SummaryActivity) validateEndLatlng(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateMap(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Map) { // not required
 		return nil
 	}
 
 	if m.Map != nil {
 		if err := m.Map.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("map")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("map")
 			}
+
 			return err
 		}
 	}
@@ -654,17 +674,20 @@ func (m *SummaryActivity) validateMap(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateSportType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SportType) { // not required
 		return nil
 	}
 
 	if err := m.SportType.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("sport_type")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("sport_type")
 		}
+
 		return err
 	}
 
@@ -672,7 +695,6 @@ func (m *SummaryActivity) validateSportType(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateStartDate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StartDate) { // not required
 		return nil
 	}
@@ -685,7 +707,6 @@ func (m *SummaryActivity) validateStartDate(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateStartDateLocal(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StartDateLocal) { // not required
 		return nil
 	}
@@ -698,17 +719,20 @@ func (m *SummaryActivity) validateStartDateLocal(formats strfmt.Registry) error 
 }
 
 func (m *SummaryActivity) validateStartLatlng(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StartLatlng) { // not required
 		return nil
 	}
 
 	if err := m.StartLatlng.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("start_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("start_latlng")
 		}
+
 		return err
 	}
 
@@ -716,17 +740,20 @@ func (m *SummaryActivity) validateStartLatlng(formats strfmt.Registry) error {
 }
 
 func (m *SummaryActivity) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
 	if err := m.Type.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("type")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("type")
 		}
+
 		return err
 	}
 
@@ -777,7 +804,6 @@ func (m *SummaryActivity) ContextValidate(ctx context.Context, formats strfmt.Re
 }
 
 func (m *SummaryActivity) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required
@@ -785,11 +811,15 @@ func (m *SummaryActivity) contextValidateAthlete(ctx context.Context, formats st
 		}
 
 		if err := m.Athlete.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}
@@ -798,13 +828,16 @@ func (m *SummaryActivity) contextValidateAthlete(ctx context.Context, formats st
 }
 
 func (m *SummaryActivity) contextValidateEndLatlng(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.EndLatlng.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("end_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("end_latlng")
 		}
+
 		return err
 	}
 
@@ -812,7 +845,6 @@ func (m *SummaryActivity) contextValidateEndLatlng(ctx context.Context, formats 
 }
 
 func (m *SummaryActivity) contextValidateMap(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Map != nil {
 
 		if swag.IsZero(m.Map) { // not required
@@ -820,11 +852,15 @@ func (m *SummaryActivity) contextValidateMap(ctx context.Context, formats strfmt
 		}
 
 		if err := m.Map.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("map")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("map")
 			}
+
 			return err
 		}
 	}
@@ -833,17 +869,20 @@ func (m *SummaryActivity) contextValidateMap(ctx context.Context, formats strfmt
 }
 
 func (m *SummaryActivity) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SportType) { // not required
 		return nil
 	}
 
 	if err := m.SportType.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("sport_type")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("sport_type")
 		}
+
 		return err
 	}
 
@@ -851,13 +890,16 @@ func (m *SummaryActivity) contextValidateSportType(ctx context.Context, formats 
 }
 
 func (m *SummaryActivity) contextValidateStartLatlng(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.StartLatlng.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("start_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("start_latlng")
 		}
+
 		return err
 	}
 
@@ -865,17 +907,20 @@ func (m *SummaryActivity) contextValidateStartLatlng(ctx context.Context, format
 }
 
 func (m *SummaryActivity) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
 	if err := m.Type.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("type")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("type")
 		}
+
 		return err
 	}
 

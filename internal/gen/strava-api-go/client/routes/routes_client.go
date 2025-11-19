@@ -71,7 +71,7 @@ GetRouteAsGPX exports route g p x
 Returns a GPX file of the route. Requires read_all scope for private routes.
 */
 func (a *Client) GetRouteAsGPX(params *GetRouteAsGPXParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteAsGPXOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetRouteAsGPXParams()
 	}
@@ -91,17 +91,22 @@ func (a *Client) GetRouteAsGPX(params *GetRouteAsGPXParams, authInfo runtime.Cli
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetRouteAsGPXOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetRouteAsGPXDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -111,7 +116,7 @@ GetRouteAsTCX exports route t c x
 Returns a TCX file of the route. Requires read_all scope for private routes.
 */
 func (a *Client) GetRouteAsTCX(params *GetRouteAsTCXParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteAsTCXOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetRouteAsTCXParams()
 	}
@@ -131,17 +136,22 @@ func (a *Client) GetRouteAsTCX(params *GetRouteAsTCXParams, authInfo runtime.Cli
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetRouteAsTCXOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetRouteAsTCXDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -151,7 +161,7 @@ GetRouteByID gets route
 Returns a route using its identifier. Requires read_all scope for private routes.
 */
 func (a *Client) GetRouteByID(params *GetRouteByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteByIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetRouteByIDParams()
 	}
@@ -171,17 +181,22 @@ func (a *Client) GetRouteByID(params *GetRouteByIDParams, authInfo runtime.Clien
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetRouteByIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetRouteByIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -191,7 +206,7 @@ GetRoutesByAthleteID lists athlete routes
 Returns a list of the routes created by the authenticated athlete. Private routes are filtered out unless requested by a token with read_all scope.
 */
 func (a *Client) GetRoutesByAthleteID(params *GetRoutesByAthleteIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRoutesByAthleteIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetRoutesByAthleteIDParams()
 	}
@@ -211,17 +226,22 @@ func (a *Client) GetRoutesByAthleteID(params *GetRoutesByAthleteIDParams, authIn
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetRoutesByAthleteIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetRoutesByAthleteIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

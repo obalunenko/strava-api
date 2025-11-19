@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	stderrors "errors"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -17,7 +18,6 @@ import (
 //
 // swagger:model photosSummary
 type PhotosSummary struct {
-
 	// The number of photos
 	Count int64 `json:"count,omitempty"`
 
@@ -46,11 +46,15 @@ func (m *PhotosSummary) validatePrimary(formats strfmt.Registry) error {
 
 	if m.Primary != nil {
 		if err := m.Primary.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("primary")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("primary")
 			}
+
 			return err
 		}
 	}
@@ -73,7 +77,6 @@ func (m *PhotosSummary) ContextValidate(ctx context.Context, formats strfmt.Regi
 }
 
 func (m *PhotosSummary) contextValidatePrimary(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Primary != nil {
 
 		if swag.IsZero(m.Primary) { // not required
@@ -81,11 +84,15 @@ func (m *PhotosSummary) contextValidatePrimary(ctx context.Context, formats strf
 		}
 
 		if err := m.Primary.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("primary")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("primary")
 			}
+
 			return err
 		}
 	}
@@ -115,7 +122,6 @@ func (m *PhotosSummary) UnmarshalBinary(b []byte) error {
 //
 // swagger:model PhotosSummaryPrimary
 type PhotosSummaryPrimary struct {
-
 	// id
 	ID int64 `json:"id,omitempty"`
 

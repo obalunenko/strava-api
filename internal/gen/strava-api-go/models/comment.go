@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	stderrors "errors"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -18,7 +19,6 @@ import (
 //
 // swagger:model comment
 type Comment struct {
-
 	// The identifier of the activity this comment is related to
 	ActivityID int64 `json:"activity_id,omitempty"`
 
@@ -61,11 +61,15 @@ func (m *Comment) validateAthlete(formats strfmt.Registry) error {
 
 	if m.Athlete != nil {
 		if err := m.Athlete.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}
@@ -100,7 +104,6 @@ func (m *Comment) ContextValidate(ctx context.Context, formats strfmt.Registry) 
 }
 
 func (m *Comment) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required
@@ -108,11 +111,15 @@ func (m *Comment) contextValidateAthlete(ctx context.Context, formats strfmt.Reg
 		}
 
 		if err := m.Athlete.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}

@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	stderrors "errors"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -18,7 +19,6 @@ import (
 //
 // swagger:model explorerResponse
 type ExplorerResponse struct {
-
 	// The set of segments matching an explorer request
 	Segments []*ExplorerSegment `json:"segments"`
 }
@@ -49,11 +49,15 @@ func (m *ExplorerResponse) validateSegments(formats strfmt.Registry) error {
 
 		if m.Segments[i] != nil {
 			if err := m.Segments[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("segments" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("segments" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
@@ -78,9 +82,7 @@ func (m *ExplorerResponse) ContextValidate(ctx context.Context, formats strfmt.R
 }
 
 func (m *ExplorerResponse) contextValidateSegments(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Segments); i++ {
-
 		if m.Segments[i] != nil {
 
 			if swag.IsZero(m.Segments[i]) { // not required
@@ -88,15 +90,18 @@ func (m *ExplorerResponse) contextValidateSegments(ctx context.Context, formats 
 			}
 
 			if err := m.Segments[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("segments" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("segments" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
-
 	}
 
 	return nil

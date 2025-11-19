@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	stderrors "errors"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -17,7 +18,6 @@ import (
 //
 // swagger:model heartRateZoneRanges
 type HeartRateZoneRanges struct {
-
 	// Whether the athlete has set their own custom heart rate zones
 	CustomZones bool `json:"custom_zones,omitempty"`
 
@@ -45,11 +45,15 @@ func (m *HeartRateZoneRanges) validateZones(formats strfmt.Registry) error {
 	}
 
 	if err := m.Zones.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("zones")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("zones")
 		}
+
 		return err
 	}
 
@@ -71,13 +75,16 @@ func (m *HeartRateZoneRanges) ContextValidate(ctx context.Context, formats strfm
 }
 
 func (m *HeartRateZoneRanges) contextValidateZones(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.Zones.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("zones")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("zones")
 		}
+
 		return err
 	}
 

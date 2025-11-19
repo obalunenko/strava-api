@@ -79,7 +79,7 @@ CreateActivity creates an activity
 Creates a manual activity for an athlete, requires activity:write scope.
 */
 func (a *Client) CreateActivity(params *CreateActivityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateActivityCreated, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewCreateActivityParams()
 	}
@@ -99,27 +99,36 @@ func (a *Client) CreateActivity(params *CreateActivityParams, authInfo runtime.C
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*CreateActivityCreated)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*CreateActivityDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-GetActivityByID gets activity
+	GetActivityByID gets activity
 
-Returns the given activity that is owned by the authenticated athlete. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
+	Returns the given activity that is owned by the authenticated athlete. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
+
+We strongly encourage you to display the appropriate attribution that identifies Garmin as the data source and the device name in your application. Please see example below from VeloViewer (that provides an attribution for a Garmin Forerunner device).
+
+![Attribution](/images/device-attribution-image.png)
 */
 func (a *Client) GetActivityByID(params *GetActivityByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetActivityByIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetActivityByIDParams()
 	}
@@ -139,17 +148,22 @@ func (a *Client) GetActivityByID(params *GetActivityByIDParams, authInfo runtime
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetActivityByIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetActivityByIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -159,7 +173,7 @@ GetCommentsByActivityID lists activity comments
 Returns the comments on the given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
 */
 func (a *Client) GetCommentsByActivityID(params *GetCommentsByActivityIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCommentsByActivityIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetCommentsByActivityIDParams()
 	}
@@ -179,17 +193,22 @@ func (a *Client) GetCommentsByActivityID(params *GetCommentsByActivityIDParams, 
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetCommentsByActivityIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetCommentsByActivityIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -199,7 +218,7 @@ GetKudoersByActivityID lists activity kudoers
 Returns the athletes who kudoed an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
 */
 func (a *Client) GetKudoersByActivityID(params *GetKudoersByActivityIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKudoersByActivityIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetKudoersByActivityIDParams()
 	}
@@ -219,17 +238,22 @@ func (a *Client) GetKudoersByActivityID(params *GetKudoersByActivityIDParams, au
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetKudoersByActivityIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetKudoersByActivityIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -239,7 +263,7 @@ GetLapsByActivityID lists activity laps
 Returns the laps of an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
 */
 func (a *Client) GetLapsByActivityID(params *GetLapsByActivityIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLapsByActivityIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetLapsByActivityIDParams()
 	}
@@ -259,17 +283,22 @@ func (a *Client) GetLapsByActivityID(params *GetLapsByActivityIDParams, authInfo
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetLapsByActivityIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetLapsByActivityIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -279,7 +308,7 @@ GetLoggedInAthleteActivities lists athlete activities
 Returns the activities of an athlete for a specific identifier. Requires activity:read. Only Me activities will be filtered out unless requested by a token with activity:read_all.
 */
 func (a *Client) GetLoggedInAthleteActivities(params *GetLoggedInAthleteActivitiesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteActivitiesOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetLoggedInAthleteActivitiesParams()
 	}
@@ -299,17 +328,22 @@ func (a *Client) GetLoggedInAthleteActivities(params *GetLoggedInAthleteActiviti
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetLoggedInAthleteActivitiesOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetLoggedInAthleteActivitiesDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -319,7 +353,7 @@ GetZonesByActivityID gets activity zones
 Summit Feature. Returns the zones of a given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
 */
 func (a *Client) GetZonesByActivityID(params *GetZonesByActivityIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetZonesByActivityIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetZonesByActivityIDParams()
 	}
@@ -339,17 +373,22 @@ func (a *Client) GetZonesByActivityID(params *GetZonesByActivityIDParams, authIn
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetZonesByActivityIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetZonesByActivityIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -359,7 +398,7 @@ UpdateActivityByID updates activity
 Updates the given activity that is owned by the authenticated athlete. Requires activity:write. Also requires activity:read_all in order to update Only Me activities
 */
 func (a *Client) UpdateActivityByID(params *UpdateActivityByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateActivityByIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewUpdateActivityByIDParams()
 	}
@@ -379,17 +418,22 @@ func (a *Client) UpdateActivityByID(params *UpdateActivityByIDParams, authInfo r
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*UpdateActivityByIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*UpdateActivityByIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

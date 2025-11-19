@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	stderrors "errors"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -224,7 +225,6 @@ func (m *DetailedActivity) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateBestEfforts(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BestEfforts) { // not required
 		return nil
 	}
@@ -236,11 +236,15 @@ func (m *DetailedActivity) validateBestEfforts(formats strfmt.Registry) error {
 
 		if m.BestEfforts[i] != nil {
 			if err := m.BestEfforts[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("best_efforts" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("best_efforts" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
@@ -251,18 +255,21 @@ func (m *DetailedActivity) validateBestEfforts(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateGear(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Gear) { // not required
 		return nil
 	}
 
 	if m.Gear != nil {
 		if err := m.Gear.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("gear")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("gear")
 			}
+
 			return err
 		}
 	}
@@ -271,7 +278,6 @@ func (m *DetailedActivity) validateGear(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateLaps(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Laps) { // not required
 		return nil
 	}
@@ -283,11 +289,15 @@ func (m *DetailedActivity) validateLaps(formats strfmt.Registry) error {
 
 		if m.Laps[i] != nil {
 			if err := m.Laps[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("laps" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("laps" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
@@ -298,18 +308,21 @@ func (m *DetailedActivity) validateLaps(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validatePhotos(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Photos) { // not required
 		return nil
 	}
 
 	if m.Photos != nil {
 		if err := m.Photos.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("photos")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("photos")
 			}
+
 			return err
 		}
 	}
@@ -318,7 +331,6 @@ func (m *DetailedActivity) validatePhotos(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateSegmentEfforts(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SegmentEfforts) { // not required
 		return nil
 	}
@@ -330,11 +342,15 @@ func (m *DetailedActivity) validateSegmentEfforts(formats strfmt.Registry) error
 
 		if m.SegmentEfforts[i] != nil {
 			if err := m.SegmentEfforts[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("segment_efforts" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("segment_efforts" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
@@ -345,7 +361,6 @@ func (m *DetailedActivity) validateSegmentEfforts(formats strfmt.Registry) error
 }
 
 func (m *DetailedActivity) validateSplitsMetric(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SplitsMetric) { // not required
 		return nil
 	}
@@ -357,11 +372,15 @@ func (m *DetailedActivity) validateSplitsMetric(formats strfmt.Registry) error {
 
 		if m.SplitsMetric[i] != nil {
 			if err := m.SplitsMetric[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("splits_metric" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("splits_metric" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
@@ -372,7 +391,6 @@ func (m *DetailedActivity) validateSplitsMetric(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivity) validateSplitsStandard(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SplitsStandard) { // not required
 		return nil
 	}
@@ -384,11 +402,15 @@ func (m *DetailedActivity) validateSplitsStandard(formats strfmt.Registry) error
 
 		if m.SplitsStandard[i] != nil {
 			if err := m.SplitsStandard[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("splits_standard" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("splits_standard" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
@@ -442,9 +464,7 @@ func (m *DetailedActivity) ContextValidate(ctx context.Context, formats strfmt.R
 }
 
 func (m *DetailedActivity) contextValidateBestEfforts(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.BestEfforts); i++ {
-
 		if m.BestEfforts[i] != nil {
 
 			if swag.IsZero(m.BestEfforts[i]) { // not required
@@ -452,22 +472,24 @@ func (m *DetailedActivity) contextValidateBestEfforts(ctx context.Context, forma
 			}
 
 			if err := m.BestEfforts[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("best_efforts" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("best_efforts" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
-
 	}
 
 	return nil
 }
 
 func (m *DetailedActivity) contextValidateGear(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Gear != nil {
 
 		if swag.IsZero(m.Gear) { // not required
@@ -475,11 +497,15 @@ func (m *DetailedActivity) contextValidateGear(ctx context.Context, formats strf
 		}
 
 		if err := m.Gear.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("gear")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("gear")
 			}
+
 			return err
 		}
 	}
@@ -488,9 +514,7 @@ func (m *DetailedActivity) contextValidateGear(ctx context.Context, formats strf
 }
 
 func (m *DetailedActivity) contextValidateLaps(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Laps); i++ {
-
 		if m.Laps[i] != nil {
 
 			if swag.IsZero(m.Laps[i]) { // not required
@@ -498,22 +522,24 @@ func (m *DetailedActivity) contextValidateLaps(ctx context.Context, formats strf
 			}
 
 			if err := m.Laps[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("laps" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("laps" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
-
 	}
 
 	return nil
 }
 
 func (m *DetailedActivity) contextValidatePhotos(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Photos != nil {
 
 		if swag.IsZero(m.Photos) { // not required
@@ -521,11 +547,15 @@ func (m *DetailedActivity) contextValidatePhotos(ctx context.Context, formats st
 		}
 
 		if err := m.Photos.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("photos")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("photos")
 			}
+
 			return err
 		}
 	}
@@ -534,9 +564,7 @@ func (m *DetailedActivity) contextValidatePhotos(ctx context.Context, formats st
 }
 
 func (m *DetailedActivity) contextValidateSegmentEfforts(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.SegmentEfforts); i++ {
-
 		if m.SegmentEfforts[i] != nil {
 
 			if swag.IsZero(m.SegmentEfforts[i]) { // not required
@@ -544,24 +572,25 @@ func (m *DetailedActivity) contextValidateSegmentEfforts(ctx context.Context, fo
 			}
 
 			if err := m.SegmentEfforts[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("segment_efforts" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("segment_efforts" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
-
 	}
 
 	return nil
 }
 
 func (m *DetailedActivity) contextValidateSplitsMetric(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.SplitsMetric); i++ {
-
 		if m.SplitsMetric[i] != nil {
 
 			if swag.IsZero(m.SplitsMetric[i]) { // not required
@@ -569,24 +598,25 @@ func (m *DetailedActivity) contextValidateSplitsMetric(ctx context.Context, form
 			}
 
 			if err := m.SplitsMetric[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("splits_metric" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("splits_metric" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
-
 	}
 
 	return nil
 }
 
 func (m *DetailedActivity) contextValidateSplitsStandard(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.SplitsStandard); i++ {
-
 		if m.SplitsStandard[i] != nil {
 
 			if swag.IsZero(m.SplitsStandard[i]) { // not required
@@ -594,15 +624,18 @@ func (m *DetailedActivity) contextValidateSplitsStandard(ctx context.Context, fo
 			}
 
 			if err := m.SplitsStandard[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("splits_standard" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("splits_standard" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
-
 	}
 
 	return nil
@@ -653,6 +686,9 @@ type DetailedActivityAllOf0 struct {
 
 	// Whether this activity is a commute
 	Commute bool `json:"commute,omitempty"`
+
+	// The name of the device used to record the activity
+	DeviceName string `json:"device_name,omitempty"`
 
 	// Whether the watts are from a power meter, false if estimated
 	DeviceWatts bool `json:"device_watts,omitempty"`
@@ -784,6 +820,8 @@ func (m *DetailedActivityAllOf0) UnmarshalJSON(raw []byte) error {
 
 		Commute bool `json:"commute,omitempty"`
 
+		DeviceName string `json:"device_name,omitempty"`
+
 		DeviceWatts bool `json:"device_watts,omitempty"`
 
 		Distance float32 `json:"distance,omitempty"`
@@ -869,6 +907,8 @@ func (m *DetailedActivityAllOf0) UnmarshalJSON(raw []byte) error {
 	m.CommentCount = dataAO1.CommentCount
 
 	m.Commute = dataAO1.Commute
+
+	m.DeviceName = dataAO1.DeviceName
 
 	m.DeviceWatts = dataAO1.DeviceWatts
 
@@ -965,6 +1005,8 @@ func (m DetailedActivityAllOf0) MarshalJSON() ([]byte, error) {
 
 		Commute bool `json:"commute,omitempty"`
 
+		DeviceName string `json:"device_name,omitempty"`
+
 		DeviceWatts bool `json:"device_watts,omitempty"`
 
 		Distance float32 `json:"distance,omitempty"`
@@ -1047,6 +1089,8 @@ func (m DetailedActivityAllOf0) MarshalJSON() ([]byte, error) {
 	dataAO1.CommentCount = m.CommentCount
 
 	dataAO1.Commute = m.Commute
+
+	dataAO1.DeviceName = m.DeviceName
 
 	dataAO1.DeviceWatts = m.DeviceWatts
 
@@ -1176,18 +1220,21 @@ func (m *DetailedActivityAllOf0) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivityAllOf0) validateAthlete(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Athlete) { // not required
 		return nil
 	}
 
 	if m.Athlete != nil {
 		if err := m.Athlete.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}
@@ -1196,7 +1243,6 @@ func (m *DetailedActivityAllOf0) validateAthlete(formats strfmt.Registry) error 
 }
 
 func (m *DetailedActivityAllOf0) validateAthleteCount(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AthleteCount) { // not required
 		return nil
 	}
@@ -1209,17 +1255,20 @@ func (m *DetailedActivityAllOf0) validateAthleteCount(formats strfmt.Registry) e
 }
 
 func (m *DetailedActivityAllOf0) validateEndLatlng(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.EndLatlng) { // not required
 		return nil
 	}
 
 	if err := m.EndLatlng.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("end_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("end_latlng")
 		}
+
 		return err
 	}
 
@@ -1227,18 +1276,21 @@ func (m *DetailedActivityAllOf0) validateEndLatlng(formats strfmt.Registry) erro
 }
 
 func (m *DetailedActivityAllOf0) validateMap(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Map) { // not required
 		return nil
 	}
 
 	if m.Map != nil {
 		if err := m.Map.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("map")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("map")
 			}
+
 			return err
 		}
 	}
@@ -1247,17 +1299,20 @@ func (m *DetailedActivityAllOf0) validateMap(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivityAllOf0) validateSportType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SportType) { // not required
 		return nil
 	}
 
 	if err := m.SportType.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("sport_type")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("sport_type")
 		}
+
 		return err
 	}
 
@@ -1265,7 +1320,6 @@ func (m *DetailedActivityAllOf0) validateSportType(formats strfmt.Registry) erro
 }
 
 func (m *DetailedActivityAllOf0) validateStartDate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StartDate) { // not required
 		return nil
 	}
@@ -1278,7 +1332,6 @@ func (m *DetailedActivityAllOf0) validateStartDate(formats strfmt.Registry) erro
 }
 
 func (m *DetailedActivityAllOf0) validateStartDateLocal(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StartDateLocal) { // not required
 		return nil
 	}
@@ -1291,17 +1344,20 @@ func (m *DetailedActivityAllOf0) validateStartDateLocal(formats strfmt.Registry)
 }
 
 func (m *DetailedActivityAllOf0) validateStartLatlng(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StartLatlng) { // not required
 		return nil
 	}
 
 	if err := m.StartLatlng.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("start_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("start_latlng")
 		}
+
 		return err
 	}
 
@@ -1309,17 +1365,20 @@ func (m *DetailedActivityAllOf0) validateStartLatlng(formats strfmt.Registry) er
 }
 
 func (m *DetailedActivityAllOf0) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
 	if err := m.Type.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("type")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("type")
 		}
+
 		return err
 	}
 
@@ -1366,7 +1425,6 @@ func (m *DetailedActivityAllOf0) ContextValidate(ctx context.Context, formats st
 }
 
 func (m *DetailedActivityAllOf0) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required
@@ -1374,11 +1432,15 @@ func (m *DetailedActivityAllOf0) contextValidateAthlete(ctx context.Context, for
 		}
 
 		if err := m.Athlete.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}
@@ -1387,13 +1449,16 @@ func (m *DetailedActivityAllOf0) contextValidateAthlete(ctx context.Context, for
 }
 
 func (m *DetailedActivityAllOf0) contextValidateEndLatlng(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.EndLatlng.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("end_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("end_latlng")
 		}
+
 		return err
 	}
 
@@ -1401,7 +1466,6 @@ func (m *DetailedActivityAllOf0) contextValidateEndLatlng(ctx context.Context, f
 }
 
 func (m *DetailedActivityAllOf0) contextValidateMap(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Map != nil {
 
 		if swag.IsZero(m.Map) { // not required
@@ -1409,11 +1473,15 @@ func (m *DetailedActivityAllOf0) contextValidateMap(ctx context.Context, formats
 		}
 
 		if err := m.Map.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("map")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("map")
 			}
+
 			return err
 		}
 	}
@@ -1422,17 +1490,20 @@ func (m *DetailedActivityAllOf0) contextValidateMap(ctx context.Context, formats
 }
 
 func (m *DetailedActivityAllOf0) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SportType) { // not required
 		return nil
 	}
 
 	if err := m.SportType.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("sport_type")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("sport_type")
 		}
+
 		return err
 	}
 
@@ -1440,13 +1511,16 @@ func (m *DetailedActivityAllOf0) contextValidateSportType(ctx context.Context, f
 }
 
 func (m *DetailedActivityAllOf0) contextValidateStartLatlng(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.StartLatlng.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("start_latlng")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("start_latlng")
 		}
+
 		return err
 	}
 
@@ -1454,17 +1528,20 @@ func (m *DetailedActivityAllOf0) contextValidateStartLatlng(ctx context.Context,
 }
 
 func (m *DetailedActivityAllOf0) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
 	if err := m.Type.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("type")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("type")
 		}
+
 		return err
 	}
 
@@ -1493,7 +1570,6 @@ func (m *DetailedActivityAllOf0) UnmarshalBinary(b []byte) error {
 //
 // swagger:model DetailedActivityLapsItems0
 type DetailedActivityLapsItems0 struct {
-
 	// activity
 	Activity *MetaActivity `json:"activity,omitempty"`
 
@@ -1584,11 +1660,15 @@ func (m *DetailedActivityLapsItems0) validateActivity(formats strfmt.Registry) e
 
 	if m.Activity != nil {
 		if err := m.Activity.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("activity")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("activity")
 			}
+
 			return err
 		}
 	}
@@ -1603,11 +1683,15 @@ func (m *DetailedActivityLapsItems0) validateAthlete(formats strfmt.Registry) er
 
 	if m.Athlete != nil {
 		if err := m.Athlete.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}
@@ -1658,7 +1742,6 @@ func (m *DetailedActivityLapsItems0) ContextValidate(ctx context.Context, format
 }
 
 func (m *DetailedActivityLapsItems0) contextValidateActivity(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Activity != nil {
 
 		if swag.IsZero(m.Activity) { // not required
@@ -1666,11 +1749,15 @@ func (m *DetailedActivityLapsItems0) contextValidateActivity(ctx context.Context
 		}
 
 		if err := m.Activity.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("activity")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("activity")
 			}
+
 			return err
 		}
 	}
@@ -1679,7 +1766,6 @@ func (m *DetailedActivityLapsItems0) contextValidateActivity(ctx context.Context
 }
 
 func (m *DetailedActivityLapsItems0) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required
@@ -1687,11 +1773,15 @@ func (m *DetailedActivityLapsItems0) contextValidateAthlete(ctx context.Context,
 		}
 
 		if err := m.Athlete.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}

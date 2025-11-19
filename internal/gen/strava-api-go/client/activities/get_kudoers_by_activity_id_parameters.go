@@ -61,7 +61,6 @@ GetKudoersByActivityIDParams contains all the parameters to send to the API endp
 	Typically these are written to a http.Request.
 */
 type GetKudoersByActivityIDParams struct {
-
 	/* ID.
 
 	   The identifier of the activity.
@@ -101,9 +100,7 @@ func (o *GetKudoersByActivityIDParams) WithDefaults() *GetKudoersByActivityIDPar
 //
 // All values with no default are reset to their zero value.
 func (o *GetKudoersByActivityIDParams) SetDefaults() {
-	var (
-		perPageDefault = int64(30)
-	)
+	perPageDefault := int64(30)
 
 	val := GetKudoersByActivityIDParams{
 		PerPage: &perPageDefault,
@@ -183,7 +180,6 @@ func (o *GetKudoersByActivityIDParams) SetPerPage(perPage *int64) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetKudoersByActivityIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}
@@ -204,7 +200,6 @@ func (o *GetKudoersByActivityIDParams) WriteToRequest(r runtime.ClientRequest, r
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
-
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
@@ -221,7 +216,6 @@ func (o *GetKudoersByActivityIDParams) WriteToRequest(r runtime.ClientRequest, r
 		}
 		qPerPage := swag.FormatInt64(qrPerPage)
 		if qPerPage != "" {
-
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {
 				return err
 			}

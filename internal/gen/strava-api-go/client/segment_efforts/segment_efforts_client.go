@@ -67,7 +67,7 @@ GetEffortsBySegmentID lists segment efforts
 Returns a set of the authenticated athlete's segment efforts for a given segment.  Requires subscription.
 */
 func (a *Client) GetEffortsBySegmentID(params *GetEffortsBySegmentIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEffortsBySegmentIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetEffortsBySegmentIDParams()
 	}
@@ -87,17 +87,22 @@ func (a *Client) GetEffortsBySegmentID(params *GetEffortsBySegmentIDParams, auth
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetEffortsBySegmentIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetEffortsBySegmentIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -107,7 +112,7 @@ GetSegmentEffortByID gets segment effort
 Returns a segment effort from an activity that is owned by the authenticated athlete. Requires subscription.
 */
 func (a *Client) GetSegmentEffortByID(params *GetSegmentEffortByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentEffortByIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetSegmentEffortByIDParams()
 	}
@@ -127,17 +132,22 @@ func (a *Client) GetSegmentEffortByID(params *GetSegmentEffortByIDParams, authIn
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetSegmentEffortByIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetSegmentEffortByIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

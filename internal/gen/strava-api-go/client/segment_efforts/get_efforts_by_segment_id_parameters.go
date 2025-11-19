@@ -61,7 +61,6 @@ GetEffortsBySegmentIDParams contains all the parameters to send to the API endpo
 	Typically these are written to a http.Request.
 */
 type GetEffortsBySegmentIDParams struct {
-
 	/* EndDateLocal.
 
 	   ISO 8601 formatted date time.
@@ -109,9 +108,7 @@ func (o *GetEffortsBySegmentIDParams) WithDefaults() *GetEffortsBySegmentIDParam
 //
 // All values with no default are reset to their zero value.
 func (o *GetEffortsBySegmentIDParams) SetDefaults() {
-	var (
-		perPageDefault = int64(30)
-	)
+	perPageDefault := int64(30)
 
 	val := GetEffortsBySegmentIDParams{
 		PerPage: &perPageDefault,
@@ -202,7 +199,6 @@ func (o *GetEffortsBySegmentIDParams) SetStartDateLocal(startDateLocal *strfmt.D
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetEffortsBySegmentIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}
@@ -218,7 +214,6 @@ func (o *GetEffortsBySegmentIDParams) WriteToRequest(r runtime.ClientRequest, re
 		}
 		qEndDateLocal := qrEndDateLocal.String()
 		if qEndDateLocal != "" {
-
 			if err := r.SetQueryParam("end_date_local", qEndDateLocal); err != nil {
 				return err
 			}
@@ -235,7 +230,6 @@ func (o *GetEffortsBySegmentIDParams) WriteToRequest(r runtime.ClientRequest, re
 		}
 		qPerPage := swag.FormatInt64(qrPerPage)
 		if qPerPage != "" {
-
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {
 				return err
 			}
@@ -246,7 +240,6 @@ func (o *GetEffortsBySegmentIDParams) WriteToRequest(r runtime.ClientRequest, re
 	qrSegmentID := o.SegmentID
 	qSegmentID := swag.FormatInt64(qrSegmentID)
 	if qSegmentID != "" {
-
 		if err := r.SetQueryParam("segment_id", qSegmentID); err != nil {
 			return err
 		}
@@ -262,7 +255,6 @@ func (o *GetEffortsBySegmentIDParams) WriteToRequest(r runtime.ClientRequest, re
 		}
 		qStartDateLocal := qrStartDateLocal.String()
 		if qStartDateLocal != "" {
-
 			if err := r.SetQueryParam("start_date_local", qStartDateLocal); err != nil {
 				return err
 			}

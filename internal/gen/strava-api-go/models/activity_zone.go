@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 	"encoding/json"
+	stderrors "errors"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -19,7 +20,6 @@ import (
 //
 // swagger:model activityZone
 type ActivityZone struct {
-
 	// custom zones
 	CustomZones bool `json:"custom_zones,omitempty"`
 
@@ -67,18 +67,22 @@ func (m *ActivityZone) validateDistributionBuckets(formats strfmt.Registry) erro
 	}
 
 	if err := m.DistributionBuckets.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("distribution_buckets")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("distribution_buckets")
 		}
+
 		return err
 	}
 
 	return nil
 }
 
-var activityZoneTypeTypePropEnum []interface{}
+var activityZoneTypeTypePropEnum []any
 
 func init() {
 	var res []string
@@ -135,13 +139,16 @@ func (m *ActivityZone) ContextValidate(ctx context.Context, formats strfmt.Regis
 }
 
 func (m *ActivityZone) contextValidateDistributionBuckets(ctx context.Context, formats strfmt.Registry) error {
-
 	if err := m.DistributionBuckets.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
+		ve := new(errors.Validation)
+		if stderrors.As(err, &ve) {
 			return ve.ValidateName("distribution_buckets")
-		} else if ce, ok := err.(*errors.CompositeError); ok {
+		}
+		ce := new(errors.CompositeError)
+		if stderrors.As(err, &ce) {
 			return ce.ValidateName("distribution_buckets")
 		}
+
 		return err
 	}
 

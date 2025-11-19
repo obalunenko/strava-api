@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 	"encoding/json"
+	stderrors "errors"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -228,28 +229,29 @@ func (m *SummaryClub) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SummaryClub) validateActivityTypes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ActivityTypes) { // not required
 		return nil
 	}
 
 	for i := 0; i < len(m.ActivityTypes); i++ {
-
 		if err := m.ActivityTypes[i].Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("activity_types" + "." + strconv.Itoa(i))
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("activity_types" + "." + strconv.Itoa(i))
 			}
+
 			return err
 		}
-
 	}
 
 	return nil
 }
 
-var summaryClubTypeSportTypePropEnum []interface{}
+var summaryClubTypeSportTypePropEnum []any
 
 func init() {
 	var res []string
@@ -270,7 +272,6 @@ func (m *SummaryClub) validateSportTypeEnum(path, location string, value string)
 }
 
 func (m *SummaryClub) validateSportType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SportType) { // not required
 		return nil
 	}
@@ -303,7 +304,6 @@ func (m *SummaryClub) ContextValidate(ctx context.Context, formats strfmt.Regist
 }
 
 func (m *SummaryClub) contextValidateActivityTypes(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.ActivityTypes); i++ {
 
 		if swag.IsZero(m.ActivityTypes[i]) { // not required
@@ -311,11 +311,15 @@ func (m *SummaryClub) contextValidateActivityTypes(ctx context.Context, formats 
 		}
 
 		if err := m.ActivityTypes[i].ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("activity_types" + "." + strconv.Itoa(i))
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("activity_types" + "." + strconv.Itoa(i))
 			}
+
 			return err
 		}
 

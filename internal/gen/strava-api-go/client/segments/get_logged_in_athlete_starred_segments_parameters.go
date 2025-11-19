@@ -61,7 +61,6 @@ GetLoggedInAthleteStarredSegmentsParams contains all the parameters to send to t
 	Typically these are written to a http.Request.
 */
 type GetLoggedInAthleteStarredSegmentsParams struct {
-
 	/* Page.
 
 	   Page number. Defaults to 1.
@@ -93,9 +92,7 @@ func (o *GetLoggedInAthleteStarredSegmentsParams) WithDefaults() *GetLoggedInAth
 //
 // All values with no default are reset to their zero value.
 func (o *GetLoggedInAthleteStarredSegmentsParams) SetDefaults() {
-	var (
-		perPageDefault = int64(30)
-	)
+	perPageDefault := int64(30)
 
 	val := GetLoggedInAthleteStarredSegmentsParams{
 		PerPage: &perPageDefault,
@@ -164,7 +161,6 @@ func (o *GetLoggedInAthleteStarredSegmentsParams) SetPerPage(perPage *int64) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetLoggedInAthleteStarredSegmentsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}
@@ -180,7 +176,6 @@ func (o *GetLoggedInAthleteStarredSegmentsParams) WriteToRequest(r runtime.Clien
 		}
 		qPage := swag.FormatInt64(qrPage)
 		if qPage != "" {
-
 			if err := r.SetQueryParam("page", qPage); err != nil {
 				return err
 			}
@@ -197,7 +192,6 @@ func (o *GetLoggedInAthleteStarredSegmentsParams) WriteToRequest(r runtime.Clien
 		}
 		qPerPage := swag.FormatInt64(qrPerPage)
 		if qPerPage != "" {
-
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {
 				return err
 			}

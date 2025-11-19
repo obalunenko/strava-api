@@ -73,7 +73,7 @@ GetClubActivitiesByID lists club activities
 Retrieve recent activities from members of a specific club. The authenticated athlete must belong to the requested club in order to hit this endpoint. Pagination is supported. Athlete profile visibility is respected for all activities.
 */
 func (a *Client) GetClubActivitiesByID(params *GetClubActivitiesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubActivitiesByIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetClubActivitiesByIDParams()
 	}
@@ -93,17 +93,22 @@ func (a *Client) GetClubActivitiesByID(params *GetClubActivitiesByIDParams, auth
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetClubActivitiesByIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetClubActivitiesByIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -113,7 +118,7 @@ GetClubAdminsByID lists club administrators
 Returns a list of the administrators of a given club.
 */
 func (a *Client) GetClubAdminsByID(params *GetClubAdminsByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubAdminsByIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetClubAdminsByIDParams()
 	}
@@ -133,17 +138,22 @@ func (a *Client) GetClubAdminsByID(params *GetClubAdminsByIDParams, authInfo run
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetClubAdminsByIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetClubAdminsByIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -153,7 +163,7 @@ GetClubByID gets club
 Returns a given a club using its identifier.
 */
 func (a *Client) GetClubByID(params *GetClubByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubByIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetClubByIDParams()
 	}
@@ -173,17 +183,22 @@ func (a *Client) GetClubByID(params *GetClubByIDParams, authInfo runtime.ClientA
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetClubByIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetClubByIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -193,7 +208,7 @@ GetClubMembersByID lists club members
 Returns a list of the athletes who are members of a given club.
 */
 func (a *Client) GetClubMembersByID(params *GetClubMembersByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubMembersByIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetClubMembersByIDParams()
 	}
@@ -213,17 +228,22 @@ func (a *Client) GetClubMembersByID(params *GetClubMembersByIDParams, authInfo r
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetClubMembersByIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetClubMembersByIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -233,7 +253,7 @@ GetLoggedInAthleteClubs lists athlete clubs
 Returns a list of the clubs whose membership includes the authenticated athlete.
 */
 func (a *Client) GetLoggedInAthleteClubs(params *GetLoggedInAthleteClubsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteClubsOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetLoggedInAthleteClubsParams()
 	}
@@ -253,17 +273,22 @@ func (a *Client) GetLoggedInAthleteClubs(params *GetLoggedInAthleteClubsParams, 
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetLoggedInAthleteClubsOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetLoggedInAthleteClubsDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

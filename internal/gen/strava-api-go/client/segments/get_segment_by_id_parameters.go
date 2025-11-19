@@ -61,7 +61,6 @@ GetSegmentByIDParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type GetSegmentByIDParams struct {
-
 	/* ID.
 
 	   The identifier of the segment.
@@ -136,7 +135,6 @@ func (o *GetSegmentByIDParams) SetID(id int64) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetSegmentByIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}

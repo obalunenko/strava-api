@@ -143,7 +143,7 @@ const (
 )
 
 // for schema
-var activityTypeEnum []interface{}
+var activityTypeEnum []any
 
 func init() {
 	var res []ActivityType

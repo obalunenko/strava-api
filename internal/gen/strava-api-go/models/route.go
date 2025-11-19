@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	stderrors "errors"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -19,7 +20,6 @@ import (
 //
 // swagger:model route
 type Route struct {
-
 	// athlete
 	Athlete *CommentAthlete `json:"athlete,omitempty"`
 
@@ -119,11 +119,15 @@ func (m *Route) validateAthlete(formats strfmt.Registry) error {
 
 	if m.Athlete != nil {
 		if err := m.Athlete.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}
@@ -150,11 +154,15 @@ func (m *Route) validateMap(formats strfmt.Registry) error {
 
 	if m.Map != nil {
 		if err := m.Map.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("map")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("map")
 			}
+
 			return err
 		}
 	}
@@ -174,11 +182,15 @@ func (m *Route) validateSegments(formats strfmt.Registry) error {
 
 		if m.Segments[i] != nil {
 			if err := m.Segments[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("segments" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("segments" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
@@ -218,11 +230,15 @@ func (m *Route) validateWaypoints(formats strfmt.Registry) error {
 
 		if m.Waypoints[i] != nil {
 			if err := m.Waypoints[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("waypoints" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("waypoints" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
@@ -259,7 +275,6 @@ func (m *Route) ContextValidate(ctx context.Context, formats strfmt.Registry) er
 }
 
 func (m *Route) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required
@@ -267,11 +282,15 @@ func (m *Route) contextValidateAthlete(ctx context.Context, formats strfmt.Regis
 		}
 
 		if err := m.Athlete.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}
@@ -280,7 +299,6 @@ func (m *Route) contextValidateAthlete(ctx context.Context, formats strfmt.Regis
 }
 
 func (m *Route) contextValidateMap(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Map != nil {
 
 		if swag.IsZero(m.Map) { // not required
@@ -288,11 +306,15 @@ func (m *Route) contextValidateMap(ctx context.Context, formats strfmt.Registry)
 		}
 
 		if err := m.Map.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("map")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("map")
 			}
+
 			return err
 		}
 	}
@@ -301,9 +323,7 @@ func (m *Route) contextValidateMap(ctx context.Context, formats strfmt.Registry)
 }
 
 func (m *Route) contextValidateSegments(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Segments); i++ {
-
 		if m.Segments[i] != nil {
 
 			if swag.IsZero(m.Segments[i]) { // not required
@@ -311,24 +331,25 @@ func (m *Route) contextValidateSegments(ctx context.Context, formats strfmt.Regi
 			}
 
 			if err := m.Segments[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("segments" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("segments" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
-
 	}
 
 	return nil
 }
 
 func (m *Route) contextValidateWaypoints(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Waypoints); i++ {
-
 		if m.Waypoints[i] != nil {
 
 			if swag.IsZero(m.Waypoints[i]) { // not required
@@ -336,15 +357,18 @@ func (m *Route) contextValidateWaypoints(ctx context.Context, formats strfmt.Reg
 			}
 
 			if err := m.Waypoints[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("waypoints" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("waypoints" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
-
 	}
 
 	return nil

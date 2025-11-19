@@ -8,6 +8,7 @@ package models
 import (
 	"context"
 	"encoding/json"
+	stderrors "errors"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -181,7 +182,6 @@ func (m *DetailedAthlete) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DetailedAthlete) validateBikes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Bikes) { // not required
 		return nil
 	}
@@ -193,11 +193,15 @@ func (m *DetailedAthlete) validateBikes(formats strfmt.Registry) error {
 
 		if m.Bikes[i] != nil {
 			if err := m.Bikes[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("bikes" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("bikes" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
@@ -208,7 +212,6 @@ func (m *DetailedAthlete) validateBikes(formats strfmt.Registry) error {
 }
 
 func (m *DetailedAthlete) validateClubs(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Clubs) { // not required
 		return nil
 	}
@@ -220,11 +223,15 @@ func (m *DetailedAthlete) validateClubs(formats strfmt.Registry) error {
 
 		if m.Clubs[i] != nil {
 			if err := m.Clubs[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("clubs" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("clubs" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
@@ -234,7 +241,7 @@ func (m *DetailedAthlete) validateClubs(formats strfmt.Registry) error {
 	return nil
 }
 
-var detailedAthleteTypeMeasurementPreferencePropEnum []interface{}
+var detailedAthleteTypeMeasurementPreferencePropEnum []any
 
 func init() {
 	var res []string
@@ -255,7 +262,6 @@ func (m *DetailedAthlete) validateMeasurementPreferenceEnum(path, location strin
 }
 
 func (m *DetailedAthlete) validateMeasurementPreference(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MeasurementPreference) { // not required
 		return nil
 	}
@@ -269,7 +275,6 @@ func (m *DetailedAthlete) validateMeasurementPreference(formats strfmt.Registry)
 }
 
 func (m *DetailedAthlete) validateShoes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Shoes) { // not required
 		return nil
 	}
@@ -281,11 +286,15 @@ func (m *DetailedAthlete) validateShoes(formats strfmt.Registry) error {
 
 		if m.Shoes[i] != nil {
 			if err := m.Shoes[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("shoes" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("shoes" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
@@ -323,9 +332,7 @@ func (m *DetailedAthlete) ContextValidate(ctx context.Context, formats strfmt.Re
 }
 
 func (m *DetailedAthlete) contextValidateBikes(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Bikes); i++ {
-
 		if m.Bikes[i] != nil {
 
 			if swag.IsZero(m.Bikes[i]) { // not required
@@ -333,24 +340,25 @@ func (m *DetailedAthlete) contextValidateBikes(ctx context.Context, formats strf
 			}
 
 			if err := m.Bikes[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("bikes" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("bikes" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
-
 	}
 
 	return nil
 }
 
 func (m *DetailedAthlete) contextValidateClubs(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Clubs); i++ {
-
 		if m.Clubs[i] != nil {
 
 			if swag.IsZero(m.Clubs[i]) { // not required
@@ -358,24 +366,25 @@ func (m *DetailedAthlete) contextValidateClubs(ctx context.Context, formats strf
 			}
 
 			if err := m.Clubs[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("clubs" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("clubs" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
-
 	}
 
 	return nil
 }
 
 func (m *DetailedAthlete) contextValidateShoes(ctx context.Context, formats strfmt.Registry) error {
-
 	for i := 0; i < len(m.Shoes); i++ {
-
 		if m.Shoes[i] != nil {
 
 			if swag.IsZero(m.Shoes[i]) { // not required
@@ -383,15 +392,18 @@ func (m *DetailedAthlete) contextValidateShoes(ctx context.Context, formats strf
 			}
 
 			if err := m.Shoes[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
 					return ve.ValidateName("shoes" + "." + strconv.Itoa(i))
-				} else if ce, ok := err.(*errors.CompositeError); ok {
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
 					return ce.ValidateName("shoes" + "." + strconv.Itoa(i))
 				}
+
 				return err
 			}
 		}
-
 	}
 
 	return nil

@@ -7,6 +7,7 @@ package segments
 
 import (
 	"encoding/json"
+	stderrors "errors"
 	"fmt"
 	"io"
 
@@ -22,7 +23,7 @@ type GetLoggedInAthleteStarredSegmentsReader struct {
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *GetLoggedInAthleteStarredSegmentsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *GetLoggedInAthleteStarredSegmentsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (any, error) {
 	switch response.Code() {
 	case 200:
 		result := NewGetLoggedInAthleteStarredSegmentsOK()
@@ -101,9 +102,8 @@ func (o *GetLoggedInAthleteStarredSegmentsOK) GetPayload() []*models.SummarySegm
 }
 
 func (o *GetLoggedInAthleteStarredSegmentsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
 		return err
 	}
 
@@ -173,11 +173,10 @@ func (o *GetLoggedInAthleteStarredSegmentsDefault) GetPayload() *models.Fault {
 }
 
 func (o *GetLoggedInAthleteStarredSegmentsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models.Fault)
 
 	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
 		return err
 	}
 

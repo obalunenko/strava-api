@@ -71,7 +71,7 @@ GetActivityStreams gets activity streams
 Returns the given activity's streams. Requires activity:read scope. Requires activity:read_all scope for Only Me activities.
 */
 func (a *Client) GetActivityStreams(params *GetActivityStreamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetActivityStreamsOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetActivityStreamsParams()
 	}
@@ -91,17 +91,22 @@ func (a *Client) GetActivityStreams(params *GetActivityStreamsParams, authInfo r
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetActivityStreamsOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetActivityStreamsDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -111,7 +116,7 @@ GetRouteStreams gets route streams
 Returns the given route's streams. Requires read_all scope for private routes.
 */
 func (a *Client) GetRouteStreams(params *GetRouteStreamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteStreamsOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetRouteStreamsParams()
 	}
@@ -131,17 +136,22 @@ func (a *Client) GetRouteStreams(params *GetRouteStreamsParams, authInfo runtime
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetRouteStreamsOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetRouteStreamsDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -151,7 +161,7 @@ GetSegmentEffortStreams gets segment effort streams
 Returns a set of streams for a segment effort completed by the authenticated athlete. Requires read_all scope.
 */
 func (a *Client) GetSegmentEffortStreams(params *GetSegmentEffortStreamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentEffortStreamsOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetSegmentEffortStreamsParams()
 	}
@@ -171,17 +181,22 @@ func (a *Client) GetSegmentEffortStreams(params *GetSegmentEffortStreamsParams, 
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetSegmentEffortStreamsOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetSegmentEffortStreamsDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -191,7 +206,7 @@ GetSegmentStreams gets segment streams
 Returns the given segment's streams. Requires read_all scope for private segments.
 */
 func (a *Client) GetSegmentStreams(params *GetSegmentStreamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentStreamsOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetSegmentStreamsParams()
 	}
@@ -211,17 +226,22 @@ func (a *Client) GetSegmentStreams(params *GetSegmentStreamsParams, authInfo run
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetSegmentStreamsOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetSegmentStreamsDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

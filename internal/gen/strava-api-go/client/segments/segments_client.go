@@ -71,7 +71,7 @@ ExploreSegments explores segments
 Returns the top 10 segments matching a specified query.
 */
 func (a *Client) ExploreSegments(params *ExploreSegmentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExploreSegmentsOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewExploreSegmentsParams()
 	}
@@ -91,17 +91,22 @@ func (a *Client) ExploreSegments(params *ExploreSegmentsParams, authInfo runtime
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*ExploreSegmentsOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*ExploreSegmentsDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -111,7 +116,7 @@ GetLoggedInAthleteStarredSegments lists starred segments
 List of the authenticated athlete's starred segments. Private segments are filtered out unless requested by a token with read_all scope.
 */
 func (a *Client) GetLoggedInAthleteStarredSegments(params *GetLoggedInAthleteStarredSegmentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteStarredSegmentsOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetLoggedInAthleteStarredSegmentsParams()
 	}
@@ -131,17 +136,22 @@ func (a *Client) GetLoggedInAthleteStarredSegments(params *GetLoggedInAthleteSta
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetLoggedInAthleteStarredSegmentsOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetLoggedInAthleteStarredSegmentsDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -151,7 +161,7 @@ GetSegmentByID gets segment
 Returns the specified segment. read_all scope required in order to retrieve athlete-specific segment information, or to retrieve private segments.
 */
 func (a *Client) GetSegmentByID(params *GetSegmentByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentByIDOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetSegmentByIDParams()
 	}
@@ -171,17 +181,22 @@ func (a *Client) GetSegmentByID(params *GetSegmentByIDParams, authInfo runtime.C
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*GetSegmentByIDOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*GetSegmentByIDDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -191,7 +206,7 @@ StarSegment stars segment
 Stars/Unstars the given segment for the authenticated athlete. Requires profile:write scope.
 */
 func (a *Client) StarSegment(params *StarSegmentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StarSegmentOK, error) {
-	// TODO: Validate the params before sending
+	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewStarSegmentParams()
 	}
@@ -211,17 +226,22 @@ func (a *Client) StarSegment(params *StarSegmentParams, authInfo runtime.ClientA
 	for _, opt := range opts {
 		opt(op)
 	}
-
 	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
+
+	// only one success response has to be checked
 	success, ok := result.(*StarSegmentOK)
 	if ok {
 		return success, nil
 	}
-	// unexpected success response
+
+	// unexpected success response.
+	//
+	// a default response is provided: fill this and return an error
 	unexpectedSuccess := result.(*StarSegmentDefault)
+
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

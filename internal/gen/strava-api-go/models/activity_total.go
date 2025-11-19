@@ -16,7 +16,6 @@ import (
 //
 // swagger:model activityTotal
 type ActivityTotal struct {
-
 	// The total number of achievements of the considered activities.
 	AchievementCount int64 `json:"achievement_count,omitempty"`
 

@@ -18,7 +18,6 @@ import (
 //
 // swagger:model summaryPRSegmentEffort
 type SummaryPRSegmentEffort struct {
-
 	// Number of efforts by the authenticated athlete on this segment.
 	EffortCount int64 `json:"effort_count,omitempty"`
 

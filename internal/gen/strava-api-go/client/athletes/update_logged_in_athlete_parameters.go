@@ -61,7 +61,6 @@ UpdateLoggedInAthleteParams contains all the parameters to send to the API endpo
 	Typically these are written to a http.Request.
 */
 type UpdateLoggedInAthleteParams struct {
-
 	/* Weight.
 
 	   The weight of the athlete in kilograms.
@@ -136,7 +135,6 @@ func (o *UpdateLoggedInAthleteParams) SetWeight(weight float32) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *UpdateLoggedInAthleteParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}

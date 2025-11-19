@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	stderrors "errors"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -17,7 +18,6 @@ import (
 //
 // swagger:model zones
 type Zones struct {
-
 	// heart rate
 	HeartRate *HeartRateZoneRanges `json:"heart_rate,omitempty"`
 
@@ -50,11 +50,15 @@ func (m *Zones) validateHeartRate(formats strfmt.Registry) error {
 
 	if m.HeartRate != nil {
 		if err := m.HeartRate.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("heart_rate")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("heart_rate")
 			}
+
 			return err
 		}
 	}
@@ -69,11 +73,15 @@ func (m *Zones) validatePower(formats strfmt.Registry) error {
 
 	if m.Power != nil {
 		if err := m.Power.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("power")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("power")
 			}
+
 			return err
 		}
 	}
@@ -100,7 +108,6 @@ func (m *Zones) ContextValidate(ctx context.Context, formats strfmt.Registry) er
 }
 
 func (m *Zones) contextValidateHeartRate(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.HeartRate != nil {
 
 		if swag.IsZero(m.HeartRate) { // not required
@@ -108,11 +115,15 @@ func (m *Zones) contextValidateHeartRate(ctx context.Context, formats strfmt.Reg
 		}
 
 		if err := m.HeartRate.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("heart_rate")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("heart_rate")
 			}
+
 			return err
 		}
 	}
@@ -121,7 +132,6 @@ func (m *Zones) contextValidateHeartRate(ctx context.Context, formats strfmt.Reg
 }
 
 func (m *Zones) contextValidatePower(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Power != nil {
 
 		if swag.IsZero(m.Power) { // not required
@@ -129,11 +139,15 @@ func (m *Zones) contextValidatePower(ctx context.Context, formats strfmt.Registr
 		}
 
 		if err := m.Power.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("power")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("power")
 			}
+
 			return err
 		}
 	}

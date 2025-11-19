@@ -182,7 +182,7 @@ const (
 )
 
 // for schema
-var sportTypeEnum []interface{}
+var sportTypeEnum []any
 
 func init() {
 	var res []SportType

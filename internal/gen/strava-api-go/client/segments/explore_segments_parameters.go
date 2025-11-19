@@ -61,7 +61,6 @@ ExploreSegmentsParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type ExploreSegmentsParams struct {
-
 	/* ActivityType.
 
 	   Desired activity type.
@@ -185,7 +184,6 @@ func (o *ExploreSegmentsParams) SetMinCat(minCat *int64) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *ExploreSegmentsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}
@@ -201,7 +199,6 @@ func (o *ExploreSegmentsParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		}
 		qActivityType := qrActivityType
 		if qActivityType != "" {
-
 			if err := r.SetQueryParam("activity_type", qActivityType); err != nil {
 				return err
 			}
@@ -229,7 +226,6 @@ func (o *ExploreSegmentsParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		}
 		qMaxCat := swag.FormatInt64(qrMaxCat)
 		if qMaxCat != "" {
-
 			if err := r.SetQueryParam("max_cat", qMaxCat); err != nil {
 				return err
 			}
@@ -246,7 +242,6 @@ func (o *ExploreSegmentsParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		}
 		qMinCat := swag.FormatInt64(qrMinCat)
 		if qMinCat != "" {
-
 			if err := r.SetQueryParam("min_cat", qMinCat); err != nil {
 				return err
 			}

@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	stderrors "errors"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -176,7 +177,6 @@ func (m *DetailedSegment) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DetailedSegment) validateCreatedAt(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CreatedAt) { // not required
 		return nil
 	}
@@ -189,18 +189,21 @@ func (m *DetailedSegment) validateCreatedAt(formats strfmt.Registry) error {
 }
 
 func (m *DetailedSegment) validateMap(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Map) { // not required
 		return nil
 	}
 
 	if m.Map != nil {
 		if err := m.Map.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("map")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("map")
 			}
+
 			return err
 		}
 	}
@@ -209,7 +212,6 @@ func (m *DetailedSegment) validateMap(formats strfmt.Registry) error {
 }
 
 func (m *DetailedSegment) validateUpdatedAt(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.UpdatedAt) { // not required
 		return nil
 	}
@@ -241,7 +243,6 @@ func (m *DetailedSegment) ContextValidate(ctx context.Context, formats strfmt.Re
 }
 
 func (m *DetailedSegment) contextValidateMap(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Map != nil {
 
 		if swag.IsZero(m.Map) { // not required
@@ -249,11 +250,15 @@ func (m *DetailedSegment) contextValidateMap(ctx context.Context, formats strfmt
 		}
 
 		if err := m.Map.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("map")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("map")
 			}
+
 			return err
 		}
 	}

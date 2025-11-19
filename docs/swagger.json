@@ -153,7 +153,7 @@
     },
     "/activities/{id}": {
       "get": {
-        "description": "Returns the given activity that is owned by the authenticated athlete. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.",
+        "description": "Returns the given activity that is owned by the authenticated athlete. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.\n\nWe strongly encourage you to display the appropriate attribution that identifies Garmin as the data source and the device name in your application. Please see example below from VeloViewer (that provides an attribution for a Garmin Forerunner device).\n\n![Attribution](/images/device-attribution-image.png)",
         "tags": [
           "Activities"
         ],
@@ -224,7 +224,7 @@
                 "hide_from_home": false,
                 "highlighted_kudosers": [
                   {
-                    "avatar_url": "https://dgalywyr863hv.cloudfront.net/pictures/athletes/12345678987654321/12345678987654321/3/medium.jpg",
+                    "avatar_url": "https://xxxxx.cloudfront.net/pictures/athletes/12345678987654321/12345678987654321/3/medium.jpg",
                     "destination_url": "strava://athletes/12345678987654321",
                     "display_name": "Marianne V.",
                     "show_name": true
@@ -284,8 +284,8 @@
                     "source": 1,
                     "unique_id": "3FDGKL3-204E-4867-9E8D-89FC79EAAE17",
                     "urls": {
-                      "100": "https://dgtzuqphqg23d.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-128x96.jpg",
-                      "600": "https://dgtzuqphqg23d.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-768x576.jpg"
+                      "100": "https://xxxxx.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-128x96.jpg",
+                      "600": "https://xxxxx.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-768x576.jpg"
                     }
                   },
                   "use_primary_photo": true
@@ -461,7 +461,7 @@
                 "hide_from_home": false,
                 "highlighted_kudosers": [
                   {
-                    "avatar_url": "https://dgalywyr863hv.cloudfront.net/pictures/athletes/12345678987654321/12345678987654321/3/medium.jpg",
+                    "avatar_url": "https://xxxxx.cloudfront.net/pictures/athletes/12345678987654321/12345678987654321/3/medium.jpg",
                     "destination_url": "strava://athletes/12345678987654321",
                     "display_name": "Marianne V.",
                     "show_name": true
@@ -524,8 +524,8 @@
                     "source": 1,
                     "unique_id": "3FDGKL3-204E-4867-9E8D-89FC79EAAE17",
                     "urls": {
-                      "100": "https://dgtzuqphqg23d.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-128x96.jpg",
-                      "600": "https://dgtzuqphqg23d.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-768x576.jpg"
+                      "100": "https://xxxxx.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-128x96.jpg",
+                      "600": "https://xxxxx.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-768x576.jpg"
                     }
                   },
                   "use_primary_photo": true
@@ -1179,6 +1179,7 @@
                   "average_watts": 175.3,
                   "comment_count": 1,
                   "commute": false,
+                  "device_name": "Garmin Edge 1030",
                   "device_watts": true,
                   "distance": 24931.4,
                   "elapsed_time": 4500,
@@ -1238,6 +1239,7 @@
                   "average_watts": 200,
                   "comment_count": 0,
                   "commute": false,
+                  "device_name": "Garmin Edge 1030",
                   "device_watts": true,
                   "distance": 23676.5,
                   "elapsed_time": 5400,
@@ -1333,15 +1335,15 @@
                 {
                   "city": "San Francisco",
                   "country": "United States",
-                  "cover_photo": "https://dgalywyr863hv.cloudfront.net/pictures/clubs/231407/5098428/4/large.jpg",
-                  "cover_photo_small": "https://dgalywyr863hv.cloudfront.net/pictures/clubs/231407/5098428/4/small.jpg",
+                  "cover_photo": "https://xxxxx.cloudfront.net/pictures/clubs/231407/5098428/4/large.jpg",
+                  "cover_photo_small": "https://xxxxx.cloudfront.net/pictures/clubs/231407/5098428/4/small.jpg",
                   "featured": false,
                   "id": 231407,
                   "member_count": 93151,
                   "name": "The Strava Club",
                   "private": false,
-                  "profile": "https://dgalywyr863hv.cloudfront.net/pictures/clubs/231407/5319085/1/large.jpg",
-                  "profile_medium": "https://dgalywyr863hv.cloudfront.net/pictures/clubs/231407/5319085/1/medium.jpg",
+                  "profile": "https://xxxxx.cloudfront.net/pictures/clubs/231407/5319085/1/large.jpg",
+                  "profile_medium": "https://xxxxx.cloudfront.net/pictures/clubs/231407/5319085/1/medium.jpg",
                   "resource_state": 2,
                   "sport_type": "other",
                   "state": "California",
@@ -1563,8 +1565,8 @@
                 "city": "San Francisco",
                 "club_type": "company",
                 "country": "United States",
-                "cover_photo": "https://dgalywyr863hv.cloudfront.net/pictures/clubs/1/4328276/1/large.jpg",
-                "cover_photo_small": "https://dgalywyr863hv.cloudfront.net/pictures/clubs/1/4328276/1/small.jpg",
+                "cover_photo": "https://xxxxx.cloudfront.net/pictures/clubs/1/4328276/1/large.jpg",
+                "cover_photo_small": "https://xxxxx.cloudfront.net/pictures/clubs/1/4328276/1/small.jpg",
                 "description": "Private club for Cyclists who work at Strava.",
                 "featured": false,
                 "following_count": 107,
@@ -1576,8 +1578,8 @@
                 "owner_id": 759,
                 "post_count": 29,
                 "private": true,
-                "profile": "https://dgalywyr863hv.cloudfront.net/pictures/clubs/1/1582/4/large.jpg",
-                "profile_medium": "https://dgalywyr863hv.cloudfront.net/pictures/clubs/1/1582/4/medium.jpg",
+                "profile": "https://xxxxx.cloudfront.net/pictures/clubs/1/1582/4/large.jpg",
+                "profile_medium": "https://xxxxx.cloudfront.net/pictures/clubs/1/1582/4/medium.jpg",
                 "resource_state": 3,
                 "sport_type": "cycling",
                 "state": "California",
@@ -3258,6 +3260,10 @@
                   "description": "Whether this activity is a commute",
                   "type": "boolean"
                 },
+                "device_name": {
+                  "description": "The name of the device used to record the activity",
+                  "type": "string"
+                },
                 "device_watts": {
                   "description": "Whether the watts are from a power meter, false if estimated",
                   "type": "boolean"
@@ -4692,6 +4698,10 @@
             "commute": {
               "description": "Whether this activity is a commute",
               "type": "boolean"
+            },
+            "device_name": {
+              "description": "The name of the device used to record the activity",
+              "type": "string"
             },
             "device_watts": {
               "description": "Whether the watts are from a power meter, false if estimated",

@@ -7,6 +7,7 @@ package routes
 
 import (
 	"encoding/json"
+	stderrors "errors"
 	"fmt"
 	"io"
 
@@ -22,7 +23,7 @@ type GetRouteAsTCXReader struct {
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *GetRouteAsTCXReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *GetRouteAsTCXReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (any, error) {
 	switch response.Code() {
 	case 200:
 		result := NewGetRouteAsTCXOK()
@@ -52,8 +53,7 @@ GetRouteAsTCXOK describes a response with status code 200, with default header v
 
 A TCX file with the route.
 */
-type GetRouteAsTCXOK struct {
-}
+type GetRouteAsTCXOK struct{}
 
 // IsSuccess returns true when this get route as t c x o k response has a 2xx status code
 func (o *GetRouteAsTCXOK) IsSuccess() bool {
@@ -94,7 +94,6 @@ func (o *GetRouteAsTCXOK) String() string {
 }
 
 func (o *GetRouteAsTCXOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -161,11 +160,10 @@ func (o *GetRouteAsTCXDefault) GetPayload() *models.Fault {
 }
 
 func (o *GetRouteAsTCXDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models.Fault)
 
 	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
 		return err
 	}
 

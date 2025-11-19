@@ -16,7 +16,6 @@ import (
 //
 // swagger:model metaClub
 type MetaClub struct {
-
 	// The club's unique identifier.
 	ID int64 `json:"id,omitempty"`
 

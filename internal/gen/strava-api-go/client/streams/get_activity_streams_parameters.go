@@ -61,7 +61,6 @@ GetActivityStreamsParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type GetActivityStreamsParams struct {
-
 	/* ID.
 
 	   The identifier of the activity.
@@ -101,9 +100,7 @@ func (o *GetActivityStreamsParams) WithDefaults() *GetActivityStreamsParams {
 //
 // All values with no default are reset to their zero value.
 func (o *GetActivityStreamsParams) SetDefaults() {
-	var (
-		keyByTypeDefault = bool(true)
-	)
+	keyByTypeDefault := bool(true)
 
 	val := GetActivityStreamsParams{
 		KeyByType: keyByTypeDefault,
@@ -183,7 +180,6 @@ func (o *GetActivityStreamsParams) SetKeys(keys []string) {
 
 // WriteToRequest writes these params to a swagger request
 func (o *GetActivityStreamsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
 	if err := r.SetTimeout(o.timeout); err != nil {
 		return err
 	}
@@ -198,7 +194,6 @@ func (o *GetActivityStreamsParams) WriteToRequest(r runtime.ClientRequest, reg s
 	qrKeyByType := o.KeyByType
 	qKeyByType := swag.FormatBool(qrKeyByType)
 	if qKeyByType != "" {
-
 		if err := r.SetQueryParam("key_by_type", qKeyByType); err != nil {
 			return err
 		}

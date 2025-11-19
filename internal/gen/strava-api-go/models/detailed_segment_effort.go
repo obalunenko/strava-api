@@ -7,6 +7,7 @@ package models
 
 import (
 	"context"
+	stderrors "errors"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -263,18 +264,21 @@ func (m *DetailedSegmentEffort) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DetailedSegmentEffort) validateActivity(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Activity) { // not required
 		return nil
 	}
 
 	if m.Activity != nil {
 		if err := m.Activity.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("activity")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("activity")
 			}
+
 			return err
 		}
 	}
@@ -283,18 +287,21 @@ func (m *DetailedSegmentEffort) validateActivity(formats strfmt.Registry) error 
 }
 
 func (m *DetailedSegmentEffort) validateAthlete(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Athlete) { // not required
 		return nil
 	}
 
 	if m.Athlete != nil {
 		if err := m.Athlete.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}
@@ -303,7 +310,6 @@ func (m *DetailedSegmentEffort) validateAthlete(formats strfmt.Registry) error {
 }
 
 func (m *DetailedSegmentEffort) validateKomRank(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.KomRank) { // not required
 		return nil
 	}
@@ -320,7 +326,6 @@ func (m *DetailedSegmentEffort) validateKomRank(formats strfmt.Registry) error {
 }
 
 func (m *DetailedSegmentEffort) validatePrRank(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PrRank) { // not required
 		return nil
 	}
@@ -337,18 +342,21 @@ func (m *DetailedSegmentEffort) validatePrRank(formats strfmt.Registry) error {
 }
 
 func (m *DetailedSegmentEffort) validateSegment(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Segment) { // not required
 		return nil
 	}
 
 	if m.Segment != nil {
 		if err := m.Segment.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("segment")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("segment")
 			}
+
 			return err
 		}
 	}
@@ -384,7 +392,6 @@ func (m *DetailedSegmentEffort) ContextValidate(ctx context.Context, formats str
 }
 
 func (m *DetailedSegmentEffort) contextValidateActivity(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Activity != nil {
 
 		if swag.IsZero(m.Activity) { // not required
@@ -392,11 +399,15 @@ func (m *DetailedSegmentEffort) contextValidateActivity(ctx context.Context, for
 		}
 
 		if err := m.Activity.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("activity")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("activity")
 			}
+
 			return err
 		}
 	}
@@ -405,7 +416,6 @@ func (m *DetailedSegmentEffort) contextValidateActivity(ctx context.Context, for
 }
 
 func (m *DetailedSegmentEffort) contextValidateAthlete(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Athlete != nil {
 
 		if swag.IsZero(m.Athlete) { // not required
@@ -413,11 +423,15 @@ func (m *DetailedSegmentEffort) contextValidateAthlete(ctx context.Context, form
 		}
 
 		if err := m.Athlete.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("athlete")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
 			}
+
 			return err
 		}
 	}
@@ -426,7 +440,6 @@ func (m *DetailedSegmentEffort) contextValidateAthlete(ctx context.Context, form
 }
 
 func (m *DetailedSegmentEffort) contextValidateSegment(ctx context.Context, formats strfmt.Registry) error {
-
 	if m.Segment != nil {
 
 		if swag.IsZero(m.Segment) { // not required
@@ -434,11 +447,15 @@ func (m *DetailedSegmentEffort) contextValidateSegment(ctx context.Context, form
 		}
 
 		if err := m.Segment.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
 				return ve.ValidateName("segment")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
 				return ce.ValidateName("segment")
 			}
+
 			return err
 		}
 	}

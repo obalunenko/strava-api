@@ -7,6 +7,7 @@ package routes
 
 import (
 	"encoding/json"
+	stderrors "errors"
 	"fmt"
 	"io"
 
@@ -22,7 +23,7 @@ type GetRouteAsGPXReader struct {
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *GetRouteAsGPXReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *GetRouteAsGPXReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (any, error) {
 	switch response.Code() {
 	case 200:
 		result := NewGetRouteAsGPXOK()
@@ -52,8 +53,7 @@ GetRouteAsGPXOK describes a response with status code 200, with default header v
 
 A GPX file with the route.
 */
-type GetRouteAsGPXOK struct {
-}
+type GetRouteAsGPXOK struct{}
 
 // IsSuccess returns true when this get route as g p x o k response has a 2xx status code
 func (o *GetRouteAsGPXOK) IsSuccess() bool {
@@ -94,7 +94,6 @@ func (o *GetRouteAsGPXOK) String() string {
 }
 
 func (o *GetRouteAsGPXOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	return nil
 }
 
@@ -161,11 +160,10 @@ func (o *GetRouteAsGPXDefault) GetPayload() *models.Fault {
 }
 
 func (o *GetRouteAsGPXDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
 	o.Payload = new(models.Fault)
 
 	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
 		return err
 	}
 

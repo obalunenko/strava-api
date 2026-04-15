@@ -100,8 +100,8 @@ github.com/go-viper/mapstructure/v2/internal/errors
 # github.com/google/uuid v1.6.0
 ## explicit
 github.com/google/uuid
-# github.com/obalunenko/getenv v1.14.1
-## explicit; go 1.24
+# github.com/obalunenko/getenv v1.14.2
+## explicit; go 1.26.2
 github.com/obalunenko/getenv
 github.com/obalunenko/getenv/internal
 github.com/obalunenko/getenv/option
@@ -147,9 +147,6 @@ go.opentelemetry.io/otel/trace/noop
 # go.yaml.in/yaml/v3 v3.0.4
 ## explicit; go 1.16
 go.yaml.in/yaml/v3
-# golang.org/x/exp v0.0.0-20250218142911-aa4b98e5adaa
-## explicit; go 1.23.0
-golang.org/x/exp/constraints
 # golang.org/x/net v0.50.0
 ## explicit; go 1.24.0
 golang.org/x/net/idna

@@ -9,6 +9,7 @@
 
 Package getenv provides a simple way to get environment variables.
 It's type-safe and supports built-in types and slices of them.
+Empty environment variable values are treated as not set.
 
 Types supported:
 - string

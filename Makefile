@@ -13,7 +13,7 @@ COMPOSE_TOOLS_CMD_BASE=docker compose -f $(COMPOSE_TOOLS_FILE)
 COMPOSE_TOOLS_CMD_UP=$(COMPOSE_TOOLS_CMD_BASE) up --exit-code-from
 COMPOSE_TOOLS_CMD_PULL=$(COMPOSE_TOOLS_CMD_BASE) build
 
-GOVERSION:=1.25
+GOVERSION:=1.26
 
 TARGET_MAX_CHAR_NUM=20
 
@@ -79,7 +79,7 @@ bump-go-version:
 .PHONY: bump-go-version
 
 update-swagger-spec:
-	swagger flatten --format=json --with-flatten=minimal --output=./docs/swagger.json $(API_DOC_URL)
+	go run github.com/go-swagger/go-swagger/cmd/swagger@latest flatten --format=json --with-flatten=minimal --output=./docs/swagger.json $(API_DOC_URL)
 .PHONY: update-swagger-spec
 
 

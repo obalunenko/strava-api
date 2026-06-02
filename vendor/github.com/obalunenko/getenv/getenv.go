@@ -1,5 +1,6 @@
 // Package getenv provides a simple way to get environment variables.
 // It's type-safe and supports built-in types and slices of them.
+// Note: empty environment variable values are treated as "not set".
 //
 // Types supported:
 // - string
@@ -75,6 +76,10 @@ func Env[T internal.EnvParsable](key string, options ...option.Option) (T, error
 	if err != nil {
 		if errors.Is(err, internal.ErrNotSet) {
 			return t, fmt.Errorf("failed to get environment variable[%s]: %w", key, ErrNotSet)
+		}
+
+		if errors.Is(err, internal.ErrInvalidValue) {
+			return t, fmt.Errorf("failed to parse environment variable[%s]: %w", key, ErrInvalidValue)
 		}
 
 		return t, fmt.Errorf("failed to parse environment variable[%s]: %w", key, err)

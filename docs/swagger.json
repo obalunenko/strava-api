@@ -4572,8 +4572,11 @@
         "AlpineSki",
         "BackcountrySki",
         "Badminton",
+        "Basketball",
         "Canoeing",
+        "Cricket",
         "Crossfit",
+        "Dance",
         "EBikeRide",
         "Elliptical",
         "EMountainBikeRide",
@@ -4588,6 +4591,8 @@
         "Kitesurf",
         "MountainBikeRide",
         "NordicSki",
+        "Padel",
+        "PhysicalTherapy",
         "Pickleball",
         "Pilates",
         "Racquetball",
@@ -4613,6 +4618,7 @@
         "VirtualRide",
         "VirtualRow",
         "VirtualRun",
+        "Volleyball",
         "Walk",
         "WeightTraining",
         "Wheelchair",
@@ -5295,7 +5301,8 @@
         },
         "distance_into_route": {
           "description": "The number meters along the route that the waypoint is located",
-          "type": "integer"
+          "type": "number",
+          "format": "float"
         },
         "latlng": {
           "$ref": "#/definitions/latLng"

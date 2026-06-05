@@ -1,7 +1,6 @@
 package examples
 
 import (
-	"context"
 	"encoding/json"
 	"testing"
 
@@ -29,15 +28,21 @@ func getToken(t testing.TB) string {
 	return token
 }
 
-func TestGetLoggedInAthlete(t *testing.T) {
+func makeClient(t testing.TB) *client.APIClient {
+	t.Helper()
+
 	token := getToken(t)
 
 	apiClient, err := client.NewAPIClient(token)
 	require.NoError(t, err)
 
-	ctx := context.Background()
+	return apiClient
+}
 
-	athlete, err := apiClient.Athletes.GetLoggedInAthlete(ctx)
+func TestGetLoggedInAthlete(t *testing.T) {
+	apiClient := makeClient(t)
+
+	athlete, err := apiClient.Athletes.GetLoggedInAthlete(t.Context())
 	require.NoError(t, err)
 
 	// Indent athlete
@@ -46,14 +51,9 @@ func TestGetLoggedInAthlete(t *testing.T) {
 
 // Test Activites API
 func TestGetLoggedInAthleteActivities(t *testing.T) {
-	token := getToken(t)
+	apiClient := makeClient(t)
 
-	apiClient, err := client.NewAPIClient(token)
-	require.NoError(t, err)
-
-	ctx := context.Background()
-
-	activities, err := apiClient.Activities.GetLoggedInAthleteActivities(ctx)
+	activities, err := apiClient.Activities.GetLoggedInAthleteActivities(t.Context())
 	require.NoError(t, err)
 
 	// Indent activities
@@ -62,12 +62,9 @@ func TestGetLoggedInAthleteActivities(t *testing.T) {
 
 // Test Gear API
 func TestGetLoggedInAthleteGear(t *testing.T) {
-	token := getToken(t)
+	apiClient := makeClient(t)
 
-	apiClient, err := client.NewAPIClient(token)
-	require.NoError(t, err)
-
-	ctx := context.Background()
+	ctx := t.Context()
 
 	athlete, err := apiClient.Athletes.GetLoggedInAthlete(ctx)
 	require.NoError(t, err)
@@ -79,4 +76,21 @@ func TestGetLoggedInAthleteGear(t *testing.T) {
 
 	// Indent gear
 	printJSON(t, gear)
+}
+
+func TestGetRoutesByAthleteID(t *testing.T) {
+	apiClient := makeClient(t)
+
+	ctx := t.Context()
+
+	athlete, err := apiClient.Athletes.GetLoggedInAthlete(ctx)
+	require.NoError(t, err)
+
+	id := athlete.ID
+	require.NotZero(t, id)
+
+	routes, err := apiClient.Routes.GetRoutesByAthleteId(ctx, id)
+	require.NoError(t, err)
+
+	printJSON(t, routes)
 }

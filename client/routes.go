@@ -19,7 +19,7 @@ type RoutesAPI interface {
 	// GetRouteById returns a route with given id
 	GetRouteById(ctx context.Context, id int64) (models.Route, error)
 	// GetRoutesByAthleteId returns a list of routes for the given athlete
-	GetRoutesByAthleteId(ctx context.Context, opts ...GetRoutesByAthleteIdOpts) ([]models.Route, error)
+	GetRoutesByAthleteId(ctx context.Context, id int64, opts ...GetRoutesByAthleteIdOpts) ([]models.Route, error)
 }
 
 type GetRoutesByAthleteIdOpts struct {
@@ -84,11 +84,12 @@ func (r routesService) GetRouteById(ctx context.Context, id int64) (models.Route
 	return convertToModelsRoute(route.GetPayload()), nil
 }
 
-func (r routesService) GetRoutesByAthleteId(ctx context.Context, opts ...GetRoutesByAthleteIdOpts) ([]models.Route, error) {
+func (r routesService) GetRoutesByAthleteId(ctx context.Context, id int64, opts ...GetRoutesByAthleteIdOpts) ([]models.Route, error) {
 	params := routes.NewGetRoutesByAthleteIDParams()
 
 	params.SetDefaults()
 	params.SetContext(ctx)
+	params.SetID(id)
 
 	for _, opt := range opts {
 		if opt.Page != nil {

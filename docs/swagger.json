@@ -1463,6 +1463,14 @@
         "parameters": [
           {
             "type": "integer",
+            "format": "int64",
+            "description": "The identifier of the athlete.",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
             "description": "Page number. Defaults to 1.",
             "name": "page",
             "in": "query"

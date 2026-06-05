@@ -58,7 +58,7 @@ fmt:
 
 ## Format code and sort imports.
 format-code: fmt imports
-.PHONY: format-project
+.PHONY: format-code
 
 ## Installs vendored tools.
 install-tools:

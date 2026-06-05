@@ -17,13 +17,14 @@ import (
 // GetRouteAsTCXReader is a Reader for the GetRouteAsTCX structure.
 type GetRouteAsTCXReader struct {
 	formats strfmt.Registry
+	writer  io.Writer
 }
 
 // ReadResponse reads a server response into the received o.
 func (o *GetRouteAsTCXReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (any, error) {
 	switch response.Code() {
 	case 200:
-		result := NewGetRouteAsTCXOK()
+		result := NewGetRouteAsTCXOK(o.writer)
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -41,8 +42,11 @@ func (o *GetRouteAsTCXReader) ReadResponse(response runtime.ClientResponse, cons
 }
 
 // NewGetRouteAsTCXOK creates a GetRouteAsTCXOK with default headers values
-func NewGetRouteAsTCXOK() *GetRouteAsTCXOK {
-	return &GetRouteAsTCXOK{}
+func NewGetRouteAsTCXOK(writer io.Writer) *GetRouteAsTCXOK {
+	return &GetRouteAsTCXOK{
+
+		Payload: writer,
+	}
 }
 
 /*
@@ -51,6 +55,7 @@ GetRouteAsTCXOK describes a response with status code 200, with default header v
 A TCX file with the route.
 */
 type GetRouteAsTCXOK struct {
+	Payload io.Writer
 }
 
 // IsSuccess returns true when this get route as t c x o k response has a 2xx status code
@@ -91,7 +96,16 @@ func (o *GetRouteAsTCXOK) String() string {
 	return fmt.Sprintf("[GET /routes/{id}/export_tcx][%d] getRouteAsTCXOK", 200)
 }
 
+func (o *GetRouteAsTCXOK) GetPayload() io.Writer {
+	return o.Payload
+}
+
 func (o *GetRouteAsTCXOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
+		return err
+	}
 
 	return nil
 }

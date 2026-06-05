@@ -6,6 +6,12 @@ Go Strava API client generated from [API spec](https://developers.strava.com/swa
 
 [Usage examples](examples/client_example_test.go)
 
+The examples are live integration tests and require a Strava access token:
+
+```shell
+STRAVA_ACCESS_TOKEN=... go test -tags=integration ./examples
+```
+
 ### Usage
 
 ```go
@@ -46,4 +52,3 @@ func main() {
 }
 
 ```
-

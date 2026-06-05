@@ -3,6 +3,7 @@
 package client
 
 import (
+	openapiruntime "github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 
 	apiclient "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
@@ -24,7 +25,8 @@ type APIClient struct {
 
 // NewAPIClient creates a new APIClient. Requires a Strava API token.
 func NewAPIClient(token string) (*APIClient, error) {
-	client := apiclient.Default
+	client := apiclient.NewHTTPClient(nil)
+	registerRouteExportConsumers(client.Transport)
 
 	// Set the bearer token for auth.
 	auth := httptransport.BearerToken(token)
@@ -40,4 +42,18 @@ func NewAPIClient(token string) (*APIClient, error) {
 		Streams:        newStreamsApiService(client, auth),
 		Uploads:        newUploadsApiService(client, auth),
 	}, nil
+}
+
+func registerRouteExportConsumers(transport openapiruntime.ClientTransport) {
+	runtimeTransport, ok := transport.(*httptransport.Runtime)
+	if !ok {
+		return
+	}
+
+	consumer := openapiruntime.ByteStreamConsumer()
+	runtimeTransport.Consumers["application/gpx+xml"] = consumer
+	runtimeTransport.Consumers["application/tcx+xml"] = consumer
+	runtimeTransport.Consumers["application/vnd.garmin.tcx+xml"] = consumer
+	runtimeTransport.Consumers[openapiruntime.XMLMime] = consumer
+	runtimeTransport.Consumers[openapiruntime.TextMime] = consumer
 }

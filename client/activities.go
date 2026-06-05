@@ -88,7 +88,7 @@ func (a activitiesService) CreateActivity(ctx context.Context, name string, acti
 	}
 
 	if sportType != "" {
-		params.SetType(&sportType)
+		params.SetSportType(sportType)
 	}
 
 	params.SetStartDateLocal(strfmt.DateTime(startDateLocal))

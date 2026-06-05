@@ -1463,6 +1463,14 @@
         "parameters": [
           {
             "type": "integer",
+            "format": "int64",
+            "description": "The identifier of the athlete.",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
             "description": "Page number. Defaults to 1.",
             "name": "page",
             "in": "query"
@@ -1875,6 +1883,11 @@
         ],
         "summary": "Export Route GPX",
         "operationId": "getRouteAsGPX",
+        "produces": [
+          "application/gpx+xml",
+          "application/xml",
+          "text/xml"
+        ],
         "parameters": [
           {
             "type": "integer",
@@ -1887,7 +1900,10 @@
         ],
         "responses": {
           "200": {
-            "description": "A GPX file with the route."
+            "description": "A GPX file with the route.",
+            "schema": {
+              "type": "file"
+            }
           },
           "default": {
             "description": "Unexpected error.",
@@ -1906,6 +1922,12 @@
         ],
         "summary": "Export Route TCX",
         "operationId": "getRouteAsTCX",
+        "produces": [
+          "application/tcx+xml",
+          "application/vnd.garmin.tcx+xml",
+          "application/xml",
+          "text/xml"
+        ],
         "parameters": [
           {
             "type": "integer",
@@ -1918,7 +1940,10 @@
         ],
         "responses": {
           "200": {
-            "description": "A TCX file with the route."
+            "description": "A TCX file with the route.",
+            "schema": {
+              "type": "file"
+            }
           },
           "default": {
             "description": "Unexpected error.",

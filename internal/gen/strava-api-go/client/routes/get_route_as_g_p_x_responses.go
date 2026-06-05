@@ -17,13 +17,14 @@ import (
 // GetRouteAsGPXReader is a Reader for the GetRouteAsGPX structure.
 type GetRouteAsGPXReader struct {
 	formats strfmt.Registry
+	writer  io.Writer
 }
 
 // ReadResponse reads a server response into the received o.
 func (o *GetRouteAsGPXReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (any, error) {
 	switch response.Code() {
 	case 200:
-		result := NewGetRouteAsGPXOK()
+		result := NewGetRouteAsGPXOK(o.writer)
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -41,8 +42,11 @@ func (o *GetRouteAsGPXReader) ReadResponse(response runtime.ClientResponse, cons
 }
 
 // NewGetRouteAsGPXOK creates a GetRouteAsGPXOK with default headers values
-func NewGetRouteAsGPXOK() *GetRouteAsGPXOK {
-	return &GetRouteAsGPXOK{}
+func NewGetRouteAsGPXOK(writer io.Writer) *GetRouteAsGPXOK {
+	return &GetRouteAsGPXOK{
+
+		Payload: writer,
+	}
 }
 
 /*
@@ -51,6 +55,7 @@ GetRouteAsGPXOK describes a response with status code 200, with default header v
 A GPX file with the route.
 */
 type GetRouteAsGPXOK struct {
+	Payload io.Writer
 }
 
 // IsSuccess returns true when this get route as g p x o k response has a 2xx status code
@@ -91,7 +96,16 @@ func (o *GetRouteAsGPXOK) String() string {
 	return fmt.Sprintf("[GET /routes/{id}/export_gpx][%d] getRouteAsGPXOK", 200)
 }
 
+func (o *GetRouteAsGPXOK) GetPayload() io.Writer {
+	return o.Payload
+}
+
 func (o *GetRouteAsGPXOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
+		return err
+	}
 
 	return nil
 }

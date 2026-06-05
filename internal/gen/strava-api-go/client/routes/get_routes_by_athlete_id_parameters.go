@@ -59,6 +59,14 @@ GetRoutesByAthleteIDParams contains all the parameters to send to the API endpoi
 */
 type GetRoutesByAthleteIDParams struct {
 
+	/* ID.
+
+	   The identifier of the athlete.
+
+	   Format: int64
+	*/
+	ID int64
+
 	/* Page.
 
 	   Page number. Defaults to 1.
@@ -137,6 +145,17 @@ func (o *GetRoutesByAthleteIDParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithID adds the id to the get routes by athlete Id params
+func (o *GetRoutesByAthleteIDParams) WithID(id int64) *GetRoutesByAthleteIDParams {
+	o.SetID(id)
+	return o
+}
+
+// SetID adds the id to the get routes by athlete Id params
+func (o *GetRoutesByAthleteIDParams) SetID(id int64) {
+	o.ID = id
+}
+
 // WithPage adds the page to the get routes by athlete Id params
 func (o *GetRoutesByAthleteIDParams) WithPage(page *int64) *GetRoutesByAthleteIDParams {
 	o.SetPage(page)
@@ -166,6 +185,11 @@ func (o *GetRoutesByAthleteIDParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
+
+	// path param id
+	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+		return err
+	}
 
 	if o.Page != nil {
 

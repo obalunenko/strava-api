@@ -1,3 +1,5 @@
+//go:build integration
+
 package examples
 
 import (
@@ -69,7 +71,9 @@ func TestGetLoggedInAthleteGear(t *testing.T) {
 	athlete, err := apiClient.Athletes.GetLoggedInAthlete(ctx)
 	require.NoError(t, err)
 
-	require.NotNil(t, athlete.Bikes)
+	if len(athlete.Bikes) == 0 {
+		t.Skip("authenticated athlete has no bikes")
+	}
 
 	gear, err := apiClient.Gears.GetGearById(ctx, athlete.Bikes[0].ID)
 	require.NoError(t, err)

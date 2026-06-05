@@ -1,6 +1,7 @@
 package client
 
 import (
+	"bytes"
 	"context"
 
 	"github.com/go-openapi/runtime"
@@ -13,9 +14,9 @@ import (
 // RoutesAPI is an interface for interacting with routes endpoints of Strava API
 type RoutesAPI interface {
 	// GetRouteAsGPX returns a GPX file of the route
-	GetRouteAsGPX(ctx context.Context, id int64) error
+	GetRouteAsGPX(ctx context.Context, id int64) ([]byte, error)
 	// GetRouteAsTCX returns a TCX file of the route
-	GetRouteAsTCX(ctx context.Context, id int64) error
+	GetRouteAsTCX(ctx context.Context, id int64) ([]byte, error)
 	// GetRouteById returns a route with given id
 	GetRouteById(ctx context.Context, id int64) (models.Route, error)
 	// GetRoutesByAthleteId returns a list of routes for the given athlete
@@ -39,34 +40,34 @@ type routesService struct {
 	auth   runtime.ClientAuthInfoWriter
 }
 
-func (r routesService) GetRouteAsGPX(ctx context.Context, id int64) error {
+func (r routesService) GetRouteAsGPX(ctx context.Context, id int64) ([]byte, error) {
 	params := routes.NewGetRouteAsGPXParams()
 
 	params.SetDefaults()
 	params.SetContext(ctx)
 	params.SetID(id)
 
-	_, err := r.client.Routes.GetRouteAsGPX(params, r.auth)
-	if err != nil {
-		return err
+	var buf bytes.Buffer
+	if _, err := r.client.Routes.GetRouteAsGPX(params, r.auth, &buf, routes.WithAcceptApplicationGpxXML); err != nil {
+		return nil, err
 	}
 
-	return nil
+	return buf.Bytes(), nil
 }
 
-func (r routesService) GetRouteAsTCX(ctx context.Context, id int64) error {
+func (r routesService) GetRouteAsTCX(ctx context.Context, id int64) ([]byte, error) {
 	params := routes.NewGetRouteAsTCXParams()
 
 	params.SetDefaults()
 	params.SetContext(ctx)
 	params.SetID(id)
 
-	_, err := r.client.Routes.GetRouteAsTCX(params, r.auth)
-	if err != nil {
-		return err
+	var buf bytes.Buffer
+	if _, err := r.client.Routes.GetRouteAsTCX(params, r.auth, &buf, routes.WithAcceptApplicationVndGarminTcxXML); err != nil {
+		return nil, err
 	}
 
-	return nil
+	return buf.Bytes(), nil
 }
 
 func (r routesService) GetRouteById(ctx context.Context, id int64) (models.Route, error) {

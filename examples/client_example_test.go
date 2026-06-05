@@ -94,3 +94,34 @@ func TestGetRoutesByAthleteID(t *testing.T) {
 
 	printJSON(t, routes)
 }
+
+func TestExportFirstRouteAsGPXAndTCX(t *testing.T) {
+	apiClient := makeClient(t)
+
+	ctx := t.Context()
+
+	athlete, err := apiClient.Athletes.GetLoggedInAthlete(ctx)
+	require.NoError(t, err)
+
+	id := athlete.ID
+	require.NotZero(t, id)
+
+	routes, err := apiClient.Routes.GetRoutesByAthleteId(ctx, id)
+	require.NoError(t, err)
+	if len(routes) == 0 {
+		t.Skip("authenticated athlete has no routes")
+	}
+
+	routeID := routes[0].ID
+	require.NotZero(t, routeID)
+
+	gpx, err := apiClient.Routes.GetRouteAsGPX(ctx, routeID)
+	require.NoError(t, err)
+	require.NotEmpty(t, gpx)
+
+	tcx, err := apiClient.Routes.GetRouteAsTCX(ctx, routeID)
+	require.NoError(t, err)
+	require.NotEmpty(t, tcx)
+
+	t.Logf("exported route %d: GPX=%d bytes TCX=%d bytes", routeID, len(gpx), len(tcx))
+}

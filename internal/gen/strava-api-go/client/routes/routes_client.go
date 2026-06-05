@@ -3,6 +3,8 @@
 package routes
 
 import (
+	"io"
+
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
@@ -49,11 +51,55 @@ type Client struct {
 // ClientOption may be used to customize the behavior of Client methods.
 type ClientOption func(*runtime.ClientOperation)
 
+// This client is generated with a few options you might find useful for your swagger spec.
+//
+// Feel free to add you own set of options.
+
+// WithAccept allows the client to force the Accept header
+// to negotiate a specific Producer from the server.
+//
+// You may use this option to set arbitrary extensions to your MIME media type.
+func WithAccept(mime string) ClientOption {
+	return func(r *runtime.ClientOperation) {
+		r.ProducesMediaTypes = []string{mime}
+	}
+}
+
+// WithAcceptApplicationGpxXML sets the Accept header to "application/gpx+xml".
+func WithAcceptApplicationGpxXML(r *runtime.ClientOperation) {
+	r.ProducesMediaTypes = []string{"application/gpx+xml"}
+}
+
+// WithAcceptApplicationJSON sets the Accept header to "application/json".
+func WithAcceptApplicationJSON(r *runtime.ClientOperation) {
+	r.ProducesMediaTypes = []string{"application/json"}
+}
+
+// WithAcceptApplicationTcxXML sets the Accept header to "application/tcx+xml".
+func WithAcceptApplicationTcxXML(r *runtime.ClientOperation) {
+	r.ProducesMediaTypes = []string{"application/tcx+xml"}
+}
+
+// WithAcceptApplicationVndGarminTcxXML sets the Accept header to "application/vnd.garmin.tcx+xml".
+func WithAcceptApplicationVndGarminTcxXML(r *runtime.ClientOperation) {
+	r.ProducesMediaTypes = []string{"application/vnd.garmin.tcx+xml"}
+}
+
+// WithAcceptApplicationXML sets the Accept header to "application/xml".
+func WithAcceptApplicationXML(r *runtime.ClientOperation) {
+	r.ProducesMediaTypes = []string{"application/xml"}
+}
+
+// WithAcceptTextXML sets the Accept header to "text/xml".
+func WithAcceptTextXML(r *runtime.ClientOperation) {
+	r.ProducesMediaTypes = []string{"text/xml"}
+}
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetRouteAsGPX(params *GetRouteAsGPXParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteAsGPXOK, error)
+	GetRouteAsGPX(params *GetRouteAsGPXParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetRouteAsGPXOK, error)
 
-	GetRouteAsTCX(params *GetRouteAsTCXParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteAsTCXOK, error)
+	GetRouteAsTCX(params *GetRouteAsTCXParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetRouteAsTCXOK, error)
 
 	GetRouteByID(params *GetRouteByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteByIDOK, error)
 
@@ -67,7 +113,7 @@ GetRouteAsGPX exports route g p x
 
 Returns a GPX file of the route. Requires read_all scope for private routes.
 */
-func (a *Client) GetRouteAsGPX(params *GetRouteAsGPXParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteAsGPXOK, error) {
+func (a *Client) GetRouteAsGPX(params *GetRouteAsGPXParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetRouteAsGPXOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetRouteAsGPXParams()
@@ -76,11 +122,11 @@ func (a *Client) GetRouteAsGPX(params *GetRouteAsGPXParams, authInfo runtime.Cli
 		ID:                 "getRouteAsGPX",
 		Method:             "GET",
 		PathPattern:        "/routes/{id}/export_gpx",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"application/gpx+xml", "application/xml", "text/xml"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetRouteAsGPXReader{formats: a.formats},
+		Reader:             &GetRouteAsGPXReader{formats: a.formats, writer: writer},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -112,7 +158,7 @@ GetRouteAsTCX exports route t c x
 
 Returns a TCX file of the route. Requires read_all scope for private routes.
 */
-func (a *Client) GetRouteAsTCX(params *GetRouteAsTCXParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteAsTCXOK, error) {
+func (a *Client) GetRouteAsTCX(params *GetRouteAsTCXParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetRouteAsTCXOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetRouteAsTCXParams()
@@ -121,11 +167,11 @@ func (a *Client) GetRouteAsTCX(params *GetRouteAsTCXParams, authInfo runtime.Cli
 		ID:                 "getRouteAsTCX",
 		Method:             "GET",
 		PathPattern:        "/routes/{id}/export_tcx",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"application/tcx+xml", "application/vnd.garmin.tcx+xml", "application/xml", "text/xml"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetRouteAsTCXReader{formats: a.formats},
+		Reader:             &GetRouteAsTCXReader{formats: a.formats, writer: writer},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,

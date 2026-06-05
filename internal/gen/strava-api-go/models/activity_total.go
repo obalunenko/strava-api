@@ -24,13 +24,13 @@ type ActivityTotal struct {
 	Distance float32 `json:"distance,omitempty"`
 
 	// The total elapsed time of the considered activities.
-	ElapsedTime int64 `json:"elapsed_time,omitempty"`
+	ElapsedTime float32 `json:"elapsed_time,omitempty"`
 
 	// The total elevation gain of the considered activities.
 	ElevationGain float32 `json:"elevation_gain,omitempty"`
 
 	// The total moving time of the considered activities.
-	MovingTime int64 `json:"moving_time,omitempty"`
+	MovingTime float32 `json:"moving_time,omitempty"`
 }
 
 // Validate validates this activity total

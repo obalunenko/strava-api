@@ -3,6 +3,7 @@ package internal
 import (
 	"fmt"
 	"net"
+	"net/netip"
 	"net/url"
 	"os"
 	"strconv"
@@ -43,13 +44,13 @@ func getBool(key string) (bool, error) {
 }
 
 func getBoolSlice(key, sep string) ([]bool, error) {
-	if sep == "" {
-		return nil, ErrInvalidValue
-	}
-
 	env, err := getString(key)
 	if err != nil {
 		return nil, err
+	}
+
+	if sep == "" {
+		return nil, ErrInvalidValue
 	}
 
 	val := strings.Split(env, sep)
@@ -69,13 +70,13 @@ func getBoolSlice(key, sep string) ([]bool, error) {
 }
 
 func getStringSlice(key, sep string) ([]string, error) {
-	if sep == "" {
-		return nil, ErrInvalidValue
-	}
-
 	env, err := getString(key)
 	if err != nil {
 		return nil, err
+	}
+
+	if sep == "" {
+		return nil, ErrInvalidValue
 	}
 
 	val := strings.Split(env, sep)
@@ -123,7 +124,7 @@ func parseSignedNumber[T Number](raw string, base, bits int) (T, error) {
 
 	val, err := strconv.ParseInt(raw, base, bits)
 	if err != nil {
-		return zero, ErrInvalidValue
+		return zero, newErrInvalidValue(err.Error())
 	}
 
 	return T(val), nil
@@ -134,7 +135,7 @@ func parseUnsignedNumber[T Number](raw string, base, bits int) (T, error) {
 
 	val, err := strconv.ParseUint(raw, base, bits)
 	if err != nil {
-		return zero, ErrInvalidValue
+		return zero, newErrInvalidValue(err.Error())
 	}
 
 	return T(val), nil
@@ -145,7 +146,7 @@ func parseFloatNumber[T Number](raw string, bits int) (T, error) {
 
 	val, err := strconv.ParseFloat(raw, bits)
 	if err != nil {
-		return zero, ErrInvalidValue
+		return zero, newErrInvalidValue(err.Error())
 	}
 
 	return T(val), nil
@@ -314,6 +315,108 @@ func getIPSlice(key, sep string) ([]net.IP, error) {
 		v := net.ParseIP(s)
 		if v == nil {
 			return nil, ErrInvalidValue
+		}
+
+		val = append(val, v)
+	}
+
+	return val, nil
+}
+
+func getNetIPAddr(key string) (netip.Addr, error) {
+	env, err := getString(key)
+	if err != nil {
+		return netip.Addr{}, err
+	}
+
+	val, err := netip.ParseAddr(env)
+	if err != nil {
+		return netip.Addr{}, newErrInvalidValue(err.Error())
+	}
+
+	return val, nil
+}
+
+func getNetIPAddrSlice(key, sep string) ([]netip.Addr, error) {
+	env, err := getStringSlice(key, sep)
+	if err != nil {
+		return nil, err
+	}
+
+	val := make([]netip.Addr, 0, len(env))
+
+	for _, s := range env {
+		v, err := netip.ParseAddr(s)
+		if err != nil {
+			return nil, newErrInvalidValue(err.Error())
+		}
+
+		val = append(val, v)
+	}
+
+	return val, nil
+}
+
+func getNetIPPrefix(key string) (netip.Prefix, error) {
+	env, err := getString(key)
+	if err != nil {
+		return netip.Prefix{}, err
+	}
+
+	val, err := netip.ParsePrefix(env)
+	if err != nil {
+		return netip.Prefix{}, newErrInvalidValue(err.Error())
+	}
+
+	return val, nil
+}
+
+func getNetIPPrefixSlice(key, sep string) ([]netip.Prefix, error) {
+	env, err := getStringSlice(key, sep)
+	if err != nil {
+		return nil, err
+	}
+
+	val := make([]netip.Prefix, 0, len(env))
+
+	for _, s := range env {
+		v, err := netip.ParsePrefix(s)
+		if err != nil {
+			return nil, newErrInvalidValue(err.Error())
+		}
+
+		val = append(val, v)
+	}
+
+	return val, nil
+}
+
+func getHardwareAddr(key string) (net.HardwareAddr, error) {
+	env, err := getString(key)
+	if err != nil {
+		return nil, err
+	}
+
+	val, err := net.ParseMAC(env)
+	if err != nil {
+		return nil, newErrInvalidValue(err.Error())
+	}
+
+	return val, nil
+}
+
+func getHardwareAddrSlice(key, sep string) ([]net.HardwareAddr, error) {
+	env, err := getStringSlice(key, sep)
+	if err != nil {
+		return nil, err
+	}
+
+	val := make([]net.HardwareAddr, 0, len(env))
+
+	for _, s := range env {
+		v, err := net.ParseMAC(s)
+		if err != nil {
+			return nil, newErrInvalidValue(err.Error())
 		}
 
 		val = append(val, v)

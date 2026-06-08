@@ -106,7 +106,7 @@ github.com/go-viper/mapstructure/v2/internal/errors
 # github.com/google/uuid v1.6.0
 ## explicit
 github.com/google/uuid
-# github.com/obalunenko/getenv v1.14.2
+# github.com/obalunenko/getenv v1.15.0
 ## explicit; go 1.26.2
 github.com/obalunenko/getenv
 github.com/obalunenko/getenv/internal

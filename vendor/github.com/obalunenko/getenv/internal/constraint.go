@@ -2,6 +2,7 @@ package internal
 
 import (
 	"net"
+	"net/netip"
 	"net/url"
 	"time"
 )
@@ -9,7 +10,7 @@ import (
 type (
 	// EnvParsable is a constraint for types that can be parsed from environment variable.
 	EnvParsable interface {
-		String | Number | NumberSlice | Time | Bool | URL | IP | Complex | ComplexSlice
+		String | Number | NumberSlice | Time | Bool | URL | Network | Complex | ComplexSlice
 	}
 
 	// String is a constraint for string and slice of strings.
@@ -57,7 +58,7 @@ type (
 		[]float32 | []float64
 	}
 
-	// Time is a constraint for time.Time and slice of time.Time.
+	// Time is a constraint for time.Time and time.Duration and slices of them.
 	Time interface {
 		time.Time | []time.Time | time.Duration | []time.Duration
 	}
@@ -72,9 +73,12 @@ type (
 		url.URL | []url.URL
 	}
 
-	// IP is a constraint for net.IP and slice of net.IP.
-	IP interface {
-		net.IP | []net.IP
+	// Network is a constraint for network address types and slices of them.
+	Network interface {
+		net.IP | []net.IP |
+			net.HardwareAddr | []net.HardwareAddr |
+			netip.Addr | []netip.Addr |
+			netip.Prefix | []netip.Prefix
 	}
 
 	// ComplexSlice is a constraint for slice of complex.

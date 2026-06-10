@@ -4,6 +4,7 @@ package internal
 import (
 	"fmt"
 	"net"
+	"net/netip"
 	"net/url"
 	"time"
 )
@@ -29,6 +30,10 @@ func NewEnvParser(v any) EnvParser {
 		p = newURLParser(t)
 	case net.IP, []net.IP:
 		p = newIPParser(t)
+	case netip.Addr, []netip.Addr, netip.Prefix, []netip.Prefix:
+		p = newNetIPParser(t)
+	case net.HardwareAddr, []net.HardwareAddr:
+		p = newHardwareAddrParser(t)
 	case complex64, []complex64, complex128, []complex128:
 		p = newComplexParser(t)
 	default:
@@ -77,6 +82,34 @@ func newIPParser(v any) EnvParser {
 		return ipParser(t)
 	case []net.IP:
 		return ipSliceParser(t)
+	default:
+		return nil
+	}
+}
+
+// newNetIPParser is a constructor for net/netip parsers.
+func newNetIPParser(v any) EnvParser {
+	switch t := v.(type) {
+	case netip.Addr:
+		return netIPAddrParser(t)
+	case []netip.Addr:
+		return netIPAddrSliceParser(t)
+	case netip.Prefix:
+		return netIPPrefixParser(t)
+	case []netip.Prefix:
+		return netIPPrefixSliceParser(t)
+	default:
+		return nil
+	}
+}
+
+// newHardwareAddrParser is a constructor for net.HardwareAddr parsers.
+func newHardwareAddrParser(v any) EnvParser {
+	switch t := v.(type) {
+	case net.HardwareAddr:
+		return hardwareAddrParser(t)
+	case []net.HardwareAddr:
+		return hardwareAddrSliceParser(t)
 	default:
 		return nil
 	}
@@ -299,6 +332,54 @@ func (t ipSliceParser) ParseEnv(key string, opts Parameters) (any, error) {
 	separator := opts.Separator
 
 	return getIPSlice(key, separator)
+}
+
+// netIPAddrParser is a parser for netip.Addr.
+type netIPAddrParser netip.Addr
+
+func (t netIPAddrParser) ParseEnv(key string, _ Parameters) (any, error) {
+	return getNetIPAddr(key)
+}
+
+// netIPAddrSliceParser is a parser for []netip.Addr.
+type netIPAddrSliceParser []netip.Addr
+
+func (t netIPAddrSliceParser) ParseEnv(key string, opts Parameters) (any, error) {
+	separator := opts.Separator
+
+	return getNetIPAddrSlice(key, separator)
+}
+
+// netIPPrefixParser is a parser for netip.Prefix.
+type netIPPrefixParser netip.Prefix
+
+func (t netIPPrefixParser) ParseEnv(key string, _ Parameters) (any, error) {
+	return getNetIPPrefix(key)
+}
+
+// netIPPrefixSliceParser is a parser for []netip.Prefix.
+type netIPPrefixSliceParser []netip.Prefix
+
+func (t netIPPrefixSliceParser) ParseEnv(key string, opts Parameters) (any, error) {
+	separator := opts.Separator
+
+	return getNetIPPrefixSlice(key, separator)
+}
+
+// hardwareAddrParser is a parser for net.HardwareAddr.
+type hardwareAddrParser net.HardwareAddr
+
+func (t hardwareAddrParser) ParseEnv(key string, _ Parameters) (any, error) {
+	return getHardwareAddr(key)
+}
+
+// hardwareAddrSliceParser is a parser for []net.HardwareAddr.
+type hardwareAddrSliceParser []net.HardwareAddr
+
+func (t hardwareAddrSliceParser) ParseEnv(key string, opts Parameters) (any, error) {
+	separator := opts.Separator
+
+	return getHardwareAddrSlice(key, separator)
 }
 
 // boolSliceParser is a parser for []bool

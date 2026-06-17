@@ -7,7 +7,7 @@ import (
 
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/client/gears"
-	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/models"
 )
 
 // GearsAPI iis an interface for interacting with gears endpoints of Strava API

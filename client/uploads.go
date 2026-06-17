@@ -8,7 +8,7 @@ import (
 
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/client/uploads"
-	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/models"
 )
 
 // UploadsAPI is an interface for interacting with uploads endpoints of Strava API

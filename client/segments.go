@@ -7,7 +7,7 @@ import (
 
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/client/segments"
-	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/models"
 )
 
 // SegmentsAPI is an interface for interacting with segments endpoints of Strava API

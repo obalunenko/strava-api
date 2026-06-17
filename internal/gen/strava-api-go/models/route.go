@@ -9,7 +9,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 	"github.com/go-openapi/validate"
 )
 
@@ -111,7 +112,7 @@ func (m *Route) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Route) validateAthlete(formats strfmt.Registry) error {
-	if swag.IsZero(m.Athlete) { // not required
+	if typeutils.IsZero(m.Athlete) { // not required
 		return nil
 	}
 
@@ -134,7 +135,7 @@ func (m *Route) validateAthlete(formats strfmt.Registry) error {
 }
 
 func (m *Route) validateCreatedAt(formats strfmt.Registry) error {
-	if swag.IsZero(m.CreatedAt) { // not required
+	if typeutils.IsZero(m.CreatedAt) { // not required
 		return nil
 	}
 
@@ -146,7 +147,7 @@ func (m *Route) validateCreatedAt(formats strfmt.Registry) error {
 }
 
 func (m *Route) validateMap(formats strfmt.Registry) error {
-	if swag.IsZero(m.Map) { // not required
+	if typeutils.IsZero(m.Map) { // not required
 		return nil
 	}
 
@@ -169,12 +170,12 @@ func (m *Route) validateMap(formats strfmt.Registry) error {
 }
 
 func (m *Route) validateSegments(formats strfmt.Registry) error {
-	if swag.IsZero(m.Segments) { // not required
+	if typeutils.IsZero(m.Segments) { // not required
 		return nil
 	}
 
 	for i := 0; i < len(m.Segments); i++ {
-		if swag.IsZero(m.Segments[i]) { // not required
+		if typeutils.IsZero(m.Segments[i]) { // not required
 			continue
 		}
 
@@ -199,7 +200,7 @@ func (m *Route) validateSegments(formats strfmt.Registry) error {
 }
 
 func (m *Route) validateUpdatedAt(formats strfmt.Registry) error {
-	if swag.IsZero(m.UpdatedAt) { // not required
+	if typeutils.IsZero(m.UpdatedAt) { // not required
 		return nil
 	}
 
@@ -211,7 +212,7 @@ func (m *Route) validateUpdatedAt(formats strfmt.Registry) error {
 }
 
 func (m *Route) validateWaypoints(formats strfmt.Registry) error {
-	if swag.IsZero(m.Waypoints) { // not required
+	if typeutils.IsZero(m.Waypoints) { // not required
 		return nil
 	}
 
@@ -222,7 +223,7 @@ func (m *Route) validateWaypoints(formats strfmt.Registry) error {
 	}
 
 	for i := 0; i < len(m.Waypoints); i++ {
-		if swag.IsZero(m.Waypoints[i]) { // not required
+		if typeutils.IsZero(m.Waypoints[i]) { // not required
 			continue
 		}
 
@@ -276,7 +277,7 @@ func (m *Route) contextValidateAthlete(ctx context.Context, formats strfmt.Regis
 
 	if m.Athlete != nil {
 
-		if swag.IsZero(m.Athlete) { // not required
+		if typeutils.IsZero(m.Athlete) { // not required
 			return nil
 		}
 
@@ -301,7 +302,7 @@ func (m *Route) contextValidateMap(ctx context.Context, formats strfmt.Registry)
 
 	if m.Map != nil {
 
-		if swag.IsZero(m.Map) { // not required
+		if typeutils.IsZero(m.Map) { // not required
 			return nil
 		}
 
@@ -328,7 +329,7 @@ func (m *Route) contextValidateSegments(ctx context.Context, formats strfmt.Regi
 
 		if m.Segments[i] != nil {
 
-			if swag.IsZero(m.Segments[i]) { // not required
+			if typeutils.IsZero(m.Segments[i]) { // not required
 				return nil
 			}
 
@@ -357,7 +358,7 @@ func (m *Route) contextValidateWaypoints(ctx context.Context, formats strfmt.Reg
 
 		if m.Waypoints[i] != nil {
 
-			if swag.IsZero(m.Waypoints[i]) { // not required
+			if typeutils.IsZero(m.Waypoints[i]) { // not required
 				return nil
 			}
 
@@ -385,13 +386,13 @@ func (m *Route) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *Route) UnmarshalBinary(b []byte) error {
 	var res Route
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

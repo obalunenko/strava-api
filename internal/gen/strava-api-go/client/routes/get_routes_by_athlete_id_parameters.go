@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetRoutesByAthleteIDParams creates a new GetRoutesByAthleteIDParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetRoutesByAthleteIDParams() *GetRoutesByAthleteIDParams {
-	return &GetRoutesByAthleteIDParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetRoutesByAthleteIDParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetRoutesByAthleteIDParamsWithTimeout creates a new GetRoutesByAthleteIDParams object
 // with the ability to set a timeout on a request.
 func NewGetRoutesByAthleteIDParamsWithTimeout(timeout time.Duration) *GetRoutesByAthleteIDParams {
 	return &GetRoutesByAthleteIDParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetRoutesByAthleteIDParamsWithContext creates a new GetRoutesByAthleteIDParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetRoutesByAthleteIDParams].
 func NewGetRoutesByAthleteIDParamsWithContext(ctx context.Context) *GetRoutesByAthleteIDParams {
 	return &GetRoutesByAthleteIDParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -81,9 +85,9 @@ type GetRoutesByAthleteIDParams struct {
 	*/
 	PerPage *int64
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get routes by athlete Id params (not the query body).
@@ -106,88 +110,91 @@ func (o *GetRoutesByAthleteIDParams) SetDefaults() {
 		PerPage: &perPageDefault,
 	}
 
-	val.timeout = o.timeout
-	val.Context = o.Context
+	val.inner.timeout = o.inner.timeout
+	val.inner.ctx = o.inner.ctx
 	val.HTTPClient = o.HTTPClient
 	*o = val
 }
 
-// WithTimeout adds the timeout to the get routes by athlete Id params
+// WithTimeout adds the timeout to the get routes by athlete Id params.
 func (o *GetRoutesByAthleteIDParams) WithTimeout(timeout time.Duration) *GetRoutesByAthleteIDParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get routes by athlete Id params
+// SetTimeout adds the timeout to the get routes by athlete Id params.
 func (o *GetRoutesByAthleteIDParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get routes by athlete Id params
+// WithContext adds the context to the get routes by athlete Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetRoutesByAthleteIDParams].
 func (o *GetRoutesByAthleteIDParams) WithContext(ctx context.Context) *GetRoutesByAthleteIDParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get routes by athlete Id params
+// SetContext adds the context to the get routes by athlete Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetRoutesByAthleteIDParams].
 func (o *GetRoutesByAthleteIDParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get routes by athlete Id params
+// WithHTTPClient adds the HTTPClient to the get routes by athlete Id params.
 func (o *GetRoutesByAthleteIDParams) WithHTTPClient(client *http.Client) *GetRoutesByAthleteIDParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get routes by athlete Id params
+// SetHTTPClient adds the HTTPClient to the get routes by athlete Id params.
 func (o *GetRoutesByAthleteIDParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithID adds the id to the get routes by athlete Id params
+// WithID adds the id to the get routes by athlete Id params.
 func (o *GetRoutesByAthleteIDParams) WithID(id int64) *GetRoutesByAthleteIDParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the get routes by athlete Id params
+// SetID adds the id to the get routes by athlete Id params.
 func (o *GetRoutesByAthleteIDParams) SetID(id int64) {
 	o.ID = id
 }
 
-// WithPage adds the page to the get routes by athlete Id params
+// WithPage adds the page to the get routes by athlete Id params.
 func (o *GetRoutesByAthleteIDParams) WithPage(page *int64) *GetRoutesByAthleteIDParams {
 	o.SetPage(page)
 	return o
 }
 
-// SetPage adds the page to the get routes by athlete Id params
+// SetPage adds the page to the get routes by athlete Id params.
 func (o *GetRoutesByAthleteIDParams) SetPage(page *int64) {
 	o.Page = page
 }
 
-// WithPerPage adds the perPage to the get routes by athlete Id params
+// WithPerPage adds the perPage to the get routes by athlete Id params.
 func (o *GetRoutesByAthleteIDParams) WithPerPage(perPage *int64) *GetRoutesByAthleteIDParams {
 	o.SetPerPage(perPage)
 	return o
 }
 
-// SetPerPage adds the perPage to the get routes by athlete Id params
+// SetPerPage adds the perPage to the get routes by athlete Id params.
 func (o *GetRoutesByAthleteIDParams) SetPerPage(perPage *int64) {
 	o.PerPage = perPage
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetRoutesByAthleteIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+	if err := r.SetPathParam("id", conv.FormatInteger(o.ID)); err != nil {
 		return err
 	}
 
@@ -199,7 +206,7 @@ func (o *GetRoutesByAthleteIDParams) WriteToRequest(r runtime.ClientRequest, reg
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
-		qPage := swag.FormatInt64(qrPage)
+		qPage := conv.FormatInteger(qrPage)
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
@@ -216,7 +223,7 @@ func (o *GetRoutesByAthleteIDParams) WriteToRequest(r runtime.ClientRequest, reg
 		if o.PerPage != nil {
 			qrPerPage = *o.PerPage
 		}
-		qPerPage := swag.FormatInt64(qrPerPage)
+		qPerPage := conv.FormatInteger(qrPerPage)
 		if qPerPage != "" {
 
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {

@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewCreateActivityParams creates a new CreateActivityParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateActivityParams() *CreateActivityParams {
-	return &CreateActivityParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewCreateActivityParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewCreateActivityParamsWithTimeout creates a new CreateActivityParams object
 // with the ability to set a timeout on a request.
 func NewCreateActivityParamsWithTimeout(timeout time.Duration) *CreateActivityParams {
 	return &CreateActivityParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewCreateActivityParamsWithContext creates a new CreateActivityParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [CreateActivityParams].
 func NewCreateActivityParamsWithContext(ctx context.Context) *CreateActivityParams {
 	return &CreateActivityParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -117,9 +121,9 @@ type CreateActivityParams struct {
 	*/
 	Type *string
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the create activity params (not the query body).
@@ -137,142 +141,145 @@ func (o *CreateActivityParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the create activity params
+// WithTimeout adds the timeout to the create activity params.
 func (o *CreateActivityParams) WithTimeout(timeout time.Duration) *CreateActivityParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the create activity params
+// SetTimeout adds the timeout to the create activity params.
 func (o *CreateActivityParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the create activity params
+// WithContext adds the context to the create activity params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [CreateActivityParams].
 func (o *CreateActivityParams) WithContext(ctx context.Context) *CreateActivityParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the create activity params
+// SetContext adds the context to the create activity params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [CreateActivityParams].
 func (o *CreateActivityParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the create activity params
+// WithHTTPClient adds the HTTPClient to the create activity params.
 func (o *CreateActivityParams) WithHTTPClient(client *http.Client) *CreateActivityParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the create activity params
+// SetHTTPClient adds the HTTPClient to the create activity params.
 func (o *CreateActivityParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithCommute adds the commute to the create activity params
+// WithCommute adds the commute to the create activity params.
 func (o *CreateActivityParams) WithCommute(commute *int64) *CreateActivityParams {
 	o.SetCommute(commute)
 	return o
 }
 
-// SetCommute adds the commute to the create activity params
+// SetCommute adds the commute to the create activity params.
 func (o *CreateActivityParams) SetCommute(commute *int64) {
 	o.Commute = commute
 }
 
-// WithDescription adds the description to the create activity params
+// WithDescription adds the description to the create activity params.
 func (o *CreateActivityParams) WithDescription(description *string) *CreateActivityParams {
 	o.SetDescription(description)
 	return o
 }
 
-// SetDescription adds the description to the create activity params
+// SetDescription adds the description to the create activity params.
 func (o *CreateActivityParams) SetDescription(description *string) {
 	o.Description = description
 }
 
-// WithDistance adds the distance to the create activity params
+// WithDistance adds the distance to the create activity params.
 func (o *CreateActivityParams) WithDistance(distance *float32) *CreateActivityParams {
 	o.SetDistance(distance)
 	return o
 }
 
-// SetDistance adds the distance to the create activity params
+// SetDistance adds the distance to the create activity params.
 func (o *CreateActivityParams) SetDistance(distance *float32) {
 	o.Distance = distance
 }
 
-// WithElapsedTime adds the elapsedTime to the create activity params
+// WithElapsedTime adds the elapsedTime to the create activity params.
 func (o *CreateActivityParams) WithElapsedTime(elapsedTime int64) *CreateActivityParams {
 	o.SetElapsedTime(elapsedTime)
 	return o
 }
 
-// SetElapsedTime adds the elapsedTime to the create activity params
+// SetElapsedTime adds the elapsedTime to the create activity params.
 func (o *CreateActivityParams) SetElapsedTime(elapsedTime int64) {
 	o.ElapsedTime = elapsedTime
 }
 
-// WithName adds the name to the create activity params
+// WithName adds the name to the create activity params.
 func (o *CreateActivityParams) WithName(name string) *CreateActivityParams {
 	o.SetName(name)
 	return o
 }
 
-// SetName adds the name to the create activity params
+// SetName adds the name to the create activity params.
 func (o *CreateActivityParams) SetName(name string) {
 	o.Name = name
 }
 
-// WithSportType adds the sportType to the create activity params
+// WithSportType adds the sportType to the create activity params.
 func (o *CreateActivityParams) WithSportType(sportType string) *CreateActivityParams {
 	o.SetSportType(sportType)
 	return o
 }
 
-// SetSportType adds the sportType to the create activity params
+// SetSportType adds the sportType to the create activity params.
 func (o *CreateActivityParams) SetSportType(sportType string) {
 	o.SportType = sportType
 }
 
-// WithStartDateLocal adds the startDateLocal to the create activity params
+// WithStartDateLocal adds the startDateLocal to the create activity params.
 func (o *CreateActivityParams) WithStartDateLocal(startDateLocal strfmt.DateTime) *CreateActivityParams {
 	o.SetStartDateLocal(startDateLocal)
 	return o
 }
 
-// SetStartDateLocal adds the startDateLocal to the create activity params
+// SetStartDateLocal adds the startDateLocal to the create activity params.
 func (o *CreateActivityParams) SetStartDateLocal(startDateLocal strfmt.DateTime) {
 	o.StartDateLocal = startDateLocal
 }
 
-// WithTrainer adds the trainer to the create activity params
+// WithTrainer adds the trainer to the create activity params.
 func (o *CreateActivityParams) WithTrainer(trainer *int64) *CreateActivityParams {
 	o.SetTrainer(trainer)
 	return o
 }
 
-// SetTrainer adds the trainer to the create activity params
+// SetTrainer adds the trainer to the create activity params.
 func (o *CreateActivityParams) SetTrainer(trainer *int64) {
 	o.Trainer = trainer
 }
 
-// WithType adds the typeVar to the create activity params
+// WithType adds the typeVar to the create activity params.
 func (o *CreateActivityParams) WithType(typeVar *string) *CreateActivityParams {
 	o.SetType(typeVar)
 	return o
 }
 
-// SetType adds the type to the create activity params
+// SetType adds the type to the create activity params.
 func (o *CreateActivityParams) SetType(typeVar *string) {
 	o.Type = typeVar
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *CreateActivityParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
@@ -284,7 +291,7 @@ func (o *CreateActivityParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if o.Commute != nil {
 			frCommute = *o.Commute
 		}
-		fCommute := swag.FormatInt64(frCommute)
+		fCommute := conv.FormatInteger(frCommute)
 		if fCommute != "" {
 			if err := r.SetFormParam("commute", fCommute); err != nil {
 				return err
@@ -314,7 +321,7 @@ func (o *CreateActivityParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if o.Distance != nil {
 			frDistance = *o.Distance
 		}
-		fDistance := swag.FormatFloat32(frDistance)
+		fDistance := conv.FormatFloat(frDistance)
 		if fDistance != "" {
 			if err := r.SetFormParam("distance", fDistance); err != nil {
 				return err
@@ -324,7 +331,7 @@ func (o *CreateActivityParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 	// form param elapsed_time
 	frElapsedTime := o.ElapsedTime
-	fElapsedTime := swag.FormatInt64(frElapsedTime)
+	fElapsedTime := conv.FormatInteger(frElapsedTime)
 	if fElapsedTime != "" {
 		if err := r.SetFormParam("elapsed_time", fElapsedTime); err != nil {
 			return err
@@ -365,7 +372,7 @@ func (o *CreateActivityParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if o.Trainer != nil {
 			frTrainer = *o.Trainer
 		}
-		fTrainer := swag.FormatInt64(frTrainer)
+		fTrainer := conv.FormatInteger(frTrainer)
 		if fTrainer != "" {
 			if err := r.SetFormParam("trainer", fTrainer); err != nil {
 				return err

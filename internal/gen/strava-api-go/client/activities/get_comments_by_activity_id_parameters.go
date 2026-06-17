@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetCommentsByActivityIDParams creates a new GetCommentsByActivityIDParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetCommentsByActivityIDParams() *GetCommentsByActivityIDParams {
-	return &GetCommentsByActivityIDParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetCommentsByActivityIDParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetCommentsByActivityIDParamsWithTimeout creates a new GetCommentsByActivityIDParams object
 // with the ability to set a timeout on a request.
 func NewGetCommentsByActivityIDParamsWithTimeout(timeout time.Duration) *GetCommentsByActivityIDParams {
 	return &GetCommentsByActivityIDParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetCommentsByActivityIDParamsWithContext creates a new GetCommentsByActivityIDParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetCommentsByActivityIDParams].
 func NewGetCommentsByActivityIDParamsWithContext(ctx context.Context) *GetCommentsByActivityIDParams {
 	return &GetCommentsByActivityIDParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -95,9 +99,9 @@ type GetCommentsByActivityIDParams struct {
 	*/
 	PerPage *int64
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get comments by activity Id params (not the query body).
@@ -123,104 +127,107 @@ func (o *GetCommentsByActivityIDParams) SetDefaults() {
 		PerPage:  &perPageDefault,
 	}
 
-	val.timeout = o.timeout
-	val.Context = o.Context
+	val.inner.timeout = o.inner.timeout
+	val.inner.ctx = o.inner.ctx
 	val.HTTPClient = o.HTTPClient
 	*o = val
 }
 
-// WithTimeout adds the timeout to the get comments by activity Id params
+// WithTimeout adds the timeout to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) WithTimeout(timeout time.Duration) *GetCommentsByActivityIDParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get comments by activity Id params
+// SetTimeout adds the timeout to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get comments by activity Id params
+// WithContext adds the context to the get comments by activity Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetCommentsByActivityIDParams].
 func (o *GetCommentsByActivityIDParams) WithContext(ctx context.Context) *GetCommentsByActivityIDParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get comments by activity Id params
+// SetContext adds the context to the get comments by activity Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetCommentsByActivityIDParams].
 func (o *GetCommentsByActivityIDParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get comments by activity Id params
+// WithHTTPClient adds the HTTPClient to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) WithHTTPClient(client *http.Client) *GetCommentsByActivityIDParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get comments by activity Id params
+// SetHTTPClient adds the HTTPClient to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithAfterCursor adds the afterCursor to the get comments by activity Id params
+// WithAfterCursor adds the afterCursor to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) WithAfterCursor(afterCursor *string) *GetCommentsByActivityIDParams {
 	o.SetAfterCursor(afterCursor)
 	return o
 }
 
-// SetAfterCursor adds the afterCursor to the get comments by activity Id params
+// SetAfterCursor adds the afterCursor to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) SetAfterCursor(afterCursor *string) {
 	o.AfterCursor = afterCursor
 }
 
-// WithID adds the id to the get comments by activity Id params
+// WithID adds the id to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) WithID(id int64) *GetCommentsByActivityIDParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the get comments by activity Id params
+// SetID adds the id to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) SetID(id int64) {
 	o.ID = id
 }
 
-// WithPage adds the page to the get comments by activity Id params
+// WithPage adds the page to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) WithPage(page *int64) *GetCommentsByActivityIDParams {
 	o.SetPage(page)
 	return o
 }
 
-// SetPage adds the page to the get comments by activity Id params
+// SetPage adds the page to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) SetPage(page *int64) {
 	o.Page = page
 }
 
-// WithPageSize adds the pageSize to the get comments by activity Id params
+// WithPageSize adds the pageSize to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) WithPageSize(pageSize *int64) *GetCommentsByActivityIDParams {
 	o.SetPageSize(pageSize)
 	return o
 }
 
-// SetPageSize adds the pageSize to the get comments by activity Id params
+// SetPageSize adds the pageSize to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) SetPageSize(pageSize *int64) {
 	o.PageSize = pageSize
 }
 
-// WithPerPage adds the perPage to the get comments by activity Id params
+// WithPerPage adds the perPage to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) WithPerPage(perPage *int64) *GetCommentsByActivityIDParams {
 	o.SetPerPage(perPage)
 	return o
 }
 
-// SetPerPage adds the perPage to the get comments by activity Id params
+// SetPerPage adds the perPage to the get comments by activity Id params.
 func (o *GetCommentsByActivityIDParams) SetPerPage(perPage *int64) {
 	o.PerPage = perPage
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetCommentsByActivityIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
@@ -243,7 +250,7 @@ func (o *GetCommentsByActivityIDParams) WriteToRequest(r runtime.ClientRequest, 
 	}
 
 	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+	if err := r.SetPathParam("id", conv.FormatInteger(o.ID)); err != nil {
 		return err
 	}
 
@@ -255,7 +262,7 @@ func (o *GetCommentsByActivityIDParams) WriteToRequest(r runtime.ClientRequest, 
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
-		qPage := swag.FormatInt64(qrPage)
+		qPage := conv.FormatInteger(qrPage)
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
@@ -272,7 +279,7 @@ func (o *GetCommentsByActivityIDParams) WriteToRequest(r runtime.ClientRequest, 
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
-		qPageSize := swag.FormatInt64(qrPageSize)
+		qPageSize := conv.FormatInteger(qrPageSize)
 		if qPageSize != "" {
 
 			if err := r.SetQueryParam("page_size", qPageSize); err != nil {
@@ -289,7 +296,7 @@ func (o *GetCommentsByActivityIDParams) WriteToRequest(r runtime.ClientRequest, 
 		if o.PerPage != nil {
 			qrPerPage = *o.PerPage
 		}
-		qPerPage := swag.FormatInt64(qrPerPage)
+		qPerPage := conv.FormatInteger(qrPerPage)
 		if qPerPage != "" {
 
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {

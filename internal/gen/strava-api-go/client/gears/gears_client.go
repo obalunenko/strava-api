@@ -3,17 +3,21 @@
 package gears
 
 import (
+	"context"
+	"time"
+
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new gears API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
+func New(transport runtime.ContextualTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
 // New creates a new gears API client with basic auth credentials.
+//
 // It takes the following parameters:
 // - host: http host (github.com).
 // - basePath: any base path for the API client ("/v1", "/v3").
@@ -27,6 +31,7 @@ func NewClientWithBasicAuth(host, basePath, scheme, user, password string) Clien
 }
 
 // New creates a new gears API client with a bearer token for authentication.
+//
 // It takes the following parameters:
 // - host: http host (github.com).
 // - basePath: any base path for the API client ("/v1", "/v3").
@@ -39,33 +44,62 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 }
 
 /*
-Client for gears API
+Client for gears API.
 */
 type Client struct {
-	transport runtime.ClientTransport
+	transport runtime.ContextualTransport
 	formats   strfmt.Registry
 }
 
 // ClientOption may be used to customize the behavior of Client methods.
 type ClientOption func(*runtime.ClientOperation)
 
-// ClientService is the interface for Client methods
+// ClientService is the interface for Client methods.
 type ClientService interface {
+
+	// GetGearByID get equipment.
 	GetGearByID(params *GetGearByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGearByIDOK, error)
 
-	SetTransport(transport runtime.ClientTransport)
+	// GetGearByIDContext get equipment.
+	GetGearByIDContext(ctx context.Context, params *GetGearByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGearByIDOK, error)
+
+	SetTransport(transport runtime.ContextualTransport)
 }
 
 /*
-GetGearByID gets equipment
+GetGearByIDgets equipment.
 
-Returns an equipment using its identifier.
+Returns an equipment using its identifier..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetGearByIDContext] instead.
 */
 func (a *Client) GetGearByID(params *GetGearByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGearByIDOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetGearByIDContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetGearByIDContextgets equipment.
+
+Returns an equipment using its identifier..
+
+Do not use the deprecated [GetGearByIDParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetGearByIDContext(ctx context.Context, params *GetGearByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGearByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetGearByIDParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getGearById",
 		Method:             "GET",
@@ -76,13 +110,14 @@ func (a *Client) GetGearByID(params *GetGearByIDParams, authInfo runtime.ClientA
 		Params:             params,
 		Reader:             &GetGearByIDReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -102,6 +137,14 @@ func (a *Client) GetGearByID(params *GetGearByIDParams, authInfo runtime.ClientA
 }
 
 // SetTransport changes the transport on the client
-func (a *Client) SetTransport(transport runtime.ClientTransport) {
+func (a *Client) SetTransport(transport runtime.ContextualTransport) {
 	a.transport = transport
+}
+
+// innerParams captures internal fields so they don't conflict with user-supplied parameters.
+type innerParams struct {
+	timeout time.Duration
+
+	// Deprecated: use the operation call with context to pass the context instead of [GearsParams].
+	ctx context.Context
 }

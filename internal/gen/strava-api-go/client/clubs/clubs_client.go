@@ -3,17 +3,21 @@
 package clubs
 
 import (
+	"context"
+	"time"
+
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new clubs API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
+func New(transport runtime.ContextualTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
 // New creates a new clubs API client with basic auth credentials.
+//
 // It takes the following parameters:
 // - host: http host (github.com).
 // - basePath: any base path for the API client ("/v1", "/v3").
@@ -27,6 +31,7 @@ func NewClientWithBasicAuth(host, basePath, scheme, user, password string) Clien
 }
 
 // New creates a new clubs API client with a bearer token for authentication.
+//
 // It takes the following parameters:
 // - host: http host (github.com).
 // - basePath: any base path for the API client ("/v1", "/v3").
@@ -39,41 +44,86 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 }
 
 /*
-Client for clubs API
+Client for clubs API.
 */
 type Client struct {
-	transport runtime.ClientTransport
+	transport runtime.ContextualTransport
 	formats   strfmt.Registry
 }
 
 // ClientOption may be used to customize the behavior of Client methods.
 type ClientOption func(*runtime.ClientOperation)
 
-// ClientService is the interface for Client methods
+// ClientService is the interface for Client methods.
 type ClientService interface {
+
+	// GetClubActivitiesByID list club activities.
 	GetClubActivitiesByID(params *GetClubActivitiesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubActivitiesByIDOK, error)
 
+	// GetClubActivitiesByIDContext list club activities.
+	GetClubActivitiesByIDContext(ctx context.Context, params *GetClubActivitiesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubActivitiesByIDOK, error)
+
+	// GetClubAdminsByID list club administrators.
 	GetClubAdminsByID(params *GetClubAdminsByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubAdminsByIDOK, error)
 
+	// GetClubAdminsByIDContext list club administrators.
+	GetClubAdminsByIDContext(ctx context.Context, params *GetClubAdminsByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubAdminsByIDOK, error)
+
+	// GetClubByID get club.
 	GetClubByID(params *GetClubByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubByIDOK, error)
 
+	// GetClubByIDContext get club.
+	GetClubByIDContext(ctx context.Context, params *GetClubByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubByIDOK, error)
+
+	// GetClubMembersByID list club members.
 	GetClubMembersByID(params *GetClubMembersByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubMembersByIDOK, error)
 
+	// GetClubMembersByIDContext list club members.
+	GetClubMembersByIDContext(ctx context.Context, params *GetClubMembersByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubMembersByIDOK, error)
+
+	// GetLoggedInAthleteClubs list athlete clubs.
 	GetLoggedInAthleteClubs(params *GetLoggedInAthleteClubsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteClubsOK, error)
 
-	SetTransport(transport runtime.ClientTransport)
+	// GetLoggedInAthleteClubsContext list athlete clubs.
+	GetLoggedInAthleteClubsContext(ctx context.Context, params *GetLoggedInAthleteClubsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteClubsOK, error)
+
+	SetTransport(transport runtime.ContextualTransport)
 }
 
 /*
-GetClubActivitiesByID lists club activities
+GetClubActivitiesByIDlists club activities.
 
-Retrieve recent activities from members of a specific club. The authenticated athlete must belong to the requested club in order to hit this endpoint. Pagination is supported. Athlete profile visibility is respected for all activities.
+Retrieve recent activities from members of a specific club. The authenticated athlete must belong to the requested club in order to hit this endpoint. Pagination is supported. Athlete profile visibility is respected for all activities..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetClubActivitiesByIDContext] instead.
 */
 func (a *Client) GetClubActivitiesByID(params *GetClubActivitiesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubActivitiesByIDOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetClubActivitiesByIDContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetClubActivitiesByIDContextlists club activities.
+
+Retrieve recent activities from members of a specific club. The authenticated athlete must belong to the requested club in order to hit this endpoint. Pagination is supported. Athlete profile visibility is respected for all activities..
+
+Do not use the deprecated [GetClubActivitiesByIDParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetClubActivitiesByIDContext(ctx context.Context, params *GetClubActivitiesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubActivitiesByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetClubActivitiesByIDParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getClubActivitiesById",
 		Method:             "GET",
@@ -84,13 +134,14 @@ func (a *Client) GetClubActivitiesByID(params *GetClubActivitiesByIDParams, auth
 		Params:             params,
 		Reader:             &GetClubActivitiesByIDReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -110,15 +161,39 @@ func (a *Client) GetClubActivitiesByID(params *GetClubActivitiesByIDParams, auth
 }
 
 /*
-GetClubAdminsByID lists club administrators
+GetClubAdminsByIDlists club administrators.
 
-Returns a list of the administrators of a given club.
+Returns a list of the administrators of a given club..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetClubAdminsByIDContext] instead.
 */
 func (a *Client) GetClubAdminsByID(params *GetClubAdminsByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubAdminsByIDOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetClubAdminsByIDContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetClubAdminsByIDContextlists club administrators.
+
+Returns a list of the administrators of a given club..
+
+Do not use the deprecated [GetClubAdminsByIDParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetClubAdminsByIDContext(ctx context.Context, params *GetClubAdminsByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubAdminsByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetClubAdminsByIDParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getClubAdminsById",
 		Method:             "GET",
@@ -129,13 +204,14 @@ func (a *Client) GetClubAdminsByID(params *GetClubAdminsByIDParams, authInfo run
 		Params:             params,
 		Reader:             &GetClubAdminsByIDReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -155,15 +231,39 @@ func (a *Client) GetClubAdminsByID(params *GetClubAdminsByIDParams, authInfo run
 }
 
 /*
-GetClubByID gets club
+GetClubByIDgets club.
 
-Returns a given a club using its identifier.
+Returns a given a club using its identifier..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetClubByIDContext] instead.
 */
 func (a *Client) GetClubByID(params *GetClubByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubByIDOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetClubByIDContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetClubByIDContextgets club.
+
+Returns a given a club using its identifier..
+
+Do not use the deprecated [GetClubByIDParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetClubByIDContext(ctx context.Context, params *GetClubByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetClubByIDParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getClubById",
 		Method:             "GET",
@@ -174,13 +274,14 @@ func (a *Client) GetClubByID(params *GetClubByIDParams, authInfo runtime.ClientA
 		Params:             params,
 		Reader:             &GetClubByIDReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -200,15 +301,39 @@ func (a *Client) GetClubByID(params *GetClubByIDParams, authInfo runtime.ClientA
 }
 
 /*
-GetClubMembersByID lists club members
+GetClubMembersByIDlists club members.
 
-Returns a list of the athletes who are members of a given club.
+Returns a list of the athletes who are members of a given club..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetClubMembersByIDContext] instead.
 */
 func (a *Client) GetClubMembersByID(params *GetClubMembersByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubMembersByIDOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetClubMembersByIDContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetClubMembersByIDContextlists club members.
+
+Returns a list of the athletes who are members of a given club..
+
+Do not use the deprecated [GetClubMembersByIDParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetClubMembersByIDContext(ctx context.Context, params *GetClubMembersByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubMembersByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetClubMembersByIDParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getClubMembersById",
 		Method:             "GET",
@@ -219,13 +344,14 @@ func (a *Client) GetClubMembersByID(params *GetClubMembersByIDParams, authInfo r
 		Params:             params,
 		Reader:             &GetClubMembersByIDReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -245,15 +371,39 @@ func (a *Client) GetClubMembersByID(params *GetClubMembersByIDParams, authInfo r
 }
 
 /*
-GetLoggedInAthleteClubs lists athlete clubs
+GetLoggedInAthleteClubslists athlete clubs.
 
-Returns a list of the clubs whose membership includes the authenticated athlete.
+Returns a list of the clubs whose membership includes the authenticated athlete..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetLoggedInAthleteClubsContext] instead.
 */
 func (a *Client) GetLoggedInAthleteClubs(params *GetLoggedInAthleteClubsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteClubsOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetLoggedInAthleteClubsContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetLoggedInAthleteClubsContextlists athlete clubs.
+
+Returns a list of the clubs whose membership includes the authenticated athlete..
+
+Do not use the deprecated [GetLoggedInAthleteClubsParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetLoggedInAthleteClubsContext(ctx context.Context, params *GetLoggedInAthleteClubsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteClubsOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetLoggedInAthleteClubsParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getLoggedInAthleteClubs",
 		Method:             "GET",
@@ -264,13 +414,14 @@ func (a *Client) GetLoggedInAthleteClubs(params *GetLoggedInAthleteClubsParams, 
 		Params:             params,
 		Reader:             &GetLoggedInAthleteClubsReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -290,6 +441,14 @@ func (a *Client) GetLoggedInAthleteClubs(params *GetLoggedInAthleteClubsParams, 
 }
 
 // SetTransport changes the transport on the client
-func (a *Client) SetTransport(transport runtime.ClientTransport) {
+func (a *Client) SetTransport(transport runtime.ContextualTransport) {
 	a.transport = transport
+}
+
+// innerParams captures internal fields so they don't conflict with user-supplied parameters.
+type innerParams struct {
+	timeout time.Duration
+
+	// Deprecated: use the operation call with context to pass the context instead of [ClubsParams].
+	ctx context.Context
 }

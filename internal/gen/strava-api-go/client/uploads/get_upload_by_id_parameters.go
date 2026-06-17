@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetUploadByIDParams creates a new GetUploadByIDParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetUploadByIDParams() *GetUploadByIDParams {
-	return &GetUploadByIDParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetUploadByIDParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetUploadByIDParamsWithTimeout creates a new GetUploadByIDParams object
 // with the ability to set a timeout on a request.
 func NewGetUploadByIDParamsWithTimeout(timeout time.Duration) *GetUploadByIDParams {
 	return &GetUploadByIDParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetUploadByIDParamsWithContext creates a new GetUploadByIDParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetUploadByIDParams].
 func NewGetUploadByIDParamsWithContext(ctx context.Context) *GetUploadByIDParams {
 	return &GetUploadByIDParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -67,9 +71,9 @@ type GetUploadByIDParams struct {
 	*/
 	UploadID int64
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get upload by Id params (not the query body).
@@ -87,60 +91,63 @@ func (o *GetUploadByIDParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the get upload by Id params
+// WithTimeout adds the timeout to the get upload by Id params.
 func (o *GetUploadByIDParams) WithTimeout(timeout time.Duration) *GetUploadByIDParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get upload by Id params
+// SetTimeout adds the timeout to the get upload by Id params.
 func (o *GetUploadByIDParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get upload by Id params
+// WithContext adds the context to the get upload by Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetUploadByIDParams].
 func (o *GetUploadByIDParams) WithContext(ctx context.Context) *GetUploadByIDParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get upload by Id params
+// SetContext adds the context to the get upload by Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetUploadByIDParams].
 func (o *GetUploadByIDParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get upload by Id params
+// WithHTTPClient adds the HTTPClient to the get upload by Id params.
 func (o *GetUploadByIDParams) WithHTTPClient(client *http.Client) *GetUploadByIDParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get upload by Id params
+// SetHTTPClient adds the HTTPClient to the get upload by Id params.
 func (o *GetUploadByIDParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithUploadID adds the uploadID to the get upload by Id params
+// WithUploadID adds the uploadID to the get upload by Id params.
 func (o *GetUploadByIDParams) WithUploadID(uploadID int64) *GetUploadByIDParams {
 	o.SetUploadID(uploadID)
 	return o
 }
 
-// SetUploadID adds the uploadId to the get upload by Id params
+// SetUploadID adds the uploadId to the get upload by Id params.
 func (o *GetUploadByIDParams) SetUploadID(uploadID int64) {
 	o.UploadID = uploadID
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetUploadByIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param uploadId
-	if err := r.SetPathParam("uploadId", swag.FormatInt64(o.UploadID)); err != nil {
+	if err := r.SetPathParam("uploadId", conv.FormatInteger(o.UploadID)); err != nil {
 		return err
 	}
 

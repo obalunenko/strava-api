@@ -8,7 +8,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 	"github.com/go-openapi/validate"
 )
 
@@ -101,7 +102,7 @@ func (m *Lap) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Lap) validateActivity(formats strfmt.Registry) error {
-	if swag.IsZero(m.Activity) { // not required
+	if typeutils.IsZero(m.Activity) { // not required
 		return nil
 	}
 
@@ -124,7 +125,7 @@ func (m *Lap) validateActivity(formats strfmt.Registry) error {
 }
 
 func (m *Lap) validateAthlete(formats strfmt.Registry) error {
-	if swag.IsZero(m.Athlete) { // not required
+	if typeutils.IsZero(m.Athlete) { // not required
 		return nil
 	}
 
@@ -147,7 +148,7 @@ func (m *Lap) validateAthlete(formats strfmt.Registry) error {
 }
 
 func (m *Lap) validateStartDate(formats strfmt.Registry) error {
-	if swag.IsZero(m.StartDate) { // not required
+	if typeutils.IsZero(m.StartDate) { // not required
 		return nil
 	}
 
@@ -159,7 +160,7 @@ func (m *Lap) validateStartDate(formats strfmt.Registry) error {
 }
 
 func (m *Lap) validateStartDateLocal(formats strfmt.Registry) error {
-	if swag.IsZero(m.StartDateLocal) { // not required
+	if typeutils.IsZero(m.StartDateLocal) { // not required
 		return nil
 	}
 
@@ -192,7 +193,7 @@ func (m *Lap) contextValidateActivity(ctx context.Context, formats strfmt.Regist
 
 	if m.Activity != nil {
 
-		if swag.IsZero(m.Activity) { // not required
+		if typeutils.IsZero(m.Activity) { // not required
 			return nil
 		}
 
@@ -217,7 +218,7 @@ func (m *Lap) contextValidateAthlete(ctx context.Context, formats strfmt.Registr
 
 	if m.Athlete != nil {
 
-		if swag.IsZero(m.Athlete) { // not required
+		if typeutils.IsZero(m.Athlete) { // not required
 			return nil
 		}
 
@@ -243,13 +244,13 @@ func (m *Lap) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *Lap) UnmarshalBinary(b []byte) error {
 	var res Lap
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

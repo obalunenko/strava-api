@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetSegmentEffortByIDParams creates a new GetSegmentEffortByIDParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSegmentEffortByIDParams() *GetSegmentEffortByIDParams {
-	return &GetSegmentEffortByIDParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetSegmentEffortByIDParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetSegmentEffortByIDParamsWithTimeout creates a new GetSegmentEffortByIDParams object
 // with the ability to set a timeout on a request.
 func NewGetSegmentEffortByIDParamsWithTimeout(timeout time.Duration) *GetSegmentEffortByIDParams {
 	return &GetSegmentEffortByIDParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetSegmentEffortByIDParamsWithContext creates a new GetSegmentEffortByIDParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetSegmentEffortByIDParams].
 func NewGetSegmentEffortByIDParamsWithContext(ctx context.Context) *GetSegmentEffortByIDParams {
 	return &GetSegmentEffortByIDParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -67,9 +71,9 @@ type GetSegmentEffortByIDParams struct {
 	*/
 	ID int64
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get segment effort by Id params (not the query body).
@@ -87,60 +91,63 @@ func (o *GetSegmentEffortByIDParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the get segment effort by Id params
+// WithTimeout adds the timeout to the get segment effort by Id params.
 func (o *GetSegmentEffortByIDParams) WithTimeout(timeout time.Duration) *GetSegmentEffortByIDParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get segment effort by Id params
+// SetTimeout adds the timeout to the get segment effort by Id params.
 func (o *GetSegmentEffortByIDParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get segment effort by Id params
+// WithContext adds the context to the get segment effort by Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetSegmentEffortByIDParams].
 func (o *GetSegmentEffortByIDParams) WithContext(ctx context.Context) *GetSegmentEffortByIDParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get segment effort by Id params
+// SetContext adds the context to the get segment effort by Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetSegmentEffortByIDParams].
 func (o *GetSegmentEffortByIDParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get segment effort by Id params
+// WithHTTPClient adds the HTTPClient to the get segment effort by Id params.
 func (o *GetSegmentEffortByIDParams) WithHTTPClient(client *http.Client) *GetSegmentEffortByIDParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get segment effort by Id params
+// SetHTTPClient adds the HTTPClient to the get segment effort by Id params.
 func (o *GetSegmentEffortByIDParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithID adds the id to the get segment effort by Id params
+// WithID adds the id to the get segment effort by Id params.
 func (o *GetSegmentEffortByIDParams) WithID(id int64) *GetSegmentEffortByIDParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the get segment effort by Id params
+// SetID adds the id to the get segment effort by Id params.
 func (o *GetSegmentEffortByIDParams) SetID(id int64) {
 	o.ID = id
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetSegmentEffortByIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+	if err := r.SetPathParam("id", conv.FormatInteger(o.ID)); err != nil {
 		return err
 	}
 

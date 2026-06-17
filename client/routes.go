@@ -8,7 +8,7 @@ import (
 
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/client/routes"
-	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/models"
 )
 
 // RoutesAPI is an interface for interacting with routes endpoints of Strava API

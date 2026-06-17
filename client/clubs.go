@@ -7,7 +7,7 @@ import (
 
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/client/clubs"
-	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/models"
 )
 
 // ClubsAPI is an interface for interacting with clubs endpoints of Strava API

@@ -8,7 +8,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 )
 
 // Zones zones
@@ -42,7 +43,7 @@ func (m *Zones) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Zones) validateHeartRate(formats strfmt.Registry) error {
-	if swag.IsZero(m.HeartRate) { // not required
+	if typeutils.IsZero(m.HeartRate) { // not required
 		return nil
 	}
 
@@ -65,7 +66,7 @@ func (m *Zones) validateHeartRate(formats strfmt.Registry) error {
 }
 
 func (m *Zones) validatePower(formats strfmt.Registry) error {
-	if swag.IsZero(m.Power) { // not required
+	if typeutils.IsZero(m.Power) { // not required
 		return nil
 	}
 
@@ -109,7 +110,7 @@ func (m *Zones) contextValidateHeartRate(ctx context.Context, formats strfmt.Reg
 
 	if m.HeartRate != nil {
 
-		if swag.IsZero(m.HeartRate) { // not required
+		if typeutils.IsZero(m.HeartRate) { // not required
 			return nil
 		}
 
@@ -134,7 +135,7 @@ func (m *Zones) contextValidatePower(ctx context.Context, formats strfmt.Registr
 
 	if m.Power != nil {
 
-		if swag.IsZero(m.Power) { // not required
+		if typeutils.IsZero(m.Power) { // not required
 			return nil
 		}
 
@@ -160,13 +161,13 @@ func (m *Zones) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *Zones) UnmarshalBinary(b []byte) error {
 	var res Zones
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

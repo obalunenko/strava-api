@@ -7,7 +7,7 @@ import (
 
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	apiathletes "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client/athletes"
-	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/models"
 )
 
 // AthletesAPI is an interface for interacting with athletes endpoints of Strava API

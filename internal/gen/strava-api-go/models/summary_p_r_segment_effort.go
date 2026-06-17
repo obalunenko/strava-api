@@ -7,7 +7,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 	"github.com/go-openapi/validate"
 )
 
@@ -45,7 +46,7 @@ func (m *SummaryPRSegmentEffort) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SummaryPRSegmentEffort) validatePrDate(formats strfmt.Registry) error {
-	if swag.IsZero(m.PrDate) { // not required
+	if typeutils.IsZero(m.PrDate) { // not required
 		return nil
 	}
 
@@ -66,13 +67,13 @@ func (m *SummaryPRSegmentEffort) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *SummaryPRSegmentEffort) UnmarshalBinary(b []byte) error {
 	var res SummaryPRSegmentEffort
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

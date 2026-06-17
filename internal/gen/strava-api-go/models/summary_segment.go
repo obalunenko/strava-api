@@ -9,7 +9,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 	"github.com/go-openapi/validate"
 )
 
@@ -131,7 +132,7 @@ func (m *SummarySegment) validateActivityTypeEnum(path, location string, value s
 }
 
 func (m *SummarySegment) validateActivityType(formats strfmt.Registry) error {
-	if swag.IsZero(m.ActivityType) { // not required
+	if typeutils.IsZero(m.ActivityType) { // not required
 		return nil
 	}
 
@@ -144,7 +145,7 @@ func (m *SummarySegment) validateActivityType(formats strfmt.Registry) error {
 }
 
 func (m *SummarySegment) validateAthletePrEffort(formats strfmt.Registry) error {
-	if swag.IsZero(m.AthletePrEffort) { // not required
+	if typeutils.IsZero(m.AthletePrEffort) { // not required
 		return nil
 	}
 
@@ -167,7 +168,7 @@ func (m *SummarySegment) validateAthletePrEffort(formats strfmt.Registry) error 
 }
 
 func (m *SummarySegment) validateAthleteSegmentStats(formats strfmt.Registry) error {
-	if swag.IsZero(m.AthleteSegmentStats) { // not required
+	if typeutils.IsZero(m.AthleteSegmentStats) { // not required
 		return nil
 	}
 
@@ -190,7 +191,7 @@ func (m *SummarySegment) validateAthleteSegmentStats(formats strfmt.Registry) er
 }
 
 func (m *SummarySegment) validateEndLatlng(formats strfmt.Registry) error {
-	if swag.IsZero(m.EndLatlng) { // not required
+	if typeutils.IsZero(m.EndLatlng) { // not required
 		return nil
 	}
 
@@ -211,7 +212,7 @@ func (m *SummarySegment) validateEndLatlng(formats strfmt.Registry) error {
 }
 
 func (m *SummarySegment) validateStartLatlng(formats strfmt.Registry) error {
-	if swag.IsZero(m.StartLatlng) { // not required
+	if typeutils.IsZero(m.StartLatlng) { // not required
 		return nil
 	}
 
@@ -261,7 +262,7 @@ func (m *SummarySegment) contextValidateAthletePrEffort(ctx context.Context, for
 
 	if m.AthletePrEffort != nil {
 
-		if swag.IsZero(m.AthletePrEffort) { // not required
+		if typeutils.IsZero(m.AthletePrEffort) { // not required
 			return nil
 		}
 
@@ -286,7 +287,7 @@ func (m *SummarySegment) contextValidateAthleteSegmentStats(ctx context.Context,
 
 	if m.AthleteSegmentStats != nil {
 
-		if swag.IsZero(m.AthleteSegmentStats) { // not required
+		if typeutils.IsZero(m.AthleteSegmentStats) { // not required
 			return nil
 		}
 
@@ -348,13 +349,13 @@ func (m *SummarySegment) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *SummarySegment) UnmarshalBinary(b []byte) error {
 	var res SummarySegment
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

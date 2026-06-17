@@ -8,7 +8,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 	"github.com/go-openapi/validate"
 )
 
@@ -60,7 +61,7 @@ func (m *Waypoint) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Waypoint) validateCategories(formats strfmt.Registry) error {
-	if swag.IsZero(m.Categories) { // not required
+	if typeutils.IsZero(m.Categories) { // not required
 		return nil
 	}
 
@@ -74,7 +75,7 @@ func (m *Waypoint) validateCategories(formats strfmt.Registry) error {
 }
 
 func (m *Waypoint) validateLatlng(formats strfmt.Registry) error {
-	if swag.IsZero(m.Latlng) { // not required
+	if typeutils.IsZero(m.Latlng) { // not required
 		return nil
 	}
 
@@ -95,7 +96,7 @@ func (m *Waypoint) validateLatlng(formats strfmt.Registry) error {
 }
 
 func (m *Waypoint) validateTargetLatlng(formats strfmt.Registry) error {
-	if swag.IsZero(m.TargetLatlng) { // not required
+	if typeutils.IsZero(m.TargetLatlng) { // not required
 		return nil
 	}
 
@@ -174,13 +175,13 @@ func (m *Waypoint) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *Waypoint) UnmarshalBinary(b []byte) error {
 	var res Waypoint
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

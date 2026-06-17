@@ -3,17 +3,21 @@
 package athletes
 
 import (
+	"context"
+	"time"
+
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new athletes API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
+func New(transport runtime.ContextualTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
 // New creates a new athletes API client with basic auth credentials.
+//
 // It takes the following parameters:
 // - host: http host (github.com).
 // - basePath: any base path for the API client ("/v1", "/v3").
@@ -27,6 +31,7 @@ func NewClientWithBasicAuth(host, basePath, scheme, user, password string) Clien
 }
 
 // New creates a new athletes API client with a bearer token for authentication.
+//
 // It takes the following parameters:
 // - host: http host (github.com).
 // - basePath: any base path for the API client ("/v1", "/v3").
@@ -39,10 +44,10 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 }
 
 /*
-Client for athletes API
+Client for athletes API.
 */
 type Client struct {
-	transport runtime.ClientTransport
+	transport runtime.ContextualTransport
 	formats   strfmt.Registry
 }
 
@@ -73,29 +78,70 @@ func WithContentTypeMultipartFormData(r *runtime.ClientOperation) {
 	r.ConsumesMediaTypes = []string{"multipart/form-data"}
 }
 
-// ClientService is the interface for Client methods
+// ClientService is the interface for Client methods.
 type ClientService interface {
+
+	// GetLoggedInAthlete get authenticated athlete.
 	GetLoggedInAthlete(params *GetLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteOK, error)
 
+	// GetLoggedInAthleteContext get authenticated athlete.
+	GetLoggedInAthleteContext(ctx context.Context, params *GetLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteOK, error)
+
+	// GetLoggedInAthleteZones get zones.
 	GetLoggedInAthleteZones(params *GetLoggedInAthleteZonesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteZonesOK, error)
 
+	// GetLoggedInAthleteZonesContext get zones.
+	GetLoggedInAthleteZonesContext(ctx context.Context, params *GetLoggedInAthleteZonesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteZonesOK, error)
+
+	// GetStats get athlete stats.
 	GetStats(params *GetStatsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetStatsOK, error)
 
+	// GetStatsContext get athlete stats.
+	GetStatsContext(ctx context.Context, params *GetStatsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetStatsOK, error)
+
+	// UpdateLoggedInAthlete update athlete.
 	UpdateLoggedInAthlete(params *UpdateLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateLoggedInAthleteOK, error)
 
-	SetTransport(transport runtime.ClientTransport)
+	// UpdateLoggedInAthleteContext update athlete.
+	UpdateLoggedInAthleteContext(ctx context.Context, params *UpdateLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateLoggedInAthleteOK, error)
+
+	SetTransport(transport runtime.ContextualTransport)
 }
 
 /*
-GetLoggedInAthlete gets authenticated athlete
+GetLoggedInAthletegets authenticated athlete.
 
-Returns the currently authenticated athlete. Tokens with profile:read_all scope will receive a detailed athlete representation; all others will receive a summary representation.
+Returns the currently authenticated athlete. Tokens with profile:read_all scope will receive a detailed athlete representation; all others will receive a summary representation..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetLoggedInAthleteContext] instead.
 */
 func (a *Client) GetLoggedInAthlete(params *GetLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetLoggedInAthleteContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetLoggedInAthleteContextgets authenticated athlete.
+
+Returns the currently authenticated athlete. Tokens with profile:read_all scope will receive a detailed athlete representation; all others will receive a summary representation..
+
+Do not use the deprecated [GetLoggedInAthleteParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetLoggedInAthleteContext(ctx context.Context, params *GetLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetLoggedInAthleteParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getLoggedInAthlete",
 		Method:             "GET",
@@ -106,13 +152,14 @@ func (a *Client) GetLoggedInAthlete(params *GetLoggedInAthleteParams, authInfo r
 		Params:             params,
 		Reader:             &GetLoggedInAthleteReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -132,15 +179,39 @@ func (a *Client) GetLoggedInAthlete(params *GetLoggedInAthleteParams, authInfo r
 }
 
 /*
-GetLoggedInAthleteZones gets zones
+GetLoggedInAthleteZonesgets zones.
 
-Returns the the authenticated athlete's heart rate and power zones. Requires profile:read_all.
+Returns the the authenticated athlete's heart rate and power zones. Requires profile:read_all..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetLoggedInAthleteZonesContext] instead.
 */
 func (a *Client) GetLoggedInAthleteZones(params *GetLoggedInAthleteZonesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteZonesOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetLoggedInAthleteZonesContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetLoggedInAthleteZonesContextgets zones.
+
+Returns the the authenticated athlete's heart rate and power zones. Requires profile:read_all..
+
+Do not use the deprecated [GetLoggedInAthleteZonesParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetLoggedInAthleteZonesContext(ctx context.Context, params *GetLoggedInAthleteZonesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteZonesOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetLoggedInAthleteZonesParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getLoggedInAthleteZones",
 		Method:             "GET",
@@ -151,13 +222,14 @@ func (a *Client) GetLoggedInAthleteZones(params *GetLoggedInAthleteZonesParams, 
 		Params:             params,
 		Reader:             &GetLoggedInAthleteZonesReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -177,15 +249,39 @@ func (a *Client) GetLoggedInAthleteZones(params *GetLoggedInAthleteZonesParams, 
 }
 
 /*
-GetStats gets athlete stats
+GetStatsgets athlete stats.
 
-Returns the activity stats of an athlete. Only includes data from activities set to Everyone visibilty.
+Returns the activity stats of an athlete. Only includes data from activities set to Everyone visibilty..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetStatsContext] instead.
 */
 func (a *Client) GetStats(params *GetStatsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetStatsOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetStatsContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetStatsContextgets athlete stats.
+
+Returns the activity stats of an athlete. Only includes data from activities set to Everyone visibilty..
+
+Do not use the deprecated [GetStatsParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetStatsContext(ctx context.Context, params *GetStatsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetStatsOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetStatsParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getStats",
 		Method:             "GET",
@@ -196,13 +292,14 @@ func (a *Client) GetStats(params *GetStatsParams, authInfo runtime.ClientAuthInf
 		Params:             params,
 		Reader:             &GetStatsReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -222,15 +319,39 @@ func (a *Client) GetStats(params *GetStatsParams, authInfo runtime.ClientAuthInf
 }
 
 /*
-UpdateLoggedInAthlete updates athlete
+UpdateLoggedInAthleteupdates athlete.
 
-Update the currently authenticated athlete. Requires profile:write scope.
+Update the currently authenticated athlete. Requires profile:write scope..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.UpdateLoggedInAthleteContext] instead.
 */
 func (a *Client) UpdateLoggedInAthlete(params *UpdateLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateLoggedInAthleteOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.UpdateLoggedInAthleteContext(ctx, params, authInfo, opts...)
+}
+
+/*
+UpdateLoggedInAthleteContextupdates athlete.
+
+Update the currently authenticated athlete. Requires profile:write scope..
+
+Do not use the deprecated [UpdateLoggedInAthleteParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) UpdateLoggedInAthleteContext(ctx context.Context, params *UpdateLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateLoggedInAthleteOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewUpdateLoggedInAthleteParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "updateLoggedInAthlete",
 		Method:             "PUT",
@@ -241,13 +362,14 @@ func (a *Client) UpdateLoggedInAthlete(params *UpdateLoggedInAthleteParams, auth
 		Params:             params,
 		Reader:             &UpdateLoggedInAthleteReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -267,6 +389,14 @@ func (a *Client) UpdateLoggedInAthlete(params *UpdateLoggedInAthleteParams, auth
 }
 
 // SetTransport changes the transport on the client
-func (a *Client) SetTransport(transport runtime.ClientTransport) {
+func (a *Client) SetTransport(transport runtime.ContextualTransport) {
 	a.transport = transport
+}
+
+// innerParams captures internal fields so they don't conflict with user-supplied parameters.
+type innerParams struct {
+	timeout time.Duration
+
+	// Deprecated: use the operation call with context to pass the context instead of [AthletesParams].
+	ctx context.Context
 }

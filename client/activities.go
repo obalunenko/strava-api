@@ -9,7 +9,7 @@ import (
 
 	strava "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client"
 	apiactivities "github.com/obalunenko/strava-api/internal/gen/strava-api-go/client/activities"
-	"github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
+	"github.com/obalunenko/strava-api/models"
 )
 
 // ActivitiesAPI is an interface for interacting with activities endpoints of Strava API

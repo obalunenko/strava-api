@@ -10,7 +10,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 	"github.com/go-openapi/validate"
 )
 
@@ -50,7 +51,7 @@ type DetailedAthlete struct {
 func (m *DetailedAthlete) UnmarshalJSON(raw []byte) error {
 	// AO0
 	var aO0 CommentAthlete
-	if err := swag.ReadJSON(raw, &aO0); err != nil {
+	if err := jsonutils.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
 	m.CommentAthlete = aO0
@@ -73,7 +74,7 @@ func (m *DetailedAthlete) UnmarshalJSON(raw []byte) error {
 
 		Weight float32 `json:"weight,omitempty"`
 	}
-	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
+	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
 
@@ -100,7 +101,7 @@ func (m *DetailedAthlete) UnmarshalJSON(raw []byte) error {
 func (m DetailedAthlete) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	aO0, err := swag.WriteJSON(m.CommentAthlete)
+	aO0, err := jsonutils.WriteJSON(m.CommentAthlete)
 	if err != nil {
 		return nil, err
 	}
@@ -139,12 +140,12 @@ func (m DetailedAthlete) MarshalJSON() ([]byte, error) {
 
 	dataAO1.Weight = m.Weight
 
-	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
+	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {
 		return nil, errAO1
 	}
 	_parts = append(_parts, jsonDataAO1)
-	return swag.ConcatJSON(_parts...), nil
+	return jsonutils.ConcatJSON(_parts...), nil
 }
 
 // Validate validates this detailed athlete
@@ -180,12 +181,12 @@ func (m *DetailedAthlete) Validate(formats strfmt.Registry) error {
 
 func (m *DetailedAthlete) validateBikes(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Bikes) { // not required
+	if typeutils.IsZero(m.Bikes) { // not required
 		return nil
 	}
 
 	for i := 0; i < len(m.Bikes); i++ {
-		if swag.IsZero(m.Bikes[i]) { // not required
+		if typeutils.IsZero(m.Bikes[i]) { // not required
 			continue
 		}
 
@@ -211,12 +212,12 @@ func (m *DetailedAthlete) validateBikes(formats strfmt.Registry) error {
 
 func (m *DetailedAthlete) validateClubs(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Clubs) { // not required
+	if typeutils.IsZero(m.Clubs) { // not required
 		return nil
 	}
 
 	for i := 0; i < len(m.Clubs); i++ {
-		if swag.IsZero(m.Clubs[i]) { // not required
+		if typeutils.IsZero(m.Clubs[i]) { // not required
 			continue
 		}
 
@@ -262,7 +263,7 @@ func (m *DetailedAthlete) validateMeasurementPreferenceEnum(path, location strin
 
 func (m *DetailedAthlete) validateMeasurementPreference(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.MeasurementPreference) { // not required
+	if typeutils.IsZero(m.MeasurementPreference) { // not required
 		return nil
 	}
 
@@ -276,12 +277,12 @@ func (m *DetailedAthlete) validateMeasurementPreference(formats strfmt.Registry)
 
 func (m *DetailedAthlete) validateShoes(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Shoes) { // not required
+	if typeutils.IsZero(m.Shoes) { // not required
 		return nil
 	}
 
 	for i := 0; i < len(m.Shoes); i++ {
-		if swag.IsZero(m.Shoes[i]) { // not required
+		if typeutils.IsZero(m.Shoes[i]) { // not required
 			continue
 		}
 
@@ -338,7 +339,7 @@ func (m *DetailedAthlete) contextValidateBikes(ctx context.Context, formats strf
 
 		if m.Bikes[i] != nil {
 
-			if swag.IsZero(m.Bikes[i]) { // not required
+			if typeutils.IsZero(m.Bikes[i]) { // not required
 				return nil
 			}
 
@@ -367,7 +368,7 @@ func (m *DetailedAthlete) contextValidateClubs(ctx context.Context, formats strf
 
 		if m.Clubs[i] != nil {
 
-			if swag.IsZero(m.Clubs[i]) { // not required
+			if typeutils.IsZero(m.Clubs[i]) { // not required
 				return nil
 			}
 
@@ -396,7 +397,7 @@ func (m *DetailedAthlete) contextValidateShoes(ctx context.Context, formats strf
 
 		if m.Shoes[i] != nil {
 
-			if swag.IsZero(m.Shoes[i]) { // not required
+			if typeutils.IsZero(m.Shoes[i]) { // not required
 				return nil
 			}
 
@@ -424,13 +425,13 @@ func (m *DetailedAthlete) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *DetailedAthlete) UnmarshalBinary(b []byte) error {
 	var res DetailedAthlete
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

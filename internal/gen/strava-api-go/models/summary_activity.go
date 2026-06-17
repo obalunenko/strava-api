@@ -8,7 +8,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 	"github.com/go-openapi/validate"
 )
 
@@ -154,14 +155,14 @@ type SummaryActivity struct {
 func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 	// AO0
 	var aO0 MetaActivity
-	if err := swag.ReadJSON(raw, &aO0); err != nil {
+	if err := jsonutils.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
 	m.MetaActivity = aO0
 
 	// AO1
 	var aO1 HeartRateDetails
-	if err := swag.ReadJSON(raw, &aO1); err != nil {
+	if err := jsonutils.ReadJSON(raw, &aO1); err != nil {
 		return err
 	}
 	m.HeartRateDetails = aO1
@@ -252,7 +253,7 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 
 		WorkoutType int64 `json:"workout_type,omitempty"`
 	}
-	if err := swag.ReadJSON(raw, &dataAO2); err != nil {
+	if err := jsonutils.ReadJSON(raw, &dataAO2); err != nil {
 		return err
 	}
 
@@ -347,13 +348,13 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 3)
 
-	aO0, err := swag.WriteJSON(m.MetaActivity)
+	aO0, err := jsonutils.WriteJSON(m.MetaActivity)
 	if err != nil {
 		return nil, err
 	}
 	_parts = append(_parts, aO0)
 
-	aO1, err := swag.WriteJSON(m.HeartRateDetails)
+	aO1, err := jsonutils.WriteJSON(m.HeartRateDetails)
 	if err != nil {
 		return nil, err
 	}
@@ -528,12 +529,12 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 
 	dataAO2.WorkoutType = m.WorkoutType
 
-	jsonDataAO2, errAO2 := swag.WriteJSON(dataAO2)
+	jsonDataAO2, errAO2 := jsonutils.WriteJSON(dataAO2)
 	if errAO2 != nil {
 		return nil, errAO2
 	}
 	_parts = append(_parts, jsonDataAO2)
-	return swag.ConcatJSON(_parts...), nil
+	return jsonutils.ConcatJSON(_parts...), nil
 }
 
 // Validate validates this summary activity
@@ -593,7 +594,7 @@ func (m *SummaryActivity) Validate(formats strfmt.Registry) error {
 
 func (m *SummaryActivity) validateAthlete(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Athlete) { // not required
+	if typeutils.IsZero(m.Athlete) { // not required
 		return nil
 	}
 
@@ -617,7 +618,7 @@ func (m *SummaryActivity) validateAthlete(formats strfmt.Registry) error {
 
 func (m *SummaryActivity) validateAthleteCount(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.AthleteCount) { // not required
+	if typeutils.IsZero(m.AthleteCount) { // not required
 		return nil
 	}
 
@@ -630,7 +631,7 @@ func (m *SummaryActivity) validateAthleteCount(formats strfmt.Registry) error {
 
 func (m *SummaryActivity) validateEndLatlng(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.EndLatlng) { // not required
+	if typeutils.IsZero(m.EndLatlng) { // not required
 		return nil
 	}
 
@@ -652,7 +653,7 @@ func (m *SummaryActivity) validateEndLatlng(formats strfmt.Registry) error {
 
 func (m *SummaryActivity) validateMap(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Map) { // not required
+	if typeutils.IsZero(m.Map) { // not required
 		return nil
 	}
 
@@ -676,7 +677,7 @@ func (m *SummaryActivity) validateMap(formats strfmt.Registry) error {
 
 func (m *SummaryActivity) validateSportType(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.SportType) { // not required
+	if typeutils.IsZero(m.SportType) { // not required
 		return nil
 	}
 
@@ -698,7 +699,7 @@ func (m *SummaryActivity) validateSportType(formats strfmt.Registry) error {
 
 func (m *SummaryActivity) validateStartDate(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.StartDate) { // not required
+	if typeutils.IsZero(m.StartDate) { // not required
 		return nil
 	}
 
@@ -711,7 +712,7 @@ func (m *SummaryActivity) validateStartDate(formats strfmt.Registry) error {
 
 func (m *SummaryActivity) validateStartDateLocal(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.StartDateLocal) { // not required
+	if typeutils.IsZero(m.StartDateLocal) { // not required
 		return nil
 	}
 
@@ -724,7 +725,7 @@ func (m *SummaryActivity) validateStartDateLocal(formats strfmt.Registry) error 
 
 func (m *SummaryActivity) validateStartLatlng(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.StartLatlng) { // not required
+	if typeutils.IsZero(m.StartLatlng) { // not required
 		return nil
 	}
 
@@ -746,7 +747,7 @@ func (m *SummaryActivity) validateStartLatlng(formats strfmt.Registry) error {
 
 func (m *SummaryActivity) validateType(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Type) { // not required
+	if typeutils.IsZero(m.Type) { // not required
 		return nil
 	}
 
@@ -813,7 +814,7 @@ func (m *SummaryActivity) contextValidateAthlete(ctx context.Context, formats st
 
 	if m.Athlete != nil {
 
-		if swag.IsZero(m.Athlete) { // not required
+		if typeutils.IsZero(m.Athlete) { // not required
 			return nil
 		}
 
@@ -856,7 +857,7 @@ func (m *SummaryActivity) contextValidateMap(ctx context.Context, formats strfmt
 
 	if m.Map != nil {
 
-		if swag.IsZero(m.Map) { // not required
+		if typeutils.IsZero(m.Map) { // not required
 			return nil
 		}
 
@@ -879,7 +880,7 @@ func (m *SummaryActivity) contextValidateMap(ctx context.Context, formats strfmt
 
 func (m *SummaryActivity) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
 
-	if swag.IsZero(m.SportType) { // not required
+	if typeutils.IsZero(m.SportType) { // not required
 		return nil
 	}
 
@@ -919,7 +920,7 @@ func (m *SummaryActivity) contextValidateStartLatlng(ctx context.Context, format
 
 func (m *SummaryActivity) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Type) { // not required
+	if typeutils.IsZero(m.Type) { // not required
 		return nil
 	}
 
@@ -944,13 +945,13 @@ func (m *SummaryActivity) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *SummaryActivity) UnmarshalBinary(b []byte) error {
 	var res SummaryActivity
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

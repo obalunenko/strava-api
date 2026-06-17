@@ -20,24 +20,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetLoggedInAthleteZonesParams() *GetLoggedInAthleteZonesParams {
-	return &GetLoggedInAthleteZonesParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetLoggedInAthleteZonesParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetLoggedInAthleteZonesParamsWithTimeout creates a new GetLoggedInAthleteZonesParams object
 // with the ability to set a timeout on a request.
 func NewGetLoggedInAthleteZonesParamsWithTimeout(timeout time.Duration) *GetLoggedInAthleteZonesParams {
 	return &GetLoggedInAthleteZonesParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetLoggedInAthleteZonesParamsWithContext creates a new GetLoggedInAthleteZonesParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetLoggedInAthleteZonesParams].
 func NewGetLoggedInAthleteZonesParamsWithContext(ctx context.Context) *GetLoggedInAthleteZonesParams {
 	return &GetLoggedInAthleteZonesParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -57,9 +61,9 @@ GetLoggedInAthleteZonesParams contains all the parameters to send to the API end
 	Typically these are written to a http.Request.
 */
 type GetLoggedInAthleteZonesParams struct {
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get logged in athlete zones params (not the query body).
@@ -77,43 +81,46 @@ func (o *GetLoggedInAthleteZonesParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the get logged in athlete zones params
+// WithTimeout adds the timeout to the get logged in athlete zones params.
 func (o *GetLoggedInAthleteZonesParams) WithTimeout(timeout time.Duration) *GetLoggedInAthleteZonesParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get logged in athlete zones params
+// SetTimeout adds the timeout to the get logged in athlete zones params.
 func (o *GetLoggedInAthleteZonesParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get logged in athlete zones params
+// WithContext adds the context to the get logged in athlete zones params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetLoggedInAthleteZonesParams].
 func (o *GetLoggedInAthleteZonesParams) WithContext(ctx context.Context) *GetLoggedInAthleteZonesParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get logged in athlete zones params
+// SetContext adds the context to the get logged in athlete zones params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetLoggedInAthleteZonesParams].
 func (o *GetLoggedInAthleteZonesParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get logged in athlete zones params
+// WithHTTPClient adds the HTTPClient to the get logged in athlete zones params.
 func (o *GetLoggedInAthleteZonesParams) WithHTTPClient(client *http.Client) *GetLoggedInAthleteZonesParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get logged in athlete zones params
+// SetHTTPClient adds the HTTPClient to the get logged in athlete zones params.
 func (o *GetLoggedInAthleteZonesParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetLoggedInAthleteZonesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error

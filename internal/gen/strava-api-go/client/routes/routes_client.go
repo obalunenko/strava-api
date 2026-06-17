@@ -3,7 +3,9 @@
 package routes
 
 import (
+	"context"
 	"io"
+	"time"
 
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
@@ -11,11 +13,12 @@ import (
 )
 
 // New creates a new routes API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
+func New(transport runtime.ContextualTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
 // New creates a new routes API client with basic auth credentials.
+//
 // It takes the following parameters:
 // - host: http host (github.com).
 // - basePath: any base path for the API client ("/v1", "/v3").
@@ -29,6 +32,7 @@ func NewClientWithBasicAuth(host, basePath, scheme, user, password string) Clien
 }
 
 // New creates a new routes API client with a bearer token for authentication.
+//
 // It takes the following parameters:
 // - host: http host (github.com).
 // - basePath: any base path for the API client ("/v1", "/v3").
@@ -41,10 +45,10 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 }
 
 /*
-Client for routes API
+Client for routes API.
 */
 type Client struct {
-	transport runtime.ClientTransport
+	transport runtime.ContextualTransport
 	formats   strfmt.Registry
 }
 
@@ -95,29 +99,70 @@ func WithAcceptTextXML(r *runtime.ClientOperation) {
 	r.ProducesMediaTypes = []string{"text/xml"}
 }
 
-// ClientService is the interface for Client methods
+// ClientService is the interface for Client methods.
 type ClientService interface {
+
+	// GetRouteAsGPX export route g p x.
 	GetRouteAsGPX(params *GetRouteAsGPXParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetRouteAsGPXOK, error)
 
+	// GetRouteAsGPXContext export route g p x.
+	GetRouteAsGPXContext(ctx context.Context, params *GetRouteAsGPXParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetRouteAsGPXOK, error)
+
+	// GetRouteAsTCX export route t c x.
 	GetRouteAsTCX(params *GetRouteAsTCXParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetRouteAsTCXOK, error)
 
+	// GetRouteAsTCXContext export route t c x.
+	GetRouteAsTCXContext(ctx context.Context, params *GetRouteAsTCXParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetRouteAsTCXOK, error)
+
+	// GetRouteByID get route.
 	GetRouteByID(params *GetRouteByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteByIDOK, error)
 
+	// GetRouteByIDContext get route.
+	GetRouteByIDContext(ctx context.Context, params *GetRouteByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteByIDOK, error)
+
+	// GetRoutesByAthleteID list athlete routes.
 	GetRoutesByAthleteID(params *GetRoutesByAthleteIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRoutesByAthleteIDOK, error)
 
-	SetTransport(transport runtime.ClientTransport)
+	// GetRoutesByAthleteIDContext list athlete routes.
+	GetRoutesByAthleteIDContext(ctx context.Context, params *GetRoutesByAthleteIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRoutesByAthleteIDOK, error)
+
+	SetTransport(transport runtime.ContextualTransport)
 }
 
 /*
-GetRouteAsGPX exports route g p x
+GetRouteAsGPXexports route g p x.
 
-Returns a GPX file of the route. Requires read_all scope for private routes.
+Returns a GPX file of the route. Requires read_all scope for private routes..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetRouteAsGPXContext] instead.
 */
 func (a *Client) GetRouteAsGPX(params *GetRouteAsGPXParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetRouteAsGPXOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetRouteAsGPXContext(ctx, params, authInfo, writer, opts...)
+}
+
+/*
+GetRouteAsGPXContextexports route g p x.
+
+Returns a GPX file of the route. Requires read_all scope for private routes..
+
+Do not use the deprecated [GetRouteAsGPXParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetRouteAsGPXContext(ctx context.Context, params *GetRouteAsGPXParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetRouteAsGPXOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetRouteAsGPXParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getRouteAsGPX",
 		Method:             "GET",
@@ -128,13 +173,14 @@ func (a *Client) GetRouteAsGPX(params *GetRouteAsGPXParams, authInfo runtime.Cli
 		Params:             params,
 		Reader:             &GetRouteAsGPXReader{formats: a.formats, writer: writer},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -154,15 +200,39 @@ func (a *Client) GetRouteAsGPX(params *GetRouteAsGPXParams, authInfo runtime.Cli
 }
 
 /*
-GetRouteAsTCX exports route t c x
+GetRouteAsTCXexports route t c x.
 
-Returns a TCX file of the route. Requires read_all scope for private routes.
+Returns a TCX file of the route. Requires read_all scope for private routes..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetRouteAsTCXContext] instead.
 */
 func (a *Client) GetRouteAsTCX(params *GetRouteAsTCXParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetRouteAsTCXOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetRouteAsTCXContext(ctx, params, authInfo, writer, opts...)
+}
+
+/*
+GetRouteAsTCXContextexports route t c x.
+
+Returns a TCX file of the route. Requires read_all scope for private routes..
+
+Do not use the deprecated [GetRouteAsTCXParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetRouteAsTCXContext(ctx context.Context, params *GetRouteAsTCXParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer, opts ...ClientOption) (*GetRouteAsTCXOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetRouteAsTCXParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getRouteAsTCX",
 		Method:             "GET",
@@ -173,13 +243,14 @@ func (a *Client) GetRouteAsTCX(params *GetRouteAsTCXParams, authInfo runtime.Cli
 		Params:             params,
 		Reader:             &GetRouteAsTCXReader{formats: a.formats, writer: writer},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -199,15 +270,39 @@ func (a *Client) GetRouteAsTCX(params *GetRouteAsTCXParams, authInfo runtime.Cli
 }
 
 /*
-GetRouteByID gets route
+GetRouteByIDgets route.
 
-Returns a route using its identifier. Requires read_all scope for private routes.
+Returns a route using its identifier. Requires read_all scope for private routes..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetRouteByIDContext] instead.
 */
 func (a *Client) GetRouteByID(params *GetRouteByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteByIDOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetRouteByIDContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetRouteByIDContextgets route.
+
+Returns a route using its identifier. Requires read_all scope for private routes..
+
+Do not use the deprecated [GetRouteByIDParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetRouteByIDContext(ctx context.Context, params *GetRouteByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetRouteByIDParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getRouteById",
 		Method:             "GET",
@@ -218,13 +313,14 @@ func (a *Client) GetRouteByID(params *GetRouteByIDParams, authInfo runtime.Clien
 		Params:             params,
 		Reader:             &GetRouteByIDReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -244,15 +340,39 @@ func (a *Client) GetRouteByID(params *GetRouteByIDParams, authInfo runtime.Clien
 }
 
 /*
-GetRoutesByAthleteID lists athlete routes
+GetRoutesByAthleteIDlists athlete routes.
 
-Returns a list of the routes created by the authenticated athlete. Private routes are filtered out unless requested by a token with read_all scope.
+Returns a list of the routes created by the authenticated athlete. Private routes are filtered out unless requested by a token with read_all scope..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetRoutesByAthleteIDContext] instead.
 */
 func (a *Client) GetRoutesByAthleteID(params *GetRoutesByAthleteIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRoutesByAthleteIDOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetRoutesByAthleteIDContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetRoutesByAthleteIDContextlists athlete routes.
+
+Returns a list of the routes created by the authenticated athlete. Private routes are filtered out unless requested by a token with read_all scope..
+
+Do not use the deprecated [GetRoutesByAthleteIDParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetRoutesByAthleteIDContext(ctx context.Context, params *GetRoutesByAthleteIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRoutesByAthleteIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetRoutesByAthleteIDParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getRoutesByAthleteId",
 		Method:             "GET",
@@ -263,13 +383,14 @@ func (a *Client) GetRoutesByAthleteID(params *GetRoutesByAthleteIDParams, authIn
 		Params:             params,
 		Reader:             &GetRoutesByAthleteIDReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -289,6 +410,14 @@ func (a *Client) GetRoutesByAthleteID(params *GetRoutesByAthleteIDParams, authIn
 }
 
 // SetTransport changes the transport on the client
-func (a *Client) SetTransport(transport runtime.ClientTransport) {
+func (a *Client) SetTransport(transport runtime.ContextualTransport) {
 	a.transport = transport
+}
+
+// innerParams captures internal fields so they don't conflict with user-supplied parameters.
+type innerParams struct {
+	timeout time.Duration
+
+	// Deprecated: use the operation call with context to pass the context instead of [RoutesParams].
+	ctx context.Context
 }

@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetLoggedInAthleteClubsParams creates a new GetLoggedInAthleteClubsParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetLoggedInAthleteClubsParams() *GetLoggedInAthleteClubsParams {
-	return &GetLoggedInAthleteClubsParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetLoggedInAthleteClubsParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetLoggedInAthleteClubsParamsWithTimeout creates a new GetLoggedInAthleteClubsParams object
 // with the ability to set a timeout on a request.
 func NewGetLoggedInAthleteClubsParamsWithTimeout(timeout time.Duration) *GetLoggedInAthleteClubsParams {
 	return &GetLoggedInAthleteClubsParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetLoggedInAthleteClubsParamsWithContext creates a new GetLoggedInAthleteClubsParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetLoggedInAthleteClubsParams].
 func NewGetLoggedInAthleteClubsParamsWithContext(ctx context.Context) *GetLoggedInAthleteClubsParams {
 	return &GetLoggedInAthleteClubsParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -73,9 +77,9 @@ type GetLoggedInAthleteClubsParams struct {
 	*/
 	PerPage *int64
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get logged in athlete clubs params (not the query body).
@@ -98,71 +102,74 @@ func (o *GetLoggedInAthleteClubsParams) SetDefaults() {
 		PerPage: &perPageDefault,
 	}
 
-	val.timeout = o.timeout
-	val.Context = o.Context
+	val.inner.timeout = o.inner.timeout
+	val.inner.ctx = o.inner.ctx
 	val.HTTPClient = o.HTTPClient
 	*o = val
 }
 
-// WithTimeout adds the timeout to the get logged in athlete clubs params
+// WithTimeout adds the timeout to the get logged in athlete clubs params.
 func (o *GetLoggedInAthleteClubsParams) WithTimeout(timeout time.Duration) *GetLoggedInAthleteClubsParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get logged in athlete clubs params
+// SetTimeout adds the timeout to the get logged in athlete clubs params.
 func (o *GetLoggedInAthleteClubsParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get logged in athlete clubs params
+// WithContext adds the context to the get logged in athlete clubs params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetLoggedInAthleteClubsParams].
 func (o *GetLoggedInAthleteClubsParams) WithContext(ctx context.Context) *GetLoggedInAthleteClubsParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get logged in athlete clubs params
+// SetContext adds the context to the get logged in athlete clubs params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetLoggedInAthleteClubsParams].
 func (o *GetLoggedInAthleteClubsParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get logged in athlete clubs params
+// WithHTTPClient adds the HTTPClient to the get logged in athlete clubs params.
 func (o *GetLoggedInAthleteClubsParams) WithHTTPClient(client *http.Client) *GetLoggedInAthleteClubsParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get logged in athlete clubs params
+// SetHTTPClient adds the HTTPClient to the get logged in athlete clubs params.
 func (o *GetLoggedInAthleteClubsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithPage adds the page to the get logged in athlete clubs params
+// WithPage adds the page to the get logged in athlete clubs params.
 func (o *GetLoggedInAthleteClubsParams) WithPage(page *int64) *GetLoggedInAthleteClubsParams {
 	o.SetPage(page)
 	return o
 }
 
-// SetPage adds the page to the get logged in athlete clubs params
+// SetPage adds the page to the get logged in athlete clubs params.
 func (o *GetLoggedInAthleteClubsParams) SetPage(page *int64) {
 	o.Page = page
 }
 
-// WithPerPage adds the perPage to the get logged in athlete clubs params
+// WithPerPage adds the perPage to the get logged in athlete clubs params.
 func (o *GetLoggedInAthleteClubsParams) WithPerPage(perPage *int64) *GetLoggedInAthleteClubsParams {
 	o.SetPerPage(perPage)
 	return o
 }
 
-// SetPerPage adds the perPage to the get logged in athlete clubs params
+// SetPerPage adds the perPage to the get logged in athlete clubs params.
 func (o *GetLoggedInAthleteClubsParams) SetPerPage(perPage *int64) {
 	o.PerPage = perPage
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetLoggedInAthleteClubsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
@@ -175,7 +182,7 @@ func (o *GetLoggedInAthleteClubsParams) WriteToRequest(r runtime.ClientRequest, 
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
-		qPage := swag.FormatInt64(qrPage)
+		qPage := conv.FormatInteger(qrPage)
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
@@ -192,7 +199,7 @@ func (o *GetLoggedInAthleteClubsParams) WriteToRequest(r runtime.ClientRequest, 
 		if o.PerPage != nil {
 			qrPerPage = *o.PerPage
 		}
-		qPerPage := swag.FormatInt64(qrPerPage)
+		qPerPage := conv.FormatInteger(qrPerPage)
 		if qPerPage != "" {
 
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {

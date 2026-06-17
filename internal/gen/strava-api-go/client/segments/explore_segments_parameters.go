@@ -11,7 +11,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
+	"github.com/go-openapi/swag/stringutils"
 )
 
 // NewExploreSegmentsParams creates a new ExploreSegmentsParams object,
@@ -21,24 +22,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewExploreSegmentsParams() *ExploreSegmentsParams {
-	return &ExploreSegmentsParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewExploreSegmentsParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewExploreSegmentsParamsWithTimeout creates a new ExploreSegmentsParams object
 // with the ability to set a timeout on a request.
 func NewExploreSegmentsParamsWithTimeout(timeout time.Duration) *ExploreSegmentsParams {
 	return &ExploreSegmentsParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewExploreSegmentsParamsWithContext creates a new ExploreSegmentsParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [ExploreSegmentsParams].
 func NewExploreSegmentsParamsWithContext(ctx context.Context) *ExploreSegmentsParams {
 	return &ExploreSegmentsParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -83,9 +88,9 @@ type ExploreSegmentsParams struct {
 	*/
 	MinCat *int64
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the explore segments params (not the query body).
@@ -103,87 +108,90 @@ func (o *ExploreSegmentsParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the explore segments params
+// WithTimeout adds the timeout to the explore segments params.
 func (o *ExploreSegmentsParams) WithTimeout(timeout time.Duration) *ExploreSegmentsParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the explore segments params
+// SetTimeout adds the timeout to the explore segments params.
 func (o *ExploreSegmentsParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the explore segments params
+// WithContext adds the context to the explore segments params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [ExploreSegmentsParams].
 func (o *ExploreSegmentsParams) WithContext(ctx context.Context) *ExploreSegmentsParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the explore segments params
+// SetContext adds the context to the explore segments params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [ExploreSegmentsParams].
 func (o *ExploreSegmentsParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the explore segments params
+// WithHTTPClient adds the HTTPClient to the explore segments params.
 func (o *ExploreSegmentsParams) WithHTTPClient(client *http.Client) *ExploreSegmentsParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the explore segments params
+// SetHTTPClient adds the HTTPClient to the explore segments params.
 func (o *ExploreSegmentsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithActivityType adds the activityType to the explore segments params
+// WithActivityType adds the activityType to the explore segments params.
 func (o *ExploreSegmentsParams) WithActivityType(activityType *string) *ExploreSegmentsParams {
 	o.SetActivityType(activityType)
 	return o
 }
 
-// SetActivityType adds the activityType to the explore segments params
+// SetActivityType adds the activityType to the explore segments params.
 func (o *ExploreSegmentsParams) SetActivityType(activityType *string) {
 	o.ActivityType = activityType
 }
 
-// WithBounds adds the bounds to the explore segments params
+// WithBounds adds the bounds to the explore segments params.
 func (o *ExploreSegmentsParams) WithBounds(bounds []float32) *ExploreSegmentsParams {
 	o.SetBounds(bounds)
 	return o
 }
 
-// SetBounds adds the bounds to the explore segments params
+// SetBounds adds the bounds to the explore segments params.
 func (o *ExploreSegmentsParams) SetBounds(bounds []float32) {
 	o.Bounds = bounds
 }
 
-// WithMaxCat adds the maxCat to the explore segments params
+// WithMaxCat adds the maxCat to the explore segments params.
 func (o *ExploreSegmentsParams) WithMaxCat(maxCat *int64) *ExploreSegmentsParams {
 	o.SetMaxCat(maxCat)
 	return o
 }
 
-// SetMaxCat adds the maxCat to the explore segments params
+// SetMaxCat adds the maxCat to the explore segments params.
 func (o *ExploreSegmentsParams) SetMaxCat(maxCat *int64) {
 	o.MaxCat = maxCat
 }
 
-// WithMinCat adds the minCat to the explore segments params
+// WithMinCat adds the minCat to the explore segments params.
 func (o *ExploreSegmentsParams) WithMinCat(minCat *int64) *ExploreSegmentsParams {
 	o.SetMinCat(minCat)
 	return o
 }
 
-// SetMinCat adds the minCat to the explore segments params
+// SetMinCat adds the minCat to the explore segments params.
 func (o *ExploreSegmentsParams) SetMinCat(minCat *int64) {
 	o.MinCat = minCat
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *ExploreSegmentsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
@@ -224,7 +232,7 @@ func (o *ExploreSegmentsParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		if o.MaxCat != nil {
 			qrMaxCat = *o.MaxCat
 		}
-		qMaxCat := swag.FormatInt64(qrMaxCat)
+		qMaxCat := conv.FormatInteger(qrMaxCat)
 		if qMaxCat != "" {
 
 			if err := r.SetQueryParam("max_cat", qMaxCat); err != nil {
@@ -241,7 +249,7 @@ func (o *ExploreSegmentsParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		if o.MinCat != nil {
 			qrMinCat = *o.MinCat
 		}
-		qMinCat := swag.FormatInt64(qrMinCat)
+		qMinCat := conv.FormatInteger(qrMinCat)
 		if qMinCat != "" {
 
 			if err := r.SetQueryParam("min_cat", qMinCat); err != nil {
@@ -256,19 +264,19 @@ func (o *ExploreSegmentsParams) WriteToRequest(r runtime.ClientRequest, reg strf
 	return nil
 }
 
-// bindParamExploreSegments binds the parameter bounds
+// bindParamExploreSegments binds the parameter bounds.
 func (o *ExploreSegmentsParams) bindParamBounds(formats strfmt.Registry) []string {
 	boundsIR := o.Bounds
 
 	var boundsIC []string
 	for _, boundsIIR := range boundsIR { // explode []float32
 
-		boundsIIV := swag.FormatFloat32(boundsIIR) // float32 as string
+		boundsIIV := conv.FormatFloat(boundsIIR) // float32 as string
 		boundsIC = append(boundsIC, boundsIIV)
 	}
 
 	// items.CollectionFormat: "csv"
-	boundsIS := swag.JoinByFormat(boundsIC, "csv")
+	boundsIS := stringutils.JoinByFormat(boundsIC, "csv")
 
 	return boundsIS
 }

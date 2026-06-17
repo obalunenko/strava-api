@@ -8,7 +8,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 )
 
 // PhotosSummary photos summary
@@ -38,7 +39,7 @@ func (m *PhotosSummary) Validate(formats strfmt.Registry) error {
 }
 
 func (m *PhotosSummary) validatePrimary(formats strfmt.Registry) error {
-	if swag.IsZero(m.Primary) { // not required
+	if typeutils.IsZero(m.Primary) { // not required
 		return nil
 	}
 
@@ -78,7 +79,7 @@ func (m *PhotosSummary) contextValidatePrimary(ctx context.Context, formats strf
 
 	if m.Primary != nil {
 
-		if swag.IsZero(m.Primary) { // not required
+		if typeutils.IsZero(m.Primary) { // not required
 			return nil
 		}
 
@@ -104,13 +105,13 @@ func (m *PhotosSummary) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *PhotosSummary) UnmarshalBinary(b []byte) error {
 	var res PhotosSummary
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res
@@ -150,13 +151,13 @@ func (m *PhotosSummaryPrimary) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *PhotosSummaryPrimary) UnmarshalBinary(b []byte) error {
 	var res PhotosSummaryPrimary
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

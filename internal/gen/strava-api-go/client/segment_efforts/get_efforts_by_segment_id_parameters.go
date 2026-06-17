@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetEffortsBySegmentIDParams creates a new GetEffortsBySegmentIDParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetEffortsBySegmentIDParams() *GetEffortsBySegmentIDParams {
-	return &GetEffortsBySegmentIDParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetEffortsBySegmentIDParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetEffortsBySegmentIDParamsWithTimeout creates a new GetEffortsBySegmentIDParams object
 // with the ability to set a timeout on a request.
 func NewGetEffortsBySegmentIDParamsWithTimeout(timeout time.Duration) *GetEffortsBySegmentIDParams {
 	return &GetEffortsBySegmentIDParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetEffortsBySegmentIDParamsWithContext creates a new GetEffortsBySegmentIDParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetEffortsBySegmentIDParams].
 func NewGetEffortsBySegmentIDParamsWithContext(ctx context.Context) *GetEffortsBySegmentIDParams {
 	return &GetEffortsBySegmentIDParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -89,9 +93,9 @@ type GetEffortsBySegmentIDParams struct {
 	*/
 	StartDateLocal *strfmt.DateTime
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get efforts by segment Id params (not the query body).
@@ -114,93 +118,96 @@ func (o *GetEffortsBySegmentIDParams) SetDefaults() {
 		PerPage: &perPageDefault,
 	}
 
-	val.timeout = o.timeout
-	val.Context = o.Context
+	val.inner.timeout = o.inner.timeout
+	val.inner.ctx = o.inner.ctx
 	val.HTTPClient = o.HTTPClient
 	*o = val
 }
 
-// WithTimeout adds the timeout to the get efforts by segment Id params
+// WithTimeout adds the timeout to the get efforts by segment Id params.
 func (o *GetEffortsBySegmentIDParams) WithTimeout(timeout time.Duration) *GetEffortsBySegmentIDParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get efforts by segment Id params
+// SetTimeout adds the timeout to the get efforts by segment Id params.
 func (o *GetEffortsBySegmentIDParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get efforts by segment Id params
+// WithContext adds the context to the get efforts by segment Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetEffortsBySegmentIDParams].
 func (o *GetEffortsBySegmentIDParams) WithContext(ctx context.Context) *GetEffortsBySegmentIDParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get efforts by segment Id params
+// SetContext adds the context to the get efforts by segment Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetEffortsBySegmentIDParams].
 func (o *GetEffortsBySegmentIDParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get efforts by segment Id params
+// WithHTTPClient adds the HTTPClient to the get efforts by segment Id params.
 func (o *GetEffortsBySegmentIDParams) WithHTTPClient(client *http.Client) *GetEffortsBySegmentIDParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get efforts by segment Id params
+// SetHTTPClient adds the HTTPClient to the get efforts by segment Id params.
 func (o *GetEffortsBySegmentIDParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithEndDateLocal adds the endDateLocal to the get efforts by segment Id params
+// WithEndDateLocal adds the endDateLocal to the get efforts by segment Id params.
 func (o *GetEffortsBySegmentIDParams) WithEndDateLocal(endDateLocal *strfmt.DateTime) *GetEffortsBySegmentIDParams {
 	o.SetEndDateLocal(endDateLocal)
 	return o
 }
 
-// SetEndDateLocal adds the endDateLocal to the get efforts by segment Id params
+// SetEndDateLocal adds the endDateLocal to the get efforts by segment Id params.
 func (o *GetEffortsBySegmentIDParams) SetEndDateLocal(endDateLocal *strfmt.DateTime) {
 	o.EndDateLocal = endDateLocal
 }
 
-// WithPerPage adds the perPage to the get efforts by segment Id params
+// WithPerPage adds the perPage to the get efforts by segment Id params.
 func (o *GetEffortsBySegmentIDParams) WithPerPage(perPage *int64) *GetEffortsBySegmentIDParams {
 	o.SetPerPage(perPage)
 	return o
 }
 
-// SetPerPage adds the perPage to the get efforts by segment Id params
+// SetPerPage adds the perPage to the get efforts by segment Id params.
 func (o *GetEffortsBySegmentIDParams) SetPerPage(perPage *int64) {
 	o.PerPage = perPage
 }
 
-// WithSegmentID adds the segmentID to the get efforts by segment Id params
+// WithSegmentID adds the segmentID to the get efforts by segment Id params.
 func (o *GetEffortsBySegmentIDParams) WithSegmentID(segmentID int64) *GetEffortsBySegmentIDParams {
 	o.SetSegmentID(segmentID)
 	return o
 }
 
-// SetSegmentID adds the segmentId to the get efforts by segment Id params
+// SetSegmentID adds the segmentId to the get efforts by segment Id params.
 func (o *GetEffortsBySegmentIDParams) SetSegmentID(segmentID int64) {
 	o.SegmentID = segmentID
 }
 
-// WithStartDateLocal adds the startDateLocal to the get efforts by segment Id params
+// WithStartDateLocal adds the startDateLocal to the get efforts by segment Id params.
 func (o *GetEffortsBySegmentIDParams) WithStartDateLocal(startDateLocal *strfmt.DateTime) *GetEffortsBySegmentIDParams {
 	o.SetStartDateLocal(startDateLocal)
 	return o
 }
 
-// SetStartDateLocal adds the startDateLocal to the get efforts by segment Id params
+// SetStartDateLocal adds the startDateLocal to the get efforts by segment Id params.
 func (o *GetEffortsBySegmentIDParams) SetStartDateLocal(startDateLocal *strfmt.DateTime) {
 	o.StartDateLocal = startDateLocal
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetEffortsBySegmentIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
@@ -230,7 +237,7 @@ func (o *GetEffortsBySegmentIDParams) WriteToRequest(r runtime.ClientRequest, re
 		if o.PerPage != nil {
 			qrPerPage = *o.PerPage
 		}
-		qPerPage := swag.FormatInt64(qrPerPage)
+		qPerPage := conv.FormatInteger(qrPerPage)
 		if qPerPage != "" {
 
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {
@@ -241,7 +248,7 @@ func (o *GetEffortsBySegmentIDParams) WriteToRequest(r runtime.ClientRequest, re
 
 	// query param segment_id
 	qrSegmentID := o.SegmentID
-	qSegmentID := swag.FormatInt64(qrSegmentID)
+	qSegmentID := conv.FormatInteger(qrSegmentID)
 	if qSegmentID != "" {
 
 		if err := r.SetQueryParam("segment_id", qSegmentID); err != nil {

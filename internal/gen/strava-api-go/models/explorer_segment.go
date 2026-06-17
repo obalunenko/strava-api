@@ -9,7 +9,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 	"github.com/go-openapi/validate"
 )
 
@@ -79,7 +80,7 @@ func (m *ExplorerSegment) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ExplorerSegment) validateClimbCategory(formats strfmt.Registry) error {
-	if swag.IsZero(m.ClimbCategory) { // not required
+	if typeutils.IsZero(m.ClimbCategory) { // not required
 		return nil
 	}
 
@@ -136,7 +137,7 @@ func (m *ExplorerSegment) validateClimbCategoryDescEnum(path, location string, v
 }
 
 func (m *ExplorerSegment) validateClimbCategoryDesc(formats strfmt.Registry) error {
-	if swag.IsZero(m.ClimbCategoryDesc) { // not required
+	if typeutils.IsZero(m.ClimbCategoryDesc) { // not required
 		return nil
 	}
 
@@ -149,7 +150,7 @@ func (m *ExplorerSegment) validateClimbCategoryDesc(formats strfmt.Registry) err
 }
 
 func (m *ExplorerSegment) validateEndLatlng(formats strfmt.Registry) error {
-	if swag.IsZero(m.EndLatlng) { // not required
+	if typeutils.IsZero(m.EndLatlng) { // not required
 		return nil
 	}
 
@@ -170,7 +171,7 @@ func (m *ExplorerSegment) validateEndLatlng(formats strfmt.Registry) error {
 }
 
 func (m *ExplorerSegment) validateStartLatlng(formats strfmt.Registry) error {
-	if swag.IsZero(m.StartLatlng) { // not required
+	if typeutils.IsZero(m.StartLatlng) { // not required
 		return nil
 	}
 
@@ -249,13 +250,13 @@ func (m *ExplorerSegment) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *ExplorerSegment) UnmarshalBinary(b []byte) error {
 	var res ExplorerSegment
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

@@ -8,7 +8,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 )
 
 // StreamSet stream set
@@ -105,7 +106,7 @@ func (m *StreamSet) Validate(formats strfmt.Registry) error {
 }
 
 func (m *StreamSet) validateAltitude(formats strfmt.Registry) error {
-	if swag.IsZero(m.Altitude) { // not required
+	if typeutils.IsZero(m.Altitude) { // not required
 		return nil
 	}
 
@@ -128,7 +129,7 @@ func (m *StreamSet) validateAltitude(formats strfmt.Registry) error {
 }
 
 func (m *StreamSet) validateCadence(formats strfmt.Registry) error {
-	if swag.IsZero(m.Cadence) { // not required
+	if typeutils.IsZero(m.Cadence) { // not required
 		return nil
 	}
 
@@ -151,7 +152,7 @@ func (m *StreamSet) validateCadence(formats strfmt.Registry) error {
 }
 
 func (m *StreamSet) validateDistance(formats strfmt.Registry) error {
-	if swag.IsZero(m.Distance) { // not required
+	if typeutils.IsZero(m.Distance) { // not required
 		return nil
 	}
 
@@ -174,7 +175,7 @@ func (m *StreamSet) validateDistance(formats strfmt.Registry) error {
 }
 
 func (m *StreamSet) validateGradeSmooth(formats strfmt.Registry) error {
-	if swag.IsZero(m.GradeSmooth) { // not required
+	if typeutils.IsZero(m.GradeSmooth) { // not required
 		return nil
 	}
 
@@ -197,7 +198,7 @@ func (m *StreamSet) validateGradeSmooth(formats strfmt.Registry) error {
 }
 
 func (m *StreamSet) validateHeartrate(formats strfmt.Registry) error {
-	if swag.IsZero(m.Heartrate) { // not required
+	if typeutils.IsZero(m.Heartrate) { // not required
 		return nil
 	}
 
@@ -220,7 +221,7 @@ func (m *StreamSet) validateHeartrate(formats strfmt.Registry) error {
 }
 
 func (m *StreamSet) validateLatlng(formats strfmt.Registry) error {
-	if swag.IsZero(m.Latlng) { // not required
+	if typeutils.IsZero(m.Latlng) { // not required
 		return nil
 	}
 
@@ -243,7 +244,7 @@ func (m *StreamSet) validateLatlng(formats strfmt.Registry) error {
 }
 
 func (m *StreamSet) validateMoving(formats strfmt.Registry) error {
-	if swag.IsZero(m.Moving) { // not required
+	if typeutils.IsZero(m.Moving) { // not required
 		return nil
 	}
 
@@ -266,7 +267,7 @@ func (m *StreamSet) validateMoving(formats strfmt.Registry) error {
 }
 
 func (m *StreamSet) validateTemp(formats strfmt.Registry) error {
-	if swag.IsZero(m.Temp) { // not required
+	if typeutils.IsZero(m.Temp) { // not required
 		return nil
 	}
 
@@ -289,7 +290,7 @@ func (m *StreamSet) validateTemp(formats strfmt.Registry) error {
 }
 
 func (m *StreamSet) validateTime(formats strfmt.Registry) error {
-	if swag.IsZero(m.Time) { // not required
+	if typeutils.IsZero(m.Time) { // not required
 		return nil
 	}
 
@@ -312,7 +313,7 @@ func (m *StreamSet) validateTime(formats strfmt.Registry) error {
 }
 
 func (m *StreamSet) validateVelocitySmooth(formats strfmt.Registry) error {
-	if swag.IsZero(m.VelocitySmooth) { // not required
+	if typeutils.IsZero(m.VelocitySmooth) { // not required
 		return nil
 	}
 
@@ -335,7 +336,7 @@ func (m *StreamSet) validateVelocitySmooth(formats strfmt.Registry) error {
 }
 
 func (m *StreamSet) validateWatts(formats strfmt.Registry) error {
-	if swag.IsZero(m.Watts) { // not required
+	if typeutils.IsZero(m.Watts) { // not required
 		return nil
 	}
 
@@ -415,7 +416,7 @@ func (m *StreamSet) contextValidateAltitude(ctx context.Context, formats strfmt.
 
 	if m.Altitude != nil {
 
-		if swag.IsZero(m.Altitude) { // not required
+		if typeutils.IsZero(m.Altitude) { // not required
 			return nil
 		}
 
@@ -440,7 +441,7 @@ func (m *StreamSet) contextValidateCadence(ctx context.Context, formats strfmt.R
 
 	if m.Cadence != nil {
 
-		if swag.IsZero(m.Cadence) { // not required
+		if typeutils.IsZero(m.Cadence) { // not required
 			return nil
 		}
 
@@ -465,7 +466,7 @@ func (m *StreamSet) contextValidateDistance(ctx context.Context, formats strfmt.
 
 	if m.Distance != nil {
 
-		if swag.IsZero(m.Distance) { // not required
+		if typeutils.IsZero(m.Distance) { // not required
 			return nil
 		}
 
@@ -490,7 +491,7 @@ func (m *StreamSet) contextValidateGradeSmooth(ctx context.Context, formats strf
 
 	if m.GradeSmooth != nil {
 
-		if swag.IsZero(m.GradeSmooth) { // not required
+		if typeutils.IsZero(m.GradeSmooth) { // not required
 			return nil
 		}
 
@@ -515,7 +516,7 @@ func (m *StreamSet) contextValidateHeartrate(ctx context.Context, formats strfmt
 
 	if m.Heartrate != nil {
 
-		if swag.IsZero(m.Heartrate) { // not required
+		if typeutils.IsZero(m.Heartrate) { // not required
 			return nil
 		}
 
@@ -540,7 +541,7 @@ func (m *StreamSet) contextValidateLatlng(ctx context.Context, formats strfmt.Re
 
 	if m.Latlng != nil {
 
-		if swag.IsZero(m.Latlng) { // not required
+		if typeutils.IsZero(m.Latlng) { // not required
 			return nil
 		}
 
@@ -565,7 +566,7 @@ func (m *StreamSet) contextValidateMoving(ctx context.Context, formats strfmt.Re
 
 	if m.Moving != nil {
 
-		if swag.IsZero(m.Moving) { // not required
+		if typeutils.IsZero(m.Moving) { // not required
 			return nil
 		}
 
@@ -590,7 +591,7 @@ func (m *StreamSet) contextValidateTemp(ctx context.Context, formats strfmt.Regi
 
 	if m.Temp != nil {
 
-		if swag.IsZero(m.Temp) { // not required
+		if typeutils.IsZero(m.Temp) { // not required
 			return nil
 		}
 
@@ -615,7 +616,7 @@ func (m *StreamSet) contextValidateTime(ctx context.Context, formats strfmt.Regi
 
 	if m.Time != nil {
 
-		if swag.IsZero(m.Time) { // not required
+		if typeutils.IsZero(m.Time) { // not required
 			return nil
 		}
 
@@ -640,7 +641,7 @@ func (m *StreamSet) contextValidateVelocitySmooth(ctx context.Context, formats s
 
 	if m.VelocitySmooth != nil {
 
-		if swag.IsZero(m.VelocitySmooth) { // not required
+		if typeutils.IsZero(m.VelocitySmooth) { // not required
 			return nil
 		}
 
@@ -665,7 +666,7 @@ func (m *StreamSet) contextValidateWatts(ctx context.Context, formats strfmt.Reg
 
 	if m.Watts != nil {
 
-		if swag.IsZero(m.Watts) { // not required
+		if typeutils.IsZero(m.Watts) { // not required
 			return nil
 		}
 
@@ -691,13 +692,13 @@ func (m *StreamSet) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *StreamSet) UnmarshalBinary(b []byte) error {
 	var res StreamSet
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

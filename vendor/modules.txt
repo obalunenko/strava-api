@@ -57,12 +57,6 @@ github.com/go-openapi/spec
 ## explicit; go 1.25.0
 github.com/go-openapi/strfmt
 github.com/go-openapi/strfmt/internal/bsonlite
-# github.com/go-openapi/swag v0.26.1
-## explicit; go 1.25.0
-github.com/go-openapi/swag
-# github.com/go-openapi/swag/cmdutils v0.26.1
-## explicit; go 1.25.0
-github.com/go-openapi/swag/cmdutils
 # github.com/go-openapi/swag/conv v0.26.1
 ## explicit; go 1.25.0
 github.com/go-openapi/swag/conv
@@ -84,9 +78,6 @@ github.com/go-openapi/swag/loading
 # github.com/go-openapi/swag/mangling v0.26.1
 ## explicit; go 1.25.0
 github.com/go-openapi/swag/mangling
-# github.com/go-openapi/swag/netutils v0.26.1
-## explicit; go 1.25.0
-github.com/go-openapi/swag/netutils
 # github.com/go-openapi/swag/stringutils v0.26.1
 ## explicit; go 1.25.0
 github.com/go-openapi/swag/stringutils

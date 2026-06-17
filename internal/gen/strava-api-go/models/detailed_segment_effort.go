@@ -8,7 +8,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 	"github.com/go-openapi/validate"
 )
 
@@ -72,7 +73,7 @@ type DetailedSegmentEffort struct {
 func (m *DetailedSegmentEffort) UnmarshalJSON(raw []byte) error {
 	// AO0
 	var aO0 SummarySegmentEffort
-	if err := swag.ReadJSON(raw, &aO0); err != nil {
+	if err := jsonutils.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
 	m.SummarySegmentEffort = aO0
@@ -109,7 +110,7 @@ func (m *DetailedSegmentEffort) UnmarshalJSON(raw []byte) error {
 
 		StartIndex int64 `json:"start_index,omitempty"`
 	}
-	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
+	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
 
@@ -150,7 +151,7 @@ func (m *DetailedSegmentEffort) UnmarshalJSON(raw []byte) error {
 func (m DetailedSegmentEffort) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	aO0, err := swag.WriteJSON(m.SummarySegmentEffort)
+	aO0, err := jsonutils.WriteJSON(m.SummarySegmentEffort)
 	if err != nil {
 		return nil, err
 	}
@@ -217,12 +218,12 @@ func (m DetailedSegmentEffort) MarshalJSON() ([]byte, error) {
 
 	dataAO1.StartIndex = m.StartIndex
 
-	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
+	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {
 		return nil, errAO1
 	}
 	_parts = append(_parts, jsonDataAO1)
-	return swag.ConcatJSON(_parts...), nil
+	return jsonutils.ConcatJSON(_parts...), nil
 }
 
 // Validate validates this detailed segment effort
@@ -262,7 +263,7 @@ func (m *DetailedSegmentEffort) Validate(formats strfmt.Registry) error {
 
 func (m *DetailedSegmentEffort) validateActivity(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Activity) { // not required
+	if typeutils.IsZero(m.Activity) { // not required
 		return nil
 	}
 
@@ -286,7 +287,7 @@ func (m *DetailedSegmentEffort) validateActivity(formats strfmt.Registry) error 
 
 func (m *DetailedSegmentEffort) validateAthlete(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Athlete) { // not required
+	if typeutils.IsZero(m.Athlete) { // not required
 		return nil
 	}
 
@@ -310,7 +311,7 @@ func (m *DetailedSegmentEffort) validateAthlete(formats strfmt.Registry) error {
 
 func (m *DetailedSegmentEffort) validateKomRank(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.KomRank) { // not required
+	if typeutils.IsZero(m.KomRank) { // not required
 		return nil
 	}
 
@@ -327,7 +328,7 @@ func (m *DetailedSegmentEffort) validateKomRank(formats strfmt.Registry) error {
 
 func (m *DetailedSegmentEffort) validatePrRank(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.PrRank) { // not required
+	if typeutils.IsZero(m.PrRank) { // not required
 		return nil
 	}
 
@@ -344,7 +345,7 @@ func (m *DetailedSegmentEffort) validatePrRank(formats strfmt.Registry) error {
 
 func (m *DetailedSegmentEffort) validateSegment(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Segment) { // not required
+	if typeutils.IsZero(m.Segment) { // not required
 		return nil
 	}
 
@@ -397,7 +398,7 @@ func (m *DetailedSegmentEffort) contextValidateActivity(ctx context.Context, for
 
 	if m.Activity != nil {
 
-		if swag.IsZero(m.Activity) { // not required
+		if typeutils.IsZero(m.Activity) { // not required
 			return nil
 		}
 
@@ -422,7 +423,7 @@ func (m *DetailedSegmentEffort) contextValidateAthlete(ctx context.Context, form
 
 	if m.Athlete != nil {
 
-		if swag.IsZero(m.Athlete) { // not required
+		if typeutils.IsZero(m.Athlete) { // not required
 			return nil
 		}
 
@@ -447,7 +448,7 @@ func (m *DetailedSegmentEffort) contextValidateSegment(ctx context.Context, form
 
 	if m.Segment != nil {
 
-		if swag.IsZero(m.Segment) { // not required
+		if typeutils.IsZero(m.Segment) { // not required
 			return nil
 		}
 
@@ -473,13 +474,13 @@ func (m *DetailedSegmentEffort) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *DetailedSegmentEffort) UnmarshalBinary(b []byte) error {
 	var res DetailedSegmentEffort
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

@@ -3,17 +3,21 @@
 package uploads
 
 import (
+	"context"
+	"time"
+
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new uploads API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
+func New(transport runtime.ContextualTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
 // New creates a new uploads API client with basic auth credentials.
+//
 // It takes the following parameters:
 // - host: http host (github.com).
 // - basePath: any base path for the API client ("/v1", "/v3").
@@ -27,6 +31,7 @@ func NewClientWithBasicAuth(host, basePath, scheme, user, password string) Clien
 }
 
 // New creates a new uploads API client with a bearer token for authentication.
+//
 // It takes the following parameters:
 // - host: http host (github.com).
 // - basePath: any base path for the API client ("/v1", "/v3").
@@ -39,10 +44,10 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 }
 
 /*
-Client for uploads API
+Client for uploads API.
 */
 type Client struct {
-	transport runtime.ClientTransport
+	transport runtime.ContextualTransport
 	formats   strfmt.Registry
 }
 
@@ -73,25 +78,58 @@ func WithContentTypeMultipartFormData(r *runtime.ClientOperation) {
 	r.ConsumesMediaTypes = []string{"multipart/form-data"}
 }
 
-// ClientService is the interface for Client methods
+// ClientService is the interface for Client methods.
 type ClientService interface {
+
+	// CreateUpload upload activity.
 	CreateUpload(params *CreateUploadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUploadCreated, error)
 
+	// CreateUploadContext upload activity.
+	CreateUploadContext(ctx context.Context, params *CreateUploadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUploadCreated, error)
+
+	// GetUploadByID get upload.
 	GetUploadByID(params *GetUploadByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUploadByIDOK, error)
 
-	SetTransport(transport runtime.ClientTransport)
+	// GetUploadByIDContext get upload.
+	GetUploadByIDContext(ctx context.Context, params *GetUploadByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUploadByIDOK, error)
+
+	SetTransport(transport runtime.ContextualTransport)
 }
 
 /*
-CreateUpload uploads activity
+CreateUploaduploads activity.
 
-Uploads a new data file to create an activity from. Requires activity:write scope.
+Uploads a new data file to create an activity from. Requires activity:write scope..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.CreateUploadContext] instead.
 */
 func (a *Client) CreateUpload(params *CreateUploadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUploadCreated, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.CreateUploadContext(ctx, params, authInfo, opts...)
+}
+
+/*
+CreateUploadContextuploads activity.
+
+Uploads a new data file to create an activity from. Requires activity:write scope..
+
+Do not use the deprecated [CreateUploadParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) CreateUploadContext(ctx context.Context, params *CreateUploadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUploadCreated, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewCreateUploadParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "createUpload",
 		Method:             "POST",
@@ -102,13 +140,14 @@ func (a *Client) CreateUpload(params *CreateUploadParams, authInfo runtime.Clien
 		Params:             params,
 		Reader:             &CreateUploadReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -128,15 +167,39 @@ func (a *Client) CreateUpload(params *CreateUploadParams, authInfo runtime.Clien
 }
 
 /*
-GetUploadByID gets upload
+GetUploadByIDgets upload.
 
-Returns an upload for a given identifier. Requires activity:write scope.
+Returns an upload for a given identifier. Requires activity:write scope..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetUploadByIDContext] instead.
 */
 func (a *Client) GetUploadByID(params *GetUploadByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUploadByIDOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetUploadByIDContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetUploadByIDContextgets upload.
+
+Returns an upload for a given identifier. Requires activity:write scope..
+
+Do not use the deprecated [GetUploadByIDParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetUploadByIDContext(ctx context.Context, params *GetUploadByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUploadByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetUploadByIDParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getUploadById",
 		Method:             "GET",
@@ -147,13 +210,14 @@ func (a *Client) GetUploadByID(params *GetUploadByIDParams, authInfo runtime.Cli
 		Params:             params,
 		Reader:             &GetUploadByIDReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -173,6 +237,14 @@ func (a *Client) GetUploadByID(params *GetUploadByIDParams, authInfo runtime.Cli
 }
 
 // SetTransport changes the transport on the client
-func (a *Client) SetTransport(transport runtime.ClientTransport) {
+func (a *Client) SetTransport(transport runtime.ContextualTransport) {
 	a.transport = transport
+}
+
+// innerParams captures internal fields so they don't conflict with user-supplied parameters.
+type innerParams struct {
+	timeout time.Duration
+
+	// Deprecated: use the operation call with context to pass the context instead of [UploadsParams].
+	ctx context.Context
 }

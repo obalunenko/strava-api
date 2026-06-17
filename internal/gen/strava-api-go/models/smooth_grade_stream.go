@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
 )
 
 // SmoothGradeStream smooth grade stream
@@ -24,7 +24,7 @@ type SmoothGradeStream struct {
 func (m *SmoothGradeStream) UnmarshalJSON(raw []byte) error {
 	// AO0
 	var aO0 BaseStream
-	if err := swag.ReadJSON(raw, &aO0); err != nil {
+	if err := jsonutils.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
 	m.BaseStream = aO0
@@ -33,7 +33,7 @@ func (m *SmoothGradeStream) UnmarshalJSON(raw []byte) error {
 	var dataAO1 struct {
 		Data []float32 `json:"data"`
 	}
-	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
+	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
 
@@ -46,7 +46,7 @@ func (m *SmoothGradeStream) UnmarshalJSON(raw []byte) error {
 func (m SmoothGradeStream) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	aO0, err := swag.WriteJSON(m.BaseStream)
+	aO0, err := jsonutils.WriteJSON(m.BaseStream)
 	if err != nil {
 		return nil, err
 	}
@@ -57,12 +57,12 @@ func (m SmoothGradeStream) MarshalJSON() ([]byte, error) {
 
 	dataAO1.Data = m.Data
 
-	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
+	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {
 		return nil, errAO1
 	}
 	_parts = append(_parts, jsonDataAO1)
-	return swag.ConcatJSON(_parts...), nil
+	return jsonutils.ConcatJSON(_parts...), nil
 }
 
 // Validate validates this smooth grade stream
@@ -100,13 +100,13 @@ func (m *SmoothGradeStream) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *SmoothGradeStream) UnmarshalBinary(b []byte) error {
 	var res SmoothGradeStream
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

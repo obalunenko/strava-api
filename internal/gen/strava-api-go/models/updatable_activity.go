@@ -8,7 +8,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 )
 
 // UpdatableActivity updatable activity
@@ -60,7 +61,7 @@ func (m *UpdatableActivity) Validate(formats strfmt.Registry) error {
 }
 
 func (m *UpdatableActivity) validateSportType(formats strfmt.Registry) error {
-	if swag.IsZero(m.SportType) { // not required
+	if typeutils.IsZero(m.SportType) { // not required
 		return nil
 	}
 
@@ -81,7 +82,7 @@ func (m *UpdatableActivity) validateSportType(formats strfmt.Registry) error {
 }
 
 func (m *UpdatableActivity) validateType(formats strfmt.Registry) error {
-	if swag.IsZero(m.Type) { // not required
+	if typeutils.IsZero(m.Type) { // not required
 		return nil
 	}
 
@@ -121,7 +122,7 @@ func (m *UpdatableActivity) ContextValidate(ctx context.Context, formats strfmt.
 
 func (m *UpdatableActivity) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
 
-	if swag.IsZero(m.SportType) { // not required
+	if typeutils.IsZero(m.SportType) { // not required
 		return nil
 	}
 
@@ -143,7 +144,7 @@ func (m *UpdatableActivity) contextValidateSportType(ctx context.Context, format
 
 func (m *UpdatableActivity) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Type) { // not required
+	if typeutils.IsZero(m.Type) { // not required
 		return nil
 	}
 
@@ -168,13 +169,13 @@ func (m *UpdatableActivity) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *UpdatableActivity) UnmarshalBinary(b []byte) error {
 	var res UpdatableActivity
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

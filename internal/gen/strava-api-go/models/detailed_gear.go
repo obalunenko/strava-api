@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
 )
 
 // DetailedGear detailed gear
@@ -33,7 +33,7 @@ type DetailedGear struct {
 func (m *DetailedGear) UnmarshalJSON(raw []byte) error {
 	// AO0
 	var aO0 SummaryGear
-	if err := swag.ReadJSON(raw, &aO0); err != nil {
+	if err := jsonutils.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
 	m.SummaryGear = aO0
@@ -48,7 +48,7 @@ func (m *DetailedGear) UnmarshalJSON(raw []byte) error {
 
 		ModelName string `json:"model_name,omitempty"`
 	}
-	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
+	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
 
@@ -67,7 +67,7 @@ func (m *DetailedGear) UnmarshalJSON(raw []byte) error {
 func (m DetailedGear) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	aO0, err := swag.WriteJSON(m.SummaryGear)
+	aO0, err := jsonutils.WriteJSON(m.SummaryGear)
 	if err != nil {
 		return nil, err
 	}
@@ -90,12 +90,12 @@ func (m DetailedGear) MarshalJSON() ([]byte, error) {
 
 	dataAO1.ModelName = m.ModelName
 
-	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
+	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {
 		return nil, errAO1
 	}
 	_parts = append(_parts, jsonDataAO1)
-	return swag.ConcatJSON(_parts...), nil
+	return jsonutils.ConcatJSON(_parts...), nil
 }
 
 // Validate validates this detailed gear
@@ -133,13 +133,13 @@ func (m *DetailedGear) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *DetailedGear) UnmarshalBinary(b []byte) error {
 	var res DetailedGear
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

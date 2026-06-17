@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetStatsParams creates a new GetStatsParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetStatsParams() *GetStatsParams {
-	return &GetStatsParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetStatsParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetStatsParamsWithTimeout creates a new GetStatsParams object
 // with the ability to set a timeout on a request.
 func NewGetStatsParamsWithTimeout(timeout time.Duration) *GetStatsParams {
 	return &GetStatsParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetStatsParamsWithContext creates a new GetStatsParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetStatsParams].
 func NewGetStatsParamsWithContext(ctx context.Context) *GetStatsParams {
 	return &GetStatsParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -67,9 +71,9 @@ type GetStatsParams struct {
 	*/
 	ID int64
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get stats params (not the query body).
@@ -87,60 +91,63 @@ func (o *GetStatsParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the get stats params
+// WithTimeout adds the timeout to the get stats params.
 func (o *GetStatsParams) WithTimeout(timeout time.Duration) *GetStatsParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get stats params
+// SetTimeout adds the timeout to the get stats params.
 func (o *GetStatsParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get stats params
+// WithContext adds the context to the get stats params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetStatsParams].
 func (o *GetStatsParams) WithContext(ctx context.Context) *GetStatsParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get stats params
+// SetContext adds the context to the get stats params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetStatsParams].
 func (o *GetStatsParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get stats params
+// WithHTTPClient adds the HTTPClient to the get stats params.
 func (o *GetStatsParams) WithHTTPClient(client *http.Client) *GetStatsParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get stats params
+// SetHTTPClient adds the HTTPClient to the get stats params.
 func (o *GetStatsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithID adds the id to the get stats params
+// WithID adds the id to the get stats params.
 func (o *GetStatsParams) WithID(id int64) *GetStatsParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the get stats params
+// SetID adds the id to the get stats params.
 func (o *GetStatsParams) SetID(id int64) {
 	o.ID = id
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetStatsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+	if err := r.SetPathParam("id", conv.FormatInteger(o.ID)); err != nil {
 		return err
 	}
 

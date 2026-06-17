@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetRouteAsGPXParams creates a new GetRouteAsGPXParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetRouteAsGPXParams() *GetRouteAsGPXParams {
-	return &GetRouteAsGPXParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetRouteAsGPXParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetRouteAsGPXParamsWithTimeout creates a new GetRouteAsGPXParams object
 // with the ability to set a timeout on a request.
 func NewGetRouteAsGPXParamsWithTimeout(timeout time.Duration) *GetRouteAsGPXParams {
 	return &GetRouteAsGPXParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetRouteAsGPXParamsWithContext creates a new GetRouteAsGPXParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetRouteAsGPXParams].
 func NewGetRouteAsGPXParamsWithContext(ctx context.Context) *GetRouteAsGPXParams {
 	return &GetRouteAsGPXParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -67,9 +71,9 @@ type GetRouteAsGPXParams struct {
 	*/
 	ID int64
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get route as g p x params (not the query body).
@@ -87,60 +91,63 @@ func (o *GetRouteAsGPXParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the get route as g p x params
+// WithTimeout adds the timeout to the get route as g p x params.
 func (o *GetRouteAsGPXParams) WithTimeout(timeout time.Duration) *GetRouteAsGPXParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get route as g p x params
+// SetTimeout adds the timeout to the get route as g p x params.
 func (o *GetRouteAsGPXParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get route as g p x params
+// WithContext adds the context to the get route as g p x params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetRouteAsGPXParams].
 func (o *GetRouteAsGPXParams) WithContext(ctx context.Context) *GetRouteAsGPXParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get route as g p x params
+// SetContext adds the context to the get route as g p x params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetRouteAsGPXParams].
 func (o *GetRouteAsGPXParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get route as g p x params
+// WithHTTPClient adds the HTTPClient to the get route as g p x params.
 func (o *GetRouteAsGPXParams) WithHTTPClient(client *http.Client) *GetRouteAsGPXParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get route as g p x params
+// SetHTTPClient adds the HTTPClient to the get route as g p x params.
 func (o *GetRouteAsGPXParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithID adds the id to the get route as g p x params
+// WithID adds the id to the get route as g p x params.
 func (o *GetRouteAsGPXParams) WithID(id int64) *GetRouteAsGPXParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the get route as g p x params
+// SetID adds the id to the get route as g p x params.
 func (o *GetRouteAsGPXParams) SetID(id int64) {
 	o.ID = id
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetRouteAsGPXParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+	if err := r.SetPathParam("id", conv.FormatInteger(o.ID)); err != nil {
 		return err
 	}
 

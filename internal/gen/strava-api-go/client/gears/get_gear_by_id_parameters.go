@@ -20,24 +20,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetGearByIDParams() *GetGearByIDParams {
-	return &GetGearByIDParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetGearByIDParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetGearByIDParamsWithTimeout creates a new GetGearByIDParams object
 // with the ability to set a timeout on a request.
 func NewGetGearByIDParamsWithTimeout(timeout time.Duration) *GetGearByIDParams {
 	return &GetGearByIDParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetGearByIDParamsWithContext creates a new GetGearByIDParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetGearByIDParams].
 func NewGetGearByIDParamsWithContext(ctx context.Context) *GetGearByIDParams {
 	return &GetGearByIDParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -64,9 +68,9 @@ type GetGearByIDParams struct {
 	*/
 	ID string
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get gear by Id params (not the query body).
@@ -84,54 +88,57 @@ func (o *GetGearByIDParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the get gear by Id params
+// WithTimeout adds the timeout to the get gear by Id params.
 func (o *GetGearByIDParams) WithTimeout(timeout time.Duration) *GetGearByIDParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get gear by Id params
+// SetTimeout adds the timeout to the get gear by Id params.
 func (o *GetGearByIDParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get gear by Id params
+// WithContext adds the context to the get gear by Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetGearByIDParams].
 func (o *GetGearByIDParams) WithContext(ctx context.Context) *GetGearByIDParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get gear by Id params
+// SetContext adds the context to the get gear by Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetGearByIDParams].
 func (o *GetGearByIDParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get gear by Id params
+// WithHTTPClient adds the HTTPClient to the get gear by Id params.
 func (o *GetGearByIDParams) WithHTTPClient(client *http.Client) *GetGearByIDParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get gear by Id params
+// SetHTTPClient adds the HTTPClient to the get gear by Id params.
 func (o *GetGearByIDParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithID adds the id to the get gear by Id params
+// WithID adds the id to the get gear by Id params.
 func (o *GetGearByIDParams) WithID(id string) *GetGearByIDParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the get gear by Id params
+// SetID adds the id to the get gear by Id params.
 func (o *GetGearByIDParams) SetID(id string) {
 	o.ID = id
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetGearByIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error

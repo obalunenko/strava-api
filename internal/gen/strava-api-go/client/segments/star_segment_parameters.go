@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewStarSegmentParams creates a new StarSegmentParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStarSegmentParams() *StarSegmentParams {
-	return &StarSegmentParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewStarSegmentParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewStarSegmentParamsWithTimeout creates a new StarSegmentParams object
 // with the ability to set a timeout on a request.
 func NewStarSegmentParamsWithTimeout(timeout time.Duration) *StarSegmentParams {
 	return &StarSegmentParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewStarSegmentParamsWithContext creates a new StarSegmentParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [StarSegmentParams].
 func NewStarSegmentParamsWithContext(ctx context.Context) *StarSegmentParams {
 	return &StarSegmentParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -73,9 +77,9 @@ type StarSegmentParams struct {
 	*/
 	Starred bool
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the star segment params (not the query body).
@@ -98,83 +102,86 @@ func (o *StarSegmentParams) SetDefaults() {
 		Starred: starredDefault,
 	}
 
-	val.timeout = o.timeout
-	val.Context = o.Context
+	val.inner.timeout = o.inner.timeout
+	val.inner.ctx = o.inner.ctx
 	val.HTTPClient = o.HTTPClient
 	*o = val
 }
 
-// WithTimeout adds the timeout to the star segment params
+// WithTimeout adds the timeout to the star segment params.
 func (o *StarSegmentParams) WithTimeout(timeout time.Duration) *StarSegmentParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the star segment params
+// SetTimeout adds the timeout to the star segment params.
 func (o *StarSegmentParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the star segment params
+// WithContext adds the context to the star segment params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [StarSegmentParams].
 func (o *StarSegmentParams) WithContext(ctx context.Context) *StarSegmentParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the star segment params
+// SetContext adds the context to the star segment params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [StarSegmentParams].
 func (o *StarSegmentParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the star segment params
+// WithHTTPClient adds the HTTPClient to the star segment params.
 func (o *StarSegmentParams) WithHTTPClient(client *http.Client) *StarSegmentParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the star segment params
+// SetHTTPClient adds the HTTPClient to the star segment params.
 func (o *StarSegmentParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithID adds the id to the star segment params
+// WithID adds the id to the star segment params.
 func (o *StarSegmentParams) WithID(id int64) *StarSegmentParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the star segment params
+// SetID adds the id to the star segment params.
 func (o *StarSegmentParams) SetID(id int64) {
 	o.ID = id
 }
 
-// WithStarred adds the starred to the star segment params
+// WithStarred adds the starred to the star segment params.
 func (o *StarSegmentParams) WithStarred(starred bool) *StarSegmentParams {
 	o.SetStarred(starred)
 	return o
 }
 
-// SetStarred adds the starred to the star segment params
+// SetStarred adds the starred to the star segment params.
 func (o *StarSegmentParams) SetStarred(starred bool) {
 	o.Starred = starred
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *StarSegmentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+	if err := r.SetPathParam("id", conv.FormatInteger(o.ID)); err != nil {
 		return err
 	}
 
 	// form param starred
 	frStarred := o.Starred
-	fStarred := swag.FormatBool(frStarred)
+	fStarred := conv.FormatBool(frStarred)
 	if fStarred != "" {
 		if err := r.SetFormParam("starred", fStarred); err != nil {
 			return err

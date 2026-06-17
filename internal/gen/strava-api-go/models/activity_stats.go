@@ -8,7 +8,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 )
 
 // ActivityStats A set of rolled-up statistics and totals for an athlete
@@ -97,7 +98,7 @@ func (m *ActivityStats) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ActivityStats) validateAllRideTotals(formats strfmt.Registry) error {
-	if swag.IsZero(m.AllRideTotals) { // not required
+	if typeutils.IsZero(m.AllRideTotals) { // not required
 		return nil
 	}
 
@@ -120,7 +121,7 @@ func (m *ActivityStats) validateAllRideTotals(formats strfmt.Registry) error {
 }
 
 func (m *ActivityStats) validateAllRunTotals(formats strfmt.Registry) error {
-	if swag.IsZero(m.AllRunTotals) { // not required
+	if typeutils.IsZero(m.AllRunTotals) { // not required
 		return nil
 	}
 
@@ -143,7 +144,7 @@ func (m *ActivityStats) validateAllRunTotals(formats strfmt.Registry) error {
 }
 
 func (m *ActivityStats) validateAllSwimTotals(formats strfmt.Registry) error {
-	if swag.IsZero(m.AllSwimTotals) { // not required
+	if typeutils.IsZero(m.AllSwimTotals) { // not required
 		return nil
 	}
 
@@ -166,7 +167,7 @@ func (m *ActivityStats) validateAllSwimTotals(formats strfmt.Registry) error {
 }
 
 func (m *ActivityStats) validateRecentRideTotals(formats strfmt.Registry) error {
-	if swag.IsZero(m.RecentRideTotals) { // not required
+	if typeutils.IsZero(m.RecentRideTotals) { // not required
 		return nil
 	}
 
@@ -189,7 +190,7 @@ func (m *ActivityStats) validateRecentRideTotals(formats strfmt.Registry) error 
 }
 
 func (m *ActivityStats) validateRecentRunTotals(formats strfmt.Registry) error {
-	if swag.IsZero(m.RecentRunTotals) { // not required
+	if typeutils.IsZero(m.RecentRunTotals) { // not required
 		return nil
 	}
 
@@ -212,7 +213,7 @@ func (m *ActivityStats) validateRecentRunTotals(formats strfmt.Registry) error {
 }
 
 func (m *ActivityStats) validateRecentSwimTotals(formats strfmt.Registry) error {
-	if swag.IsZero(m.RecentSwimTotals) { // not required
+	if typeutils.IsZero(m.RecentSwimTotals) { // not required
 		return nil
 	}
 
@@ -235,7 +236,7 @@ func (m *ActivityStats) validateRecentSwimTotals(formats strfmt.Registry) error 
 }
 
 func (m *ActivityStats) validateYtdRideTotals(formats strfmt.Registry) error {
-	if swag.IsZero(m.YtdRideTotals) { // not required
+	if typeutils.IsZero(m.YtdRideTotals) { // not required
 		return nil
 	}
 
@@ -258,7 +259,7 @@ func (m *ActivityStats) validateYtdRideTotals(formats strfmt.Registry) error {
 }
 
 func (m *ActivityStats) validateYtdRunTotals(formats strfmt.Registry) error {
-	if swag.IsZero(m.YtdRunTotals) { // not required
+	if typeutils.IsZero(m.YtdRunTotals) { // not required
 		return nil
 	}
 
@@ -281,7 +282,7 @@ func (m *ActivityStats) validateYtdRunTotals(formats strfmt.Registry) error {
 }
 
 func (m *ActivityStats) validateYtdSwimTotals(formats strfmt.Registry) error {
-	if swag.IsZero(m.YtdSwimTotals) { // not required
+	if typeutils.IsZero(m.YtdSwimTotals) { // not required
 		return nil
 	}
 
@@ -353,7 +354,7 @@ func (m *ActivityStats) contextValidateAllRideTotals(ctx context.Context, format
 
 	if m.AllRideTotals != nil {
 
-		if swag.IsZero(m.AllRideTotals) { // not required
+		if typeutils.IsZero(m.AllRideTotals) { // not required
 			return nil
 		}
 
@@ -378,7 +379,7 @@ func (m *ActivityStats) contextValidateAllRunTotals(ctx context.Context, formats
 
 	if m.AllRunTotals != nil {
 
-		if swag.IsZero(m.AllRunTotals) { // not required
+		if typeutils.IsZero(m.AllRunTotals) { // not required
 			return nil
 		}
 
@@ -403,7 +404,7 @@ func (m *ActivityStats) contextValidateAllSwimTotals(ctx context.Context, format
 
 	if m.AllSwimTotals != nil {
 
-		if swag.IsZero(m.AllSwimTotals) { // not required
+		if typeutils.IsZero(m.AllSwimTotals) { // not required
 			return nil
 		}
 
@@ -428,7 +429,7 @@ func (m *ActivityStats) contextValidateRecentRideTotals(ctx context.Context, for
 
 	if m.RecentRideTotals != nil {
 
-		if swag.IsZero(m.RecentRideTotals) { // not required
+		if typeutils.IsZero(m.RecentRideTotals) { // not required
 			return nil
 		}
 
@@ -453,7 +454,7 @@ func (m *ActivityStats) contextValidateRecentRunTotals(ctx context.Context, form
 
 	if m.RecentRunTotals != nil {
 
-		if swag.IsZero(m.RecentRunTotals) { // not required
+		if typeutils.IsZero(m.RecentRunTotals) { // not required
 			return nil
 		}
 
@@ -478,7 +479,7 @@ func (m *ActivityStats) contextValidateRecentSwimTotals(ctx context.Context, for
 
 	if m.RecentSwimTotals != nil {
 
-		if swag.IsZero(m.RecentSwimTotals) { // not required
+		if typeutils.IsZero(m.RecentSwimTotals) { // not required
 			return nil
 		}
 
@@ -503,7 +504,7 @@ func (m *ActivityStats) contextValidateYtdRideTotals(ctx context.Context, format
 
 	if m.YtdRideTotals != nil {
 
-		if swag.IsZero(m.YtdRideTotals) { // not required
+		if typeutils.IsZero(m.YtdRideTotals) { // not required
 			return nil
 		}
 
@@ -528,7 +529,7 @@ func (m *ActivityStats) contextValidateYtdRunTotals(ctx context.Context, formats
 
 	if m.YtdRunTotals != nil {
 
-		if swag.IsZero(m.YtdRunTotals) { // not required
+		if typeutils.IsZero(m.YtdRunTotals) { // not required
 			return nil
 		}
 
@@ -553,7 +554,7 @@ func (m *ActivityStats) contextValidateYtdSwimTotals(ctx context.Context, format
 
 	if m.YtdSwimTotals != nil {
 
-		if swag.IsZero(m.YtdSwimTotals) { // not required
+		if typeutils.IsZero(m.YtdSwimTotals) { // not required
 			return nil
 		}
 
@@ -579,13 +580,13 @@ func (m *ActivityStats) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *ActivityStats) UnmarshalBinary(b []byte) error {
 	var res ActivityStats
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

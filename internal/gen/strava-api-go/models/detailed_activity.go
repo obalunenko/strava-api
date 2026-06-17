@@ -9,7 +9,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 	"github.com/go-openapi/validate"
 )
 
@@ -57,7 +58,7 @@ type DetailedActivity struct {
 func (m *DetailedActivity) UnmarshalJSON(raw []byte) error {
 	// AO0
 	var aO0 DetailedActivityAllOf0
-	if err := swag.ReadJSON(raw, &aO0); err != nil {
+	if err := jsonutils.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
 	m.DetailedActivityAllOf0 = aO0
@@ -86,7 +87,7 @@ func (m *DetailedActivity) UnmarshalJSON(raw []byte) error {
 
 		SplitsStandard []*Split `json:"splits_standard"`
 	}
-	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
+	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
 
@@ -119,7 +120,7 @@ func (m *DetailedActivity) UnmarshalJSON(raw []byte) error {
 func (m DetailedActivity) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	aO0, err := swag.WriteJSON(m.DetailedActivityAllOf0)
+	aO0, err := jsonutils.WriteJSON(m.DetailedActivityAllOf0)
 	if err != nil {
 		return nil, err
 	}
@@ -170,12 +171,12 @@ func (m DetailedActivity) MarshalJSON() ([]byte, error) {
 
 	dataAO1.SplitsStandard = m.SplitsStandard
 
-	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
+	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {
 		return nil, errAO1
 	}
 	_parts = append(_parts, jsonDataAO1)
-	return swag.ConcatJSON(_parts...), nil
+	return jsonutils.ConcatJSON(_parts...), nil
 }
 
 // Validate validates this detailed activity
@@ -223,12 +224,12 @@ func (m *DetailedActivity) Validate(formats strfmt.Registry) error {
 
 func (m *DetailedActivity) validateBestEfforts(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.BestEfforts) { // not required
+	if typeutils.IsZero(m.BestEfforts) { // not required
 		return nil
 	}
 
 	for i := 0; i < len(m.BestEfforts); i++ {
-		if swag.IsZero(m.BestEfforts[i]) { // not required
+		if typeutils.IsZero(m.BestEfforts[i]) { // not required
 			continue
 		}
 
@@ -254,7 +255,7 @@ func (m *DetailedActivity) validateBestEfforts(formats strfmt.Registry) error {
 
 func (m *DetailedActivity) validateGear(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Gear) { // not required
+	if typeutils.IsZero(m.Gear) { // not required
 		return nil
 	}
 
@@ -278,12 +279,12 @@ func (m *DetailedActivity) validateGear(formats strfmt.Registry) error {
 
 func (m *DetailedActivity) validateLaps(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Laps) { // not required
+	if typeutils.IsZero(m.Laps) { // not required
 		return nil
 	}
 
 	for i := 0; i < len(m.Laps); i++ {
-		if swag.IsZero(m.Laps[i]) { // not required
+		if typeutils.IsZero(m.Laps[i]) { // not required
 			continue
 		}
 
@@ -309,7 +310,7 @@ func (m *DetailedActivity) validateLaps(formats strfmt.Registry) error {
 
 func (m *DetailedActivity) validatePhotos(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Photos) { // not required
+	if typeutils.IsZero(m.Photos) { // not required
 		return nil
 	}
 
@@ -333,12 +334,12 @@ func (m *DetailedActivity) validatePhotos(formats strfmt.Registry) error {
 
 func (m *DetailedActivity) validateSegmentEfforts(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.SegmentEfforts) { // not required
+	if typeutils.IsZero(m.SegmentEfforts) { // not required
 		return nil
 	}
 
 	for i := 0; i < len(m.SegmentEfforts); i++ {
-		if swag.IsZero(m.SegmentEfforts[i]) { // not required
+		if typeutils.IsZero(m.SegmentEfforts[i]) { // not required
 			continue
 		}
 
@@ -364,12 +365,12 @@ func (m *DetailedActivity) validateSegmentEfforts(formats strfmt.Registry) error
 
 func (m *DetailedActivity) validateSplitsMetric(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.SplitsMetric) { // not required
+	if typeutils.IsZero(m.SplitsMetric) { // not required
 		return nil
 	}
 
 	for i := 0; i < len(m.SplitsMetric); i++ {
-		if swag.IsZero(m.SplitsMetric[i]) { // not required
+		if typeutils.IsZero(m.SplitsMetric[i]) { // not required
 			continue
 		}
 
@@ -395,12 +396,12 @@ func (m *DetailedActivity) validateSplitsMetric(formats strfmt.Registry) error {
 
 func (m *DetailedActivity) validateSplitsStandard(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.SplitsStandard) { // not required
+	if typeutils.IsZero(m.SplitsStandard) { // not required
 		return nil
 	}
 
 	for i := 0; i < len(m.SplitsStandard); i++ {
-		if swag.IsZero(m.SplitsStandard[i]) { // not required
+		if typeutils.IsZero(m.SplitsStandard[i]) { // not required
 			continue
 		}
 
@@ -473,7 +474,7 @@ func (m *DetailedActivity) contextValidateBestEfforts(ctx context.Context, forma
 
 		if m.BestEfforts[i] != nil {
 
-			if swag.IsZero(m.BestEfforts[i]) { // not required
+			if typeutils.IsZero(m.BestEfforts[i]) { // not required
 				return nil
 			}
 
@@ -500,7 +501,7 @@ func (m *DetailedActivity) contextValidateGear(ctx context.Context, formats strf
 
 	if m.Gear != nil {
 
-		if swag.IsZero(m.Gear) { // not required
+		if typeutils.IsZero(m.Gear) { // not required
 			return nil
 		}
 
@@ -527,7 +528,7 @@ func (m *DetailedActivity) contextValidateLaps(ctx context.Context, formats strf
 
 		if m.Laps[i] != nil {
 
-			if swag.IsZero(m.Laps[i]) { // not required
+			if typeutils.IsZero(m.Laps[i]) { // not required
 				return nil
 			}
 
@@ -554,7 +555,7 @@ func (m *DetailedActivity) contextValidatePhotos(ctx context.Context, formats st
 
 	if m.Photos != nil {
 
-		if swag.IsZero(m.Photos) { // not required
+		if typeutils.IsZero(m.Photos) { // not required
 			return nil
 		}
 
@@ -581,7 +582,7 @@ func (m *DetailedActivity) contextValidateSegmentEfforts(ctx context.Context, fo
 
 		if m.SegmentEfforts[i] != nil {
 
-			if swag.IsZero(m.SegmentEfforts[i]) { // not required
+			if typeutils.IsZero(m.SegmentEfforts[i]) { // not required
 				return nil
 			}
 
@@ -610,7 +611,7 @@ func (m *DetailedActivity) contextValidateSplitsMetric(ctx context.Context, form
 
 		if m.SplitsMetric[i] != nil {
 
-			if swag.IsZero(m.SplitsMetric[i]) { // not required
+			if typeutils.IsZero(m.SplitsMetric[i]) { // not required
 				return nil
 			}
 
@@ -639,7 +640,7 @@ func (m *DetailedActivity) contextValidateSplitsStandard(ctx context.Context, fo
 
 		if m.SplitsStandard[i] != nil {
 
-			if swag.IsZero(m.SplitsStandard[i]) { // not required
+			if typeutils.IsZero(m.SplitsStandard[i]) { // not required
 				return nil
 			}
 
@@ -667,13 +668,13 @@ func (m *DetailedActivity) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *DetailedActivity) UnmarshalBinary(b []byte) error {
 	var res DetailedActivity
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res
@@ -820,7 +821,7 @@ type DetailedActivityAllOf0 struct {
 func (m *DetailedActivityAllOf0) UnmarshalJSON(raw []byte) error {
 	// AO0
 	var aO0 MetaActivity
-	if err := swag.ReadJSON(raw, &aO0); err != nil {
+	if err := jsonutils.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
 	m.MetaActivity = aO0
@@ -911,7 +912,7 @@ func (m *DetailedActivityAllOf0) UnmarshalJSON(raw []byte) error {
 
 		WorkoutType int64 `json:"workout_type,omitempty"`
 	}
-	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
+	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
 
@@ -1006,7 +1007,7 @@ func (m *DetailedActivityAllOf0) UnmarshalJSON(raw []byte) error {
 func (m DetailedActivityAllOf0) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	aO0, err := swag.WriteJSON(m.MetaActivity)
+	aO0, err := jsonutils.WriteJSON(m.MetaActivity)
 	if err != nil {
 		return nil, err
 	}
@@ -1181,12 +1182,12 @@ func (m DetailedActivityAllOf0) MarshalJSON() ([]byte, error) {
 
 	dataAO1.WorkoutType = m.WorkoutType
 
-	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
+	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {
 		return nil, errAO1
 	}
 	_parts = append(_parts, jsonDataAO1)
-	return swag.ConcatJSON(_parts...), nil
+	return jsonutils.ConcatJSON(_parts...), nil
 }
 
 // Validate validates this detailed activity all of0
@@ -1242,7 +1243,7 @@ func (m *DetailedActivityAllOf0) Validate(formats strfmt.Registry) error {
 
 func (m *DetailedActivityAllOf0) validateAthlete(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Athlete) { // not required
+	if typeutils.IsZero(m.Athlete) { // not required
 		return nil
 	}
 
@@ -1266,7 +1267,7 @@ func (m *DetailedActivityAllOf0) validateAthlete(formats strfmt.Registry) error 
 
 func (m *DetailedActivityAllOf0) validateAthleteCount(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.AthleteCount) { // not required
+	if typeutils.IsZero(m.AthleteCount) { // not required
 		return nil
 	}
 
@@ -1279,7 +1280,7 @@ func (m *DetailedActivityAllOf0) validateAthleteCount(formats strfmt.Registry) e
 
 func (m *DetailedActivityAllOf0) validateEndLatlng(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.EndLatlng) { // not required
+	if typeutils.IsZero(m.EndLatlng) { // not required
 		return nil
 	}
 
@@ -1301,7 +1302,7 @@ func (m *DetailedActivityAllOf0) validateEndLatlng(formats strfmt.Registry) erro
 
 func (m *DetailedActivityAllOf0) validateMap(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Map) { // not required
+	if typeutils.IsZero(m.Map) { // not required
 		return nil
 	}
 
@@ -1325,7 +1326,7 @@ func (m *DetailedActivityAllOf0) validateMap(formats strfmt.Registry) error {
 
 func (m *DetailedActivityAllOf0) validateSportType(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.SportType) { // not required
+	if typeutils.IsZero(m.SportType) { // not required
 		return nil
 	}
 
@@ -1347,7 +1348,7 @@ func (m *DetailedActivityAllOf0) validateSportType(formats strfmt.Registry) erro
 
 func (m *DetailedActivityAllOf0) validateStartDate(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.StartDate) { // not required
+	if typeutils.IsZero(m.StartDate) { // not required
 		return nil
 	}
 
@@ -1360,7 +1361,7 @@ func (m *DetailedActivityAllOf0) validateStartDate(formats strfmt.Registry) erro
 
 func (m *DetailedActivityAllOf0) validateStartDateLocal(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.StartDateLocal) { // not required
+	if typeutils.IsZero(m.StartDateLocal) { // not required
 		return nil
 	}
 
@@ -1373,7 +1374,7 @@ func (m *DetailedActivityAllOf0) validateStartDateLocal(formats strfmt.Registry)
 
 func (m *DetailedActivityAllOf0) validateStartLatlng(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.StartLatlng) { // not required
+	if typeutils.IsZero(m.StartLatlng) { // not required
 		return nil
 	}
 
@@ -1395,7 +1396,7 @@ func (m *DetailedActivityAllOf0) validateStartLatlng(formats strfmt.Registry) er
 
 func (m *DetailedActivityAllOf0) validateType(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Type) { // not required
+	if typeutils.IsZero(m.Type) { // not required
 		return nil
 	}
 
@@ -1458,7 +1459,7 @@ func (m *DetailedActivityAllOf0) contextValidateAthlete(ctx context.Context, for
 
 	if m.Athlete != nil {
 
-		if swag.IsZero(m.Athlete) { // not required
+		if typeutils.IsZero(m.Athlete) { // not required
 			return nil
 		}
 
@@ -1501,7 +1502,7 @@ func (m *DetailedActivityAllOf0) contextValidateMap(ctx context.Context, formats
 
 	if m.Map != nil {
 
-		if swag.IsZero(m.Map) { // not required
+		if typeutils.IsZero(m.Map) { // not required
 			return nil
 		}
 
@@ -1524,7 +1525,7 @@ func (m *DetailedActivityAllOf0) contextValidateMap(ctx context.Context, formats
 
 func (m *DetailedActivityAllOf0) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
 
-	if swag.IsZero(m.SportType) { // not required
+	if typeutils.IsZero(m.SportType) { // not required
 		return nil
 	}
 
@@ -1564,7 +1565,7 @@ func (m *DetailedActivityAllOf0) contextValidateStartLatlng(ctx context.Context,
 
 func (m *DetailedActivityAllOf0) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Type) { // not required
+	if typeutils.IsZero(m.Type) { // not required
 		return nil
 	}
 
@@ -1589,13 +1590,13 @@ func (m *DetailedActivityAllOf0) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *DetailedActivityAllOf0) UnmarshalBinary(b []byte) error {
 	var res DetailedActivityAllOf0
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res
@@ -1691,7 +1692,7 @@ func (m *DetailedActivityLapsItems0) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DetailedActivityLapsItems0) validateActivity(formats strfmt.Registry) error {
-	if swag.IsZero(m.Activity) { // not required
+	if typeutils.IsZero(m.Activity) { // not required
 		return nil
 	}
 
@@ -1714,7 +1715,7 @@ func (m *DetailedActivityLapsItems0) validateActivity(formats strfmt.Registry) e
 }
 
 func (m *DetailedActivityLapsItems0) validateAthlete(formats strfmt.Registry) error {
-	if swag.IsZero(m.Athlete) { // not required
+	if typeutils.IsZero(m.Athlete) { // not required
 		return nil
 	}
 
@@ -1737,7 +1738,7 @@ func (m *DetailedActivityLapsItems0) validateAthlete(formats strfmt.Registry) er
 }
 
 func (m *DetailedActivityLapsItems0) validateStartDate(formats strfmt.Registry) error {
-	if swag.IsZero(m.StartDate) { // not required
+	if typeutils.IsZero(m.StartDate) { // not required
 		return nil
 	}
 
@@ -1749,7 +1750,7 @@ func (m *DetailedActivityLapsItems0) validateStartDate(formats strfmt.Registry) 
 }
 
 func (m *DetailedActivityLapsItems0) validateStartDateLocal(formats strfmt.Registry) error {
-	if swag.IsZero(m.StartDateLocal) { // not required
+	if typeutils.IsZero(m.StartDateLocal) { // not required
 		return nil
 	}
 
@@ -1782,7 +1783,7 @@ func (m *DetailedActivityLapsItems0) contextValidateActivity(ctx context.Context
 
 	if m.Activity != nil {
 
-		if swag.IsZero(m.Activity) { // not required
+		if typeutils.IsZero(m.Activity) { // not required
 			return nil
 		}
 
@@ -1807,7 +1808,7 @@ func (m *DetailedActivityLapsItems0) contextValidateAthlete(ctx context.Context,
 
 	if m.Athlete != nil {
 
-		if swag.IsZero(m.Athlete) { // not required
+		if typeutils.IsZero(m.Athlete) { // not required
 			return nil
 		}
 
@@ -1833,13 +1834,13 @@ func (m *DetailedActivityLapsItems0) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *DetailedActivityLapsItems0) UnmarshalBinary(b []byte) error {
 	var res DetailedActivityLapsItems0
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

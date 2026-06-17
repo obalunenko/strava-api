@@ -8,7 +8,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 	"github.com/go-openapi/validate"
 )
 
@@ -49,7 +50,7 @@ type DetailedSegment struct {
 func (m *DetailedSegment) UnmarshalJSON(raw []byte) error {
 	// AO0
 	var aO0 DetailedSegmentAllOf0
-	if err := swag.ReadJSON(raw, &aO0); err != nil {
+	if err := jsonutils.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
 	m.DetailedSegmentAllOf0 = aO0
@@ -72,7 +73,7 @@ func (m *DetailedSegment) UnmarshalJSON(raw []byte) error {
 
 		UpdatedAt strfmt.DateTime `json:"updated_at,omitempty"`
 	}
-	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
+	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
 
@@ -99,7 +100,7 @@ func (m *DetailedSegment) UnmarshalJSON(raw []byte) error {
 func (m DetailedSegment) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	aO0, err := swag.WriteJSON(m.DetailedSegmentAllOf0)
+	aO0, err := jsonutils.WriteJSON(m.DetailedSegmentAllOf0)
 	if err != nil {
 		return nil, err
 	}
@@ -138,12 +139,12 @@ func (m DetailedSegment) MarshalJSON() ([]byte, error) {
 
 	dataAO1.UpdatedAt = m.UpdatedAt
 
-	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
+	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {
 		return nil, errAO1
 	}
 	_parts = append(_parts, jsonDataAO1)
-	return swag.ConcatJSON(_parts...), nil
+	return jsonutils.ConcatJSON(_parts...), nil
 }
 
 // Validate validates this detailed segment
@@ -175,7 +176,7 @@ func (m *DetailedSegment) Validate(formats strfmt.Registry) error {
 
 func (m *DetailedSegment) validateCreatedAt(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.CreatedAt) { // not required
+	if typeutils.IsZero(m.CreatedAt) { // not required
 		return nil
 	}
 
@@ -188,7 +189,7 @@ func (m *DetailedSegment) validateCreatedAt(formats strfmt.Registry) error {
 
 func (m *DetailedSegment) validateMap(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Map) { // not required
+	if typeutils.IsZero(m.Map) { // not required
 		return nil
 	}
 
@@ -212,7 +213,7 @@ func (m *DetailedSegment) validateMap(formats strfmt.Registry) error {
 
 func (m *DetailedSegment) validateUpdatedAt(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.UpdatedAt) { // not required
+	if typeutils.IsZero(m.UpdatedAt) { // not required
 		return nil
 	}
 
@@ -246,7 +247,7 @@ func (m *DetailedSegment) contextValidateMap(ctx context.Context, formats strfmt
 
 	if m.Map != nil {
 
-		if swag.IsZero(m.Map) { // not required
+		if typeutils.IsZero(m.Map) { // not required
 			return nil
 		}
 
@@ -272,13 +273,13 @@ func (m *DetailedSegment) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *DetailedSegment) UnmarshalBinary(b []byte) error {
 	var res DetailedSegment
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

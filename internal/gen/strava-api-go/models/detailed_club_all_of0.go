@@ -10,7 +10,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 	"github.com/go-openapi/validate"
 )
 
@@ -65,7 +66,7 @@ type DetailedClubAllOf0 struct {
 func (m *DetailedClubAllOf0) UnmarshalJSON(raw []byte) error {
 	// AO0
 	var aO0 MetaClub
-	if err := swag.ReadJSON(raw, &aO0); err != nil {
+	if err := jsonutils.ReadJSON(raw, &aO0); err != nil {
 		return err
 	}
 	m.MetaClub = aO0
@@ -98,7 +99,7 @@ func (m *DetailedClubAllOf0) UnmarshalJSON(raw []byte) error {
 
 		Verified bool `json:"verified,omitempty"`
 	}
-	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
+	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
 
@@ -135,7 +136,7 @@ func (m *DetailedClubAllOf0) UnmarshalJSON(raw []byte) error {
 func (m DetailedClubAllOf0) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	aO0, err := swag.WriteJSON(m.MetaClub)
+	aO0, err := jsonutils.WriteJSON(m.MetaClub)
 	if err != nil {
 		return nil, err
 	}
@@ -194,12 +195,12 @@ func (m DetailedClubAllOf0) MarshalJSON() ([]byte, error) {
 
 	dataAO1.Verified = m.Verified
 
-	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
+	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {
 		return nil, errAO1
 	}
 	_parts = append(_parts, jsonDataAO1)
-	return swag.ConcatJSON(_parts...), nil
+	return jsonutils.ConcatJSON(_parts...), nil
 }
 
 // Validate validates this detailed club all of0
@@ -227,7 +228,7 @@ func (m *DetailedClubAllOf0) Validate(formats strfmt.Registry) error {
 
 func (m *DetailedClubAllOf0) validateActivityTypes(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.ActivityTypes) { // not required
+	if typeutils.IsZero(m.ActivityTypes) { // not required
 		return nil
 	}
 
@@ -273,7 +274,7 @@ func (m *DetailedClubAllOf0) validateSportTypeEnum(path, location string, value 
 
 func (m *DetailedClubAllOf0) validateSportType(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.SportType) { // not required
+	if typeutils.IsZero(m.SportType) { // not required
 		return nil
 	}
 
@@ -308,7 +309,7 @@ func (m *DetailedClubAllOf0) contextValidateActivityTypes(ctx context.Context, f
 
 	for i := 0; i < len(m.ActivityTypes); i++ {
 
-		if swag.IsZero(m.ActivityTypes[i]) { // not required
+		if typeutils.IsZero(m.ActivityTypes[i]) { // not required
 			return nil
 		}
 
@@ -335,13 +336,13 @@ func (m *DetailedClubAllOf0) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *DetailedClubAllOf0) UnmarshalBinary(b []byte) error {
 	var res DetailedClubAllOf0
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

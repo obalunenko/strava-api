@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetSegmentByIDParams creates a new GetSegmentByIDParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSegmentByIDParams() *GetSegmentByIDParams {
-	return &GetSegmentByIDParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetSegmentByIDParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetSegmentByIDParamsWithTimeout creates a new GetSegmentByIDParams object
 // with the ability to set a timeout on a request.
 func NewGetSegmentByIDParamsWithTimeout(timeout time.Duration) *GetSegmentByIDParams {
 	return &GetSegmentByIDParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetSegmentByIDParamsWithContext creates a new GetSegmentByIDParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetSegmentByIDParams].
 func NewGetSegmentByIDParamsWithContext(ctx context.Context) *GetSegmentByIDParams {
 	return &GetSegmentByIDParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -67,9 +71,9 @@ type GetSegmentByIDParams struct {
 	*/
 	ID int64
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get segment by Id params (not the query body).
@@ -87,60 +91,63 @@ func (o *GetSegmentByIDParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the get segment by Id params
+// WithTimeout adds the timeout to the get segment by Id params.
 func (o *GetSegmentByIDParams) WithTimeout(timeout time.Duration) *GetSegmentByIDParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get segment by Id params
+// SetTimeout adds the timeout to the get segment by Id params.
 func (o *GetSegmentByIDParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get segment by Id params
+// WithContext adds the context to the get segment by Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetSegmentByIDParams].
 func (o *GetSegmentByIDParams) WithContext(ctx context.Context) *GetSegmentByIDParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get segment by Id params
+// SetContext adds the context to the get segment by Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetSegmentByIDParams].
 func (o *GetSegmentByIDParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get segment by Id params
+// WithHTTPClient adds the HTTPClient to the get segment by Id params.
 func (o *GetSegmentByIDParams) WithHTTPClient(client *http.Client) *GetSegmentByIDParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get segment by Id params
+// SetHTTPClient adds the HTTPClient to the get segment by Id params.
 func (o *GetSegmentByIDParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithID adds the id to the get segment by Id params
+// WithID adds the id to the get segment by Id params.
 func (o *GetSegmentByIDParams) WithID(id int64) *GetSegmentByIDParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the get segment by Id params
+// SetID adds the id to the get segment by Id params.
 func (o *GetSegmentByIDParams) SetID(id int64) {
 	o.ID = id
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetSegmentByIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+	if err := r.SetPathParam("id", conv.FormatInteger(o.ID)); err != nil {
 		return err
 	}
 

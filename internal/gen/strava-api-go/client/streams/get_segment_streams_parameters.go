@@ -11,7 +11,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
+	"github.com/go-openapi/swag/stringutils"
 )
 
 // NewGetSegmentStreamsParams creates a new GetSegmentStreamsParams object,
@@ -21,24 +22,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSegmentStreamsParams() *GetSegmentStreamsParams {
-	return &GetSegmentStreamsParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetSegmentStreamsParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetSegmentStreamsParamsWithTimeout creates a new GetSegmentStreamsParams object
 // with the ability to set a timeout on a request.
 func NewGetSegmentStreamsParamsWithTimeout(timeout time.Duration) *GetSegmentStreamsParams {
 	return &GetSegmentStreamsParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetSegmentStreamsParamsWithContext creates a new GetSegmentStreamsParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetSegmentStreamsParams].
 func NewGetSegmentStreamsParamsWithContext(ctx context.Context) *GetSegmentStreamsParams {
 	return &GetSegmentStreamsParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -81,9 +86,9 @@ type GetSegmentStreamsParams struct {
 	*/
 	Keys []string
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get segment streams params (not the query body).
@@ -106,94 +111,97 @@ func (o *GetSegmentStreamsParams) SetDefaults() {
 		KeyByType: keyByTypeDefault,
 	}
 
-	val.timeout = o.timeout
-	val.Context = o.Context
+	val.inner.timeout = o.inner.timeout
+	val.inner.ctx = o.inner.ctx
 	val.HTTPClient = o.HTTPClient
 	*o = val
 }
 
-// WithTimeout adds the timeout to the get segment streams params
+// WithTimeout adds the timeout to the get segment streams params.
 func (o *GetSegmentStreamsParams) WithTimeout(timeout time.Duration) *GetSegmentStreamsParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get segment streams params
+// SetTimeout adds the timeout to the get segment streams params.
 func (o *GetSegmentStreamsParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get segment streams params
+// WithContext adds the context to the get segment streams params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetSegmentStreamsParams].
 func (o *GetSegmentStreamsParams) WithContext(ctx context.Context) *GetSegmentStreamsParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get segment streams params
+// SetContext adds the context to the get segment streams params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetSegmentStreamsParams].
 func (o *GetSegmentStreamsParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get segment streams params
+// WithHTTPClient adds the HTTPClient to the get segment streams params.
 func (o *GetSegmentStreamsParams) WithHTTPClient(client *http.Client) *GetSegmentStreamsParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get segment streams params
+// SetHTTPClient adds the HTTPClient to the get segment streams params.
 func (o *GetSegmentStreamsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithID adds the id to the get segment streams params
+// WithID adds the id to the get segment streams params.
 func (o *GetSegmentStreamsParams) WithID(id int64) *GetSegmentStreamsParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the get segment streams params
+// SetID adds the id to the get segment streams params.
 func (o *GetSegmentStreamsParams) SetID(id int64) {
 	o.ID = id
 }
 
-// WithKeyByType adds the keyByType to the get segment streams params
+// WithKeyByType adds the keyByType to the get segment streams params.
 func (o *GetSegmentStreamsParams) WithKeyByType(keyByType bool) *GetSegmentStreamsParams {
 	o.SetKeyByType(keyByType)
 	return o
 }
 
-// SetKeyByType adds the keyByType to the get segment streams params
+// SetKeyByType adds the keyByType to the get segment streams params.
 func (o *GetSegmentStreamsParams) SetKeyByType(keyByType bool) {
 	o.KeyByType = keyByType
 }
 
-// WithKeys adds the keys to the get segment streams params
+// WithKeys adds the keys to the get segment streams params.
 func (o *GetSegmentStreamsParams) WithKeys(keys []string) *GetSegmentStreamsParams {
 	o.SetKeys(keys)
 	return o
 }
 
-// SetKeys adds the keys to the get segment streams params
+// SetKeys adds the keys to the get segment streams params.
 func (o *GetSegmentStreamsParams) SetKeys(keys []string) {
 	o.Keys = keys
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetSegmentStreamsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+	if err := r.SetPathParam("id", conv.FormatInteger(o.ID)); err != nil {
 		return err
 	}
 
 	// query param key_by_type
 	qrKeyByType := o.KeyByType
-	qKeyByType := swag.FormatBool(qrKeyByType)
+	qKeyByType := conv.FormatBool(qrKeyByType)
 	if qKeyByType != "" {
 
 		if err := r.SetQueryParam("key_by_type", qKeyByType); err != nil {
@@ -218,7 +226,7 @@ func (o *GetSegmentStreamsParams) WriteToRequest(r runtime.ClientRequest, reg st
 	return nil
 }
 
-// bindParamGetSegmentStreams binds the parameter keys
+// bindParamGetSegmentStreams binds the parameter keys.
 func (o *GetSegmentStreamsParams) bindParamKeys(formats strfmt.Registry) []string {
 	keysIR := o.Keys
 
@@ -230,7 +238,7 @@ func (o *GetSegmentStreamsParams) bindParamKeys(formats strfmt.Registry) []strin
 	}
 
 	// items.CollectionFormat: "csv"
-	keysIS := swag.JoinByFormat(keysIC, "csv")
+	keysIS := stringutils.JoinByFormat(keysIC, "csv")
 
 	return keysIS
 }

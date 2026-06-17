@@ -8,7 +8,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/jsonutils"
+	"github.com/go-openapi/swag/typeutils"
 )
 
 // ClubActivity club activity
@@ -67,7 +68,7 @@ func (m *ClubActivity) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ClubActivity) validateAthlete(formats strfmt.Registry) error {
-	if swag.IsZero(m.Athlete) { // not required
+	if typeutils.IsZero(m.Athlete) { // not required
 		return nil
 	}
 
@@ -90,7 +91,7 @@ func (m *ClubActivity) validateAthlete(formats strfmt.Registry) error {
 }
 
 func (m *ClubActivity) validateSportType(formats strfmt.Registry) error {
-	if swag.IsZero(m.SportType) { // not required
+	if typeutils.IsZero(m.SportType) { // not required
 		return nil
 	}
 
@@ -111,7 +112,7 @@ func (m *ClubActivity) validateSportType(formats strfmt.Registry) error {
 }
 
 func (m *ClubActivity) validateType(formats strfmt.Registry) error {
-	if swag.IsZero(m.Type) { // not required
+	if typeutils.IsZero(m.Type) { // not required
 		return nil
 	}
 
@@ -157,7 +158,7 @@ func (m *ClubActivity) contextValidateAthlete(ctx context.Context, formats strfm
 
 	if m.Athlete != nil {
 
-		if swag.IsZero(m.Athlete) { // not required
+		if typeutils.IsZero(m.Athlete) { // not required
 			return nil
 		}
 
@@ -180,7 +181,7 @@ func (m *ClubActivity) contextValidateAthlete(ctx context.Context, formats strfm
 
 func (m *ClubActivity) contextValidateSportType(ctx context.Context, formats strfmt.Registry) error {
 
-	if swag.IsZero(m.SportType) { // not required
+	if typeutils.IsZero(m.SportType) { // not required
 		return nil
 	}
 
@@ -202,7 +203,7 @@ func (m *ClubActivity) contextValidateSportType(ctx context.Context, formats str
 
 func (m *ClubActivity) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Type) { // not required
+	if typeutils.IsZero(m.Type) { // not required
 		return nil
 	}
 
@@ -227,13 +228,13 @@ func (m *ClubActivity) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
-	return swag.WriteJSON(m)
+	return jsonutils.WriteJSON(m)
 }
 
 // UnmarshalBinary interface implementation
 func (m *ClubActivity) UnmarshalBinary(b []byte) error {
 	var res ClubActivity
-	if err := swag.ReadJSON(b, &res); err != nil {
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}
 	*m = res

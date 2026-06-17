@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetKudoersByActivityIDParams creates a new GetKudoersByActivityIDParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetKudoersByActivityIDParams() *GetKudoersByActivityIDParams {
-	return &GetKudoersByActivityIDParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetKudoersByActivityIDParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetKudoersByActivityIDParamsWithTimeout creates a new GetKudoersByActivityIDParams object
 // with the ability to set a timeout on a request.
 func NewGetKudoersByActivityIDParamsWithTimeout(timeout time.Duration) *GetKudoersByActivityIDParams {
 	return &GetKudoersByActivityIDParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetKudoersByActivityIDParamsWithContext creates a new GetKudoersByActivityIDParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetKudoersByActivityIDParams].
 func NewGetKudoersByActivityIDParamsWithContext(ctx context.Context) *GetKudoersByActivityIDParams {
 	return &GetKudoersByActivityIDParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -81,9 +85,9 @@ type GetKudoersByActivityIDParams struct {
 	*/
 	PerPage *int64
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get kudoers by activity Id params (not the query body).
@@ -106,88 +110,91 @@ func (o *GetKudoersByActivityIDParams) SetDefaults() {
 		PerPage: &perPageDefault,
 	}
 
-	val.timeout = o.timeout
-	val.Context = o.Context
+	val.inner.timeout = o.inner.timeout
+	val.inner.ctx = o.inner.ctx
 	val.HTTPClient = o.HTTPClient
 	*o = val
 }
 
-// WithTimeout adds the timeout to the get kudoers by activity Id params
+// WithTimeout adds the timeout to the get kudoers by activity Id params.
 func (o *GetKudoersByActivityIDParams) WithTimeout(timeout time.Duration) *GetKudoersByActivityIDParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get kudoers by activity Id params
+// SetTimeout adds the timeout to the get kudoers by activity Id params.
 func (o *GetKudoersByActivityIDParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get kudoers by activity Id params
+// WithContext adds the context to the get kudoers by activity Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetKudoersByActivityIDParams].
 func (o *GetKudoersByActivityIDParams) WithContext(ctx context.Context) *GetKudoersByActivityIDParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get kudoers by activity Id params
+// SetContext adds the context to the get kudoers by activity Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetKudoersByActivityIDParams].
 func (o *GetKudoersByActivityIDParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get kudoers by activity Id params
+// WithHTTPClient adds the HTTPClient to the get kudoers by activity Id params.
 func (o *GetKudoersByActivityIDParams) WithHTTPClient(client *http.Client) *GetKudoersByActivityIDParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get kudoers by activity Id params
+// SetHTTPClient adds the HTTPClient to the get kudoers by activity Id params.
 func (o *GetKudoersByActivityIDParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithID adds the id to the get kudoers by activity Id params
+// WithID adds the id to the get kudoers by activity Id params.
 func (o *GetKudoersByActivityIDParams) WithID(id int64) *GetKudoersByActivityIDParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the get kudoers by activity Id params
+// SetID adds the id to the get kudoers by activity Id params.
 func (o *GetKudoersByActivityIDParams) SetID(id int64) {
 	o.ID = id
 }
 
-// WithPage adds the page to the get kudoers by activity Id params
+// WithPage adds the page to the get kudoers by activity Id params.
 func (o *GetKudoersByActivityIDParams) WithPage(page *int64) *GetKudoersByActivityIDParams {
 	o.SetPage(page)
 	return o
 }
 
-// SetPage adds the page to the get kudoers by activity Id params
+// SetPage adds the page to the get kudoers by activity Id params.
 func (o *GetKudoersByActivityIDParams) SetPage(page *int64) {
 	o.Page = page
 }
 
-// WithPerPage adds the perPage to the get kudoers by activity Id params
+// WithPerPage adds the perPage to the get kudoers by activity Id params.
 func (o *GetKudoersByActivityIDParams) WithPerPage(perPage *int64) *GetKudoersByActivityIDParams {
 	o.SetPerPage(perPage)
 	return o
 }
 
-// SetPerPage adds the perPage to the get kudoers by activity Id params
+// SetPerPage adds the perPage to the get kudoers by activity Id params.
 func (o *GetKudoersByActivityIDParams) SetPerPage(perPage *int64) {
 	o.PerPage = perPage
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetKudoersByActivityIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+	if err := r.SetPathParam("id", conv.FormatInteger(o.ID)); err != nil {
 		return err
 	}
 
@@ -199,7 +206,7 @@ func (o *GetKudoersByActivityIDParams) WriteToRequest(r runtime.ClientRequest, r
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
-		qPage := swag.FormatInt64(qrPage)
+		qPage := conv.FormatInteger(qrPage)
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
@@ -216,7 +223,7 @@ func (o *GetKudoersByActivityIDParams) WriteToRequest(r runtime.ClientRequest, r
 		if o.PerPage != nil {
 			qrPerPage = *o.PerPage
 		}
-		qPerPage := swag.FormatInt64(qrPerPage)
+		qPerPage := conv.FormatInteger(qrPerPage)
 		if qPerPage != "" {
 
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {

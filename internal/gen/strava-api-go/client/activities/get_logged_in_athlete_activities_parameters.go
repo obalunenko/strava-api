@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetLoggedInAthleteActivitiesParams creates a new GetLoggedInAthleteActivitiesParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetLoggedInAthleteActivitiesParams() *GetLoggedInAthleteActivitiesParams {
-	return &GetLoggedInAthleteActivitiesParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetLoggedInAthleteActivitiesParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetLoggedInAthleteActivitiesParamsWithTimeout creates a new GetLoggedInAthleteActivitiesParams object
 // with the ability to set a timeout on a request.
 func NewGetLoggedInAthleteActivitiesParamsWithTimeout(timeout time.Duration) *GetLoggedInAthleteActivitiesParams {
 	return &GetLoggedInAthleteActivitiesParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetLoggedInAthleteActivitiesParamsWithContext creates a new GetLoggedInAthleteActivitiesParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetLoggedInAthleteActivitiesParams].
 func NewGetLoggedInAthleteActivitiesParamsWithContext(ctx context.Context) *GetLoggedInAthleteActivitiesParams {
 	return &GetLoggedInAthleteActivitiesParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -85,9 +89,9 @@ type GetLoggedInAthleteActivitiesParams struct {
 	*/
 	PerPage *int64
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get logged in athlete activities params (not the query body).
@@ -110,93 +114,96 @@ func (o *GetLoggedInAthleteActivitiesParams) SetDefaults() {
 		PerPage: &perPageDefault,
 	}
 
-	val.timeout = o.timeout
-	val.Context = o.Context
+	val.inner.timeout = o.inner.timeout
+	val.inner.ctx = o.inner.ctx
 	val.HTTPClient = o.HTTPClient
 	*o = val
 }
 
-// WithTimeout adds the timeout to the get logged in athlete activities params
+// WithTimeout adds the timeout to the get logged in athlete activities params.
 func (o *GetLoggedInAthleteActivitiesParams) WithTimeout(timeout time.Duration) *GetLoggedInAthleteActivitiesParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get logged in athlete activities params
+// SetTimeout adds the timeout to the get logged in athlete activities params.
 func (o *GetLoggedInAthleteActivitiesParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get logged in athlete activities params
+// WithContext adds the context to the get logged in athlete activities params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetLoggedInAthleteActivitiesParams].
 func (o *GetLoggedInAthleteActivitiesParams) WithContext(ctx context.Context) *GetLoggedInAthleteActivitiesParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get logged in athlete activities params
+// SetContext adds the context to the get logged in athlete activities params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetLoggedInAthleteActivitiesParams].
 func (o *GetLoggedInAthleteActivitiesParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get logged in athlete activities params
+// WithHTTPClient adds the HTTPClient to the get logged in athlete activities params.
 func (o *GetLoggedInAthleteActivitiesParams) WithHTTPClient(client *http.Client) *GetLoggedInAthleteActivitiesParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get logged in athlete activities params
+// SetHTTPClient adds the HTTPClient to the get logged in athlete activities params.
 func (o *GetLoggedInAthleteActivitiesParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithAfter adds the after to the get logged in athlete activities params
+// WithAfter adds the after to the get logged in athlete activities params.
 func (o *GetLoggedInAthleteActivitiesParams) WithAfter(after *int64) *GetLoggedInAthleteActivitiesParams {
 	o.SetAfter(after)
 	return o
 }
 
-// SetAfter adds the after to the get logged in athlete activities params
+// SetAfter adds the after to the get logged in athlete activities params.
 func (o *GetLoggedInAthleteActivitiesParams) SetAfter(after *int64) {
 	o.After = after
 }
 
-// WithBefore adds the before to the get logged in athlete activities params
+// WithBefore adds the before to the get logged in athlete activities params.
 func (o *GetLoggedInAthleteActivitiesParams) WithBefore(before *int64) *GetLoggedInAthleteActivitiesParams {
 	o.SetBefore(before)
 	return o
 }
 
-// SetBefore adds the before to the get logged in athlete activities params
+// SetBefore adds the before to the get logged in athlete activities params.
 func (o *GetLoggedInAthleteActivitiesParams) SetBefore(before *int64) {
 	o.Before = before
 }
 
-// WithPage adds the page to the get logged in athlete activities params
+// WithPage adds the page to the get logged in athlete activities params.
 func (o *GetLoggedInAthleteActivitiesParams) WithPage(page *int64) *GetLoggedInAthleteActivitiesParams {
 	o.SetPage(page)
 	return o
 }
 
-// SetPage adds the page to the get logged in athlete activities params
+// SetPage adds the page to the get logged in athlete activities params.
 func (o *GetLoggedInAthleteActivitiesParams) SetPage(page *int64) {
 	o.Page = page
 }
 
-// WithPerPage adds the perPage to the get logged in athlete activities params
+// WithPerPage adds the perPage to the get logged in athlete activities params.
 func (o *GetLoggedInAthleteActivitiesParams) WithPerPage(perPage *int64) *GetLoggedInAthleteActivitiesParams {
 	o.SetPerPage(perPage)
 	return o
 }
 
-// SetPerPage adds the perPage to the get logged in athlete activities params
+// SetPerPage adds the perPage to the get logged in athlete activities params.
 func (o *GetLoggedInAthleteActivitiesParams) SetPerPage(perPage *int64) {
 	o.PerPage = perPage
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetLoggedInAthleteActivitiesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
@@ -209,7 +216,7 @@ func (o *GetLoggedInAthleteActivitiesParams) WriteToRequest(r runtime.ClientRequ
 		if o.After != nil {
 			qrAfter = *o.After
 		}
-		qAfter := swag.FormatInt64(qrAfter)
+		qAfter := conv.FormatInteger(qrAfter)
 		if qAfter != "" {
 
 			if err := r.SetQueryParam("after", qAfter); err != nil {
@@ -226,7 +233,7 @@ func (o *GetLoggedInAthleteActivitiesParams) WriteToRequest(r runtime.ClientRequ
 		if o.Before != nil {
 			qrBefore = *o.Before
 		}
-		qBefore := swag.FormatInt64(qrBefore)
+		qBefore := conv.FormatInteger(qrBefore)
 		if qBefore != "" {
 
 			if err := r.SetQueryParam("before", qBefore); err != nil {
@@ -243,7 +250,7 @@ func (o *GetLoggedInAthleteActivitiesParams) WriteToRequest(r runtime.ClientRequ
 		if o.Page != nil {
 			qrPage = *o.Page
 		}
-		qPage := swag.FormatInt64(qrPage)
+		qPage := conv.FormatInteger(qrPage)
 		if qPage != "" {
 
 			if err := r.SetQueryParam("page", qPage); err != nil {
@@ -260,7 +267,7 @@ func (o *GetLoggedInAthleteActivitiesParams) WriteToRequest(r runtime.ClientRequ
 		if o.PerPage != nil {
 			qrPerPage = *o.PerPage
 		}
-		qPerPage := swag.FormatInt64(qrPerPage)
+		qPerPage := conv.FormatInteger(qrPerPage)
 		if qPerPage != "" {
 
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {

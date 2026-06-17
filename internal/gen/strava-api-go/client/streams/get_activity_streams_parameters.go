@@ -11,7 +11,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
+	"github.com/go-openapi/swag/stringutils"
 )
 
 // NewGetActivityStreamsParams creates a new GetActivityStreamsParams object,
@@ -21,24 +22,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetActivityStreamsParams() *GetActivityStreamsParams {
-	return &GetActivityStreamsParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetActivityStreamsParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetActivityStreamsParamsWithTimeout creates a new GetActivityStreamsParams object
 // with the ability to set a timeout on a request.
 func NewGetActivityStreamsParamsWithTimeout(timeout time.Duration) *GetActivityStreamsParams {
 	return &GetActivityStreamsParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetActivityStreamsParamsWithContext creates a new GetActivityStreamsParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetActivityStreamsParams].
 func NewGetActivityStreamsParamsWithContext(ctx context.Context) *GetActivityStreamsParams {
 	return &GetActivityStreamsParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -81,9 +86,9 @@ type GetActivityStreamsParams struct {
 	*/
 	Keys []string
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get activity streams params (not the query body).
@@ -106,94 +111,97 @@ func (o *GetActivityStreamsParams) SetDefaults() {
 		KeyByType: keyByTypeDefault,
 	}
 
-	val.timeout = o.timeout
-	val.Context = o.Context
+	val.inner.timeout = o.inner.timeout
+	val.inner.ctx = o.inner.ctx
 	val.HTTPClient = o.HTTPClient
 	*o = val
 }
 
-// WithTimeout adds the timeout to the get activity streams params
+// WithTimeout adds the timeout to the get activity streams params.
 func (o *GetActivityStreamsParams) WithTimeout(timeout time.Duration) *GetActivityStreamsParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get activity streams params
+// SetTimeout adds the timeout to the get activity streams params.
 func (o *GetActivityStreamsParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get activity streams params
+// WithContext adds the context to the get activity streams params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetActivityStreamsParams].
 func (o *GetActivityStreamsParams) WithContext(ctx context.Context) *GetActivityStreamsParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get activity streams params
+// SetContext adds the context to the get activity streams params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetActivityStreamsParams].
 func (o *GetActivityStreamsParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get activity streams params
+// WithHTTPClient adds the HTTPClient to the get activity streams params.
 func (o *GetActivityStreamsParams) WithHTTPClient(client *http.Client) *GetActivityStreamsParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get activity streams params
+// SetHTTPClient adds the HTTPClient to the get activity streams params.
 func (o *GetActivityStreamsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithID adds the id to the get activity streams params
+// WithID adds the id to the get activity streams params.
 func (o *GetActivityStreamsParams) WithID(id int64) *GetActivityStreamsParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the get activity streams params
+// SetID adds the id to the get activity streams params.
 func (o *GetActivityStreamsParams) SetID(id int64) {
 	o.ID = id
 }
 
-// WithKeyByType adds the keyByType to the get activity streams params
+// WithKeyByType adds the keyByType to the get activity streams params.
 func (o *GetActivityStreamsParams) WithKeyByType(keyByType bool) *GetActivityStreamsParams {
 	o.SetKeyByType(keyByType)
 	return o
 }
 
-// SetKeyByType adds the keyByType to the get activity streams params
+// SetKeyByType adds the keyByType to the get activity streams params.
 func (o *GetActivityStreamsParams) SetKeyByType(keyByType bool) {
 	o.KeyByType = keyByType
 }
 
-// WithKeys adds the keys to the get activity streams params
+// WithKeys adds the keys to the get activity streams params.
 func (o *GetActivityStreamsParams) WithKeys(keys []string) *GetActivityStreamsParams {
 	o.SetKeys(keys)
 	return o
 }
 
-// SetKeys adds the keys to the get activity streams params
+// SetKeys adds the keys to the get activity streams params.
 func (o *GetActivityStreamsParams) SetKeys(keys []string) {
 	o.Keys = keys
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetActivityStreamsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+	if err := r.SetPathParam("id", conv.FormatInteger(o.ID)); err != nil {
 		return err
 	}
 
 	// query param key_by_type
 	qrKeyByType := o.KeyByType
-	qKeyByType := swag.FormatBool(qrKeyByType)
+	qKeyByType := conv.FormatBool(qrKeyByType)
 	if qKeyByType != "" {
 
 		if err := r.SetQueryParam("key_by_type", qKeyByType); err != nil {
@@ -218,7 +226,7 @@ func (o *GetActivityStreamsParams) WriteToRequest(r runtime.ClientRequest, reg s
 	return nil
 }
 
-// bindParamGetActivityStreams binds the parameter keys
+// bindParamGetActivityStreams binds the parameter keys.
 func (o *GetActivityStreamsParams) bindParamKeys(formats strfmt.Registry) []string {
 	keysIR := o.Keys
 
@@ -230,7 +238,7 @@ func (o *GetActivityStreamsParams) bindParamKeys(formats strfmt.Registry) []stri
 	}
 
 	// items.CollectionFormat: "csv"
-	keysIS := swag.JoinByFormat(keysIC, "csv")
+	keysIS := stringutils.JoinByFormat(keysIC, "csv")
 
 	return keysIS
 }

@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewUpdateLoggedInAthleteParams creates a new UpdateLoggedInAthleteParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateLoggedInAthleteParams() *UpdateLoggedInAthleteParams {
-	return &UpdateLoggedInAthleteParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewUpdateLoggedInAthleteParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewUpdateLoggedInAthleteParamsWithTimeout creates a new UpdateLoggedInAthleteParams object
 // with the ability to set a timeout on a request.
 func NewUpdateLoggedInAthleteParamsWithTimeout(timeout time.Duration) *UpdateLoggedInAthleteParams {
 	return &UpdateLoggedInAthleteParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewUpdateLoggedInAthleteParamsWithContext creates a new UpdateLoggedInAthleteParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [UpdateLoggedInAthleteParams].
 func NewUpdateLoggedInAthleteParamsWithContext(ctx context.Context) *UpdateLoggedInAthleteParams {
 	return &UpdateLoggedInAthleteParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -67,9 +71,9 @@ type UpdateLoggedInAthleteParams struct {
 	*/
 	Weight float32
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the update logged in athlete params (not the query body).
@@ -87,60 +91,63 @@ func (o *UpdateLoggedInAthleteParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the update logged in athlete params
+// WithTimeout adds the timeout to the update logged in athlete params.
 func (o *UpdateLoggedInAthleteParams) WithTimeout(timeout time.Duration) *UpdateLoggedInAthleteParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the update logged in athlete params
+// SetTimeout adds the timeout to the update logged in athlete params.
 func (o *UpdateLoggedInAthleteParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the update logged in athlete params
+// WithContext adds the context to the update logged in athlete params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [UpdateLoggedInAthleteParams].
 func (o *UpdateLoggedInAthleteParams) WithContext(ctx context.Context) *UpdateLoggedInAthleteParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the update logged in athlete params
+// SetContext adds the context to the update logged in athlete params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [UpdateLoggedInAthleteParams].
 func (o *UpdateLoggedInAthleteParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the update logged in athlete params
+// WithHTTPClient adds the HTTPClient to the update logged in athlete params.
 func (o *UpdateLoggedInAthleteParams) WithHTTPClient(client *http.Client) *UpdateLoggedInAthleteParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the update logged in athlete params
+// SetHTTPClient adds the HTTPClient to the update logged in athlete params.
 func (o *UpdateLoggedInAthleteParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithWeight adds the weight to the update logged in athlete params
+// WithWeight adds the weight to the update logged in athlete params.
 func (o *UpdateLoggedInAthleteParams) WithWeight(weight float32) *UpdateLoggedInAthleteParams {
 	o.SetWeight(weight)
 	return o
 }
 
-// SetWeight adds the weight to the update logged in athlete params
+// SetWeight adds the weight to the update logged in athlete params.
 func (o *UpdateLoggedInAthleteParams) SetWeight(weight float32) {
 	o.Weight = weight
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *UpdateLoggedInAthleteParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param weight
-	if err := r.SetPathParam("weight", swag.FormatFloat32(o.Weight)); err != nil {
+	if err := r.SetPathParam("weight", conv.FormatFloat(o.Weight)); err != nil {
 		return err
 	}
 

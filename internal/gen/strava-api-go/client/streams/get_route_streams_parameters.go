@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetRouteStreamsParams creates a new GetRouteStreamsParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetRouteStreamsParams() *GetRouteStreamsParams {
-	return &GetRouteStreamsParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetRouteStreamsParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetRouteStreamsParamsWithTimeout creates a new GetRouteStreamsParams object
 // with the ability to set a timeout on a request.
 func NewGetRouteStreamsParamsWithTimeout(timeout time.Duration) *GetRouteStreamsParams {
 	return &GetRouteStreamsParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetRouteStreamsParamsWithContext creates a new GetRouteStreamsParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetRouteStreamsParams].
 func NewGetRouteStreamsParamsWithContext(ctx context.Context) *GetRouteStreamsParams {
 	return &GetRouteStreamsParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -67,9 +71,9 @@ type GetRouteStreamsParams struct {
 	*/
 	ID int64
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get route streams params (not the query body).
@@ -87,60 +91,63 @@ func (o *GetRouteStreamsParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the get route streams params
+// WithTimeout adds the timeout to the get route streams params.
 func (o *GetRouteStreamsParams) WithTimeout(timeout time.Duration) *GetRouteStreamsParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get route streams params
+// SetTimeout adds the timeout to the get route streams params.
 func (o *GetRouteStreamsParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get route streams params
+// WithContext adds the context to the get route streams params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetRouteStreamsParams].
 func (o *GetRouteStreamsParams) WithContext(ctx context.Context) *GetRouteStreamsParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get route streams params
+// SetContext adds the context to the get route streams params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetRouteStreamsParams].
 func (o *GetRouteStreamsParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get route streams params
+// WithHTTPClient adds the HTTPClient to the get route streams params.
 func (o *GetRouteStreamsParams) WithHTTPClient(client *http.Client) *GetRouteStreamsParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get route streams params
+// SetHTTPClient adds the HTTPClient to the get route streams params.
 func (o *GetRouteStreamsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithID adds the id to the get route streams params
+// WithID adds the id to the get route streams params.
 func (o *GetRouteStreamsParams) WithID(id int64) *GetRouteStreamsParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the get route streams params
+// SetID adds the id to the get route streams params.
 func (o *GetRouteStreamsParams) SetID(id int64) {
 	o.ID = id
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetRouteStreamsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+	if err := r.SetPathParam("id", conv.FormatInteger(o.ID)); err != nil {
 		return err
 	}
 

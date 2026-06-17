@@ -20,24 +20,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateUploadParams() *CreateUploadParams {
-	return &CreateUploadParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewCreateUploadParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewCreateUploadParamsWithTimeout creates a new CreateUploadParams object
 // with the ability to set a timeout on a request.
 func NewCreateUploadParamsWithTimeout(timeout time.Duration) *CreateUploadParams {
 	return &CreateUploadParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewCreateUploadParamsWithContext creates a new CreateUploadParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [CreateUploadParams].
 func NewCreateUploadParamsWithContext(ctx context.Context) *CreateUploadParams {
 	return &CreateUploadParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -100,9 +104,9 @@ type CreateUploadParams struct {
 	*/
 	Trainer *string
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the create upload params (not the query body).
@@ -120,120 +124,123 @@ func (o *CreateUploadParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the create upload params
+// WithTimeout adds the timeout to the create upload params.
 func (o *CreateUploadParams) WithTimeout(timeout time.Duration) *CreateUploadParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the create upload params
+// SetTimeout adds the timeout to the create upload params.
 func (o *CreateUploadParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the create upload params
+// WithContext adds the context to the create upload params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [CreateUploadParams].
 func (o *CreateUploadParams) WithContext(ctx context.Context) *CreateUploadParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the create upload params
+// SetContext adds the context to the create upload params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [CreateUploadParams].
 func (o *CreateUploadParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the create upload params
+// WithHTTPClient adds the HTTPClient to the create upload params.
 func (o *CreateUploadParams) WithHTTPClient(client *http.Client) *CreateUploadParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the create upload params
+// SetHTTPClient adds the HTTPClient to the create upload params.
 func (o *CreateUploadParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithCommute adds the commute to the create upload params
+// WithCommute adds the commute to the create upload params.
 func (o *CreateUploadParams) WithCommute(commute *string) *CreateUploadParams {
 	o.SetCommute(commute)
 	return o
 }
 
-// SetCommute adds the commute to the create upload params
+// SetCommute adds the commute to the create upload params.
 func (o *CreateUploadParams) SetCommute(commute *string) {
 	o.Commute = commute
 }
 
-// WithDataType adds the dataType to the create upload params
+// WithDataType adds the dataType to the create upload params.
 func (o *CreateUploadParams) WithDataType(dataType *string) *CreateUploadParams {
 	o.SetDataType(dataType)
 	return o
 }
 
-// SetDataType adds the dataType to the create upload params
+// SetDataType adds the dataType to the create upload params.
 func (o *CreateUploadParams) SetDataType(dataType *string) {
 	o.DataType = dataType
 }
 
-// WithDescription adds the description to the create upload params
+// WithDescription adds the description to the create upload params.
 func (o *CreateUploadParams) WithDescription(description *string) *CreateUploadParams {
 	o.SetDescription(description)
 	return o
 }
 
-// SetDescription adds the description to the create upload params
+// SetDescription adds the description to the create upload params.
 func (o *CreateUploadParams) SetDescription(description *string) {
 	o.Description = description
 }
 
-// WithExternalID adds the externalID to the create upload params
+// WithExternalID adds the externalID to the create upload params.
 func (o *CreateUploadParams) WithExternalID(externalID *string) *CreateUploadParams {
 	o.SetExternalID(externalID)
 	return o
 }
 
-// SetExternalID adds the externalId to the create upload params
+// SetExternalID adds the externalId to the create upload params.
 func (o *CreateUploadParams) SetExternalID(externalID *string) {
 	o.ExternalID = externalID
 }
 
-// WithFile adds the file to the create upload params
+// WithFile adds the file to the create upload params.
 func (o *CreateUploadParams) WithFile(file runtime.NamedReadCloser) *CreateUploadParams {
 	o.SetFile(file)
 	return o
 }
 
-// SetFile adds the file to the create upload params
+// SetFile adds the file to the create upload params.
 func (o *CreateUploadParams) SetFile(file runtime.NamedReadCloser) {
 	o.File = file
 }
 
-// WithName adds the name to the create upload params
+// WithName adds the name to the create upload params.
 func (o *CreateUploadParams) WithName(name *string) *CreateUploadParams {
 	o.SetName(name)
 	return o
 }
 
-// SetName adds the name to the create upload params
+// SetName adds the name to the create upload params.
 func (o *CreateUploadParams) SetName(name *string) {
 	o.Name = name
 }
 
-// WithTrainer adds the trainer to the create upload params
+// WithTrainer adds the trainer to the create upload params.
 func (o *CreateUploadParams) WithTrainer(trainer *string) *CreateUploadParams {
 	o.SetTrainer(trainer)
 	return o
 }
 
-// SetTrainer adds the trainer to the create upload params
+// SetTrainer adds the trainer to the create upload params.
 func (o *CreateUploadParams) SetTrainer(trainer *string) {
 	o.Trainer = trainer
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *CreateUploadParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error

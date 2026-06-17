@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetZonesByActivityIDParams creates a new GetZonesByActivityIDParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetZonesByActivityIDParams() *GetZonesByActivityIDParams {
-	return &GetZonesByActivityIDParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetZonesByActivityIDParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetZonesByActivityIDParamsWithTimeout creates a new GetZonesByActivityIDParams object
 // with the ability to set a timeout on a request.
 func NewGetZonesByActivityIDParamsWithTimeout(timeout time.Duration) *GetZonesByActivityIDParams {
 	return &GetZonesByActivityIDParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetZonesByActivityIDParamsWithContext creates a new GetZonesByActivityIDParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetZonesByActivityIDParams].
 func NewGetZonesByActivityIDParamsWithContext(ctx context.Context) *GetZonesByActivityIDParams {
 	return &GetZonesByActivityIDParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -67,9 +71,9 @@ type GetZonesByActivityIDParams struct {
 	*/
 	ID int64
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get zones by activity Id params (not the query body).
@@ -87,60 +91,63 @@ func (o *GetZonesByActivityIDParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the get zones by activity Id params
+// WithTimeout adds the timeout to the get zones by activity Id params.
 func (o *GetZonesByActivityIDParams) WithTimeout(timeout time.Duration) *GetZonesByActivityIDParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get zones by activity Id params
+// SetTimeout adds the timeout to the get zones by activity Id params.
 func (o *GetZonesByActivityIDParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get zones by activity Id params
+// WithContext adds the context to the get zones by activity Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetZonesByActivityIDParams].
 func (o *GetZonesByActivityIDParams) WithContext(ctx context.Context) *GetZonesByActivityIDParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get zones by activity Id params
+// SetContext adds the context to the get zones by activity Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetZonesByActivityIDParams].
 func (o *GetZonesByActivityIDParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get zones by activity Id params
+// WithHTTPClient adds the HTTPClient to the get zones by activity Id params.
 func (o *GetZonesByActivityIDParams) WithHTTPClient(client *http.Client) *GetZonesByActivityIDParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get zones by activity Id params
+// SetHTTPClient adds the HTTPClient to the get zones by activity Id params.
 func (o *GetZonesByActivityIDParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithID adds the id to the get zones by activity Id params
+// WithID adds the id to the get zones by activity Id params.
 func (o *GetZonesByActivityIDParams) WithID(id int64) *GetZonesByActivityIDParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the get zones by activity Id params
+// SetID adds the id to the get zones by activity Id params.
 func (o *GetZonesByActivityIDParams) SetID(id int64) {
 	o.ID = id
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetZonesByActivityIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+	if err := r.SetPathParam("id", conv.FormatInteger(o.ID)); err != nil {
 		return err
 	}
 

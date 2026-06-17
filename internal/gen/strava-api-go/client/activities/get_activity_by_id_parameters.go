@@ -11,7 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewGetActivityByIDParams creates a new GetActivityByIDParams object,
@@ -21,24 +21,28 @@ import (
 //
 // To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetActivityByIDParams() *GetActivityByIDParams {
-	return &GetActivityByIDParams{
-		timeout: cr.DefaultTimeout,
-	}
+	return NewGetActivityByIDParamsWithTimeout(cr.DefaultTimeout)
 }
 
 // NewGetActivityByIDParamsWithTimeout creates a new GetActivityByIDParams object
 // with the ability to set a timeout on a request.
 func NewGetActivityByIDParamsWithTimeout(timeout time.Duration) *GetActivityByIDParams {
 	return &GetActivityByIDParams{
-		timeout: timeout,
+		inner: innerParams{
+			timeout: timeout,
+		},
 	}
 }
 
 // NewGetActivityByIDParamsWithContext creates a new GetActivityByIDParams object
 // with the ability to set a context for a request.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetActivityByIDParams].
 func NewGetActivityByIDParamsWithContext(ctx context.Context) *GetActivityByIDParams {
 	return &GetActivityByIDParams{
-		Context: ctx,
+		inner: innerParams{
+			ctx: ctx,
+		},
 	}
 }
 
@@ -73,9 +77,9 @@ type GetActivityByIDParams struct {
 	*/
 	IncludeAllEfforts *bool
 
-	timeout    time.Duration
-	Context    context.Context
 	HTTPClient *http.Client
+
+	inner innerParams
 }
 
 // WithDefaults hydrates default values in the get activity by Id params (not the query body).
@@ -93,71 +97,74 @@ func (o *GetActivityByIDParams) SetDefaults() {
 	// no default values defined for this parameter
 }
 
-// WithTimeout adds the timeout to the get activity by Id params
+// WithTimeout adds the timeout to the get activity by Id params.
 func (o *GetActivityByIDParams) WithTimeout(timeout time.Duration) *GetActivityByIDParams {
 	o.SetTimeout(timeout)
 	return o
 }
 
-// SetTimeout adds the timeout to the get activity by Id params
+// SetTimeout adds the timeout to the get activity by Id params.
 func (o *GetActivityByIDParams) SetTimeout(timeout time.Duration) {
-	o.timeout = timeout
+	o.inner.timeout = timeout
 }
 
-// WithContext adds the context to the get activity by Id params
+// WithContext adds the context to the get activity by Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetActivityByIDParams].
 func (o *GetActivityByIDParams) WithContext(ctx context.Context) *GetActivityByIDParams {
 	o.SetContext(ctx)
 	return o
 }
 
-// SetContext adds the context to the get activity by Id params
+// SetContext adds the context to the get activity by Id params.
+//
+// Deprecated: use the operation call with context to pass the context instead of [GetActivityByIDParams].
 func (o *GetActivityByIDParams) SetContext(ctx context.Context) {
-	o.Context = ctx
+	o.inner.ctx = ctx
 }
 
-// WithHTTPClient adds the HTTPClient to the get activity by Id params
+// WithHTTPClient adds the HTTPClient to the get activity by Id params.
 func (o *GetActivityByIDParams) WithHTTPClient(client *http.Client) *GetActivityByIDParams {
 	o.SetHTTPClient(client)
 	return o
 }
 
-// SetHTTPClient adds the HTTPClient to the get activity by Id params
+// SetHTTPClient adds the HTTPClient to the get activity by Id params.
 func (o *GetActivityByIDParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithID adds the id to the get activity by Id params
+// WithID adds the id to the get activity by Id params.
 func (o *GetActivityByIDParams) WithID(id int64) *GetActivityByIDParams {
 	o.SetID(id)
 	return o
 }
 
-// SetID adds the id to the get activity by Id params
+// SetID adds the id to the get activity by Id params.
 func (o *GetActivityByIDParams) SetID(id int64) {
 	o.ID = id
 }
 
-// WithIncludeAllEfforts adds the includeAllEfforts to the get activity by Id params
+// WithIncludeAllEfforts adds the includeAllEfforts to the get activity by Id params.
 func (o *GetActivityByIDParams) WithIncludeAllEfforts(includeAllEfforts *bool) *GetActivityByIDParams {
 	o.SetIncludeAllEfforts(includeAllEfforts)
 	return o
 }
 
-// SetIncludeAllEfforts adds the includeAllEfforts to the get activity by Id params
+// SetIncludeAllEfforts adds the includeAllEfforts to the get activity by Id params.
 func (o *GetActivityByIDParams) SetIncludeAllEfforts(includeAllEfforts *bool) {
 	o.IncludeAllEfforts = includeAllEfforts
 }
 
-// WriteToRequest writes these params to a swagger request
+// WriteToRequest writes these params to a [runtime.ClientRequest].
 func (o *GetActivityByIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
-
-	if err := r.SetTimeout(o.timeout); err != nil {
+	if err := r.SetTimeout(o.inner.timeout); err != nil {
 		return err
 	}
 	var res []error
 
 	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+	if err := r.SetPathParam("id", conv.FormatInteger(o.ID)); err != nil {
 		return err
 	}
 
@@ -169,7 +176,7 @@ func (o *GetActivityByIDParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		if o.IncludeAllEfforts != nil {
 			qrIncludeAllEfforts = *o.IncludeAllEfforts
 		}
-		qIncludeAllEfforts := swag.FormatBool(qrIncludeAllEfforts)
+		qIncludeAllEfforts := conv.FormatBool(qrIncludeAllEfforts)
 		if qIncludeAllEfforts != "" {
 
 			if err := r.SetQueryParam("include_all_efforts", qIncludeAllEfforts); err != nil {

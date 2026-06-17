@@ -3,17 +3,21 @@
 package segment_efforts
 
 import (
+	"context"
+	"time"
+
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new segment efforts API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
+func New(transport runtime.ContextualTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
 // New creates a new segment efforts API client with basic auth credentials.
+//
 // It takes the following parameters:
 // - host: http host (github.com).
 // - basePath: any base path for the API client ("/v1", "/v3").
@@ -27,6 +31,7 @@ func NewClientWithBasicAuth(host, basePath, scheme, user, password string) Clien
 }
 
 // New creates a new segment efforts API client with a bearer token for authentication.
+//
 // It takes the following parameters:
 // - host: http host (github.com).
 // - basePath: any base path for the API client ("/v1", "/v3").
@@ -39,35 +44,68 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 }
 
 /*
-Client for segment efforts API
+Client for segment efforts API.
 */
 type Client struct {
-	transport runtime.ClientTransport
+	transport runtime.ContextualTransport
 	formats   strfmt.Registry
 }
 
 // ClientOption may be used to customize the behavior of Client methods.
 type ClientOption func(*runtime.ClientOperation)
 
-// ClientService is the interface for Client methods
+// ClientService is the interface for Client methods.
 type ClientService interface {
+
+	// GetEffortsBySegmentID list segment efforts.
 	GetEffortsBySegmentID(params *GetEffortsBySegmentIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEffortsBySegmentIDOK, error)
 
+	// GetEffortsBySegmentIDContext list segment efforts.
+	GetEffortsBySegmentIDContext(ctx context.Context, params *GetEffortsBySegmentIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEffortsBySegmentIDOK, error)
+
+	// GetSegmentEffortByID get segment effort.
 	GetSegmentEffortByID(params *GetSegmentEffortByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentEffortByIDOK, error)
 
-	SetTransport(transport runtime.ClientTransport)
+	// GetSegmentEffortByIDContext get segment effort.
+	GetSegmentEffortByIDContext(ctx context.Context, params *GetSegmentEffortByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentEffortByIDOK, error)
+
+	SetTransport(transport runtime.ContextualTransport)
 }
 
 /*
-GetEffortsBySegmentID lists segment efforts
+GetEffortsBySegmentIDlists segment efforts.
 
-Returns a set of the authenticated athlete's segment efforts for a given segment.  Requires subscription.
+Returns a set of the authenticated athlete's segment efforts for a given segment.  Requires subscription..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetEffortsBySegmentIDContext] instead.
 */
 func (a *Client) GetEffortsBySegmentID(params *GetEffortsBySegmentIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEffortsBySegmentIDOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetEffortsBySegmentIDContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetEffortsBySegmentIDContextlists segment efforts.
+
+Returns a set of the authenticated athlete's segment efforts for a given segment.  Requires subscription..
+
+Do not use the deprecated [GetEffortsBySegmentIDParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetEffortsBySegmentIDContext(ctx context.Context, params *GetEffortsBySegmentIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEffortsBySegmentIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetEffortsBySegmentIDParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getEffortsBySegmentId",
 		Method:             "GET",
@@ -78,13 +116,14 @@ func (a *Client) GetEffortsBySegmentID(params *GetEffortsBySegmentIDParams, auth
 		Params:             params,
 		Reader:             &GetEffortsBySegmentIDReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -104,15 +143,39 @@ func (a *Client) GetEffortsBySegmentID(params *GetEffortsBySegmentIDParams, auth
 }
 
 /*
-GetSegmentEffortByID gets segment effort
+GetSegmentEffortByIDgets segment effort.
 
-Returns a segment effort from an activity that is owned by the authenticated athlete. Requires subscription.
+Returns a segment effort from an activity that is owned by the authenticated athlete. Requires subscription..
+
+This method does not support injected context.
+However, timeout and opentracing contexts are honored whenever enabled.
+
+If you need to pass a specific context, use [Client.GetSegmentEffortByIDContext] instead.
 */
 func (a *Client) GetSegmentEffortByID(params *GetSegmentEffortByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentEffortByIDOK, error) {
+	var ctx context.Context
+	if params.inner.ctx != nil {
+		ctx = params.inner.ctx
+	} else {
+		ctx = context.Background()
+	}
+
+	return a.GetSegmentEffortByIDContext(ctx, params, authInfo, opts...)
+}
+
+/*
+GetSegmentEffortByIDContextgets segment effort.
+
+Returns a segment effort from an activity that is owned by the authenticated athlete. Requires subscription..
+
+Do not use the deprecated [GetSegmentEffortByIDParams.Context] with this method: it would be ignored.
+*/
+func (a *Client) GetSegmentEffortByIDContext(ctx context.Context, params *GetSegmentEffortByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentEffortByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
 		params = NewGetSegmentEffortByIDParams()
 	}
+
 	op := &runtime.ClientOperation{
 		ID:                 "getSegmentEffortById",
 		Method:             "GET",
@@ -123,13 +186,14 @@ func (a *Client) GetSegmentEffortByID(params *GetSegmentEffortByIDParams, authIn
 		Params:             params,
 		Reader:             &GetSegmentEffortByIDReader{formats: a.formats},
 		AuthInfo:           authInfo,
-		Context:            params.Context,
 		Client:             params.HTTPClient,
 	}
+
 	for _, opt := range opts {
 		opt(op)
 	}
-	result, err := a.transport.Submit(op)
+
+	result, err := a.transport.SubmitContext(ctx, op)
 	if err != nil {
 		return nil, err
 	}
@@ -149,6 +213,14 @@ func (a *Client) GetSegmentEffortByID(params *GetSegmentEffortByIDParams, authIn
 }
 
 // SetTransport changes the transport on the client
-func (a *Client) SetTransport(transport runtime.ClientTransport) {
+func (a *Client) SetTransport(transport runtime.ContextualTransport) {
 	a.transport = transport
+}
+
+// innerParams captures internal fields so they don't conflict with user-supplied parameters.
+type innerParams struct {
+	timeout time.Duration
+
+	// Deprecated: use the operation call with context to pass the context instead of [SegmentEffortsParams].
+	ctx context.Context
 }

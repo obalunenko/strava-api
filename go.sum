@@ -25,8 +25,8 @@ github.com/go-openapi/spec v0.22.6 h1:Tyy1pLaNCM8GBCFLoGYLonjJi6zykqyLCjXLc19ZPi
 github.com/go-openapi/spec v0.22.6/go.mod h1:HZvTHat+iH0PALQRWhrqIHtU/PEqxqd89fu0MxGlMeM=
 github.com/go-openapi/strfmt v0.26.4 h1:yI6IAEfcWow459BD5UzFY430KUwXZwBHrYusPFkhWlc=
 github.com/go-openapi/strfmt v0.26.4/go.mod h1:hNJi6nb5ETD6i7A1yRo03M9S6ZoTPPoWff1iUexmfUc=
-github.com/go-openapi/swag/conv v0.26.1 h1:slr5FVkg9Wc3Y5zcwenD8Sd/PQ94b2I/QJI7N7KTBpg=
-github.com/go-openapi/swag/conv v0.26.1/go.mod h1:mvQXgPptZk9GTrFgGwWvT4q+dN+zQej9JfmGwnipz1A=
+github.com/go-openapi/swag/conv v0.27.0 h1:EKOH4feXrvdo8DbSsXSAqRT8fz1epEnS5O2IfXUOzE8=
+github.com/go-openapi/swag/conv v0.27.0/go.mod h1:pfiv0uKQTbaGApk8Zs/lZV3uSjmSpa2FO1y183YngN8=
 github.com/go-openapi/swag/fileutils v0.26.1 h1:K1XCM2CGhfNsc6YDt6v7Q5+1e59rftYWdcu/isZhvFw=
 github.com/go-openapi/swag/fileutils v0.26.1/go.mod h1:mYUgxQAKX4ShS3qvvySx+/9yrlUnDhjiD1CalaQl8lQ=
 github.com/go-openapi/swag/jsonname v0.26.1 h1:VReupaV6WxlAsCn0e4DUfgV6bPmINnPpyJDLqSfNPcE=
@@ -41,8 +41,8 @@ github.com/go-openapi/swag/mangling v0.26.1 h1:gpYI4WuPKFJJVjV5cDLGlDVJhFIxYjQc7
 github.com/go-openapi/swag/mangling v0.26.1/go.mod h1:POETDH01hqAdASXfw7ISEd9bCOE6xBHOt8NHmGZRmYM=
 github.com/go-openapi/swag/stringutils v0.27.0 h1:Of7w/HljWsNZvuxsUAnw3n+hCOyI6HLJOxW2kQRAxio=
 github.com/go-openapi/swag/stringutils v0.27.0/go.mod h1:lzRN95CxXmA03XcDWHLOb6nOMcxCqR5rGY0lOgsfRoM=
-github.com/go-openapi/swag/typeutils v0.26.1 h1:yg42FgMzRR6PVQ3M3qHz1s+Y6/P4HoJ3cBarXa3OVnU=
-github.com/go-openapi/swag/typeutils v0.26.1/go.mod h1:VfnV+oUtSP2vCSCn2aJgnr8OevUYemyIzzS1VOzS10o=
+github.com/go-openapi/swag/typeutils v0.27.0 h1:aCf4MSGo8NLwZP8Q6t32DWLJSvl/WwNqgmEG+xJ6v2o=
+github.com/go-openapi/swag/typeutils v0.27.0/go.mod h1:Srm0xFNRZ1Y+vCxJclo5qzx8aj+1pAKda/YfFPrG0dQ=
 github.com/go-openapi/swag/yamlutils v0.26.1 h1:0TSLK+lXs9vfIhAWzBeI/lOzEnIoot6WTCO1aAeWFTk=
 github.com/go-openapi/swag/yamlutils v0.26.1/go.mod h1:7W5b7PRX9MxwL7TjeG7H8HkyBGRsIDRObhyMWFgBI2M=
 github.com/go-openapi/testify/enable/yaml/v2 v2.5.1 h1:q9NtHwK4qHF7yZziBPvZyv7zWAIk8ok88Gh2mR6Jpc8=

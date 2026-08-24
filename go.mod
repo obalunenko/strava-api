@@ -8,7 +8,7 @@ require (
 	github.com/go-openapi/strfmt v0.27.0
 	github.com/go-openapi/swag/conv v0.29.1
 	github.com/go-openapi/swag/jsonutils v0.28.0
-	github.com/go-openapi/swag/stringutils v0.28.0
+	github.com/go-openapi/swag/stringutils v0.29.1
 	github.com/go-openapi/swag/typeutils v0.29.1
 	github.com/go-openapi/validate v0.26.3
 	github.com/obalunenko/getenv v1.15.0

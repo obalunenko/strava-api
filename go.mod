@@ -12,7 +12,7 @@ require (
 	github.com/go-openapi/swag/typeutils v0.29.1
 	github.com/go-openapi/validate v0.26.3
 	github.com/obalunenko/getenv v1.15.0
-	github.com/stretchr/testify v1.12.0
+	github.com/stretchr/testify v1.12.1
 )
 
 require (
@@ -41,5 +41,4 @@ require (
 	golang.org/x/net v0.57.0 // indirect
 	golang.org/x/sync v0.22.0 // indirect
 	golang.org/x/text v0.40.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

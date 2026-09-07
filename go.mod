@@ -5,12 +5,12 @@ go 1.26.2
 require (
 	github.com/go-openapi/errors v0.22.8
 	github.com/go-openapi/runtime v0.33.1
-	github.com/go-openapi/strfmt v0.27.0
+	github.com/go-openapi/strfmt v0.27.1
 	github.com/go-openapi/swag/conv v0.29.1
 	github.com/go-openapi/swag/jsonutils v0.29.1
 	github.com/go-openapi/swag/stringutils v0.29.1
 	github.com/go-openapi/swag/typeutils v0.29.1
-	github.com/go-openapi/validate v0.26.5
+	github.com/go-openapi/validate v1.0.0
 	github.com/obalunenko/getenv v1.15.0
 	github.com/stretchr/testify v1.12.1
 )
@@ -19,12 +19,12 @@ require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/go-logr/logr v1.4.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/go-openapi/analysis v0.26.2 // indirect
+	github.com/go-openapi/analysis v1.0.0 // indirect
 	github.com/go-openapi/jsonpointer v1.0.0 // indirect
 	github.com/go-openapi/jsonreference v1.0.1 // indirect
 	github.com/go-openapi/loads v0.25.2 // indirect
 	github.com/go-openapi/runtime/server-middleware v0.33.1 // indirect
-	github.com/go-openapi/spec v0.22.11 // indirect
+	github.com/go-openapi/spec v1.0.0 // indirect
 	github.com/go-openapi/swag/fileutils v0.29.1 // indirect
 	github.com/go-openapi/swag/loading v0.29.1 // indirect
 	github.com/go-openapi/swag/mangling v0.29.1 // indirect

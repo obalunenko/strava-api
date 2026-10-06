@@ -51,8 +51,8 @@ github.com/go-openapi/runtime/server-middleware/negotiate/header
 # github.com/go-openapi/spec v1.0.0
 ## explicit; go 1.25.0
 github.com/go-openapi/spec
-# github.com/go-openapi/strfmt v0.27.1
-## explicit; go 1.25.0
+# github.com/go-openapi/strfmt v0.27.2
+## explicit; go 1.26.0
 github.com/go-openapi/strfmt
 github.com/go-openapi/strfmt/internal/bsonlite
 github.com/go-openapi/strfmt/internal/countries

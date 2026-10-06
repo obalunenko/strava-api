@@ -5,7 +5,7 @@ go 1.26.2
 require (
 	github.com/go-openapi/errors v0.22.8
 	github.com/go-openapi/runtime v0.33.2
-	github.com/go-openapi/strfmt v0.27.1
+	github.com/go-openapi/strfmt v0.27.2
 	github.com/go-openapi/swag/conv v0.29.1
 	github.com/go-openapi/swag/jsonutils v0.29.1
 	github.com/go-openapi/swag/stringutils v0.29.1

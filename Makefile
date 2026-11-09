@@ -78,6 +78,11 @@ bump-go-version:
 	./scripts/bump-go.sh $(GOVERSION)
 .PHONY: bump-go-version
 
+## Print a Strava access token for integration tests, refreshing it when needed.
+strava-token:
+	@go run ./internal/tools/strava-token
+.PHONY: strava-token
+
 update-swagger-spec:
 	go run github.com/go-swagger/go-swagger/cmd/swagger@latest flatten --format=json --with-flatten=minimal --output=./docs/swagger.json $(API_DOC_URL)
 .PHONY: update-swagger-spec

@@ -35,6 +35,9 @@ type UpdatableActivity struct {
 	// sport type
 	SportType SportType `json:"sport_type,omitempty"`
 
+	// tags
+	Tags *UpdatableActivityTags `json:"tags,omitempty"`
+
 	// Whether this activity was recorded on a training machine
 	Trainer bool `json:"trainer,omitempty"`
 
@@ -47,6 +50,10 @@ func (m *UpdatableActivity) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateSportType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTags(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -81,6 +88,29 @@ func (m *UpdatableActivity) validateSportType(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *UpdatableActivity) validateTags(formats strfmt.Registry) error {
+	if typeutils.IsZero(m.Tags) { // not required
+		return nil
+	}
+
+	if m.Tags != nil {
+		if err := m.Tags.Validate(formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("tags")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("tags")
+			}
+
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *UpdatableActivity) validateType(formats strfmt.Registry) error {
 	if typeutils.IsZero(m.Type) { // not required
 		return nil
@@ -107,6 +137,10 @@ func (m *UpdatableActivity) ContextValidate(ctx context.Context, formats strfmt.
 	var res []error
 
 	if err := m.contextValidateSportType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTags(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -137,6 +171,31 @@ func (m *UpdatableActivity) contextValidateSportType(ctx context.Context, format
 		}
 
 		return err
+	}
+
+	return nil
+}
+
+func (m *UpdatableActivity) contextValidateTags(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Tags != nil {
+
+		if typeutils.IsZero(m.Tags) { // not required
+			return nil
+		}
+
+		if err := m.Tags.ContextValidate(ctx, formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("tags")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("tags")
+			}
+
+			return err
+		}
 	}
 
 	return nil
@@ -175,6 +234,55 @@ func (m *UpdatableActivity) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *UpdatableActivity) UnmarshalBinary(b []byte) error {
 	var res UpdatableActivity
+	if err := jsonutils.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UpdatableActivityTags Activity tags to set, keyed by tag name with a boolean value (true to add, false to remove). Only the tags you include are changed; any tag you omit — and every other tag on the activity — is left unchanged. Any tag outside the supported set is rejected. Commute is set here rather than via the legacy commute param, and the two cannot be combined in the same request.
+//
+// swagger:model UpdatableActivityTags
+type UpdatableActivityTags struct {
+
+	// commute
+	Commute *bool `json:"Commute,omitempty"`
+
+	// competition
+	Competition *bool `json:"Competition,omitempty"`
+
+	// for a cause
+	ForACause *bool `json:"ForACause,omitempty"`
+
+	// recovery
+	Recovery *bool `json:"Recovery,omitempty"`
+
+	// with pet
+	WithPet *bool `json:"WithPet,omitempty"`
+}
+
+// Validate validates this updatable activity tags
+func (m *UpdatableActivityTags) Validate(_ strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this updatable activity tags based on context it is used
+func (m *UpdatableActivityTags) ContextValidate(_ context.Context, _ strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UpdatableActivityTags) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return jsonutils.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UpdatableActivityTags) UnmarshalBinary(b []byte) error {
+	var res UpdatableActivityTags
 	if err := jsonutils.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -64,26 +64,23 @@ GetSegmentStreamsParams contains all the parameters to send to the API endpoint
 */
 type GetSegmentStreamsParams struct {
 
-	/* ID.
-
-	   The identifier of the segment.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the segment.
+	//
+	// Format: int64
 	ID int64
 
-	/* KeyByType.
-
-	   Must be true.
-
-	   Default: true
-	*/
+	// KeyByType.
+	//
+	// Must be true.
+	//
+	// Default: true
 	KeyByType bool
 
-	/* Keys.
-
-	   The types of streams to return.
-	*/
+	// Keys.
+	//
+	// The types of streams to return.
 	Keys []string
 
 	HTTPClient *http.Client

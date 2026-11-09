@@ -63,34 +63,30 @@ GetEffortsBySegmentIDParams contains all the parameters to send to the API endpo
 */
 type GetEffortsBySegmentIDParams struct {
 
-	/* EndDateLocal.
-
-	   ISO 8601 formatted date time.
-
-	   Format: date-time
-	*/
+	// EndDateLocal.
+	//
+	// ISO 8601 formatted date time.
+	//
+	// Format: date-time
 	EndDateLocal *strfmt.DateTime
 
-	/* PerPage.
-
-	   Number of items per page. Defaults to 30.
-
-	   Default: 30
-	*/
+	// PerPage.
+	//
+	// Number of items per page. Defaults to 30.
+	//
+	// Default: 30
 	PerPage *int64
 
-	/* SegmentID.
-
-	   The identifier of the segment.
-	*/
+	// SegmentID.
+	//
+	// The identifier of the segment.
 	SegmentID int64
 
-	/* StartDateLocal.
-
-	   ISO 8601 formatted date time.
-
-	   Format: date-time
-	*/
+	// StartDateLocal.
+	//
+	// ISO 8601 formatted date time.
+	//
+	// Format: date-time
 	StartDateLocal *strfmt.DateTime
 
 	HTTPClient *http.Client

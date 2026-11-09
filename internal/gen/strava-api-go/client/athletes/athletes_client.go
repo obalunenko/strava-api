@@ -43,9 +43,7 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 	return &Client{transport: transport, formats: strfmt.Default}
 }
 
-/*
-Client for athletes API.
-*/
+// Client for athletes API.
 type Client struct {
 	transport runtime.ContextualTransport
 	formats   strfmt.Registry
@@ -108,19 +106,17 @@ type ClientService interface {
 	SetTransport(transport runtime.ContextualTransport)
 }
 
-/*
-GetLoggedInAthletegets authenticated athlete.
-
-Returns the currently authenticated athlete. Tokens with profile:read_all scope will receive a detailed athlete representation; all others will receive a summary representation..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetLoggedInAthleteContext] instead.
-*/
+// GetLoggedInAthlete gets authenticated athlete.
+//
+// Returns the currently authenticated athlete. Tokens with profile:read_all scope will receive a detailed athlete representation; all others will receive a summary representation..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetLoggedInAthleteContext] instead.
 func (a *Client) GetLoggedInAthlete(params *GetLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -129,13 +125,11 @@ func (a *Client) GetLoggedInAthlete(params *GetLoggedInAthleteParams, authInfo r
 	return a.GetLoggedInAthleteContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetLoggedInAthleteContextgets authenticated athlete.
-
-Returns the currently authenticated athlete. Tokens with profile:read_all scope will receive a detailed athlete representation; all others will receive a summary representation..
-
-Do not use the deprecated [GetLoggedInAthleteParams.Context] with this method: it would be ignored.
-*/
+// GetLoggedInAthleteContext gets authenticated athlete.
+//
+// Returns the currently authenticated athlete. Tokens with profile:read_all scope will receive a detailed athlete representation; all others will receive a summary representation..
+//
+// Do not use the deprecated [GetLoggedInAthleteParams.Context] with this method: it would be ignored.
 func (a *Client) GetLoggedInAthleteContext(ctx context.Context, params *GetLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -178,19 +172,17 @@ func (a *Client) GetLoggedInAthleteContext(ctx context.Context, params *GetLogge
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetLoggedInAthleteZonesgets zones.
-
-Returns the the authenticated athlete's heart rate and power zones. Requires profile:read_all..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetLoggedInAthleteZonesContext] instead.
-*/
+// GetLoggedInAthleteZones gets zones.
+//
+// Returns the the authenticated athlete's heart rate and power zones. Requires profile:read_all..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetLoggedInAthleteZonesContext] instead.
 func (a *Client) GetLoggedInAthleteZones(params *GetLoggedInAthleteZonesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteZonesOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -199,13 +191,11 @@ func (a *Client) GetLoggedInAthleteZones(params *GetLoggedInAthleteZonesParams, 
 	return a.GetLoggedInAthleteZonesContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetLoggedInAthleteZonesContextgets zones.
-
-Returns the the authenticated athlete's heart rate and power zones. Requires profile:read_all..
-
-Do not use the deprecated [GetLoggedInAthleteZonesParams.Context] with this method: it would be ignored.
-*/
+// GetLoggedInAthleteZonesContext gets zones.
+//
+// Returns the the authenticated athlete's heart rate and power zones. Requires profile:read_all..
+//
+// Do not use the deprecated [GetLoggedInAthleteZonesParams.Context] with this method: it would be ignored.
 func (a *Client) GetLoggedInAthleteZonesContext(ctx context.Context, params *GetLoggedInAthleteZonesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteZonesOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -248,19 +238,17 @@ func (a *Client) GetLoggedInAthleteZonesContext(ctx context.Context, params *Get
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetStatsgets athlete stats.
-
-Returns the activity stats of an athlete. Only includes data from activities set to Everyone visibilty..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetStatsContext] instead.
-*/
+// GetStats gets athlete stats.
+//
+// Returns the activity stats of an athlete. Only includes data from activities set to Everyone visibilty..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetStatsContext] instead.
 func (a *Client) GetStats(params *GetStatsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetStatsOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -269,13 +257,11 @@ func (a *Client) GetStats(params *GetStatsParams, authInfo runtime.ClientAuthInf
 	return a.GetStatsContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetStatsContextgets athlete stats.
-
-Returns the activity stats of an athlete. Only includes data from activities set to Everyone visibilty..
-
-Do not use the deprecated [GetStatsParams.Context] with this method: it would be ignored.
-*/
+// GetStatsContext gets athlete stats.
+//
+// Returns the activity stats of an athlete. Only includes data from activities set to Everyone visibilty..
+//
+// Do not use the deprecated [GetStatsParams.Context] with this method: it would be ignored.
 func (a *Client) GetStatsContext(ctx context.Context, params *GetStatsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetStatsOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -318,19 +304,17 @@ func (a *Client) GetStatsContext(ctx context.Context, params *GetStatsParams, au
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-UpdateLoggedInAthleteupdates athlete.
-
-Update the currently authenticated athlete. Requires profile:write scope..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.UpdateLoggedInAthleteContext] instead.
-*/
+// UpdateLoggedInAthlete updates athlete.
+//
+// Update the currently authenticated athlete. Requires profile:write scope..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.UpdateLoggedInAthleteContext] instead.
 func (a *Client) UpdateLoggedInAthlete(params *UpdateLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateLoggedInAthleteOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -339,13 +323,11 @@ func (a *Client) UpdateLoggedInAthlete(params *UpdateLoggedInAthleteParams, auth
 	return a.UpdateLoggedInAthleteContext(ctx, params, authInfo, opts...)
 }
 
-/*
-UpdateLoggedInAthleteContextupdates athlete.
-
-Update the currently authenticated athlete. Requires profile:write scope..
-
-Do not use the deprecated [UpdateLoggedInAthleteParams.Context] with this method: it would be ignored.
-*/
+// UpdateLoggedInAthleteContext updates athlete.
+//
+// Update the currently authenticated athlete. Requires profile:write scope..
+//
+// Do not use the deprecated [UpdateLoggedInAthleteParams.Context] with this method: it would be ignored.
 func (a *Client) UpdateLoggedInAthleteContext(ctx context.Context, params *UpdateLoggedInAthleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateLoggedInAthleteOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {

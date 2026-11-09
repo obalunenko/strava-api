@@ -63,30 +63,26 @@ GetLoggedInAthleteActivitiesParams contains all the parameters to send to the AP
 */
 type GetLoggedInAthleteActivitiesParams struct {
 
-	/* After.
-
-	   An epoch timestamp to use for filtering activities that have taken place after a certain time.
-	*/
+	// After.
+	//
+	// An epoch timestamp to use for filtering activities that have taken place after a certain time.
 	After *int64
 
-	/* Before.
-
-	   An epoch timestamp to use for filtering activities that have taken place before a certain time.
-	*/
+	// Before.
+	//
+	// An epoch timestamp to use for filtering activities that have taken place before a certain time.
 	Before *int64
 
-	/* Page.
-
-	   Page number. Defaults to 1.
-	*/
+	// Page.
+	//
+	// Page number. Defaults to 1.
 	Page *int64
 
-	/* PerPage.
-
-	   Number of items per page. Defaults to 30.
-
-	   Default: 30
-	*/
+	// PerPage.
+	//
+	// Number of items per page. Defaults to 30.
+	//
+	// Default: 30
 	PerPage *int64
 
 	HTTPClient *http.Client

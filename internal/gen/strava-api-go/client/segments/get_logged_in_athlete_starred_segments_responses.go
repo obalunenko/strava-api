@@ -45,11 +45,9 @@ func NewGetLoggedInAthleteStarredSegmentsOK() *GetLoggedInAthleteStarredSegments
 	return &GetLoggedInAthleteStarredSegmentsOK{}
 }
 
-/*
-GetLoggedInAthleteStarredSegmentsOK describes a response with status code 200, with default header values.
-
-List of the authenticated athlete's starred segments.
-*/
+// GetLoggedInAthleteStarredSegmentsOK describes a response with status code 200, with default header values.
+//
+// List of the authenticated athlete's starred segments.
 type GetLoggedInAthleteStarredSegmentsOK struct {
 	Payload []*models.SummarySegment
 }
@@ -115,11 +113,9 @@ func NewGetLoggedInAthleteStarredSegmentsDefault(code int) *GetLoggedInAthleteSt
 	}
 }
 
-/*
-GetLoggedInAthleteStarredSegmentsDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetLoggedInAthleteStarredSegmentsDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetLoggedInAthleteStarredSegmentsDefault struct {
 	_statusCode int
 

@@ -24,6 +24,9 @@ type DetailedClubAllOf0 struct {
 	// The activity types that count for a club. This takes precedence over sport_type.
 	ActivityTypes []ActivityType `json:"activity_types"`
 
+	// The name of the icon for the club's activity types
+	ActivityTypesIcon string `json:"activity_types_icon,omitempty"`
+
 	// The club's city.
 	City string `json:"city,omitempty"`
 
@@ -36,14 +39,23 @@ type DetailedClubAllOf0 struct {
 	// URL to a ~360x176  pixel cover photo.
 	CoverPhotoSmall string `json:"cover_photo_small,omitempty"`
 
+	// The dimensions of this club's leaderboard
+	Dimensions []string `json:"dimensions"`
+
 	// Whether the club is featured or not.
 	Featured bool `json:"featured,omitempty"`
+
+	// The localized name of the club's sport type
+	LocalizedSportType string `json:"localized_sport_type,omitempty"`
 
 	// The club's member count.
 	MemberCount int64 `json:"member_count,omitempty"`
 
 	// Whether the club is private.
 	Private bool `json:"private,omitempty"`
+
+	// URL to the club's profile picture
+	Profile string `json:"profile,omitempty"`
 
 	// URL to a 60x60 pixel profile picture.
 	ProfileMedium string `json:"profile_medium,omitempty"`
@@ -75,6 +87,8 @@ func (m *DetailedClubAllOf0) UnmarshalJSON(raw []byte) error {
 	var dataAO1 struct {
 		ActivityTypes []ActivityType `json:"activity_types"`
 
+		ActivityTypesIcon string `json:"activity_types_icon,omitempty"`
+
 		City string `json:"city,omitempty"`
 
 		Country string `json:"country,omitempty"`
@@ -83,11 +97,17 @@ func (m *DetailedClubAllOf0) UnmarshalJSON(raw []byte) error {
 
 		CoverPhotoSmall string `json:"cover_photo_small,omitempty"`
 
+		Dimensions []string `json:"dimensions"`
+
 		Featured bool `json:"featured,omitempty"`
+
+		LocalizedSportType string `json:"localized_sport_type,omitempty"`
 
 		MemberCount int64 `json:"member_count,omitempty"`
 
 		Private bool `json:"private,omitempty"`
+
+		Profile string `json:"profile,omitempty"`
 
 		ProfileMedium string `json:"profile_medium,omitempty"`
 
@@ -105,6 +125,8 @@ func (m *DetailedClubAllOf0) UnmarshalJSON(raw []byte) error {
 
 	m.ActivityTypes = dataAO1.ActivityTypes
 
+	m.ActivityTypesIcon = dataAO1.ActivityTypesIcon
+
 	m.City = dataAO1.City
 
 	m.Country = dataAO1.Country
@@ -113,11 +135,17 @@ func (m *DetailedClubAllOf0) UnmarshalJSON(raw []byte) error {
 
 	m.CoverPhotoSmall = dataAO1.CoverPhotoSmall
 
+	m.Dimensions = dataAO1.Dimensions
+
 	m.Featured = dataAO1.Featured
+
+	m.LocalizedSportType = dataAO1.LocalizedSportType
 
 	m.MemberCount = dataAO1.MemberCount
 
 	m.Private = dataAO1.Private
+
+	m.Profile = dataAO1.Profile
 
 	m.ProfileMedium = dataAO1.ProfileMedium
 
@@ -144,6 +172,8 @@ func (m DetailedClubAllOf0) MarshalJSON() ([]byte, error) {
 	var dataAO1 struct {
 		ActivityTypes []ActivityType `json:"activity_types"`
 
+		ActivityTypesIcon string `json:"activity_types_icon,omitempty"`
+
 		City string `json:"city,omitempty"`
 
 		Country string `json:"country,omitempty"`
@@ -152,11 +182,17 @@ func (m DetailedClubAllOf0) MarshalJSON() ([]byte, error) {
 
 		CoverPhotoSmall string `json:"cover_photo_small,omitempty"`
 
+		Dimensions []string `json:"dimensions"`
+
 		Featured bool `json:"featured,omitempty"`
+
+		LocalizedSportType string `json:"localized_sport_type,omitempty"`
 
 		MemberCount int64 `json:"member_count,omitempty"`
 
 		Private bool `json:"private,omitempty"`
+
+		Profile string `json:"profile,omitempty"`
 
 		ProfileMedium string `json:"profile_medium,omitempty"`
 
@@ -171,6 +207,8 @@ func (m DetailedClubAllOf0) MarshalJSON() ([]byte, error) {
 
 	dataAO1.ActivityTypes = m.ActivityTypes
 
+	dataAO1.ActivityTypesIcon = m.ActivityTypesIcon
+
 	dataAO1.City = m.City
 
 	dataAO1.Country = m.Country
@@ -179,11 +217,17 @@ func (m DetailedClubAllOf0) MarshalJSON() ([]byte, error) {
 
 	dataAO1.CoverPhotoSmall = m.CoverPhotoSmall
 
+	dataAO1.Dimensions = m.Dimensions
+
 	dataAO1.Featured = m.Featured
+
+	dataAO1.LocalizedSportType = m.LocalizedSportType
 
 	dataAO1.MemberCount = m.MemberCount
 
 	dataAO1.Private = m.Private
+
+	dataAO1.Profile = m.Profile
 
 	dataAO1.ProfileMedium = m.ProfileMedium
 
@@ -310,7 +354,7 @@ func (m *DetailedClubAllOf0) contextValidateActivityTypes(ctx context.Context, f
 	for i := 0; i < len(m.ActivityTypes); i++ {
 
 		if typeutils.IsZero(m.ActivityTypes[i]) { // not required
-			return nil
+			continue
 		}
 
 		if err := m.ActivityTypes[i].ContextValidate(ctx, formats); err != nil {

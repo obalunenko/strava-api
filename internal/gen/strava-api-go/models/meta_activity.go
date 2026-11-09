@@ -16,15 +16,18 @@ type MetaActivity struct {
 
 	// The unique identifier of the activity
 	ID int64 `json:"id,omitempty"`
+
+	// The visibility of the activity
+	Visibility string `json:"visibility,omitempty"`
 }
 
 // Validate validates this meta activity
-func (m *MetaActivity) Validate(formats strfmt.Registry) error {
+func (m *MetaActivity) Validate(_ strfmt.Registry) error {
 	return nil
 }
 
 // ContextValidate validates this meta activity based on context it is used
-func (m *MetaActivity) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *MetaActivity) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

@@ -4,7 +4,9 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	stderrors "errors"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -31,8 +33,14 @@ type SummaryActivity struct {
 	// Minimum: 1
 	AthleteCount int64 `json:"athlete_count,omitempty"`
 
+	// The activity's average cadence
+	AverageCadence float32 `json:"average_cadence,omitempty"`
+
 	// The activity's average speed, in meters per second
 	AverageSpeed float32 `json:"average_speed,omitempty"`
+
+	// The activity's average temperature, in degrees Celsius
+	AverageTemp float32 `json:"average_temp,omitempty"`
 
 	// Average power output in watts during this activity. Rides only
 	AverageWatts float32 `json:"average_watts,omitempty"`
@@ -106,6 +114,9 @@ type SummaryActivity struct {
 	// The number of Instagram photos for this activity
 	PhotoCount int64 `json:"photo_count,omitempty"`
 
+	// The number of personal records achieved during this activity
+	PrCount int64 `json:"pr_count,omitempty"`
+
 	// Whether this activity is private
 	Private bool `json:"private,omitempty"`
 
@@ -122,6 +133,12 @@ type SummaryActivity struct {
 
 	// start latlng
 	StartLatlng LatLng `json:"start_latlng,omitempty"`
+
+	// The activity's relative effort score
+	SufferScore float32 `json:"suffer_score,omitempty"`
+
+	// The activity tags currently applied to this activity
+	Tags []string `json:"tags"`
 
 	// The timezone of the activity
 	Timezone string `json:"timezone,omitempty"`
@@ -143,6 +160,9 @@ type SummaryActivity struct {
 
 	// The unique identifier of the upload in string format
 	UploadIDStr string `json:"upload_id_str,omitempty"`
+
+	// The offset of the activity's local time from UTC, in seconds
+	UtcOffset float32 `json:"utc_offset,omitempty"`
 
 	// Similar to Normalized Power. Rides with power meter data only
 	WeightedAverageWatts int64 `json:"weighted_average_watts,omitempty"`
@@ -175,7 +195,11 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 
 		AthleteCount int64 `json:"athlete_count,omitempty"`
 
+		AverageCadence float32 `json:"average_cadence,omitempty"`
+
 		AverageSpeed float32 `json:"average_speed,omitempty"`
+
+		AverageTemp float32 `json:"average_temp,omitempty"`
 
 		AverageWatts float32 `json:"average_watts,omitempty"`
 
@@ -225,6 +249,8 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 
 		PhotoCount int64 `json:"photo_count,omitempty"`
 
+		PrCount int64 `json:"pr_count,omitempty"`
+
 		Private bool `json:"private,omitempty"`
 
 		SportType SportType `json:"sport_type,omitempty"`
@@ -234,6 +260,10 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 		StartDateLocal strfmt.DateTime `json:"start_date_local,omitempty"`
 
 		StartLatlng LatLng `json:"start_latlng,omitempty"`
+
+		SufferScore float32 `json:"suffer_score,omitempty"`
+
+		Tags []string `json:"tags"`
 
 		Timezone string `json:"timezone,omitempty"`
 
@@ -249,6 +279,8 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 
 		UploadIDStr string `json:"upload_id_str,omitempty"`
 
+		UtcOffset float32 `json:"utc_offset,omitempty"`
+
 		WeightedAverageWatts int64 `json:"weighted_average_watts,omitempty"`
 
 		WorkoutType int64 `json:"workout_type,omitempty"`
@@ -263,7 +295,11 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 
 	m.AthleteCount = dataAO2.AthleteCount
 
+	m.AverageCadence = dataAO2.AverageCadence
+
 	m.AverageSpeed = dataAO2.AverageSpeed
+
+	m.AverageTemp = dataAO2.AverageTemp
 
 	m.AverageWatts = dataAO2.AverageWatts
 
@@ -313,6 +349,8 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 
 	m.PhotoCount = dataAO2.PhotoCount
 
+	m.PrCount = dataAO2.PrCount
+
 	m.Private = dataAO2.Private
 
 	m.SportType = dataAO2.SportType
@@ -322,6 +360,10 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 	m.StartDateLocal = dataAO2.StartDateLocal
 
 	m.StartLatlng = dataAO2.StartLatlng
+
+	m.SufferScore = dataAO2.SufferScore
+
+	m.Tags = dataAO2.Tags
 
 	m.Timezone = dataAO2.Timezone
 
@@ -336,6 +378,8 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 	m.UploadID = dataAO2.UploadID
 
 	m.UploadIDStr = dataAO2.UploadIDStr
+
+	m.UtcOffset = dataAO2.UtcOffset
 
 	m.WeightedAverageWatts = dataAO2.WeightedAverageWatts
 
@@ -366,7 +410,11 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 
 		AthleteCount int64 `json:"athlete_count,omitempty"`
 
+		AverageCadence float32 `json:"average_cadence,omitempty"`
+
 		AverageSpeed float32 `json:"average_speed,omitempty"`
+
+		AverageTemp float32 `json:"average_temp,omitempty"`
 
 		AverageWatts float32 `json:"average_watts,omitempty"`
 
@@ -416,6 +464,8 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 
 		PhotoCount int64 `json:"photo_count,omitempty"`
 
+		PrCount int64 `json:"pr_count,omitempty"`
+
 		Private bool `json:"private,omitempty"`
 
 		SportType SportType `json:"sport_type,omitempty"`
@@ -425,6 +475,10 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 		StartDateLocal strfmt.DateTime `json:"start_date_local,omitempty"`
 
 		StartLatlng LatLng `json:"start_latlng,omitempty"`
+
+		SufferScore float32 `json:"suffer_score,omitempty"`
+
+		Tags []string `json:"tags"`
 
 		Timezone string `json:"timezone,omitempty"`
 
@@ -440,6 +494,8 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 
 		UploadIDStr string `json:"upload_id_str,omitempty"`
 
+		UtcOffset float32 `json:"utc_offset,omitempty"`
+
 		WeightedAverageWatts int64 `json:"weighted_average_watts,omitempty"`
 
 		WorkoutType int64 `json:"workout_type,omitempty"`
@@ -451,7 +507,11 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 
 	dataAO2.AthleteCount = m.AthleteCount
 
+	dataAO2.AverageCadence = m.AverageCadence
+
 	dataAO2.AverageSpeed = m.AverageSpeed
+
+	dataAO2.AverageTemp = m.AverageTemp
 
 	dataAO2.AverageWatts = m.AverageWatts
 
@@ -501,6 +561,8 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 
 	dataAO2.PhotoCount = m.PhotoCount
 
+	dataAO2.PrCount = m.PrCount
+
 	dataAO2.Private = m.Private
 
 	dataAO2.SportType = m.SportType
@@ -510,6 +572,10 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 	dataAO2.StartDateLocal = m.StartDateLocal
 
 	dataAO2.StartLatlng = m.StartLatlng
+
+	dataAO2.SufferScore = m.SufferScore
+
+	dataAO2.Tags = m.Tags
 
 	dataAO2.Timezone = m.Timezone
 
@@ -524,6 +590,8 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 	dataAO2.UploadID = m.UploadID
 
 	dataAO2.UploadIDStr = m.UploadIDStr
+
+	dataAO2.UtcOffset = m.UtcOffset
 
 	dataAO2.WeightedAverageWatts = m.WeightedAverageWatts
 
@@ -579,6 +647,10 @@ func (m *SummaryActivity) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateStartLatlng(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTags(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -740,6 +812,61 @@ func (m *SummaryActivity) validateStartLatlng(formats strfmt.Registry) error {
 		}
 
 		return err
+	}
+
+	return nil
+}
+
+const (
+
+	// SummaryActivityTagsItemsWithPet captures enum value "WithPet"
+	SummaryActivityTagsItemsWithPet string = "WithPet"
+
+	// SummaryActivityTagsItemsRecovery captures enum value "Recovery"
+	SummaryActivityTagsItemsRecovery string = "Recovery"
+
+	// SummaryActivityTagsItemsCompetition captures enum value "Competition"
+	SummaryActivityTagsItemsCompetition string = "Competition"
+
+	// SummaryActivityTagsItemsForACause captures enum value "ForACause"
+	SummaryActivityTagsItemsForACause string = "ForACause"
+
+	// SummaryActivityTagsItemsCommute captures enum value "Commute"
+	SummaryActivityTagsItemsCommute string = "Commute"
+)
+
+var summaryActivityTagsItemsEnum []any
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["WithPet","Recovery","Competition","ForACause","Commute"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		summaryActivityTagsItemsEnum = append(summaryActivityTagsItemsEnum, v)
+	}
+}
+
+func (m *SummaryActivity) validateTagsItemsEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, summaryActivityTagsItemsEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *SummaryActivity) validateTags(formats strfmt.Registry) error {
+
+	if typeutils.IsZero(m.Tags) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Tags); i++ {
+
+		// value enum
+		if err := m.validateTagsItemsEnum("tags"+"."+strconv.Itoa(i), "body", m.Tags[i]); err != nil {
+			return err
+		}
+
 	}
 
 	return nil

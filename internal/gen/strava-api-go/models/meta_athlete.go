@@ -19,12 +19,12 @@ type MetaAthlete struct {
 }
 
 // Validate validates this meta athlete
-func (m *MetaAthlete) Validate(formats strfmt.Registry) error {
+func (m *MetaAthlete) Validate(_ strfmt.Registry) error {
 	return nil
 }
 
 // ContextValidate validates this meta athlete based on context it is used
-func (m *MetaAthlete) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *MetaAthlete) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

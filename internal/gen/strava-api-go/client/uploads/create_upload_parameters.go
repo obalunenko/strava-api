@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag/conv"
 )
 
 // NewCreateUploadParams creates a new CreateUploadParams object,
@@ -62,46 +63,64 @@ CreateUploadParams contains all the parameters to send to the API endpoint
 */
 type CreateUploadParams struct {
 
-	/* Commute.
-
-	   Whether the resulting activity should be tagged as a commute.
-	*/
+	// Commute.
+	//
+	// Whether the resulting activity should be tagged as a commute.
 	Commute *string
 
-	/* DataType.
-
-	   The format of the uploaded file.
-	*/
+	// DataType.
+	//
+	// The format of the uploaded file.
 	DataType *string
 
-	/* Description.
-
-	   The desired description of the resulting activity.
-	*/
+	// Description.
+	//
+	// The desired description of the resulting activity.
 	Description *string
 
-	/* ExternalID.
-
-	   The desired external identifier of the resulting activity.
-	*/
+	// ExternalID.
+	//
+	// The desired external identifier of the resulting activity.
 	ExternalID *string
 
-	/* File.
-
-	   The uploaded file.
-	*/
+	// File.
+	//
+	// The uploaded file.
 	File runtime.NamedReadCloser
 
-	/* Name.
-
-	   The desired name of the resulting activity.
-	*/
+	// Name.
+	//
+	// The desired name of the resulting activity.
 	Name *string
 
-	/* Trainer.
+	// TagsCommute.
+	//
+	// Activity tag on the resulting activity: true adds the Commute tag, false removes it. Cannot be combined with the legacy commute param in the same request.
+	TagsCommute *bool
 
-	   Whether the resulting activity should be marked as having been performed on a trainer.
-	*/
+	// TagsCompetition.
+	//
+	// Activity tag on the resulting activity: true adds the Competition tag, false removes it. Cannot be combined with the legacy commute param in the same request.
+	TagsCompetition *bool
+
+	// TagsForACause.
+	//
+	// Activity tag on the resulting activity: true adds the ForACause tag, false removes it. Cannot be combined with the legacy commute param in the same request.
+	TagsForACause *bool
+
+	// TagsRecovery.
+	//
+	// Activity tag on the resulting activity: true adds the Recovery tag, false removes it. Cannot be combined with the legacy commute param in the same request.
+	TagsRecovery *bool
+
+	// TagsWithPet.
+	//
+	// Activity tag on the resulting activity: true adds the WithPet tag, false removes it. Cannot be combined with the legacy commute param in the same request.
+	TagsWithPet *bool
+
+	// Trainer.
+	//
+	// Whether the resulting activity should be marked as having been performed on a trainer.
 	Trainer *string
 
 	HTTPClient *http.Client
@@ -227,6 +246,61 @@ func (o *CreateUploadParams) SetName(name *string) {
 	o.Name = name
 }
 
+// WithTagsCommute adds the tagsCommute to the create upload params.
+func (o *CreateUploadParams) WithTagsCommute(tagsCommute *bool) *CreateUploadParams {
+	o.SetTagsCommute(tagsCommute)
+	return o
+}
+
+// SetTagsCommute adds the tagsCommute to the create upload params.
+func (o *CreateUploadParams) SetTagsCommute(tagsCommute *bool) {
+	o.TagsCommute = tagsCommute
+}
+
+// WithTagsCompetition adds the tagsCompetition to the create upload params.
+func (o *CreateUploadParams) WithTagsCompetition(tagsCompetition *bool) *CreateUploadParams {
+	o.SetTagsCompetition(tagsCompetition)
+	return o
+}
+
+// SetTagsCompetition adds the tagsCompetition to the create upload params.
+func (o *CreateUploadParams) SetTagsCompetition(tagsCompetition *bool) {
+	o.TagsCompetition = tagsCompetition
+}
+
+// WithTagsForACause adds the tagsForACause to the create upload params.
+func (o *CreateUploadParams) WithTagsForACause(tagsForACause *bool) *CreateUploadParams {
+	o.SetTagsForACause(tagsForACause)
+	return o
+}
+
+// SetTagsForACause adds the tagsForACause to the create upload params.
+func (o *CreateUploadParams) SetTagsForACause(tagsForACause *bool) {
+	o.TagsForACause = tagsForACause
+}
+
+// WithTagsRecovery adds the tagsRecovery to the create upload params.
+func (o *CreateUploadParams) WithTagsRecovery(tagsRecovery *bool) *CreateUploadParams {
+	o.SetTagsRecovery(tagsRecovery)
+	return o
+}
+
+// SetTagsRecovery adds the tagsRecovery to the create upload params.
+func (o *CreateUploadParams) SetTagsRecovery(tagsRecovery *bool) {
+	o.TagsRecovery = tagsRecovery
+}
+
+// WithTagsWithPet adds the tagsWithPet to the create upload params.
+func (o *CreateUploadParams) WithTagsWithPet(tagsWithPet *bool) *CreateUploadParams {
+	o.SetTagsWithPet(tagsWithPet)
+	return o
+}
+
+// SetTagsWithPet adds the tagsWithPet to the create upload params.
+func (o *CreateUploadParams) SetTagsWithPet(tagsWithPet *bool) {
+	o.TagsWithPet = tagsWithPet
+}
+
 // WithTrainer adds the trainer to the create upload params.
 func (o *CreateUploadParams) WithTrainer(trainer *string) *CreateUploadParams {
 	o.SetTrainer(trainer)
@@ -325,6 +399,81 @@ func (o *CreateUploadParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		fName := frName
 		if fName != "" {
 			if err := r.SetFormParam("name", fName); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TagsCommute != nil {
+
+		// form param tags[Commute]
+		var frTagsCommute bool
+		if o.TagsCommute != nil {
+			frTagsCommute = *o.TagsCommute
+		}
+		fTagsCommute := conv.FormatBool(frTagsCommute)
+		if fTagsCommute != "" {
+			if err := r.SetFormParam("tags[Commute]", fTagsCommute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TagsCompetition != nil {
+
+		// form param tags[Competition]
+		var frTagsCompetition bool
+		if o.TagsCompetition != nil {
+			frTagsCompetition = *o.TagsCompetition
+		}
+		fTagsCompetition := conv.FormatBool(frTagsCompetition)
+		if fTagsCompetition != "" {
+			if err := r.SetFormParam("tags[Competition]", fTagsCompetition); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TagsForACause != nil {
+
+		// form param tags[ForACause]
+		var frTagsForACause bool
+		if o.TagsForACause != nil {
+			frTagsForACause = *o.TagsForACause
+		}
+		fTagsForACause := conv.FormatBool(frTagsForACause)
+		if fTagsForACause != "" {
+			if err := r.SetFormParam("tags[ForACause]", fTagsForACause); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TagsRecovery != nil {
+
+		// form param tags[Recovery]
+		var frTagsRecovery bool
+		if o.TagsRecovery != nil {
+			frTagsRecovery = *o.TagsRecovery
+		}
+		fTagsRecovery := conv.FormatBool(frTagsRecovery)
+		if fTagsRecovery != "" {
+			if err := r.SetFormParam("tags[Recovery]", fTagsRecovery); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TagsWithPet != nil {
+
+		// form param tags[WithPet]
+		var frTagsWithPet bool
+		if o.TagsWithPet != nil {
+			frTagsWithPet = *o.TagsWithPet
+		}
+		fTagsWithPet := conv.FormatBool(frTagsWithPet)
+		if fTagsWithPet != "" {
+			if err := r.SetFormParam("tags[WithPet]", fTagsWithPet); err != nil {
 				return err
 			}
 		}

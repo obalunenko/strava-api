@@ -27,8 +27,17 @@ type Lap struct {
 	// The lap's average cadence
 	AverageCadence float32 `json:"average_cadence,omitempty"`
 
+	// The average heart rate of the athlete during this lap
+	AverageHeartrate float32 `json:"average_heartrate,omitempty"`
+
 	// The lap's average speed
 	AverageSpeed float32 `json:"average_speed,omitempty"`
+
+	// The average wattage of this lap
+	AverageWatts float32 `json:"average_watts,omitempty"`
+
+	// Whether the watts are from a power meter, false if estimated
+	DeviceWatts bool `json:"device_watts,omitempty"`
 
 	// The lap's distance, in meters
 	Distance float32 `json:"distance,omitempty"`
@@ -44,6 +53,9 @@ type Lap struct {
 
 	// The index of this lap in the activity it belongs to
 	LapIndex int64 `json:"lap_index,omitempty"`
+
+	// The maximum heart rate of the athlete during this lap
+	MaxHeartrate float32 `json:"max_heartrate,omitempty"`
 
 	// The maximum speed of this lat, in meters per second
 	MaxSpeed float32 `json:"max_speed,omitempty"`

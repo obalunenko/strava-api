@@ -11,8 +11,6 @@ type (
 	AltitudeStream                         = internalmodels.AltitudeStream
 	BaseStream                             = internalmodels.BaseStream
 	CadenceStream                          = internalmodels.CadenceStream
-	ClubActivity                           = internalmodels.ClubActivity
-	ClubAthlete                            = internalmodels.ClubAthlete
 	Comment                                = internalmodels.Comment
 	CommentAthlete                         = internalmodels.CommentAthlete
 	DetailedActivity                       = internalmodels.DetailedActivity
@@ -51,6 +49,7 @@ type (
 	SmoothVelocityStream                   = internalmodels.SmoothVelocityStream
 	Split                                  = internalmodels.Split
 	SportType                              = internalmodels.SportType
+	StatVisibility                         = internalmodels.StatVisibility
 	StreamSet                              = internalmodels.StreamSet
 	SummaryActivity                        = internalmodels.SummaryActivity
 	SummaryAthlete                         = internalmodels.SummaryAthlete
@@ -65,6 +64,7 @@ type (
 	TimeStream                             = internalmodels.TimeStream
 	Upload                                 = internalmodels.Upload
 	UpdatableActivity                      = internalmodels.UpdatableActivity
+	UpdatableActivityTags                  = internalmodels.UpdatableActivityTags
 	Waypoint                               = internalmodels.Waypoint
 	ZoneRange                              = internalmodels.ZoneRange
 	ZoneRanges                             = internalmodels.ZoneRanges

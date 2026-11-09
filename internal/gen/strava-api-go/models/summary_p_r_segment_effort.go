@@ -58,7 +58,7 @@ func (m *SummaryPRSegmentEffort) validatePrDate(formats strfmt.Registry) error {
 }
 
 // ContextValidate validates this summary p r segment effort based on context it is used
-func (m *SummaryPRSegmentEffort) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *SummaryPRSegmentEffort) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

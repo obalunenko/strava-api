@@ -25,12 +25,12 @@ type MetaClub struct {
 }
 
 // Validate validates this meta club
-func (m *MetaClub) Validate(formats strfmt.Registry) error {
+func (m *MetaClub) Validate(_ strfmt.Registry) error {
 	return nil
 }
 
 // ContextValidate validates this meta club based on context it is used
-func (m *MetaClub) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *MetaClub) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

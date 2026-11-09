@@ -43,9 +43,7 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 	return &Client{transport: transport, formats: strfmt.Default}
 }
 
-/*
-Client for segments API.
-*/
+// Client for segments API.
 type Client struct {
 	transport runtime.ContextualTransport
 	formats   strfmt.Registry
@@ -84,19 +82,17 @@ type ClientService interface {
 	SetTransport(transport runtime.ContextualTransport)
 }
 
-/*
-ExploreSegmentsexplores segments.
-
-Returns the top 10 segments matching a specified query..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.ExploreSegmentsContext] instead.
-*/
+// ExploreSegments explores segments.
+//
+// Returns the top 10 segments matching a specified query. Available only to Extended Access Tier apps with granted permission..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.ExploreSegmentsContext] instead.
 func (a *Client) ExploreSegments(params *ExploreSegmentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExploreSegmentsOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -105,13 +101,11 @@ func (a *Client) ExploreSegments(params *ExploreSegmentsParams, authInfo runtime
 	return a.ExploreSegmentsContext(ctx, params, authInfo, opts...)
 }
 
-/*
-ExploreSegmentsContextexplores segments.
-
-Returns the top 10 segments matching a specified query..
-
-Do not use the deprecated [ExploreSegmentsParams.Context] with this method: it would be ignored.
-*/
+// ExploreSegmentsContext explores segments.
+//
+// Returns the top 10 segments matching a specified query. Available only to Extended Access Tier apps with granted permission..
+//
+// Do not use the deprecated [ExploreSegmentsParams.Context] with this method: it would be ignored.
 func (a *Client) ExploreSegmentsContext(ctx context.Context, params *ExploreSegmentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExploreSegmentsOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -154,19 +148,17 @@ func (a *Client) ExploreSegmentsContext(ctx context.Context, params *ExploreSegm
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetLoggedInAthleteStarredSegmentslists starred segments.
-
-List of the authenticated athlete's starred segments. Private segments are filtered out unless requested by a token with read_all scope..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetLoggedInAthleteStarredSegmentsContext] instead.
-*/
+// GetLoggedInAthleteStarredSegments lists starred segments.
+//
+// List of the authenticated athlete's starred segments. Private segments are filtered out unless requested by a token with read_all scope..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetLoggedInAthleteStarredSegmentsContext] instead.
 func (a *Client) GetLoggedInAthleteStarredSegments(params *GetLoggedInAthleteStarredSegmentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteStarredSegmentsOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -175,13 +167,11 @@ func (a *Client) GetLoggedInAthleteStarredSegments(params *GetLoggedInAthleteSta
 	return a.GetLoggedInAthleteStarredSegmentsContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetLoggedInAthleteStarredSegmentsContextlists starred segments.
-
-List of the authenticated athlete's starred segments. Private segments are filtered out unless requested by a token with read_all scope..
-
-Do not use the deprecated [GetLoggedInAthleteStarredSegmentsParams.Context] with this method: it would be ignored.
-*/
+// GetLoggedInAthleteStarredSegmentsContext lists starred segments.
+//
+// List of the authenticated athlete's starred segments. Private segments are filtered out unless requested by a token with read_all scope..
+//
+// Do not use the deprecated [GetLoggedInAthleteStarredSegmentsParams.Context] with this method: it would be ignored.
 func (a *Client) GetLoggedInAthleteStarredSegmentsContext(ctx context.Context, params *GetLoggedInAthleteStarredSegmentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteStarredSegmentsOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -224,19 +214,17 @@ func (a *Client) GetLoggedInAthleteStarredSegmentsContext(ctx context.Context, p
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetSegmentByIDgets segment.
-
-Returns the specified segment. read_all scope required in order to retrieve athlete-specific segment information, or to retrieve private segments..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetSegmentByIDContext] instead.
-*/
+// GetSegmentByID gets segment.
+//
+// Returns the specified segment. read_all scope required in order to retrieve athlete-specific segment information, or to retrieve private segments..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetSegmentByIDContext] instead.
 func (a *Client) GetSegmentByID(params *GetSegmentByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentByIDOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -245,13 +233,11 @@ func (a *Client) GetSegmentByID(params *GetSegmentByIDParams, authInfo runtime.C
 	return a.GetSegmentByIDContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetSegmentByIDContextgets segment.
-
-Returns the specified segment. read_all scope required in order to retrieve athlete-specific segment information, or to retrieve private segments..
-
-Do not use the deprecated [GetSegmentByIDParams.Context] with this method: it would be ignored.
-*/
+// GetSegmentByIDContext gets segment.
+//
+// Returns the specified segment. read_all scope required in order to retrieve athlete-specific segment information, or to retrieve private segments..
+//
+// Do not use the deprecated [GetSegmentByIDParams.Context] with this method: it would be ignored.
 func (a *Client) GetSegmentByIDContext(ctx context.Context, params *GetSegmentByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -294,19 +280,17 @@ func (a *Client) GetSegmentByIDContext(ctx context.Context, params *GetSegmentBy
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-StarSegmentstars segment.
-
-Stars/Unstars the given segment for the authenticated athlete. Requires profile:write scope..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.StarSegmentContext] instead.
-*/
+// StarSegment stars segment.
+//
+// Stars/Unstars the given segment for the authenticated athlete. Requires profile:write scope..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.StarSegmentContext] instead.
 func (a *Client) StarSegment(params *StarSegmentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StarSegmentOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -315,13 +299,11 @@ func (a *Client) StarSegment(params *StarSegmentParams, authInfo runtime.ClientA
 	return a.StarSegmentContext(ctx, params, authInfo, opts...)
 }
 
-/*
-StarSegmentContextstars segment.
-
-Stars/Unstars the given segment for the authenticated athlete. Requires profile:write scope..
-
-Do not use the deprecated [StarSegmentParams.Context] with this method: it would be ignored.
-*/
+// StarSegmentContext stars segment.
+//
+// Stars/Unstars the given segment for the authenticated athlete. Requires profile:write scope..
+//
+// Do not use the deprecated [StarSegmentParams.Context] with this method: it would be ignored.
 func (a *Client) StarSegmentContext(ctx context.Context, params *StarSegmentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StarSegmentOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {

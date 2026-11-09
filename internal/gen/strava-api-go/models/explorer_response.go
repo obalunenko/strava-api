@@ -87,7 +87,7 @@ func (m *ExplorerResponse) contextValidateSegments(ctx context.Context, formats 
 		if m.Segments[i] != nil {
 
 			if typeutils.IsZero(m.Segments[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.Segments[i].ContextValidate(ctx, formats); err != nil {

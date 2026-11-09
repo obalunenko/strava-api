@@ -34,12 +34,12 @@ type Upload struct {
 }
 
 // Validate validates this upload
-func (m *Upload) Validate(formats strfmt.Registry) error {
+func (m *Upload) Validate(_ strfmt.Registry) error {
 	return nil
 }
 
 // ContextValidate validates this upload based on context it is used
-func (m *Upload) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *Upload) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

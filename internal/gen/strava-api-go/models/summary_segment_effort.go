@@ -84,7 +84,7 @@ func (m *SummarySegmentEffort) validateStartDateLocal(formats strfmt.Registry) e
 }
 
 // ContextValidate validates this summary segment effort based on context it is used
-func (m *SummarySegmentEffort) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *SummarySegmentEffort) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

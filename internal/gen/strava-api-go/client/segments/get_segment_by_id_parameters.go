@@ -63,12 +63,11 @@ GetSegmentByIDParams contains all the parameters to send to the API endpoint
 */
 type GetSegmentByIDParams struct {
 
-	/* ID.
-
-	   The identifier of the segment.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the segment.
+	//
+	// Format: int64
 	ID int64
 
 	HTTPClient *http.Client

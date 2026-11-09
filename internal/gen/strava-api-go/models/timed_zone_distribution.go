@@ -58,7 +58,7 @@ func (m TimedZoneDistribution) ContextValidate(ctx context.Context, formats strf
 		if m[i] != nil {
 
 			if typeutils.IsZero(m[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m[i].ContextValidate(ctx, formats); err != nil {

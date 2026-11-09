@@ -90,7 +90,7 @@ func (m *Fault) contextValidateErrors(ctx context.Context, formats strfmt.Regist
 		if m.Errors[i] != nil {
 
 			if typeutils.IsZero(m.Errors[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.Errors[i].ContextValidate(ctx, formats); err != nil {

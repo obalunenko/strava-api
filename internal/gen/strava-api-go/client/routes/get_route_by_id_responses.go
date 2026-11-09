@@ -45,11 +45,9 @@ func NewGetRouteByIDOK() *GetRouteByIDOK {
 	return &GetRouteByIDOK{}
 }
 
-/*
-GetRouteByIDOK describes a response with status code 200, with default header values.
-
-A representation of the route.
-*/
+// GetRouteByIDOK describes a response with status code 200, with default header values.
+//
+// A representation of the route.
 type GetRouteByIDOK struct {
 	Payload *models.Route
 }
@@ -117,11 +115,9 @@ func NewGetRouteByIDDefault(code int) *GetRouteByIDDefault {
 	}
 }
 
-/*
-GetRouteByIDDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetRouteByIDDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetRouteByIDDefault struct {
 	_statusCode int
 

@@ -45,11 +45,9 @@ func NewGetLapsByActivityIDOK() *GetLapsByActivityIDOK {
 	return &GetLapsByActivityIDOK{}
 }
 
-/*
-GetLapsByActivityIDOK describes a response with status code 200, with default header values.
-
-Activity Laps.
-*/
+// GetLapsByActivityIDOK describes a response with status code 200, with default header values.
+//
+// Activity Laps.
 type GetLapsByActivityIDOK struct {
 	Payload []*models.Lap
 }
@@ -115,11 +113,9 @@ func NewGetLapsByActivityIDDefault(code int) *GetLapsByActivityIDDefault {
 	}
 }
 
-/*
-GetLapsByActivityIDDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetLapsByActivityIDDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetLapsByActivityIDDefault struct {
 	_statusCode int
 

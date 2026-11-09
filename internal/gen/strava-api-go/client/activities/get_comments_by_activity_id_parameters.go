@@ -63,40 +63,35 @@ GetCommentsByActivityIDParams contains all the parameters to send to the API end
 */
 type GetCommentsByActivityIDParams struct {
 
-	/* AfterCursor.
-
-	   Cursor of the last item in the previous page of results, used to request the subsequent page of results.  When omitted, the first page of results is fetched.
-	*/
+	// AfterCursor.
+	//
+	// Cursor of the last item in the previous page of results, used to request the subsequent page of results.  When omitted, the first page of results is fetched.
 	AfterCursor *string
 
-	/* ID.
-
-	   The identifier of the activity.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the activity.
+	//
+	// Format: int64
 	ID int64
 
-	/* Page.
-
-	   Deprecated. Prefer to use after_cursor.
-	*/
+	// Page.
+	//
+	// Deprecated. Prefer to use after_cursor.
 	Page *int64
 
-	/* PageSize.
-
-	   Number of items per page. Defaults to 30.
-
-	   Default: 30
-	*/
+	// PageSize.
+	//
+	// Number of items per page. Defaults to 30.
+	//
+	// Default: 30
 	PageSize *int64
 
-	/* PerPage.
-
-	   Deprecated. Prefer to use page_size.
-
-	   Default: 30
-	*/
+	// PerPage.
+	//
+	// Deprecated. Prefer to use page_size.
+	//
+	// Default: 30
 	PerPage *int64
 
 	HTTPClient *http.Client

@@ -64,28 +64,24 @@ ExploreSegmentsParams contains all the parameters to send to the API endpoint
 */
 type ExploreSegmentsParams struct {
 
-	/* ActivityType.
-
-	   Desired activity type.
-	*/
+	// ActivityType.
+	//
+	// Desired activity type.
 	ActivityType *string
 
-	/* Bounds.
-
-	   The latitude and longitude for two points describing a rectangular boundary for the search: [southwest corner latitutde, southwest corner longitude, northeast corner latitude, northeast corner longitude]
-	*/
+	// Bounds.
+	//
+	// The latitude and longitude for two points describing a rectangular boundary for the search: [southwest corner latitutde, southwest corner longitude, northeast corner latitude, northeast corner longitude]
 	Bounds []float32
 
-	/* MaxCat.
-
-	   The maximum climbing category.
-	*/
+	// MaxCat.
+	//
+	// The maximum climbing category.
 	MaxCat *int64
 
-	/* MinCat.
-
-	   The minimum climbing category.
-	*/
+	// MinCat.
+	//
+	// The minimum climbing category.
 	MinCat *int64
 
 	HTTPClient *http.Client

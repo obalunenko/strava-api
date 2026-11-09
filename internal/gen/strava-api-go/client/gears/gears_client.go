@@ -43,9 +43,7 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 	return &Client{transport: transport, formats: strfmt.Default}
 }
 
-/*
-Client for gears API.
-*/
+// Client for gears API.
 type Client struct {
 	transport runtime.ContextualTransport
 	formats   strfmt.Registry
@@ -66,19 +64,17 @@ type ClientService interface {
 	SetTransport(transport runtime.ContextualTransport)
 }
 
-/*
-GetGearByIDgets equipment.
-
-Returns an equipment using its identifier..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetGearByIDContext] instead.
-*/
+// GetGearByID gets equipment.
+//
+// Returns an equipment using its identifier..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetGearByIDContext] instead.
 func (a *Client) GetGearByID(params *GetGearByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGearByIDOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -87,13 +83,11 @@ func (a *Client) GetGearByID(params *GetGearByIDParams, authInfo runtime.ClientA
 	return a.GetGearByIDContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetGearByIDContextgets equipment.
-
-Returns an equipment using its identifier..
-
-Do not use the deprecated [GetGearByIDParams.Context] with this method: it would be ignored.
-*/
+// GetGearByIDContext gets equipment.
+//
+// Returns an equipment using its identifier..
+//
+// Do not use the deprecated [GetGearByIDParams.Context] with this method: it would be ignored.
 func (a *Client) GetGearByIDContext(ctx context.Context, params *GetGearByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGearByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {

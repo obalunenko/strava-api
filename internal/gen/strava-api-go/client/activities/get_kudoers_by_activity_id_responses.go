@@ -45,11 +45,9 @@ func NewGetKudoersByActivityIDOK() *GetKudoersByActivityIDOK {
 	return &GetKudoersByActivityIDOK{}
 }
 
-/*
-GetKudoersByActivityIDOK describes a response with status code 200, with default header values.
-
-Comments.
-*/
+// GetKudoersByActivityIDOK describes a response with status code 200, with default header values.
+//
+// Comments.
 type GetKudoersByActivityIDOK struct {
 	Payload []*models.SummaryAthlete
 }
@@ -115,11 +113,9 @@ func NewGetKudoersByActivityIDDefault(code int) *GetKudoersByActivityIDDefault {
 	}
 }
 
-/*
-GetKudoersByActivityIDDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetKudoersByActivityIDDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetKudoersByActivityIDDefault struct {
 	_statusCode int
 

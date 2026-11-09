@@ -4,6 +4,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	stderrors "errors"
 	"strconv"
 
@@ -19,6 +20,9 @@ import (
 // swagger:model detailedActivity
 type DetailedActivity struct {
 	DetailedActivityAllOf0
+
+	// The zone types available for this activity
+	AvailableZones []string `json:"available_zones"`
 
 	// best efforts
 	BestEfforts []*DetailedActivityAllOf1BestEffortsItems `json:"best_efforts"`
@@ -41,8 +45,14 @@ type DetailedActivity struct {
 	// laps
 	Laps []*DetailedActivityLapsItems0 `json:"laps"`
 
+	// The athlete's perceived exertion for this activity
+	PerceivedExertion float32 `json:"perceived_exertion,omitempty"`
+
 	// photos
 	Photos *PhotosSummary `json:"photos,omitempty"`
+
+	// Whether the athlete prefers perceived exertion over the calculated relative effort for this activity
+	PreferPerceivedExertion bool `json:"prefer_perceived_exertion,omitempty"`
 
 	// segment efforts
 	SegmentEfforts []*DetailedActivityAllOf1BestEffortsItems `json:"segment_efforts"`
@@ -52,6 +62,12 @@ type DetailedActivity struct {
 
 	// The splits of this activity in imperial units (for runs)
 	SplitsStandard []*Split `json:"splits_standard"`
+
+	// The visibility of this activity's sport image
+	SportImageVisibility string `json:"sport_image_visibility,omitempty"`
+
+	// The visibility of each statistic of this activity
+	StatsVisibility []*StatVisibility `json:"stats_visibility"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -65,6 +81,8 @@ func (m *DetailedActivity) UnmarshalJSON(raw []byte) error {
 
 	// AO1
 	var dataAO1 struct {
+		AvailableZones []string `json:"available_zones"`
+
 		BestEfforts []*DetailedActivityAllOf1BestEffortsItems `json:"best_efforts"`
 
 		Calories float32 `json:"calories,omitempty"`
@@ -79,17 +97,27 @@ func (m *DetailedActivity) UnmarshalJSON(raw []byte) error {
 
 		Laps []*DetailedActivityLapsItems0 `json:"laps"`
 
+		PerceivedExertion float32 `json:"perceived_exertion,omitempty"`
+
 		Photos *PhotosSummary `json:"photos,omitempty"`
+
+		PreferPerceivedExertion bool `json:"prefer_perceived_exertion,omitempty"`
 
 		SegmentEfforts []*DetailedActivityAllOf1BestEffortsItems `json:"segment_efforts"`
 
 		SplitsMetric []*Split `json:"splits_metric"`
 
 		SplitsStandard []*Split `json:"splits_standard"`
+
+		SportImageVisibility string `json:"sport_image_visibility,omitempty"`
+
+		StatsVisibility []*StatVisibility `json:"stats_visibility"`
 	}
 	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
+
+	m.AvailableZones = dataAO1.AvailableZones
 
 	m.BestEfforts = dataAO1.BestEfforts
 
@@ -105,13 +133,21 @@ func (m *DetailedActivity) UnmarshalJSON(raw []byte) error {
 
 	m.Laps = dataAO1.Laps
 
+	m.PerceivedExertion = dataAO1.PerceivedExertion
+
 	m.Photos = dataAO1.Photos
+
+	m.PreferPerceivedExertion = dataAO1.PreferPerceivedExertion
 
 	m.SegmentEfforts = dataAO1.SegmentEfforts
 
 	m.SplitsMetric = dataAO1.SplitsMetric
 
 	m.SplitsStandard = dataAO1.SplitsStandard
+
+	m.SportImageVisibility = dataAO1.SportImageVisibility
+
+	m.StatsVisibility = dataAO1.StatsVisibility
 
 	return nil
 }
@@ -126,6 +162,8 @@ func (m DetailedActivity) MarshalJSON() ([]byte, error) {
 	}
 	_parts = append(_parts, aO0)
 	var dataAO1 struct {
+		AvailableZones []string `json:"available_zones"`
+
 		BestEfforts []*DetailedActivityAllOf1BestEffortsItems `json:"best_efforts"`
 
 		Calories float32 `json:"calories,omitempty"`
@@ -140,14 +178,24 @@ func (m DetailedActivity) MarshalJSON() ([]byte, error) {
 
 		Laps []*DetailedActivityLapsItems0 `json:"laps"`
 
+		PerceivedExertion float32 `json:"perceived_exertion,omitempty"`
+
 		Photos *PhotosSummary `json:"photos,omitempty"`
+
+		PreferPerceivedExertion bool `json:"prefer_perceived_exertion,omitempty"`
 
 		SegmentEfforts []*DetailedActivityAllOf1BestEffortsItems `json:"segment_efforts"`
 
 		SplitsMetric []*Split `json:"splits_metric"`
 
 		SplitsStandard []*Split `json:"splits_standard"`
+
+		SportImageVisibility string `json:"sport_image_visibility,omitempty"`
+
+		StatsVisibility []*StatVisibility `json:"stats_visibility"`
 	}
+
+	dataAO1.AvailableZones = m.AvailableZones
 
 	dataAO1.BestEfforts = m.BestEfforts
 
@@ -163,13 +211,21 @@ func (m DetailedActivity) MarshalJSON() ([]byte, error) {
 
 	dataAO1.Laps = m.Laps
 
+	dataAO1.PerceivedExertion = m.PerceivedExertion
+
 	dataAO1.Photos = m.Photos
+
+	dataAO1.PreferPerceivedExertion = m.PreferPerceivedExertion
 
 	dataAO1.SegmentEfforts = m.SegmentEfforts
 
 	dataAO1.SplitsMetric = m.SplitsMetric
 
 	dataAO1.SplitsStandard = m.SplitsStandard
+
+	dataAO1.SportImageVisibility = m.SportImageVisibility
+
+	dataAO1.StatsVisibility = m.StatsVisibility
 
 	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {
@@ -213,6 +269,10 @@ func (m *DetailedActivity) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateSplitsStandard(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStatsVisibility(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -425,6 +485,37 @@ func (m *DetailedActivity) validateSplitsStandard(formats strfmt.Registry) error
 	return nil
 }
 
+func (m *DetailedActivity) validateStatsVisibility(formats strfmt.Registry) error {
+
+	if typeutils.IsZero(m.StatsVisibility) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.StatsVisibility); i++ {
+		if typeutils.IsZero(m.StatsVisibility[i]) { // not required
+			continue
+		}
+
+		if m.StatsVisibility[i] != nil {
+			if err := m.StatsVisibility[i].Validate(formats); err != nil {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
+					return ve.ValidateName("stats_visibility" + "." + strconv.Itoa(i))
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
+					return ce.ValidateName("stats_visibility" + "." + strconv.Itoa(i))
+				}
+
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 // ContextValidate validate this detailed activity based on the context it is used
 func (m *DetailedActivity) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -462,6 +553,10 @@ func (m *DetailedActivity) ContextValidate(ctx context.Context, formats strfmt.R
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateStatsVisibility(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -475,7 +570,7 @@ func (m *DetailedActivity) contextValidateBestEfforts(ctx context.Context, forma
 		if m.BestEfforts[i] != nil {
 
 			if typeutils.IsZero(m.BestEfforts[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.BestEfforts[i].ContextValidate(ctx, formats); err != nil {
@@ -529,7 +624,7 @@ func (m *DetailedActivity) contextValidateLaps(ctx context.Context, formats strf
 		if m.Laps[i] != nil {
 
 			if typeutils.IsZero(m.Laps[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.Laps[i].ContextValidate(ctx, formats); err != nil {
@@ -583,7 +678,7 @@ func (m *DetailedActivity) contextValidateSegmentEfforts(ctx context.Context, fo
 		if m.SegmentEfforts[i] != nil {
 
 			if typeutils.IsZero(m.SegmentEfforts[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.SegmentEfforts[i].ContextValidate(ctx, formats); err != nil {
@@ -612,7 +707,7 @@ func (m *DetailedActivity) contextValidateSplitsMetric(ctx context.Context, form
 		if m.SplitsMetric[i] != nil {
 
 			if typeutils.IsZero(m.SplitsMetric[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.SplitsMetric[i].ContextValidate(ctx, formats); err != nil {
@@ -641,7 +736,7 @@ func (m *DetailedActivity) contextValidateSplitsStandard(ctx context.Context, fo
 		if m.SplitsStandard[i] != nil {
 
 			if typeutils.IsZero(m.SplitsStandard[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.SplitsStandard[i].ContextValidate(ctx, formats); err != nil {
@@ -652,6 +747,35 @@ func (m *DetailedActivity) contextValidateSplitsStandard(ctx context.Context, fo
 				ce := new(errors.CompositeError)
 				if stderrors.As(err, &ce) {
 					return ce.ValidateName("splits_standard" + "." + strconv.Itoa(i))
+				}
+
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DetailedActivity) contextValidateStatsVisibility(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.StatsVisibility); i++ {
+
+		if m.StatsVisibility[i] != nil {
+
+			if typeutils.IsZero(m.StatsVisibility[i]) { // not required
+				continue
+			}
+
+			if err := m.StatsVisibility[i].ContextValidate(ctx, formats); err != nil {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
+					return ve.ValidateName("stats_visibility" + "." + strconv.Itoa(i))
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
+					return ce.ValidateName("stats_visibility" + "." + strconv.Itoa(i))
 				}
 
 				return err
@@ -687,6 +811,8 @@ func (m *DetailedActivity) UnmarshalBinary(b []byte) error {
 type DetailedActivityAllOf0 struct {
 	MetaActivity
 
+	HeartRateDetails
+
 	// The number of achievements gained during this activity
 	AchievementCount int64 `json:"achievement_count,omitempty"`
 
@@ -697,8 +823,14 @@ type DetailedActivityAllOf0 struct {
 	// Minimum: 1
 	AthleteCount int64 `json:"athlete_count,omitempty"`
 
+	// The activity's average cadence
+	AverageCadence float32 `json:"average_cadence,omitempty"`
+
 	// The activity's average speed, in meters per second
 	AverageSpeed float32 `json:"average_speed,omitempty"`
+
+	// The activity's average temperature, in degrees Celsius
+	AverageTemp float32 `json:"average_temp,omitempty"`
 
 	// Average power output in watts during this activity. Rides only
 	AverageWatts float32 `json:"average_watts,omitempty"`
@@ -772,6 +904,9 @@ type DetailedActivityAllOf0 struct {
 	// The number of Instagram photos for this activity
 	PhotoCount int64 `json:"photo_count,omitempty"`
 
+	// The number of personal records achieved during this activity
+	PrCount int64 `json:"pr_count,omitempty"`
+
 	// Whether this activity is private
 	Private bool `json:"private,omitempty"`
 
@@ -788,6 +923,12 @@ type DetailedActivityAllOf0 struct {
 
 	// start latlng
 	StartLatlng LatLng `json:"start_latlng,omitempty"`
+
+	// The activity's relative effort score
+	SufferScore float32 `json:"suffer_score,omitempty"`
+
+	// The activity tags currently applied to this activity
+	Tags []string `json:"tags"`
 
 	// The timezone of the activity
 	Timezone string `json:"timezone,omitempty"`
@@ -810,6 +951,9 @@ type DetailedActivityAllOf0 struct {
 	// The unique identifier of the upload in string format
 	UploadIDStr string `json:"upload_id_str,omitempty"`
 
+	// The offset of the activity's local time from UTC, in seconds
+	UtcOffset float32 `json:"utc_offset,omitempty"`
+
 	// Similar to Normalized Power. Rides with power meter data only
 	WeightedAverageWatts int64 `json:"weighted_average_watts,omitempty"`
 
@@ -827,14 +971,25 @@ func (m *DetailedActivityAllOf0) UnmarshalJSON(raw []byte) error {
 	m.MetaActivity = aO0
 
 	// AO1
-	var dataAO1 struct {
+	var aO1 HeartRateDetails
+	if err := jsonutils.ReadJSON(raw, &aO1); err != nil {
+		return err
+	}
+	m.HeartRateDetails = aO1
+
+	// AO2
+	var dataAO2 struct {
 		AchievementCount int64 `json:"achievement_count,omitempty"`
 
 		Athlete *MetaAthlete `json:"athlete,omitempty"`
 
 		AthleteCount int64 `json:"athlete_count,omitempty"`
 
+		AverageCadence float32 `json:"average_cadence,omitempty"`
+
 		AverageSpeed float32 `json:"average_speed,omitempty"`
+
+		AverageTemp float32 `json:"average_temp,omitempty"`
 
 		AverageWatts float32 `json:"average_watts,omitempty"`
 
@@ -884,6 +1039,8 @@ func (m *DetailedActivityAllOf0) UnmarshalJSON(raw []byte) error {
 
 		PhotoCount int64 `json:"photo_count,omitempty"`
 
+		PrCount int64 `json:"pr_count,omitempty"`
+
 		Private bool `json:"private,omitempty"`
 
 		SportType SportType `json:"sport_type,omitempty"`
@@ -893,6 +1050,10 @@ func (m *DetailedActivityAllOf0) UnmarshalJSON(raw []byte) error {
 		StartDateLocal strfmt.DateTime `json:"start_date_local,omitempty"`
 
 		StartLatlng LatLng `json:"start_latlng,omitempty"`
+
+		SufferScore float32 `json:"suffer_score,omitempty"`
+
+		Tags []string `json:"tags"`
 
 		Timezone string `json:"timezone,omitempty"`
 
@@ -908,118 +1069,142 @@ func (m *DetailedActivityAllOf0) UnmarshalJSON(raw []byte) error {
 
 		UploadIDStr string `json:"upload_id_str,omitempty"`
 
+		UtcOffset float32 `json:"utc_offset,omitempty"`
+
 		WeightedAverageWatts int64 `json:"weighted_average_watts,omitempty"`
 
 		WorkoutType int64 `json:"workout_type,omitempty"`
 	}
-	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
+	if err := jsonutils.ReadJSON(raw, &dataAO2); err != nil {
 		return err
 	}
 
-	m.AchievementCount = dataAO1.AchievementCount
+	m.AchievementCount = dataAO2.AchievementCount
 
-	m.Athlete = dataAO1.Athlete
+	m.Athlete = dataAO2.Athlete
 
-	m.AthleteCount = dataAO1.AthleteCount
+	m.AthleteCount = dataAO2.AthleteCount
 
-	m.AverageSpeed = dataAO1.AverageSpeed
+	m.AverageCadence = dataAO2.AverageCadence
 
-	m.AverageWatts = dataAO1.AverageWatts
+	m.AverageSpeed = dataAO2.AverageSpeed
 
-	m.CommentCount = dataAO1.CommentCount
+	m.AverageTemp = dataAO2.AverageTemp
 
-	m.Commute = dataAO1.Commute
+	m.AverageWatts = dataAO2.AverageWatts
 
-	m.DeviceName = dataAO1.DeviceName
+	m.CommentCount = dataAO2.CommentCount
 
-	m.DeviceWatts = dataAO1.DeviceWatts
+	m.Commute = dataAO2.Commute
 
-	m.Distance = dataAO1.Distance
+	m.DeviceName = dataAO2.DeviceName
 
-	m.ElapsedTime = dataAO1.ElapsedTime
+	m.DeviceWatts = dataAO2.DeviceWatts
 
-	m.ElevHigh = dataAO1.ElevHigh
+	m.Distance = dataAO2.Distance
 
-	m.ElevLow = dataAO1.ElevLow
+	m.ElapsedTime = dataAO2.ElapsedTime
 
-	m.EndLatlng = dataAO1.EndLatlng
+	m.ElevHigh = dataAO2.ElevHigh
 
-	m.ExternalID = dataAO1.ExternalID
+	m.ElevLow = dataAO2.ElevLow
 
-	m.Flagged = dataAO1.Flagged
+	m.EndLatlng = dataAO2.EndLatlng
 
-	m.GearID = dataAO1.GearID
+	m.ExternalID = dataAO2.ExternalID
 
-	m.HasKudoed = dataAO1.HasKudoed
+	m.Flagged = dataAO2.Flagged
 
-	m.HideFromHome = dataAO1.HideFromHome
+	m.GearID = dataAO2.GearID
 
-	m.Kilojoules = dataAO1.Kilojoules
+	m.HasKudoed = dataAO2.HasKudoed
 
-	m.KudosCount = dataAO1.KudosCount
+	m.HideFromHome = dataAO2.HideFromHome
 
-	m.Manual = dataAO1.Manual
+	m.Kilojoules = dataAO2.Kilojoules
 
-	m.Map = dataAO1.Map
+	m.KudosCount = dataAO2.KudosCount
 
-	m.MaxSpeed = dataAO1.MaxSpeed
+	m.Manual = dataAO2.Manual
 
-	m.MaxWatts = dataAO1.MaxWatts
+	m.Map = dataAO2.Map
 
-	m.MovingTime = dataAO1.MovingTime
+	m.MaxSpeed = dataAO2.MaxSpeed
 
-	m.Name = dataAO1.Name
+	m.MaxWatts = dataAO2.MaxWatts
 
-	m.PhotoCount = dataAO1.PhotoCount
+	m.MovingTime = dataAO2.MovingTime
 
-	m.Private = dataAO1.Private
+	m.Name = dataAO2.Name
 
-	m.SportType = dataAO1.SportType
+	m.PhotoCount = dataAO2.PhotoCount
 
-	m.StartDate = dataAO1.StartDate
+	m.PrCount = dataAO2.PrCount
 
-	m.StartDateLocal = dataAO1.StartDateLocal
+	m.Private = dataAO2.Private
 
-	m.StartLatlng = dataAO1.StartLatlng
+	m.SportType = dataAO2.SportType
 
-	m.Timezone = dataAO1.Timezone
+	m.StartDate = dataAO2.StartDate
 
-	m.TotalElevationGain = dataAO1.TotalElevationGain
+	m.StartDateLocal = dataAO2.StartDateLocal
 
-	m.TotalPhotoCount = dataAO1.TotalPhotoCount
+	m.StartLatlng = dataAO2.StartLatlng
 
-	m.Trainer = dataAO1.Trainer
+	m.SufferScore = dataAO2.SufferScore
 
-	m.Type = dataAO1.Type
+	m.Tags = dataAO2.Tags
 
-	m.UploadID = dataAO1.UploadID
+	m.Timezone = dataAO2.Timezone
 
-	m.UploadIDStr = dataAO1.UploadIDStr
+	m.TotalElevationGain = dataAO2.TotalElevationGain
 
-	m.WeightedAverageWatts = dataAO1.WeightedAverageWatts
+	m.TotalPhotoCount = dataAO2.TotalPhotoCount
 
-	m.WorkoutType = dataAO1.WorkoutType
+	m.Trainer = dataAO2.Trainer
+
+	m.Type = dataAO2.Type
+
+	m.UploadID = dataAO2.UploadID
+
+	m.UploadIDStr = dataAO2.UploadIDStr
+
+	m.UtcOffset = dataAO2.UtcOffset
+
+	m.WeightedAverageWatts = dataAO2.WeightedAverageWatts
+
+	m.WorkoutType = dataAO2.WorkoutType
 
 	return nil
 }
 
 // MarshalJSON marshals this object to a JSON structure
 func (m DetailedActivityAllOf0) MarshalJSON() ([]byte, error) {
-	_parts := make([][]byte, 0, 2)
+	_parts := make([][]byte, 0, 3)
 
 	aO0, err := jsonutils.WriteJSON(m.MetaActivity)
 	if err != nil {
 		return nil, err
 	}
 	_parts = append(_parts, aO0)
-	var dataAO1 struct {
+
+	aO1, err := jsonutils.WriteJSON(m.HeartRateDetails)
+	if err != nil {
+		return nil, err
+	}
+	_parts = append(_parts, aO1)
+	var dataAO2 struct {
 		AchievementCount int64 `json:"achievement_count,omitempty"`
 
 		Athlete *MetaAthlete `json:"athlete,omitempty"`
 
 		AthleteCount int64 `json:"athlete_count,omitempty"`
 
+		AverageCadence float32 `json:"average_cadence,omitempty"`
+
 		AverageSpeed float32 `json:"average_speed,omitempty"`
+
+		AverageTemp float32 `json:"average_temp,omitempty"`
 
 		AverageWatts float32 `json:"average_watts,omitempty"`
 
@@ -1069,6 +1254,8 @@ func (m DetailedActivityAllOf0) MarshalJSON() ([]byte, error) {
 
 		PhotoCount int64 `json:"photo_count,omitempty"`
 
+		PrCount int64 `json:"pr_count,omitempty"`
+
 		Private bool `json:"private,omitempty"`
 
 		SportType SportType `json:"sport_type,omitempty"`
@@ -1078,6 +1265,10 @@ func (m DetailedActivityAllOf0) MarshalJSON() ([]byte, error) {
 		StartDateLocal strfmt.DateTime `json:"start_date_local,omitempty"`
 
 		StartLatlng LatLng `json:"start_latlng,omitempty"`
+
+		SufferScore float32 `json:"suffer_score,omitempty"`
+
+		Tags []string `json:"tags"`
 
 		Timezone string `json:"timezone,omitempty"`
 
@@ -1093,100 +1284,114 @@ func (m DetailedActivityAllOf0) MarshalJSON() ([]byte, error) {
 
 		UploadIDStr string `json:"upload_id_str,omitempty"`
 
+		UtcOffset float32 `json:"utc_offset,omitempty"`
+
 		WeightedAverageWatts int64 `json:"weighted_average_watts,omitempty"`
 
 		WorkoutType int64 `json:"workout_type,omitempty"`
 	}
 
-	dataAO1.AchievementCount = m.AchievementCount
+	dataAO2.AchievementCount = m.AchievementCount
 
-	dataAO1.Athlete = m.Athlete
+	dataAO2.Athlete = m.Athlete
 
-	dataAO1.AthleteCount = m.AthleteCount
+	dataAO2.AthleteCount = m.AthleteCount
 
-	dataAO1.AverageSpeed = m.AverageSpeed
+	dataAO2.AverageCadence = m.AverageCadence
 
-	dataAO1.AverageWatts = m.AverageWatts
+	dataAO2.AverageSpeed = m.AverageSpeed
 
-	dataAO1.CommentCount = m.CommentCount
+	dataAO2.AverageTemp = m.AverageTemp
 
-	dataAO1.Commute = m.Commute
+	dataAO2.AverageWatts = m.AverageWatts
 
-	dataAO1.DeviceName = m.DeviceName
+	dataAO2.CommentCount = m.CommentCount
 
-	dataAO1.DeviceWatts = m.DeviceWatts
+	dataAO2.Commute = m.Commute
 
-	dataAO1.Distance = m.Distance
+	dataAO2.DeviceName = m.DeviceName
 
-	dataAO1.ElapsedTime = m.ElapsedTime
+	dataAO2.DeviceWatts = m.DeviceWatts
 
-	dataAO1.ElevHigh = m.ElevHigh
+	dataAO2.Distance = m.Distance
 
-	dataAO1.ElevLow = m.ElevLow
+	dataAO2.ElapsedTime = m.ElapsedTime
 
-	dataAO1.EndLatlng = m.EndLatlng
+	dataAO2.ElevHigh = m.ElevHigh
 
-	dataAO1.ExternalID = m.ExternalID
+	dataAO2.ElevLow = m.ElevLow
 
-	dataAO1.Flagged = m.Flagged
+	dataAO2.EndLatlng = m.EndLatlng
 
-	dataAO1.GearID = m.GearID
+	dataAO2.ExternalID = m.ExternalID
 
-	dataAO1.HasKudoed = m.HasKudoed
+	dataAO2.Flagged = m.Flagged
 
-	dataAO1.HideFromHome = m.HideFromHome
+	dataAO2.GearID = m.GearID
 
-	dataAO1.Kilojoules = m.Kilojoules
+	dataAO2.HasKudoed = m.HasKudoed
 
-	dataAO1.KudosCount = m.KudosCount
+	dataAO2.HideFromHome = m.HideFromHome
 
-	dataAO1.Manual = m.Manual
+	dataAO2.Kilojoules = m.Kilojoules
 
-	dataAO1.Map = m.Map
+	dataAO2.KudosCount = m.KudosCount
 
-	dataAO1.MaxSpeed = m.MaxSpeed
+	dataAO2.Manual = m.Manual
 
-	dataAO1.MaxWatts = m.MaxWatts
+	dataAO2.Map = m.Map
 
-	dataAO1.MovingTime = m.MovingTime
+	dataAO2.MaxSpeed = m.MaxSpeed
 
-	dataAO1.Name = m.Name
+	dataAO2.MaxWatts = m.MaxWatts
 
-	dataAO1.PhotoCount = m.PhotoCount
+	dataAO2.MovingTime = m.MovingTime
 
-	dataAO1.Private = m.Private
+	dataAO2.Name = m.Name
 
-	dataAO1.SportType = m.SportType
+	dataAO2.PhotoCount = m.PhotoCount
 
-	dataAO1.StartDate = m.StartDate
+	dataAO2.PrCount = m.PrCount
 
-	dataAO1.StartDateLocal = m.StartDateLocal
+	dataAO2.Private = m.Private
 
-	dataAO1.StartLatlng = m.StartLatlng
+	dataAO2.SportType = m.SportType
 
-	dataAO1.Timezone = m.Timezone
+	dataAO2.StartDate = m.StartDate
 
-	dataAO1.TotalElevationGain = m.TotalElevationGain
+	dataAO2.StartDateLocal = m.StartDateLocal
 
-	dataAO1.TotalPhotoCount = m.TotalPhotoCount
+	dataAO2.StartLatlng = m.StartLatlng
 
-	dataAO1.Trainer = m.Trainer
+	dataAO2.SufferScore = m.SufferScore
 
-	dataAO1.Type = m.Type
+	dataAO2.Tags = m.Tags
 
-	dataAO1.UploadID = m.UploadID
+	dataAO2.Timezone = m.Timezone
 
-	dataAO1.UploadIDStr = m.UploadIDStr
+	dataAO2.TotalElevationGain = m.TotalElevationGain
 
-	dataAO1.WeightedAverageWatts = m.WeightedAverageWatts
+	dataAO2.TotalPhotoCount = m.TotalPhotoCount
 
-	dataAO1.WorkoutType = m.WorkoutType
+	dataAO2.Trainer = m.Trainer
 
-	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
-	if errAO1 != nil {
-		return nil, errAO1
+	dataAO2.Type = m.Type
+
+	dataAO2.UploadID = m.UploadID
+
+	dataAO2.UploadIDStr = m.UploadIDStr
+
+	dataAO2.UtcOffset = m.UtcOffset
+
+	dataAO2.WeightedAverageWatts = m.WeightedAverageWatts
+
+	dataAO2.WorkoutType = m.WorkoutType
+
+	jsonDataAO2, errAO2 := jsonutils.WriteJSON(dataAO2)
+	if errAO2 != nil {
+		return nil, errAO2
 	}
-	_parts = append(_parts, jsonDataAO1)
+	_parts = append(_parts, jsonDataAO2)
 	return jsonutils.ConcatJSON(_parts...), nil
 }
 
@@ -1196,6 +1401,10 @@ func (m *DetailedActivityAllOf0) Validate(formats strfmt.Registry) error {
 
 	// validation for a type composition with MetaActivity
 	if err := m.MetaActivity.Validate(formats); err != nil {
+		res = append(res, err)
+	}
+	// validation for a type composition with HeartRateDetails
+	if err := m.HeartRateDetails.Validate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -1228,6 +1437,10 @@ func (m *DetailedActivityAllOf0) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateStartLatlng(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTags(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -1394,6 +1607,61 @@ func (m *DetailedActivityAllOf0) validateStartLatlng(formats strfmt.Registry) er
 	return nil
 }
 
+const (
+
+	// DetailedActivityAllOf0TagsItemsWithPet captures enum value "WithPet"
+	DetailedActivityAllOf0TagsItemsWithPet string = "WithPet"
+
+	// DetailedActivityAllOf0TagsItemsRecovery captures enum value "Recovery"
+	DetailedActivityAllOf0TagsItemsRecovery string = "Recovery"
+
+	// DetailedActivityAllOf0TagsItemsCompetition captures enum value "Competition"
+	DetailedActivityAllOf0TagsItemsCompetition string = "Competition"
+
+	// DetailedActivityAllOf0TagsItemsForACause captures enum value "ForACause"
+	DetailedActivityAllOf0TagsItemsForACause string = "ForACause"
+
+	// DetailedActivityAllOf0TagsItemsCommute captures enum value "Commute"
+	DetailedActivityAllOf0TagsItemsCommute string = "Commute"
+)
+
+var detailedActivityAllOf0TagsItemsEnum []any
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["WithPet","Recovery","Competition","ForACause","Commute"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		detailedActivityAllOf0TagsItemsEnum = append(detailedActivityAllOf0TagsItemsEnum, v)
+	}
+}
+
+func (m *DetailedActivityAllOf0) validateTagsItemsEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, detailedActivityAllOf0TagsItemsEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *DetailedActivityAllOf0) validateTags(formats strfmt.Registry) error {
+
+	if typeutils.IsZero(m.Tags) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Tags); i++ {
+
+		// value enum
+		if err := m.validateTagsItemsEnum("tags"+"."+strconv.Itoa(i), "body", m.Tags[i]); err != nil {
+			return err
+		}
+
+	}
+
+	return nil
+}
+
 func (m *DetailedActivityAllOf0) validateType(formats strfmt.Registry) error {
 
 	if typeutils.IsZero(m.Type) { // not required
@@ -1422,6 +1690,10 @@ func (m *DetailedActivityAllOf0) ContextValidate(ctx context.Context, formats st
 
 	// validation for a type composition with MetaActivity
 	if err := m.MetaActivity.ContextValidate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+	// validation for a type composition with HeartRateDetails
+	if err := m.HeartRateDetails.ContextValidate(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -1617,8 +1889,17 @@ type DetailedActivityLapsItems0 struct {
 	// The lap's average cadence
 	AverageCadence float32 `json:"average_cadence,omitempty"`
 
+	// The average heart rate of the athlete during this lap
+	AverageHeartrate float32 `json:"average_heartrate,omitempty"`
+
 	// The lap's average speed
 	AverageSpeed float32 `json:"average_speed,omitempty"`
+
+	// The average wattage of this lap
+	AverageWatts float32 `json:"average_watts,omitempty"`
+
+	// Whether the watts are from a power meter, false if estimated
+	DeviceWatts bool `json:"device_watts,omitempty"`
 
 	// The lap's distance, in meters
 	Distance float32 `json:"distance,omitempty"`
@@ -1634,6 +1915,9 @@ type DetailedActivityLapsItems0 struct {
 
 	// The index of this lap in the activity it belongs to
 	LapIndex int64 `json:"lap_index,omitempty"`
+
+	// The maximum heart rate of the athlete during this lap
+	MaxHeartrate float32 `json:"max_heartrate,omitempty"`
 
 	// The maximum speed of this lat, in meters per second
 	MaxSpeed float32 `json:"max_speed,omitempty"`

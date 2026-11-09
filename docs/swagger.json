@@ -22,6 +22,9 @@
         ],
         "summary": "Create an Activity",
         "operationId": "createActivity",
+        "consumes": [
+          "multipart/form-data"
+        ],
         "parameters": [
           {
             "type": "string",
@@ -81,6 +84,36 @@
             "type": "integer",
             "description": "Set to 1 to mark as commute.",
             "name": "commute",
+            "in": "formData"
+          },
+          {
+            "type": "boolean",
+            "description": "Activity tag: true adds the WithPet tag, false removes it. Cannot be combined with the legacy commute param in the same request.",
+            "name": "tags[WithPet]",
+            "in": "formData"
+          },
+          {
+            "type": "boolean",
+            "description": "Activity tag: true adds the Recovery tag, false removes it. Cannot be combined with the legacy commute param in the same request.",
+            "name": "tags[Recovery]",
+            "in": "formData"
+          },
+          {
+            "type": "boolean",
+            "description": "Activity tag: true adds the Competition tag, false removes it. Cannot be combined with the legacy commute param in the same request.",
+            "name": "tags[Competition]",
+            "in": "formData"
+          },
+          {
+            "type": "boolean",
+            "description": "Activity tag: true adds the ForACause tag, false removes it. Cannot be combined with the legacy commute param in the same request.",
+            "name": "tags[ForACause]",
+            "in": "formData"
+          },
+          {
+            "type": "boolean",
+            "description": "Activity tag: true adds the Commute tag, false removes it. Cannot be combined with the legacy commute param in the same request.",
+            "name": "tags[Commute]",
             "in": "formData"
           }
         ],
@@ -1052,7 +1085,7 @@
             "format": "float",
             "description": "The weight of the athlete in kilograms.",
             "name": "weight",
-            "in": "path",
+            "in": "formData",
             "required": true
           }
         ],
@@ -1605,197 +1638,6 @@
         }
       }
     },
-    "/clubs/{id}/activities": {
-      "get": {
-        "description": "Retrieve recent activities from members of a specific club. The authenticated athlete must belong to the requested club in order to hit this endpoint. Pagination is supported. Athlete profile visibility is respected for all activities.",
-        "tags": [
-          "Clubs"
-        ],
-        "summary": "List Club Activities",
-        "operationId": "getClubActivitiesById",
-        "parameters": [
-          {
-            "type": "integer",
-            "format": "int64",
-            "description": "The identifier of the club.",
-            "name": "id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "type": "integer",
-            "description": "Page number. Defaults to 1.",
-            "name": "page",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "default": 30,
-            "description": "Number of items per page. Defaults to 30.",
-            "name": "per_page",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A list of activities.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/clubActivity"
-              }
-            },
-            "examples": {
-              "application/json": [
-                {
-                  "athlete": {
-                    "firstname": "Peter",
-                    "lastname": "S.",
-                    "resource_state": 2
-                  },
-                  "distance": 2641.7,
-                  "elapsed_time": 635,
-                  "moving_time": 577,
-                  "name": "World Championship",
-                  "resource_state": 2,
-                  "sport_type": "MountainBikeRide",
-                  "total_elevation_gain": 8.8,
-                  "type": "Ride",
-                  "workout_type": null
-                }
-              ]
-            }
-          },
-          "default": {
-            "description": "Unexpected error.",
-            "schema": {
-              "$ref": "#/definitions/fault"
-            }
-          }
-        }
-      }
-    },
-    "/clubs/{id}/admins": {
-      "get": {
-        "description": "Returns a list of the administrators of a given club.",
-        "tags": [
-          "Clubs"
-        ],
-        "summary": "List Club Administrators",
-        "operationId": "getClubAdminsById",
-        "parameters": [
-          {
-            "type": "integer",
-            "format": "int64",
-            "description": "The identifier of the club.",
-            "name": "id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "type": "integer",
-            "description": "Page number. Defaults to 1.",
-            "name": "page",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "default": 30,
-            "description": "Number of items per page. Defaults to 30.",
-            "name": "per_page",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A list of summary athlete representations.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/summaryAthlete"
-              }
-            },
-            "examples": {
-              "application/json": [
-                {
-                  "firstname": "Peter",
-                  "lastname": "S.",
-                  "resource_state": 2
-                }
-              ]
-            }
-          },
-          "default": {
-            "description": "Unexpected error.",
-            "schema": {
-              "$ref": "#/definitions/fault"
-            }
-          }
-        }
-      }
-    },
-    "/clubs/{id}/members": {
-      "get": {
-        "description": "Returns a list of the athletes who are members of a given club.",
-        "tags": [
-          "Clubs"
-        ],
-        "summary": "List Club Members",
-        "operationId": "getClubMembersById",
-        "parameters": [
-          {
-            "type": "integer",
-            "format": "int64",
-            "description": "The identifier of the club.",
-            "name": "id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "type": "integer",
-            "description": "Page number. Defaults to 1.",
-            "name": "page",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "default": 30,
-            "description": "Number of items per page. Defaults to 30.",
-            "name": "per_page",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A list of club athlete representations.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/clubAthlete"
-              }
-            },
-            "examples": {
-              "application/json": [
-                {
-                  "admin": false,
-                  "firstname": "Peter",
-                  "lastname": "S.",
-                  "membership": "member",
-                  "owner": false,
-                  "resource_state": 2
-                }
-              ]
-            }
-          },
-          "default": {
-            "description": "Unexpected error.",
-            "schema": {
-              "$ref": "#/definitions/fault"
-            }
-          }
-        }
-      }
-    },
     "/gear/{id}": {
       "get": {
         "description": "Returns an equipment using its identifier.",
@@ -2316,7 +2158,7 @@
     },
     "/segments/explore": {
       "get": {
-        "description": "Returns the top 10 segments matching a specified query.",
+        "description": "Returns the top 10 segments matching a specified query. Available only to Extended Access Tier apps with granted permission.",
         "tags": [
           "Segments"
         ],
@@ -2798,6 +2640,36 @@
             "in": "formData"
           },
           {
+            "type": "boolean",
+            "description": "Activity tag on the resulting activity: true adds the WithPet tag, false removes it. Cannot be combined with the legacy commute param in the same request.",
+            "name": "tags[WithPet]",
+            "in": "formData"
+          },
+          {
+            "type": "boolean",
+            "description": "Activity tag on the resulting activity: true adds the Recovery tag, false removes it. Cannot be combined with the legacy commute param in the same request.",
+            "name": "tags[Recovery]",
+            "in": "formData"
+          },
+          {
+            "type": "boolean",
+            "description": "Activity tag on the resulting activity: true adds the Competition tag, false removes it. Cannot be combined with the legacy commute param in the same request.",
+            "name": "tags[Competition]",
+            "in": "formData"
+          },
+          {
+            "type": "boolean",
+            "description": "Activity tag on the resulting activity: true adds the ForACause tag, false removes it. Cannot be combined with the legacy commute param in the same request.",
+            "name": "tags[ForACause]",
+            "in": "formData"
+          },
+          {
+            "type": "boolean",
+            "description": "Activity tag on the resulting activity: true adds the Commute tag, false removes it. Cannot be combined with the legacy commute param in the same request.",
+            "name": "tags[Commute]",
+            "in": "formData"
+          },
+          {
             "enum": [
               "fit",
               "fit.gz",
@@ -3082,75 +2954,6 @@
         }
       ]
     },
-    "clubActivity": {
-      "type": "object",
-      "properties": {
-        "athlete": {
-          "$ref": "#/definitions/metaAthlete"
-        },
-        "distance": {
-          "description": "The activity's distance, in meters",
-          "type": "number",
-          "format": "float"
-        },
-        "elapsed_time": {
-          "description": "The activity's elapsed time, in seconds",
-          "type": "integer"
-        },
-        "moving_time": {
-          "description": "The activity's moving time, in seconds",
-          "type": "integer"
-        },
-        "name": {
-          "description": "The name of the activity",
-          "type": "string"
-        },
-        "sport_type": {
-          "$ref": "#/definitions/sportType"
-        },
-        "total_elevation_gain": {
-          "description": "The activity's total elevation gain.",
-          "type": "number",
-          "format": "float"
-        },
-        "type": {
-          "$ref": "#/definitions/activityType"
-        },
-        "workout_type": {
-          "description": "The activity's workout type",
-          "type": "integer"
-        }
-      }
-    },
-    "clubAthlete": {
-      "type": "object",
-      "properties": {
-        "admin": {
-          "description": "Whether the athlete is a club admin.",
-          "type": "boolean"
-        },
-        "firstname": {
-          "description": "The athlete's first name.",
-          "type": "string"
-        },
-        "lastname": {
-          "description": "The athlete's last initial.",
-          "type": "string"
-        },
-        "member": {
-          "description": "The athlete's member status.",
-          "type": "string"
-        },
-        "owner": {
-          "description": "Whether the athlete is club owner.",
-          "type": "boolean"
-        },
-        "resource_state": {
-          "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
-          "type": "integer"
-        }
-      }
-    },
     "comment": {
       "type": "object",
       "properties": {
@@ -3166,6 +2969,10 @@
           "description": "The time at which this comment was created.",
           "type": "string",
           "format": "date-time"
+        },
+        "cursor": {
+          "description": "The cursor of this comment, passed as after_cursor to fetch the next page of comments",
+          "type": "string"
         },
         "id": {
           "description": "The unique identifier of this comment",
@@ -3256,6 +3063,9 @@
               "$ref": "#/definitions/metaActivity"
             },
             {
+              "$ref": "#/definitions/heartRateDetails"
+            },
+            {
               "properties": {
                 "achievement_count": {
                   "description": "The number of achievements gained during this activity",
@@ -3269,8 +3079,18 @@
                   "type": "integer",
                   "minimum": 1
                 },
+                "average_cadence": {
+                  "description": "The activity's average cadence",
+                  "type": "number",
+                  "format": "float"
+                },
                 "average_speed": {
                   "description": "The activity's average speed, in meters per second",
+                  "type": "number",
+                  "format": "float"
+                },
+                "average_temp": {
+                  "description": "The activity's average temperature, in degrees Celsius",
                   "type": "number",
                   "format": "float"
                 },
@@ -3374,6 +3194,10 @@
                   "description": "The number of Instagram photos for this activity",
                   "type": "integer"
                 },
+                "pr_count": {
+                  "description": "The number of personal records achieved during this activity",
+                  "type": "integer"
+                },
                 "private": {
                   "description": "Whether this activity is private",
                   "type": "boolean"
@@ -3393,6 +3217,25 @@
                 },
                 "start_latlng": {
                   "$ref": "#/definitions/latLng"
+                },
+                "suffer_score": {
+                  "description": "The activity's relative effort score",
+                  "type": "number",
+                  "format": "float"
+                },
+                "tags": {
+                  "description": "The activity tags currently applied to this activity",
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "WithPet",
+                      "Recovery",
+                      "Competition",
+                      "ForACause",
+                      "Commute"
+                    ]
+                  }
                 },
                 "timezone": {
                   "description": "The timezone of the activity",
@@ -3423,6 +3266,11 @@
                   "description": "The unique identifier of the upload in string format",
                   "type": "string"
                 },
+                "utc_offset": {
+                  "description": "The offset of the activity's local time from UTC, in seconds",
+                  "type": "number",
+                  "format": "float"
+                },
                 "weighted_average_watts": {
                   "description": "Similar to Normalized Power. Rides with power meter data only",
                   "type": "integer"
@@ -3437,6 +3285,13 @@
         },
         {
           "properties": {
+            "available_zones": {
+              "description": "The zone types available for this activity",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
             "best_efforts": {
               "type": "array",
               "items": {
@@ -3479,10 +3334,24 @@
                     "type": "number",
                     "format": "float"
                   },
+                  "average_heartrate": {
+                    "description": "The average heart rate of the athlete during this lap",
+                    "type": "number",
+                    "format": "float"
+                  },
                   "average_speed": {
                     "description": "The lap's average speed",
                     "type": "number",
                     "format": "float"
+                  },
+                  "average_watts": {
+                    "description": "The average wattage of this lap",
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "device_watts": {
+                    "description": "Whether the watts are from a power meter, false if estimated",
+                    "type": "boolean"
                   },
                   "distance": {
                     "description": "The lap's distance, in meters",
@@ -3505,6 +3374,11 @@
                   "lap_index": {
                     "description": "The index of this lap in the activity it belongs to",
                     "type": "integer"
+                  },
+                  "max_heartrate": {
+                    "description": "The maximum heart rate of the athlete during this lap",
+                    "type": "number",
+                    "format": "float"
                   },
                   "max_speed": {
                     "description": "The maximum speed of this lat, in meters per second",
@@ -3548,8 +3422,17 @@
                 }
               }
             },
+            "perceived_exertion": {
+              "description": "The athlete's perceived exertion for this activity",
+              "type": "number",
+              "format": "float"
+            },
             "photos": {
               "$ref": "#/definitions/photosSummary"
+            },
+            "prefer_perceived_exertion": {
+              "description": "Whether the athlete prefers perceived exertion over the calculated relative effort for this activity",
+              "type": "boolean"
             },
             "segment_efforts": {
               "type": "array",
@@ -3569,6 +3452,17 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/split"
+              }
+            },
+            "sport_image_visibility": {
+              "description": "The visibility of this activity's sport image",
+              "type": "string"
+            },
+            "stats_visibility": {
+              "description": "The visibility of each statistic of this activity",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/statVisibility"
               }
             }
           }
@@ -3659,6 +3553,14 @@
         },
         {
           "properties": {
+            "athlete_type": {
+              "description": "The athlete's type",
+              "type": "integer"
+            },
+            "badge_type_id": {
+              "description": "The identifier of the athlete's badge type",
+              "type": "integer"
+            },
             "bikes": {
               "description": "The athlete's bikes.",
               "type": "array",
@@ -3666,16 +3568,40 @@
                 "$ref": "#/definitions/summaryGear"
               }
             },
+            "bio": {
+              "description": "The athlete's biography",
+              "type": "string"
+            },
+            "blocked": {
+              "description": "Whether this athlete is blocked",
+              "type": "boolean"
+            },
+            "can_follow": {
+              "description": "Whether the logged-in athlete can follow this athlete",
+              "type": "boolean"
+            },
             "clubs": {
               "description": "The athlete's clubs.",
               "type": "array",
               "items": {
-                "$ref": "#/definitions/detailedClubAllOf0"
+                "$ref": "#/definitions/detailedClub"
               }
+            },
+            "date_preference": {
+              "description": "The athlete's preferred date format",
+              "type": "string"
+            },
+            "follower": {
+              "description": "This athlete's following status of the logged-in athlete",
+              "type": "string"
             },
             "follower_count": {
               "description": "The athlete's follower count.",
               "type": "integer"
+            },
+            "friend": {
+              "description": "The logged-in athlete's following status of this athlete",
+              "type": "string"
             },
             "friend_count": {
               "description": "The athlete's friend count.",
@@ -3693,12 +3619,24 @@
                 "meters"
               ]
             },
+            "mutual_friend_count": {
+              "description": "The number of athletes followed by both this athlete and the logged-in athlete",
+              "type": "integer"
+            },
+            "postable_clubs_count": {
+              "description": "The number of clubs this athlete can post to",
+              "type": "integer"
+            },
             "shoes": {
               "description": "The athlete's shoes.",
               "type": "array",
               "items": {
                 "$ref": "#/definitions/summaryGear"
               }
+            },
+            "username": {
+              "description": "The athlete's username",
+              "type": "string"
             },
             "weight": {
               "description": "The athlete's weight.",
@@ -3754,6 +3692,10 @@
                 "$ref": "#/definitions/activityType"
               }
             },
+            "activity_types_icon": {
+              "description": "The name of the icon for the club's activity types",
+              "type": "string"
+            },
             "city": {
               "description": "The club's city.",
               "type": "string"
@@ -3770,9 +3712,20 @@
               "description": "URL to a ~360x176  pixel cover photo.",
               "type": "string"
             },
+            "dimensions": {
+              "description": "The dimensions of this club's leaderboard",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
             "featured": {
               "description": "Whether the club is featured or not.",
               "type": "boolean"
+            },
+            "localized_sport_type": {
+              "description": "The localized name of the club's sport type",
+              "type": "string"
             },
             "member_count": {
               "description": "The club's member count.",
@@ -3781,6 +3734,10 @@
             "private": {
               "description": "Whether the club is private.",
               "type": "boolean"
+            },
+            "profile": {
+              "description": "URL to the club's profile picture",
+              "type": "string"
             },
             "profile_medium": {
               "description": "URL to a 60x60 pixel profile picture.",
@@ -3952,6 +3909,10 @@
         },
         "private": {
           "description": "Whether this segment is private.",
+          "type": "boolean"
+        },
+        "starred": {
+          "description": "Whether this segment is starred by the logged-in athlete",
           "type": "boolean"
         },
         "start_latlng": {
@@ -4140,6 +4101,10 @@
           "description": "The polyline of the segment",
           "type": "string"
         },
+        "starred": {
+          "description": "Whether this segment is starred by the logged-in athlete",
+          "type": "boolean"
+        },
         "start_latlng": {
           "$ref": "#/definitions/latLng"
         }
@@ -4206,10 +4171,24 @@
           "type": "number",
           "format": "float"
         },
+        "average_heartrate": {
+          "description": "The average heart rate of the athlete during this lap",
+          "type": "number",
+          "format": "float"
+        },
         "average_speed": {
           "description": "The lap's average speed",
           "type": "number",
           "format": "float"
+        },
+        "average_watts": {
+          "description": "The average wattage of this lap",
+          "type": "number",
+          "format": "float"
+        },
+        "device_watts": {
+          "description": "Whether the watts are from a power meter, false if estimated",
+          "type": "boolean"
         },
         "distance": {
           "description": "The lap's distance, in meters",
@@ -4232,6 +4211,11 @@
         "lap_index": {
           "description": "The index of this lap in the activity it belongs to",
           "type": "integer"
+        },
+        "max_heartrate": {
+          "description": "The maximum heart rate of the athlete during this lap",
+          "type": "number",
+          "format": "float"
         },
         "max_speed": {
           "description": "The maximum speed of this lat, in meters per second",
@@ -4309,6 +4293,10 @@
           "description": "The unique identifier of the activity",
           "type": "integer",
           "format": "int64"
+        },
+        "visibility": {
+          "description": "The visibility of the activity",
+          "type": "string"
         }
       }
     },
@@ -4492,7 +4480,7 @@
           "type": "boolean"
         },
         "sub_type": {
-          "description": "This route's sub-type (1 for road, 2 for mountain bike, 3 for cross, 4 for trail, 5 for mixed)",
+          "description": "This route's sub-type (1 = Road, 2 = MTB, 3 = Gravel, 4 = Trail, 5 = Mixed)",
           "type": "integer"
         },
         "timestamp": {
@@ -4500,7 +4488,7 @@
           "type": "integer"
         },
         "type": {
-          "description": "This route's type (1 for ride, 2 for runs)",
+          "description": "This route's type (1 = Ride, 2 = Run, 3 = Walk, 4 = Hike, 5 = Trail Run, 6 = Gravel Ride, 7 = Mountain Bike Ride)",
           "type": "integer"
         },
         "updated_at": {
@@ -4559,6 +4547,16 @@
     "split": {
       "type": "object",
       "properties": {
+        "average_grade_adjusted_speed": {
+          "description": "The average grade-adjusted speed of this split, in meters per second",
+          "type": "number",
+          "format": "float"
+        },
+        "average_heartrate": {
+          "description": "The average heart rate of the athlete during this split",
+          "type": "number",
+          "format": "float"
+        },
         "average_speed": {
           "description": "The average speed of this split, in meters per second",
           "type": "number",
@@ -4714,8 +4712,18 @@
               "type": "integer",
               "minimum": 1
             },
+            "average_cadence": {
+              "description": "The activity's average cadence",
+              "type": "number",
+              "format": "float"
+            },
             "average_speed": {
               "description": "The activity's average speed, in meters per second",
+              "type": "number",
+              "format": "float"
+            },
+            "average_temp": {
+              "description": "The activity's average temperature, in degrees Celsius",
               "type": "number",
               "format": "float"
             },
@@ -4819,6 +4827,10 @@
               "description": "The number of Instagram photos for this activity",
               "type": "integer"
             },
+            "pr_count": {
+              "description": "The number of personal records achieved during this activity",
+              "type": "integer"
+            },
             "private": {
               "description": "Whether this activity is private",
               "type": "boolean"
@@ -4838,6 +4850,25 @@
             },
             "start_latlng": {
               "$ref": "#/definitions/latLng"
+            },
+            "suffer_score": {
+              "description": "The activity's relative effort score",
+              "type": "number",
+              "format": "float"
+            },
+            "tags": {
+              "description": "The activity tags currently applied to this activity",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "WithPet",
+                  "Recovery",
+                  "Competition",
+                  "ForACause",
+                  "Commute"
+                ]
+              }
             },
             "timezone": {
               "description": "The timezone of the activity",
@@ -4867,6 +4898,11 @@
             "upload_id_str": {
               "description": "The unique identifier of the upload in string format",
               "type": "string"
+            },
+            "utc_offset": {
+              "description": "The offset of the activity's local time from UTC, in seconds",
+              "type": "number",
+              "format": "float"
             },
             "weighted_average_watts": {
               "description": "Similar to Normalized Power. Rides with power meter data only",
@@ -4963,6 +4999,10 @@
                 "$ref": "#/definitions/activityType"
               }
             },
+            "activity_types_icon": {
+              "description": "The name of the icon for the club's activity types",
+              "type": "string"
+            },
             "city": {
               "description": "The club's city.",
               "type": "string"
@@ -4979,9 +5019,20 @@
               "description": "URL to a ~360x176  pixel cover photo.",
               "type": "string"
             },
+            "dimensions": {
+              "description": "The dimensions of this club's leaderboard",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
             "featured": {
               "description": "Whether the club is featured or not.",
               "type": "boolean"
+            },
+            "localized_sport_type": {
+              "description": "The localized name of the club's sport type",
+              "type": "string"
             },
             "member_count": {
               "description": "The club's member count.",
@@ -4990,6 +5041,10 @@
             "private": {
               "description": "Whether the club is private.",
               "type": "boolean"
+            },
+            "profile": {
+              "description": "URL to the club's profile picture",
+              "type": "string"
             },
             "profile_medium": {
               "description": "URL to a 60x60 pixel profile picture.",
@@ -5024,6 +5079,11 @@
     "summaryGear": {
       "type": "object",
       "properties": {
+        "converted_distance": {
+          "description": "The distance logged with this gear, in the athlete's preferred units",
+          "type": "number",
+          "format": "float"
+        },
         "distance": {
           "description": "The distance logged with this gear.",
           "type": "number",
@@ -5037,6 +5097,10 @@
           "description": "The gear's name.",
           "type": "string"
         },
+        "nickname": {
+          "description": "The gear's nickname",
+          "type": "string"
+        },
         "primary": {
           "description": "Whether this gear's is the owner's default one.",
           "type": "boolean"
@@ -5044,6 +5108,10 @@
         "resource_state": {
           "description": "Resource state, indicates level of detail. Possible values: 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
           "type": "integer"
+        },
+        "retired": {
+          "description": "Whether this gear is retired",
+          "type": "boolean"
         }
       }
     },
@@ -5137,6 +5205,10 @@
         },
         "private": {
           "description": "Whether this segment is private.",
+          "type": "boolean"
+        },
+        "starred": {
+          "description": "Whether this segment is starred by the logged-in athlete",
           "type": "boolean"
         },
         "start_latlng": {
@@ -5271,6 +5343,33 @@
         "sport_type": {
           "$ref": "#/definitions/sportType"
         },
+        "tags": {
+          "description": "Activity tags to set, keyed by tag name with a boolean value (true to add, false to remove). Only the tags you include are changed; any tag you omit — and every other tag on the activity — is left unchanged. Any tag outside the supported set is rejected. Commute is set here rather than via the legacy commute param, and the two cannot be combined in the same request.",
+          "type": "object",
+          "properties": {
+            "Commute": {
+              "type": "boolean",
+              "x-nullable": true
+            },
+            "Competition": {
+              "type": "boolean",
+              "x-nullable": true
+            },
+            "ForACause": {
+              "type": "boolean",
+              "x-nullable": true
+            },
+            "Recovery": {
+              "type": "boolean",
+              "x-nullable": true
+            },
+            "WithPet": {
+              "type": "boolean",
+              "x-nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
         "trainer": {
           "description": "Whether this activity was recorded on a training machine",
           "type": "boolean"
@@ -5389,6 +5488,27 @@
           "description": "The heart heart rate of the athlete during this effort",
           "type": "number",
           "format": "float"
+        },
+        "display_hide_heartrate_option": {
+          "description": "Whether the option to hide this activity's heart rate data is available to the athlete",
+          "type": "boolean"
+        },
+        "heartrate_opt_out": {
+          "description": "Whether the athlete has opted out of sharing this activity's heart rate data",
+          "type": "boolean"
+        }
+      }
+    },
+    "statVisibility": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "The statistic this visibility applies to",
+          "type": "string"
+        },
+        "visibility": {
+          "description": "The visibility of the statistic",
+          "type": "string"
         }
       }
     }

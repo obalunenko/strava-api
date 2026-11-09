@@ -59,13 +59,13 @@ type Route struct {
 	// Whether this route is starred by the logged-in athlete
 	Starred bool `json:"starred,omitempty"`
 
-	// This route's sub-type (1 for road, 2 for mountain bike, 3 for cross, 4 for trail, 5 for mixed)
+	// This route's sub-type (1 = Road, 2 = MTB, 3 = Gravel, 4 = Trail, 5 = Mixed)
 	SubType int64 `json:"sub_type,omitempty"`
 
 	// An epoch timestamp of when the route was created
 	Timestamp int64 `json:"timestamp,omitempty"`
 
-	// This route's type (1 for ride, 2 for runs)
+	// This route's type (1 = Ride, 2 = Run, 3 = Walk, 4 = Hike, 5 = Trail Run, 6 = Gravel Ride, 7 = Mountain Bike Ride)
 	Type int64 `json:"type,omitempty"`
 
 	// The time at which the route was last updated
@@ -330,7 +330,7 @@ func (m *Route) contextValidateSegments(ctx context.Context, formats strfmt.Regi
 		if m.Segments[i] != nil {
 
 			if typeutils.IsZero(m.Segments[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.Segments[i].ContextValidate(ctx, formats); err != nil {
@@ -359,7 +359,7 @@ func (m *Route) contextValidateWaypoints(ctx context.Context, formats strfmt.Reg
 		if m.Waypoints[i] != nil {
 
 			if typeutils.IsZero(m.Waypoints[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.Waypoints[i].ContextValidate(ctx, formats); err != nil {

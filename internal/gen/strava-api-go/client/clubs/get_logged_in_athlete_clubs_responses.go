@@ -45,11 +45,9 @@ func NewGetLoggedInAthleteClubsOK() *GetLoggedInAthleteClubsOK {
 	return &GetLoggedInAthleteClubsOK{}
 }
 
-/*
-GetLoggedInAthleteClubsOK describes a response with status code 200, with default header values.
-
-A list of summary club representations.
-*/
+// GetLoggedInAthleteClubsOK describes a response with status code 200, with default header values.
+//
+// A list of summary club representations.
 type GetLoggedInAthleteClubsOK struct {
 	Payload []*models.SummaryClub
 }
@@ -115,11 +113,9 @@ func NewGetLoggedInAthleteClubsDefault(code int) *GetLoggedInAthleteClubsDefault
 	}
 }
 
-/*
-GetLoggedInAthleteClubsDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetLoggedInAthleteClubsDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetLoggedInAthleteClubsDefault struct {
 	_statusCode int
 

@@ -63,12 +63,11 @@ GetStatsParams contains all the parameters to send to the API endpoint
 */
 type GetStatsParams struct {
 
-	/* ID.
-
-	   The identifier of the athlete. Must match the authenticated athlete.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the athlete. Must match the authenticated athlete.
+	//
+	// Format: int64
 	ID int64
 
 	HTTPClient *http.Client

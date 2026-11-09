@@ -36,6 +36,6 @@ func (m LatLng) Validate(formats strfmt.Registry) error {
 }
 
 // ContextValidate validates this lat lng based on context it is used
-func (m LatLng) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m LatLng) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }

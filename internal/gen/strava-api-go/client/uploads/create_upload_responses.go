@@ -45,11 +45,9 @@ func NewCreateUploadCreated() *CreateUploadCreated {
 	return &CreateUploadCreated{}
 }
 
-/*
-CreateUploadCreated describes a response with status code 201, with default header values.
-
-A representation of the created upload.
-*/
+// CreateUploadCreated describes a response with status code 201, with default header values.
+//
+// A representation of the created upload.
 type CreateUploadCreated struct {
 	Payload *models.Upload
 }
@@ -117,11 +115,9 @@ func NewCreateUploadDefault(code int) *CreateUploadDefault {
 	}
 }
 
-/*
-CreateUploadDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// CreateUploadDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type CreateUploadDefault struct {
 	_statusCode int
 

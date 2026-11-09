@@ -63,18 +63,16 @@ StarSegmentParams contains all the parameters to send to the API endpoint
 */
 type StarSegmentParams struct {
 
-	/* ID.
-
-	   The identifier of the segment to star.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the segment to star.
+	//
+	// Format: int64
 	ID int64
 
-	/* Starred.
-
-	   If true, star the segment; if false, unstar the segment.
-	*/
+	// Starred.
+	//
+	// If true, star the segment; if false, unstar the segment.
 	Starred bool
 
 	HTTPClient *http.Client

@@ -137,12 +137,12 @@ type PhotosSummaryPrimary struct {
 }
 
 // Validate validates this photos summary primary
-func (m *PhotosSummaryPrimary) Validate(formats strfmt.Registry) error {
+func (m *PhotosSummaryPrimary) Validate(_ strfmt.Registry) error {
 	return nil
 }
 
 // ContextValidate validates this photos summary primary based on context it is used
-func (m *PhotosSummaryPrimary) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *PhotosSummaryPrimary) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

@@ -14,6 +14,12 @@ import (
 // swagger:model split
 type Split struct {
 
+	// The average grade-adjusted speed of this split, in meters per second
+	AverageGradeAdjustedSpeed float32 `json:"average_grade_adjusted_speed,omitempty"`
+
+	// The average heart rate of the athlete during this split
+	AverageHeartrate float32 `json:"average_heartrate,omitempty"`
+
 	// The average speed of this split, in meters per second
 	AverageSpeed float32 `json:"average_speed,omitempty"`
 
@@ -37,12 +43,12 @@ type Split struct {
 }
 
 // Validate validates this split
-func (m *Split) Validate(formats strfmt.Registry) error {
+func (m *Split) Validate(_ strfmt.Registry) error {
 	return nil
 }
 
 // ContextValidate validates this split based on context it is used
-func (m *Split) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *Split) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

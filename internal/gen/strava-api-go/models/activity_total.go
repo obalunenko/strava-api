@@ -34,12 +34,12 @@ type ActivityTotal struct {
 }
 
 // Validate validates this activity total
-func (m *ActivityTotal) Validate(formats strfmt.Registry) error {
+func (m *ActivityTotal) Validate(_ strfmt.Registry) error {
 	return nil
 }
 
 // ContextValidate validates this activity total based on context it is used
-func (m *ActivityTotal) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *ActivityTotal) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

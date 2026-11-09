@@ -65,6 +65,9 @@ type DetailedSegmentAllOf0 struct {
 	// Whether this segment is private.
 	Private bool `json:"private,omitempty"`
 
+	// Whether this segment is starred by the logged-in athlete
+	Starred bool `json:"starred,omitempty"`
+
 	// start latlng
 	StartLatlng LatLng `json:"start_latlng,omitempty"`
 

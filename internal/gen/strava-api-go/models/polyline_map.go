@@ -20,6 +20,9 @@ type PolylineMap struct {
 	// The polyline of the map, only returned on detailed representation of an object
 	Polyline string `json:"polyline,omitempty"`
 
+	// Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
+	ResourceState int64 `json:"resource_state,omitempty"`
+
 	// The summary polyline of the map
 	SummaryPolyline string `json:"summary_polyline,omitempty"`
 }

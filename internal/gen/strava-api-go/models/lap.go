@@ -69,6 +69,9 @@ type Lap struct {
 	// The athlete's pace zone during this lap
 	PaceZone int64 `json:"pace_zone,omitempty"`
 
+	// Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
+	ResourceState int64 `json:"resource_state,omitempty"`
+
 	// split
 	Split int64 `json:"split,omitempty"`
 

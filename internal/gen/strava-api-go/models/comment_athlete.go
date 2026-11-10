@@ -19,6 +19,12 @@ import (
 type CommentAthlete struct {
 	MetaAthlete
 
+	// The identifier of the athlete's badge type
+	BadgeTypeID int64 `json:"badge_type_id,omitempty"`
+
+	// The athlete's biography
+	Bio string `json:"bio,omitempty"`
+
 	// The athlete's city.
 	City string `json:"city,omitempty"`
 
@@ -32,6 +38,12 @@ type CommentAthlete struct {
 	// The athlete's first name.
 	Firstname string `json:"firstname,omitempty"`
 
+	// This athlete's following status of the logged-in athlete
+	Follower string `json:"follower,omitempty"`
+
+	// The logged-in athlete's following status of this athlete
+	Friend string `json:"friend,omitempty"`
+
 	// The athlete's last name.
 	Lastname string `json:"lastname,omitempty"`
 
@@ -43,9 +55,6 @@ type CommentAthlete struct {
 
 	// URL to a 62x62 pixel profile picture.
 	ProfileMedium string `json:"profile_medium,omitempty"`
-
-	// Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
-	ResourceState int64 `json:"resource_state,omitempty"`
 
 	// The athlete's sex.
 	// Enum: ["M","F"]
@@ -60,6 +69,12 @@ type CommentAthlete struct {
 	// The time at which the athlete was last updated.
 	// Format: date-time
 	UpdatedAt strfmt.DateTime `json:"updated_at,omitempty"`
+
+	// The athlete's username
+	Username string `json:"username,omitempty"`
+
+	// The athlete's weight.
+	Weight float32 `json:"weight,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -73,6 +88,10 @@ func (m *CommentAthlete) UnmarshalJSON(raw []byte) error {
 
 	// AO1
 	var dataAO1 struct {
+		BadgeTypeID int64 `json:"badge_type_id,omitempty"`
+
+		Bio string `json:"bio,omitempty"`
+
 		City string `json:"city,omitempty"`
 
 		Country string `json:"country,omitempty"`
@@ -80,6 +99,10 @@ func (m *CommentAthlete) UnmarshalJSON(raw []byte) error {
 		CreatedAt strfmt.DateTime `json:"created_at,omitempty"`
 
 		Firstname string `json:"firstname,omitempty"`
+
+		Follower string `json:"follower,omitempty"`
+
+		Friend string `json:"friend,omitempty"`
 
 		Lastname string `json:"lastname,omitempty"`
 
@@ -89,8 +112,6 @@ func (m *CommentAthlete) UnmarshalJSON(raw []byte) error {
 
 		ProfileMedium string `json:"profile_medium,omitempty"`
 
-		ResourceState int64 `json:"resource_state,omitempty"`
-
 		Sex string `json:"sex,omitempty"`
 
 		State string `json:"state,omitempty"`
@@ -98,10 +119,18 @@ func (m *CommentAthlete) UnmarshalJSON(raw []byte) error {
 		Summit bool `json:"summit,omitempty"`
 
 		UpdatedAt strfmt.DateTime `json:"updated_at,omitempty"`
+
+		Username string `json:"username,omitempty"`
+
+		Weight float32 `json:"weight,omitempty"`
 	}
 	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
+
+	m.BadgeTypeID = dataAO1.BadgeTypeID
+
+	m.Bio = dataAO1.Bio
 
 	m.City = dataAO1.City
 
@@ -111,6 +140,10 @@ func (m *CommentAthlete) UnmarshalJSON(raw []byte) error {
 
 	m.Firstname = dataAO1.Firstname
 
+	m.Follower = dataAO1.Follower
+
+	m.Friend = dataAO1.Friend
+
 	m.Lastname = dataAO1.Lastname
 
 	m.Premium = dataAO1.Premium
@@ -119,8 +152,6 @@ func (m *CommentAthlete) UnmarshalJSON(raw []byte) error {
 
 	m.ProfileMedium = dataAO1.ProfileMedium
 
-	m.ResourceState = dataAO1.ResourceState
-
 	m.Sex = dataAO1.Sex
 
 	m.State = dataAO1.State
@@ -128,6 +159,10 @@ func (m *CommentAthlete) UnmarshalJSON(raw []byte) error {
 	m.Summit = dataAO1.Summit
 
 	m.UpdatedAt = dataAO1.UpdatedAt
+
+	m.Username = dataAO1.Username
+
+	m.Weight = dataAO1.Weight
 
 	return nil
 }
@@ -142,6 +177,10 @@ func (m CommentAthlete) MarshalJSON() ([]byte, error) {
 	}
 	_parts = append(_parts, aO0)
 	var dataAO1 struct {
+		BadgeTypeID int64 `json:"badge_type_id,omitempty"`
+
+		Bio string `json:"bio,omitempty"`
+
 		City string `json:"city,omitempty"`
 
 		Country string `json:"country,omitempty"`
@@ -149,6 +188,10 @@ func (m CommentAthlete) MarshalJSON() ([]byte, error) {
 		CreatedAt strfmt.DateTime `json:"created_at,omitempty"`
 
 		Firstname string `json:"firstname,omitempty"`
+
+		Follower string `json:"follower,omitempty"`
+
+		Friend string `json:"friend,omitempty"`
 
 		Lastname string `json:"lastname,omitempty"`
 
@@ -158,8 +201,6 @@ func (m CommentAthlete) MarshalJSON() ([]byte, error) {
 
 		ProfileMedium string `json:"profile_medium,omitempty"`
 
-		ResourceState int64 `json:"resource_state,omitempty"`
-
 		Sex string `json:"sex,omitempty"`
 
 		State string `json:"state,omitempty"`
@@ -167,7 +208,15 @@ func (m CommentAthlete) MarshalJSON() ([]byte, error) {
 		Summit bool `json:"summit,omitempty"`
 
 		UpdatedAt strfmt.DateTime `json:"updated_at,omitempty"`
+
+		Username string `json:"username,omitempty"`
+
+		Weight float32 `json:"weight,omitempty"`
 	}
+
+	dataAO1.BadgeTypeID = m.BadgeTypeID
+
+	dataAO1.Bio = m.Bio
 
 	dataAO1.City = m.City
 
@@ -177,6 +226,10 @@ func (m CommentAthlete) MarshalJSON() ([]byte, error) {
 
 	dataAO1.Firstname = m.Firstname
 
+	dataAO1.Follower = m.Follower
+
+	dataAO1.Friend = m.Friend
+
 	dataAO1.Lastname = m.Lastname
 
 	dataAO1.Premium = m.Premium
@@ -185,8 +238,6 @@ func (m CommentAthlete) MarshalJSON() ([]byte, error) {
 
 	dataAO1.ProfileMedium = m.ProfileMedium
 
-	dataAO1.ResourceState = m.ResourceState
-
 	dataAO1.Sex = m.Sex
 
 	dataAO1.State = m.State
@@ -194,6 +245,10 @@ func (m CommentAthlete) MarshalJSON() ([]byte, error) {
 	dataAO1.Summit = m.Summit
 
 	dataAO1.UpdatedAt = m.UpdatedAt
+
+	dataAO1.Username = m.Username
+
+	dataAO1.Weight = m.Weight
 
 	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {

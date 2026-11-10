@@ -16,6 +16,12 @@ type MetaAthlete struct {
 
 	// The unique identifier of the athlete
 	ID int64 `json:"id,omitempty"`
+
+	// The identifier of the athlete, as a string
+	IDStr string `json:"id_str,omitempty"`
+
+	// Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
+	ResourceState int64 `json:"resource_state,omitempty"`
 }
 
 // Validate validates this meta athlete

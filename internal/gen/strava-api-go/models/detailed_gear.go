@@ -27,6 +27,9 @@ type DetailedGear struct {
 
 	// The gear's model name.
 	ModelName string `json:"model_name,omitempty"`
+
+	// The gear's weight, in kilograms
+	Weight float32 `json:"weight,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -47,6 +50,8 @@ func (m *DetailedGear) UnmarshalJSON(raw []byte) error {
 		FrameType int64 `json:"frame_type,omitempty"`
 
 		ModelName string `json:"model_name,omitempty"`
+
+		Weight float32 `json:"weight,omitempty"`
 	}
 	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
@@ -59,6 +64,8 @@ func (m *DetailedGear) UnmarshalJSON(raw []byte) error {
 	m.FrameType = dataAO1.FrameType
 
 	m.ModelName = dataAO1.ModelName
+
+	m.Weight = dataAO1.Weight
 
 	return nil
 }
@@ -80,6 +87,8 @@ func (m DetailedGear) MarshalJSON() ([]byte, error) {
 		FrameType int64 `json:"frame_type,omitempty"`
 
 		ModelName string `json:"model_name,omitempty"`
+
+		Weight float32 `json:"weight,omitempty"`
 	}
 
 	dataAO1.BrandName = m.BrandName
@@ -89,6 +98,8 @@ func (m DetailedGear) MarshalJSON() ([]byte, error) {
 	dataAO1.FrameType = m.FrameType
 
 	dataAO1.ModelName = m.ModelName
+
+	dataAO1.Weight = m.Weight
 
 	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {

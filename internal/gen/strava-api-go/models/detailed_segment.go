@@ -29,8 +29,8 @@ type DetailedSegment struct {
 	// The total number of efforts for this segment
 	EffortCount int64 `json:"effort_count,omitempty"`
 
-	// Whether this segment is considered hazardous
-	Hazardous bool `json:"hazardous,omitempty"`
+	// local legend
+	LocalLegend *LocalLegend `json:"local_legend,omitempty"`
 
 	// map
 	Map *PolylineMap `json:"map,omitempty"`
@@ -44,6 +44,9 @@ type DetailedSegment struct {
 	// The time at which the segment was last updated.
 	// Format: date-time
 	UpdatedAt strfmt.DateTime `json:"updated_at,omitempty"`
+
+	// xoms
+	Xoms *SegmentXoms `json:"xoms,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -63,7 +66,7 @@ func (m *DetailedSegment) UnmarshalJSON(raw []byte) error {
 
 		EffortCount int64 `json:"effort_count,omitempty"`
 
-		Hazardous bool `json:"hazardous,omitempty"`
+		LocalLegend *LocalLegend `json:"local_legend,omitempty"`
 
 		Map *PolylineMap `json:"map,omitempty"`
 
@@ -72,6 +75,8 @@ func (m *DetailedSegment) UnmarshalJSON(raw []byte) error {
 		TotalElevationGain float32 `json:"total_elevation_gain,omitempty"`
 
 		UpdatedAt strfmt.DateTime `json:"updated_at,omitempty"`
+
+		Xoms *SegmentXoms `json:"xoms,omitempty"`
 	}
 	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
@@ -83,7 +88,7 @@ func (m *DetailedSegment) UnmarshalJSON(raw []byte) error {
 
 	m.EffortCount = dataAO1.EffortCount
 
-	m.Hazardous = dataAO1.Hazardous
+	m.LocalLegend = dataAO1.LocalLegend
 
 	m.Map = dataAO1.Map
 
@@ -92,6 +97,8 @@ func (m *DetailedSegment) UnmarshalJSON(raw []byte) error {
 	m.TotalElevationGain = dataAO1.TotalElevationGain
 
 	m.UpdatedAt = dataAO1.UpdatedAt
+
+	m.Xoms = dataAO1.Xoms
 
 	return nil
 }
@@ -112,7 +119,7 @@ func (m DetailedSegment) MarshalJSON() ([]byte, error) {
 
 		EffortCount int64 `json:"effort_count,omitempty"`
 
-		Hazardous bool `json:"hazardous,omitempty"`
+		LocalLegend *LocalLegend `json:"local_legend,omitempty"`
 
 		Map *PolylineMap `json:"map,omitempty"`
 
@@ -121,6 +128,8 @@ func (m DetailedSegment) MarshalJSON() ([]byte, error) {
 		TotalElevationGain float32 `json:"total_elevation_gain,omitempty"`
 
 		UpdatedAt strfmt.DateTime `json:"updated_at,omitempty"`
+
+		Xoms *SegmentXoms `json:"xoms,omitempty"`
 	}
 
 	dataAO1.AthleteCount = m.AthleteCount
@@ -129,7 +138,7 @@ func (m DetailedSegment) MarshalJSON() ([]byte, error) {
 
 	dataAO1.EffortCount = m.EffortCount
 
-	dataAO1.Hazardous = m.Hazardous
+	dataAO1.LocalLegend = m.LocalLegend
 
 	dataAO1.Map = m.Map
 
@@ -138,6 +147,8 @@ func (m DetailedSegment) MarshalJSON() ([]byte, error) {
 	dataAO1.TotalElevationGain = m.TotalElevationGain
 
 	dataAO1.UpdatedAt = m.UpdatedAt
+
+	dataAO1.Xoms = m.Xoms
 
 	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {
@@ -160,11 +171,19 @@ func (m *DetailedSegment) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateLocalLegend(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateMap(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateUpdatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateXoms(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -182,6 +201,30 @@ func (m *DetailedSegment) validateCreatedAt(formats strfmt.Registry) error {
 
 	if err := validate.FormatOf("created_at", "body", "date-time", m.CreatedAt.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DetailedSegment) validateLocalLegend(formats strfmt.Registry) error {
+
+	if typeutils.IsZero(m.LocalLegend) { // not required
+		return nil
+	}
+
+	if m.LocalLegend != nil {
+		if err := m.LocalLegend.Validate(formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("local_legend")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("local_legend")
+			}
+
+			return err
+		}
 	}
 
 	return nil
@@ -224,6 +267,30 @@ func (m *DetailedSegment) validateUpdatedAt(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *DetailedSegment) validateXoms(formats strfmt.Registry) error {
+
+	if typeutils.IsZero(m.Xoms) { // not required
+		return nil
+	}
+
+	if m.Xoms != nil {
+		if err := m.Xoms.Validate(formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("xoms")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("xoms")
+			}
+
+			return err
+		}
+	}
+
+	return nil
+}
+
 // ContextValidate validate this detailed segment based on the context it is used
 func (m *DetailedSegment) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -233,13 +300,46 @@ func (m *DetailedSegment) ContextValidate(ctx context.Context, formats strfmt.Re
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateLocalLegend(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateMap(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateXoms(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DetailedSegment) contextValidateLocalLegend(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.LocalLegend != nil {
+
+		if typeutils.IsZero(m.LocalLegend) { // not required
+			return nil
+		}
+
+		if err := m.LocalLegend.ContextValidate(ctx, formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("local_legend")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("local_legend")
+			}
+
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -259,6 +359,31 @@ func (m *DetailedSegment) contextValidateMap(ctx context.Context, formats strfmt
 			ce := new(errors.CompositeError)
 			if stderrors.As(err, &ce) {
 				return ce.ValidateName("map")
+			}
+
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DetailedSegment) contextValidateXoms(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Xoms != nil {
+
+		if typeutils.IsZero(m.Xoms) { // not required
+			return nil
+		}
+
+		if err := m.Xoms.ContextValidate(ctx, formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("xoms")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("xoms")
 			}
 
 			return err

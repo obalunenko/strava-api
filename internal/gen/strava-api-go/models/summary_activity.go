@@ -78,6 +78,9 @@ type SummaryActivity struct {
 	// Whether this activity is flagged
 	Flagged bool `json:"flagged,omitempty"`
 
+	// Whether this activity was created from an accepted tag
+	FromAcceptedTag bool `json:"from_accepted_tag,omitempty"`
+
 	// The id of the gear for the activity
 	GearID string `json:"gear_id,omitempty"`
 
@@ -92,6 +95,15 @@ type SummaryActivity struct {
 
 	// The number of kudos given for this activity
 	KudosCount int64 `json:"kudos_count,omitempty"`
+
+	// The city of the activity's start
+	LocationCity string `json:"location_city,omitempty"`
+
+	// The country of the activity's start
+	LocationCountry string `json:"location_country,omitempty"`
+
+	// The state of the activity's start
+	LocationState string `json:"location_state,omitempty"`
 
 	// Whether this activity was created manually
 	Manual bool `json:"manual,omitempty"`
@@ -225,6 +237,8 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 
 		Flagged bool `json:"flagged,omitempty"`
 
+		FromAcceptedTag bool `json:"from_accepted_tag,omitempty"`
+
 		GearID string `json:"gear_id,omitempty"`
 
 		HasKudoed bool `json:"has_kudoed,omitempty"`
@@ -234,6 +248,12 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 		Kilojoules float32 `json:"kilojoules,omitempty"`
 
 		KudosCount int64 `json:"kudos_count,omitempty"`
+
+		LocationCity string `json:"location_city,omitempty"`
+
+		LocationCountry string `json:"location_country,omitempty"`
+
+		LocationState string `json:"location_state,omitempty"`
 
 		Manual bool `json:"manual,omitempty"`
 
@@ -325,6 +345,8 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 
 	m.Flagged = dataAO2.Flagged
 
+	m.FromAcceptedTag = dataAO2.FromAcceptedTag
+
 	m.GearID = dataAO2.GearID
 
 	m.HasKudoed = dataAO2.HasKudoed
@@ -334,6 +356,12 @@ func (m *SummaryActivity) UnmarshalJSON(raw []byte) error {
 	m.Kilojoules = dataAO2.Kilojoules
 
 	m.KudosCount = dataAO2.KudosCount
+
+	m.LocationCity = dataAO2.LocationCity
+
+	m.LocationCountry = dataAO2.LocationCountry
+
+	m.LocationState = dataAO2.LocationState
 
 	m.Manual = dataAO2.Manual
 
@@ -440,6 +468,8 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 
 		Flagged bool `json:"flagged,omitempty"`
 
+		FromAcceptedTag bool `json:"from_accepted_tag,omitempty"`
+
 		GearID string `json:"gear_id,omitempty"`
 
 		HasKudoed bool `json:"has_kudoed,omitempty"`
@@ -449,6 +479,12 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 		Kilojoules float32 `json:"kilojoules,omitempty"`
 
 		KudosCount int64 `json:"kudos_count,omitempty"`
+
+		LocationCity string `json:"location_city,omitempty"`
+
+		LocationCountry string `json:"location_country,omitempty"`
+
+		LocationState string `json:"location_state,omitempty"`
 
 		Manual bool `json:"manual,omitempty"`
 
@@ -537,6 +573,8 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 
 	dataAO2.Flagged = m.Flagged
 
+	dataAO2.FromAcceptedTag = m.FromAcceptedTag
+
 	dataAO2.GearID = m.GearID
 
 	dataAO2.HasKudoed = m.HasKudoed
@@ -546,6 +584,12 @@ func (m SummaryActivity) MarshalJSON() ([]byte, error) {
 	dataAO2.Kilojoules = m.Kilojoules
 
 	dataAO2.KudosCount = m.KudosCount
+
+	dataAO2.LocationCity = m.LocationCity
+
+	dataAO2.LocationCountry = m.LocationCountry
+
+	dataAO2.LocationState = m.LocationState
 
 	dataAO2.Manual = m.Manual
 

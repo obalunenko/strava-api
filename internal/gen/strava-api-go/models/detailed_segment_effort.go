@@ -5,6 +5,7 @@ package models
 import (
 	"context"
 	stderrors "errors"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -19,11 +20,17 @@ import (
 type DetailedSegmentEffort struct {
 	SummarySegmentEffort
 
+	// The achievements of this effort
+	Achievements []*Achievement `json:"achievements"`
+
 	// activity
-	Activity *MetaActivity `json:"activity,omitempty"`
+	Activity *SummaryActivity `json:"activity,omitempty"`
 
 	// athlete
-	Athlete *MetaAthlete `json:"athlete,omitempty"`
+	Athlete *CommentAthlete `json:"athlete,omitempty"`
+
+	// athlete segment stats
+	AthleteSegmentStats *SummaryPRSegmentEffort `json:"athlete_segment_stats,omitempty"`
 
 	// The effort's average cadence
 	AverageCadence float32 `json:"average_cadence,omitempty"`
@@ -62,11 +69,17 @@ type DetailedSegmentEffort struct {
 	// Minimum: 1
 	PrRank int64 `json:"pr_rank,omitempty"`
 
+	// Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
+	ResourceState int64 `json:"resource_state,omitempty"`
+
 	// segment
 	Segment *DetailedSegmentAllOf0 `json:"segment,omitempty"`
 
 	// The start index of this effort in its activity's stream
 	StartIndex int64 `json:"start_index,omitempty"`
+
+	// The visibility of the effort
+	Visibility string `json:"visibility,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -80,9 +93,13 @@ func (m *DetailedSegmentEffort) UnmarshalJSON(raw []byte) error {
 
 	// AO1
 	var dataAO1 struct {
-		Activity *MetaActivity `json:"activity,omitempty"`
+		Achievements []*Achievement `json:"achievements"`
 
-		Athlete *MetaAthlete `json:"athlete,omitempty"`
+		Activity *SummaryActivity `json:"activity,omitempty"`
+
+		Athlete *CommentAthlete `json:"athlete,omitempty"`
+
+		AthleteSegmentStats *SummaryPRSegmentEffort `json:"athlete_segment_stats,omitempty"`
 
 		AverageCadence float32 `json:"average_cadence,omitempty"`
 
@@ -106,17 +123,25 @@ func (m *DetailedSegmentEffort) UnmarshalJSON(raw []byte) error {
 
 		PrRank int64 `json:"pr_rank,omitempty"`
 
+		ResourceState int64 `json:"resource_state,omitempty"`
+
 		Segment *DetailedSegmentAllOf0 `json:"segment,omitempty"`
 
 		StartIndex int64 `json:"start_index,omitempty"`
+
+		Visibility string `json:"visibility,omitempty"`
 	}
 	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
 
+	m.Achievements = dataAO1.Achievements
+
 	m.Activity = dataAO1.Activity
 
 	m.Athlete = dataAO1.Athlete
+
+	m.AthleteSegmentStats = dataAO1.AthleteSegmentStats
 
 	m.AverageCadence = dataAO1.AverageCadence
 
@@ -140,9 +165,13 @@ func (m *DetailedSegmentEffort) UnmarshalJSON(raw []byte) error {
 
 	m.PrRank = dataAO1.PrRank
 
+	m.ResourceState = dataAO1.ResourceState
+
 	m.Segment = dataAO1.Segment
 
 	m.StartIndex = dataAO1.StartIndex
+
+	m.Visibility = dataAO1.Visibility
 
 	return nil
 }
@@ -157,9 +186,13 @@ func (m DetailedSegmentEffort) MarshalJSON() ([]byte, error) {
 	}
 	_parts = append(_parts, aO0)
 	var dataAO1 struct {
-		Activity *MetaActivity `json:"activity,omitempty"`
+		Achievements []*Achievement `json:"achievements"`
 
-		Athlete *MetaAthlete `json:"athlete,omitempty"`
+		Activity *SummaryActivity `json:"activity,omitempty"`
+
+		Athlete *CommentAthlete `json:"athlete,omitempty"`
+
+		AthleteSegmentStats *SummaryPRSegmentEffort `json:"athlete_segment_stats,omitempty"`
 
 		AverageCadence float32 `json:"average_cadence,omitempty"`
 
@@ -183,14 +216,22 @@ func (m DetailedSegmentEffort) MarshalJSON() ([]byte, error) {
 
 		PrRank int64 `json:"pr_rank,omitempty"`
 
+		ResourceState int64 `json:"resource_state,omitempty"`
+
 		Segment *DetailedSegmentAllOf0 `json:"segment,omitempty"`
 
 		StartIndex int64 `json:"start_index,omitempty"`
+
+		Visibility string `json:"visibility,omitempty"`
 	}
+
+	dataAO1.Achievements = m.Achievements
 
 	dataAO1.Activity = m.Activity
 
 	dataAO1.Athlete = m.Athlete
+
+	dataAO1.AthleteSegmentStats = m.AthleteSegmentStats
 
 	dataAO1.AverageCadence = m.AverageCadence
 
@@ -214,9 +255,13 @@ func (m DetailedSegmentEffort) MarshalJSON() ([]byte, error) {
 
 	dataAO1.PrRank = m.PrRank
 
+	dataAO1.ResourceState = m.ResourceState
+
 	dataAO1.Segment = m.Segment
 
 	dataAO1.StartIndex = m.StartIndex
+
+	dataAO1.Visibility = m.Visibility
 
 	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {
@@ -235,11 +280,19 @@ func (m *DetailedSegmentEffort) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateAchievements(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateActivity(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateAthlete(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAthleteSegmentStats(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -258,6 +311,37 @@ func (m *DetailedSegmentEffort) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DetailedSegmentEffort) validateAchievements(formats strfmt.Registry) error {
+
+	if typeutils.IsZero(m.Achievements) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Achievements); i++ {
+		if typeutils.IsZero(m.Achievements[i]) { // not required
+			continue
+		}
+
+		if m.Achievements[i] != nil {
+			if err := m.Achievements[i].Validate(formats); err != nil {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
+					return ve.ValidateName("achievements" + "." + strconv.Itoa(i))
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
+					return ce.ValidateName("achievements" + "." + strconv.Itoa(i))
+				}
+
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -300,6 +384,30 @@ func (m *DetailedSegmentEffort) validateAthlete(formats strfmt.Registry) error {
 			ce := new(errors.CompositeError)
 			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
+			}
+
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DetailedSegmentEffort) validateAthleteSegmentStats(formats strfmt.Registry) error {
+
+	if typeutils.IsZero(m.AthleteSegmentStats) { // not required
+		return nil
+	}
+
+	if m.AthleteSegmentStats != nil {
+		if err := m.AthleteSegmentStats.Validate(formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("athlete_segment_stats")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("athlete_segment_stats")
 			}
 
 			return err
@@ -376,11 +484,19 @@ func (m *DetailedSegmentEffort) ContextValidate(ctx context.Context, formats str
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateAchievements(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateActivity(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.contextValidateAthlete(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAthleteSegmentStats(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -391,6 +507,35 @@ func (m *DetailedSegmentEffort) ContextValidate(ctx context.Context, formats str
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DetailedSegmentEffort) contextValidateAchievements(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Achievements); i++ {
+
+		if m.Achievements[i] != nil {
+
+			if typeutils.IsZero(m.Achievements[i]) { // not required
+				continue
+			}
+
+			if err := m.Achievements[i].ContextValidate(ctx, formats); err != nil {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
+					return ve.ValidateName("achievements" + "." + strconv.Itoa(i))
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
+					return ce.ValidateName("achievements" + "." + strconv.Itoa(i))
+				}
+
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -435,6 +580,31 @@ func (m *DetailedSegmentEffort) contextValidateAthlete(ctx context.Context, form
 			ce := new(errors.CompositeError)
 			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete")
+			}
+
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DetailedSegmentEffort) contextValidateAthleteSegmentStats(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AthleteSegmentStats != nil {
+
+		if typeutils.IsZero(m.AthleteSegmentStats) { // not required
+			return nil
+		}
+
+		if err := m.AthleteSegmentStats.ContextValidate(ctx, formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("athlete_segment_stats")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("athlete_segment_stats")
 			}
 
 			return err

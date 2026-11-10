@@ -22,6 +22,12 @@ type DetailedClub struct {
 	// Whether the currently logged-in athlete is an administrator of this club.
 	Admin bool `json:"admin,omitempty"`
 
+	// The type of the club
+	ClubType string `json:"club_type,omitempty"`
+
+	// The club's description
+	Description string `json:"description,omitempty"`
+
 	// The number of athletes in the club that the logged-in athlete follows.
 	FollowingCount int64 `json:"following_count,omitempty"`
 
@@ -31,6 +37,9 @@ type DetailedClub struct {
 
 	// Whether the currently logged-in athlete is the owner of this club.
 	Owner bool `json:"owner,omitempty"`
+
+	// The club's website
+	Website string `json:"website,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -46,11 +55,17 @@ func (m *DetailedClub) UnmarshalJSON(raw []byte) error {
 	var dataAO1 struct {
 		Admin bool `json:"admin,omitempty"`
 
+		ClubType string `json:"club_type,omitempty"`
+
+		Description string `json:"description,omitempty"`
+
 		FollowingCount int64 `json:"following_count,omitempty"`
 
 		Membership string `json:"membership,omitempty"`
 
 		Owner bool `json:"owner,omitempty"`
+
+		Website string `json:"website,omitempty"`
 	}
 	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
@@ -58,11 +73,17 @@ func (m *DetailedClub) UnmarshalJSON(raw []byte) error {
 
 	m.Admin = dataAO1.Admin
 
+	m.ClubType = dataAO1.ClubType
+
+	m.Description = dataAO1.Description
+
 	m.FollowingCount = dataAO1.FollowingCount
 
 	m.Membership = dataAO1.Membership
 
 	m.Owner = dataAO1.Owner
+
+	m.Website = dataAO1.Website
 
 	return nil
 }
@@ -79,20 +100,32 @@ func (m DetailedClub) MarshalJSON() ([]byte, error) {
 	var dataAO1 struct {
 		Admin bool `json:"admin,omitempty"`
 
+		ClubType string `json:"club_type,omitempty"`
+
+		Description string `json:"description,omitempty"`
+
 		FollowingCount int64 `json:"following_count,omitempty"`
 
 		Membership string `json:"membership,omitempty"`
 
 		Owner bool `json:"owner,omitempty"`
+
+		Website string `json:"website,omitempty"`
 	}
 
 	dataAO1.Admin = m.Admin
+
+	dataAO1.ClubType = m.ClubType
+
+	dataAO1.Description = m.Description
 
 	dataAO1.FollowingCount = m.FollowingCount
 
 	dataAO1.Membership = m.Membership
 
 	dataAO1.Owner = m.Owner
+
+	dataAO1.Website = m.Website
 
 	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {

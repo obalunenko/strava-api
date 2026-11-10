@@ -47,11 +47,17 @@ type Route struct {
 	// map
 	Map *PolylineMap `json:"map,omitempty"`
 
+	// map urls
+	MapUrls *RouteMapUrls `json:"map_urls,omitempty"`
+
 	// The name of this route
 	Name string `json:"name,omitempty"`
 
 	// Whether this route is private
 	Private bool `json:"private,omitempty"`
+
+	// Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
+	ResourceState int64 `json:"resource_state,omitempty"`
 
 	// The segments traversed by this route
 	Segments []*DetailedSegmentAllOf0 `json:"segments"`
@@ -90,6 +96,10 @@ func (m *Route) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMap(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMapUrls(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -160,6 +170,29 @@ func (m *Route) validateMap(formats strfmt.Registry) error {
 			ce := new(errors.CompositeError)
 			if stderrors.As(err, &ce) {
 				return ce.ValidateName("map")
+			}
+
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Route) validateMapUrls(formats strfmt.Registry) error {
+	if typeutils.IsZero(m.MapUrls) { // not required
+		return nil
+	}
+
+	if m.MapUrls != nil {
+		if err := m.MapUrls.Validate(formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("map_urls")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("map_urls")
 			}
 
 			return err
@@ -259,6 +292,10 @@ func (m *Route) ContextValidate(ctx context.Context, formats strfmt.Registry) er
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateMapUrls(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateSegments(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -314,6 +351,31 @@ func (m *Route) contextValidateMap(ctx context.Context, formats strfmt.Registry)
 			ce := new(errors.CompositeError)
 			if stderrors.As(err, &ce) {
 				return ce.ValidateName("map")
+			}
+
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Route) contextValidateMapUrls(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.MapUrls != nil {
+
+		if typeutils.IsZero(m.MapUrls) { // not required
+			return nil
+		}
+
+		if err := m.MapUrls.ContextValidate(ctx, formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("map_urls")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("map_urls")
 			}
 
 			return err

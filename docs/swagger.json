@@ -2876,8 +2876,13 @@
         "points": {
           "type": "integer"
         },
-        "score": {
+        "resource_state": {
+          "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
           "type": "integer"
+        },
+        "score": {
+          "type": "number",
+          "format": "float"
         },
         "sensor_based": {
           "type": "boolean"
@@ -2992,6 +2997,14 @@
         },
         {
           "properties": {
+            "badge_type_id": {
+              "description": "The identifier of the athlete's badge type",
+              "type": "integer"
+            },
+            "bio": {
+              "description": "The athlete's biography",
+              "type": "string"
+            },
             "city": {
               "description": "The athlete's city.",
               "type": "string"
@@ -3009,6 +3022,14 @@
               "description": "The athlete's first name.",
               "type": "string"
             },
+            "follower": {
+              "description": "This athlete's following status of the logged-in athlete",
+              "type": "string"
+            },
+            "friend": {
+              "description": "The logged-in athlete's following status of this athlete",
+              "type": "string"
+            },
             "lastname": {
               "description": "The athlete's last name.",
               "type": "string"
@@ -3024,10 +3045,6 @@
             "profile_medium": {
               "description": "URL to a 62x62 pixel profile picture.",
               "type": "string"
-            },
-            "resource_state": {
-              "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
-              "type": "integer"
             },
             "sex": {
               "description": "The athlete's sex.",
@@ -3049,6 +3066,15 @@
               "description": "The time at which the athlete was last updated.",
               "type": "string",
               "format": "date-time"
+            },
+            "username": {
+              "description": "The athlete's username",
+              "type": "string"
+            },
+            "weight": {
+              "description": "The athlete's weight.",
+              "type": "number",
+              "format": "float"
             }
           }
         }
@@ -3145,6 +3171,10 @@
                   "description": "Whether this activity is flagged",
                   "type": "boolean"
                 },
+                "from_accepted_tag": {
+                  "description": "Whether this activity was created from an accepted tag",
+                  "type": "boolean"
+                },
                 "gear_id": {
                   "description": "The id of the gear for the activity",
                   "type": "string"
@@ -3165,6 +3195,18 @@
                 "kudos_count": {
                   "description": "The number of kudos given for this activity",
                   "type": "integer"
+                },
+                "location_city": {
+                  "description": "The city of the activity's start",
+                  "type": "string"
+                },
+                "location_country": {
+                  "description": "The country of the activity's start",
+                  "type": "string"
+                },
+                "location_state": {
+                  "description": "The state of the activity's start",
+                  "type": "string"
                 },
                 "manual": {
                   "description": "Whether this activity was created manually",
@@ -3397,6 +3439,10 @@
                     "description": "The athlete's pace zone during this lap",
                     "type": "integer"
                   },
+                  "resource_state": {
+                    "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
+                    "type": "integer"
+                  },
                   "split": {
                     "type": "integer"
                   },
@@ -3476,6 +3522,13 @@
         },
         {
           "properties": {
+            "achievements": {
+              "description": "The achievements of this effort",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/achievement"
+              }
+            },
             "activity": {
               "$ref": "#/definitions/metaActivity"
             },
@@ -3534,12 +3587,20 @@
               "maximum": 3,
               "minimum": 1
             },
+            "resource_state": {
+              "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
+              "type": "integer"
+            },
             "segment": {
               "$ref": "#/definitions/detailedSegmentAllOf0"
             },
             "start_index": {
               "description": "The start index of this effort in its activity's stream",
               "type": "integer"
+            },
+            "visibility": {
+              "description": "The visibility of the effort",
+              "type": "string"
             }
           }
         }
@@ -3557,20 +3618,12 @@
               "description": "The athlete's type",
               "type": "integer"
             },
-            "badge_type_id": {
-              "description": "The identifier of the athlete's badge type",
-              "type": "integer"
-            },
             "bikes": {
               "description": "The athlete's bikes.",
               "type": "array",
               "items": {
                 "$ref": "#/definitions/summaryGear"
               }
-            },
-            "bio": {
-              "description": "The athlete's biography",
-              "type": "string"
             },
             "blocked": {
               "description": "Whether this athlete is blocked",
@@ -3591,17 +3644,9 @@
               "description": "The athlete's preferred date format",
               "type": "string"
             },
-            "follower": {
-              "description": "This athlete's following status of the logged-in athlete",
-              "type": "string"
-            },
             "follower_count": {
               "description": "The athlete's follower count.",
               "type": "integer"
-            },
-            "friend": {
-              "description": "The logged-in athlete's following status of this athlete",
-              "type": "string"
             },
             "friend_count": {
               "description": "The athlete's friend count.",
@@ -3633,15 +3678,6 @@
               "items": {
                 "$ref": "#/definitions/summaryGear"
               }
-            },
-            "username": {
-              "description": "The athlete's username",
-              "type": "string"
-            },
-            "weight": {
-              "description": "The athlete's weight.",
-              "type": "number",
-              "format": "float"
             }
           }
         }
@@ -3658,6 +3694,14 @@
               "description": "Whether the currently logged-in athlete is an administrator of this club.",
               "type": "boolean"
             },
+            "club_type": {
+              "description": "The type of the club",
+              "type": "string"
+            },
+            "description": {
+              "description": "The club's description",
+              "type": "string"
+            },
             "following_count": {
               "description": "The number of athletes in the club that the logged-in athlete follows.",
               "type": "integer"
@@ -3673,6 +3717,10 @@
             "owner": {
               "description": "Whether the currently logged-in athlete is the owner of this club.",
               "type": "boolean"
+            },
+            "website": {
+              "description": "The club's website",
+              "type": "string"
             }
           }
         }
@@ -3792,6 +3840,11 @@
             "model_name": {
               "description": "The gear's model name.",
               "type": "string"
+            },
+            "weight": {
+              "description": "The gear's weight, in kilograms",
+              "type": "number",
+              "format": "float"
             }
           }
         }
@@ -3817,9 +3870,8 @@
               "description": "The total number of efforts for this segment",
               "type": "integer"
             },
-            "hazardous": {
-              "description": "Whether this segment is considered hazardous",
-              "type": "boolean"
+            "local_legend": {
+              "$ref": "#/definitions/localLegend"
             },
             "map": {
               "$ref": "#/definitions/polylineMap"
@@ -3837,6 +3889,9 @@
               "description": "The time at which the segment was last updated.",
               "type": "string",
               "format": "date-time"
+            },
+            "xoms": {
+              "$ref": "#/definitions/segmentXoms"
             }
           }
         }
@@ -3853,10 +3908,10 @@
           ]
         },
         "athlete_pr_effort": {
-          "$ref": "#/definitions/summaryPRSegmentEffort"
+          "$ref": "#/definitions/summarySegmentEffort"
         },
         "athlete_segment_stats": {
-          "$ref": "#/definitions/summarySegmentEffort"
+          "$ref": "#/definitions/summaryPRSegmentEffort"
         },
         "average_grade": {
           "description": "The segment's average grade, in percents",
@@ -3890,8 +3945,19 @@
           "type": "number",
           "format": "float"
         },
+        "elevation_profile": {
+          "description": "URL to the elevation profile image",
+          "type": "string"
+        },
+        "elevation_profiles": {
+          "$ref": "#/definitions/elevationProfiles"
+        },
         "end_latlng": {
           "$ref": "#/definitions/latLng"
+        },
+        "hazardous": {
+          "description": "Whether this segment is considered hazardous",
+          "type": "boolean"
         },
         "id": {
           "description": "The unique identifier of this segment",
@@ -3910,6 +3976,10 @@
         "private": {
           "description": "Whether this segment is private.",
           "type": "boolean"
+        },
+        "resource_state": {
+          "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
+          "type": "integer"
         },
         "starred": {
           "description": "Whether this segment is starred by the logged-in athlete",
@@ -3932,11 +4002,21 @@
         },
         {
           "properties": {
+            "achievements": {
+              "description": "The achievements of this effort",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/achievement"
+              }
+            },
             "activity": {
-              "$ref": "#/definitions/metaActivity"
+              "$ref": "#/definitions/summaryActivity"
             },
             "athlete": {
-              "$ref": "#/definitions/metaAthlete"
+              "$ref": "#/definitions/commentAthlete"
+            },
+            "athlete_segment_stats": {
+              "$ref": "#/definitions/summaryPRSegmentEffort"
             },
             "average_cadence": {
               "description": "The effort's average cadence",
@@ -3990,12 +4070,20 @@
               "maximum": 3,
               "minimum": 1
             },
+            "resource_state": {
+              "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
+              "type": "integer"
+            },
             "segment": {
               "$ref": "#/definitions/detailedSegmentAllOf0"
             },
             "start_index": {
               "description": "The start index of this effort in its activity's stream",
               "type": "integer"
+            },
+            "visibility": {
+              "description": "The visibility of the effort",
+              "type": "string"
             }
           }
         }
@@ -4234,6 +4322,10 @@
           "description": "The athlete's pace zone during this lap",
           "type": "integer"
         },
+        "resource_state": {
+          "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
+          "type": "integer"
+        },
         "split": {
           "type": "integer"
         },
@@ -4294,6 +4386,14 @@
           "type": "integer",
           "format": "int64"
         },
+        "id_str": {
+          "description": "The identifier of the activity, as a string",
+          "type": "string"
+        },
+        "resource_state": {
+          "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
+          "type": "integer"
+        },
         "visibility": {
           "description": "The visibility of the activity",
           "type": "string"
@@ -4307,6 +4407,14 @@
           "description": "The unique identifier of the athlete",
           "type": "integer",
           "format": "int64"
+        },
+        "id_str": {
+          "description": "The identifier of the athlete, as a string",
+          "type": "string"
+        },
+        "resource_state": {
+          "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
+          "type": "integer"
         }
       }
     },
@@ -4360,6 +4468,10 @@
               "type": "integer",
               "format": "int64"
             },
+            "media_type": {
+              "description": "The type of the media",
+              "type": "integer"
+            },
             "source": {
               "type": "integer"
             },
@@ -4373,6 +4485,10 @@
               }
             }
           }
+        },
+        "use_primary_photo": {
+          "description": "Whether the primary photo is shown for the activity",
+          "type": "boolean"
         }
       }
     },
@@ -4386,6 +4502,10 @@
         "polyline": {
           "description": "The polyline of the map, only returned on detailed representation of an object",
           "type": "string"
+        },
+        "resource_state": {
+          "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
+          "type": "integer"
         },
         "summary_polyline": {
           "description": "The summary polyline of the map",
@@ -4460,6 +4580,9 @@
         "map": {
           "$ref": "#/definitions/polylineMap"
         },
+        "map_urls": {
+          "$ref": "#/definitions/routeMapUrls"
+        },
         "name": {
           "description": "The name of this route",
           "type": "string"
@@ -4467,6 +4590,10 @@
         "private": {
           "description": "Whether this route is private",
           "type": "boolean"
+        },
+        "resource_state": {
+          "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
+          "type": "integer"
         },
         "segments": {
           "description": "The segments traversed by this route",
@@ -4778,6 +4905,10 @@
               "description": "Whether this activity is flagged",
               "type": "boolean"
             },
+            "from_accepted_tag": {
+              "description": "Whether this activity was created from an accepted tag",
+              "type": "boolean"
+            },
             "gear_id": {
               "description": "The id of the gear for the activity",
               "type": "string"
@@ -4798,6 +4929,18 @@
             "kudos_count": {
               "description": "The number of kudos given for this activity",
               "type": "integer"
+            },
+            "location_city": {
+              "description": "The city of the activity's start",
+              "type": "string"
+            },
+            "location_country": {
+              "description": "The country of the activity's start",
+              "type": "string"
+            },
+            "location_state": {
+              "description": "The state of the activity's start",
+              "type": "string"
             },
             "manual": {
               "description": "Whether this activity was created manually",
@@ -4955,10 +5098,6 @@
             "profile_medium": {
               "description": "URL to a 62x62 pixel profile picture.",
               "type": "string"
-            },
-            "resource_state": {
-              "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
-              "type": "integer"
             },
             "sex": {
               "description": "The athlete's sex.",
@@ -5127,14 +5266,26 @@
           "type": "integer",
           "format": "int64"
         },
+        "pr_activity_id_str": {
+          "description": "The identifier of the activity holding the personal record, as a string",
+          "type": "string"
+        },
+        "pr_activity_visibility": {
+          "description": "The visibility of the activity holding the personal record",
+          "type": "string"
+        },
         "pr_date": {
           "description": "The time at which the PR effort was started.",
           "type": "string",
-          "format": "date-time"
+          "format": "date"
         },
         "pr_elapsed_time": {
           "description": "The elapsed time ot the PR effort.",
           "type": "integer"
+        },
+        "pr_visibility": {
+          "description": "The visibility of the personal record",
+          "type": "string"
         }
       }
     },
@@ -5149,10 +5300,10 @@
           ]
         },
         "athlete_pr_effort": {
-          "$ref": "#/definitions/summaryPRSegmentEffort"
+          "$ref": "#/definitions/summarySegmentEffort"
         },
         "athlete_segment_stats": {
-          "$ref": "#/definitions/summarySegmentEffort"
+          "$ref": "#/definitions/summaryPRSegmentEffort"
         },
         "average_grade": {
           "description": "The segment's average grade, in percents",
@@ -5186,8 +5337,19 @@
           "type": "number",
           "format": "float"
         },
+        "elevation_profile": {
+          "description": "URL to the elevation profile image",
+          "type": "string"
+        },
+        "elevation_profiles": {
+          "$ref": "#/definitions/elevationProfiles"
+        },
         "end_latlng": {
           "$ref": "#/definitions/latLng"
+        },
+        "hazardous": {
+          "description": "Whether this segment is considered hazardous",
+          "type": "boolean"
         },
         "id": {
           "description": "The unique identifier of this segment",
@@ -5203,13 +5365,25 @@
           "description": "The name of this segment",
           "type": "string"
         },
+        "pr_time": {
+          "description": "The logged-in athlete's personal record time on this segment, in seconds",
+          "type": "integer"
+        },
         "private": {
           "description": "Whether this segment is private.",
           "type": "boolean"
         },
+        "resource_state": {
+          "description": "Resource state, indicates level of detail. Possible values: 1 -\u003e \"meta\", 2 -\u003e \"summary\", 3 -\u003e \"detail\"",
+          "type": "integer"
+        },
         "starred": {
           "description": "Whether this segment is starred by the logged-in athlete",
           "type": "boolean"
+        },
+        "starred_date": {
+          "description": "The time at which the logged-in athlete starred this segment",
+          "type": "string"
         },
         "start_latlng": {
           "$ref": "#/definitions/latLng"
@@ -5227,6 +5401,10 @@
           "description": "The unique identifier of the activity related to this effort",
           "type": "integer",
           "format": "int64"
+        },
+        "activity_id_str": {
+          "description": "The identifier of the activity related to this effort, as a string",
+          "type": "string"
         },
         "distance": {
           "description": "The effort's distance in meters",
@@ -5311,7 +5489,8 @@
           "properties": {
             "time": {
               "description": "The number of seconds spent in this zone",
-              "type": "integer"
+              "type": "number",
+              "format": "float"
             }
           }
         }
@@ -5508,6 +5687,143 @@
         },
         "visibility": {
           "description": "The visibility of the statistic",
+          "type": "string"
+        }
+      }
+    },
+    "achievement": {
+      "type": "object",
+      "properties": {
+        "rank": {
+          "description": "The rank of the achievement",
+          "type": "integer"
+        },
+        "type": {
+          "description": "The type of the achievement",
+          "type": "string"
+        },
+        "type_id": {
+          "description": "The identifier of the achievement type",
+          "type": "integer"
+        }
+      }
+    },
+    "elevationProfiles": {
+      "type": "object",
+      "properties": {
+        "dark_url": {
+          "description": "URL to the elevation profile image for dark mode",
+          "type": "string"
+        },
+        "light_url": {
+          "description": "URL to the elevation profile image for light mode",
+          "type": "string"
+        }
+      }
+    },
+    "localLegendEffortCounts": {
+      "type": "object",
+      "properties": {
+        "female": {
+          "description": "The formatted effort count of the female local legend",
+          "type": "string"
+        },
+        "overall": {
+          "description": "The formatted effort count of the overall local legend",
+          "type": "string"
+        }
+      }
+    },
+    "localLegend": {
+      "type": "object",
+      "properties": {
+        "athlete_id": {
+          "description": "The identifier of the local legend athlete",
+          "type": "integer"
+        },
+        "athlete_id_str": {
+          "description": "The identifier of the local legend athlete, as a string",
+          "type": "string"
+        },
+        "destination": {
+          "description": "The path to the local legend page",
+          "type": "string"
+        },
+        "effort_count": {
+          "description": "The formatted effort count of the local legend",
+          "type": "string"
+        },
+        "effort_counts": {
+          "$ref": "#/definitions/localLegendEffortCounts"
+        },
+        "effort_description": {
+          "description": "The description of the local legend efforts",
+          "type": "string"
+        },
+        "profile": {
+          "description": "URL to the local legend athlete's profile picture",
+          "type": "string"
+        },
+        "title": {
+          "description": "The name of the local legend",
+          "type": "string"
+        }
+      }
+    },
+    "segmentXomsDestination": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "description": "The link to the segment leaderboard",
+          "type": "string"
+        },
+        "name": {
+          "description": "The name of the leaderboard",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the leaderboard",
+          "type": "string"
+        }
+      }
+    },
+    "segmentXoms": {
+      "type": "object",
+      "properties": {
+        "destination": {
+          "$ref": "#/definitions/segmentXomsDestination"
+        },
+        "kom": {
+          "description": "The formatted KOM time",
+          "type": "string"
+        },
+        "overall": {
+          "description": "The formatted overall best time",
+          "type": "string"
+        },
+        "qom": {
+          "description": "The formatted QOM time",
+          "type": "string"
+        }
+      }
+    },
+    "routeMapUrls": {
+      "type": "object",
+      "properties": {
+        "dark_url": {
+          "description": "URL to the route map image for dark mode",
+          "type": "string"
+        },
+        "light_url": {
+          "description": "URL to the route map image for light mode",
+          "type": "string"
+        },
+        "retina_url": {
+          "description": "URL to the high resolution route map image",
+          "type": "string"
+        },
+        "url": {
+          "description": "URL to the route map image",
           "type": "string"
         }
       }

@@ -4,6 +4,7 @@ package models
 import internalmodels "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 
 type (
+	Achievement                            = internalmodels.Achievement
 	ActivityStats                          = internalmodels.ActivityStats
 	ActivityTotal                          = internalmodels.ActivityTotal
 	ActivityType                           = internalmodels.ActivityType
@@ -25,6 +26,7 @@ type (
 	DetailedSegmentAllOf0                  = internalmodels.DetailedSegmentAllOf0
 	DetailedSegmentEffort                  = internalmodels.DetailedSegmentEffort
 	DistanceStream                         = internalmodels.DistanceStream
+	ElevationProfiles                      = internalmodels.ElevationProfiles
 	Error                                  = internalmodels.Error
 	ExplorerResponse                       = internalmodels.ExplorerResponse
 	ExplorerSegment                        = internalmodels.ExplorerSegment
@@ -35,6 +37,8 @@ type (
 	Lap                                    = internalmodels.Lap
 	LatLng                                 = internalmodels.LatLng
 	LatLngStream                           = internalmodels.LatLngStream
+	LocalLegend                            = internalmodels.LocalLegend
+	LocalLegendEffortCounts                = internalmodels.LocalLegendEffortCounts
 	MetaActivity                           = internalmodels.MetaActivity
 	MetaAthlete                            = internalmodels.MetaAthlete
 	MetaClub                               = internalmodels.MetaClub
@@ -45,6 +49,9 @@ type (
 	PowerStream                            = internalmodels.PowerStream
 	PowerZoneRanges                        = internalmodels.PowerZoneRanges
 	Route                                  = internalmodels.Route
+	RouteMapUrls                           = internalmodels.RouteMapUrls
+	SegmentXoms                            = internalmodels.SegmentXoms
+	SegmentXomsDestination                 = internalmodels.SegmentXomsDestination
 	SmoothGradeStream                      = internalmodels.SmoothGradeStream
 	SmoothVelocityStream                   = internalmodels.SmoothVelocityStream
 	Split                                  = internalmodels.Split
@@ -72,11 +79,11 @@ type (
 )
 
 func NewActivityType(value ActivityType) *ActivityType {
-	return internalmodels.NewActivityType(value)
+	return new(value)
 }
 
 func NewSportType(value SportType) *SportType {
-	return internalmodels.NewSportType(value)
+	return new(value)
 }
 
 const (

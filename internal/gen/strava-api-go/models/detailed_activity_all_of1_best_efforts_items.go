@@ -5,6 +5,7 @@ package models
 import (
 	"context"
 	stderrors "errors"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -18,6 +19,9 @@ import (
 // swagger:model detailedActivityAllOf1BestEffortsItems
 type DetailedActivityAllOf1BestEffortsItems struct {
 	SummarySegmentEffort
+
+	// The achievements of this effort
+	Achievements []*Achievement `json:"achievements"`
 
 	// activity
 	Activity *MetaActivity `json:"activity,omitempty"`
@@ -62,11 +66,17 @@ type DetailedActivityAllOf1BestEffortsItems struct {
 	// Minimum: 1
 	PrRank int64 `json:"pr_rank,omitempty"`
 
+	// Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
+	ResourceState int64 `json:"resource_state,omitempty"`
+
 	// segment
 	Segment *DetailedSegmentAllOf0 `json:"segment,omitempty"`
 
 	// The start index of this effort in its activity's stream
 	StartIndex int64 `json:"start_index,omitempty"`
+
+	// The visibility of the effort
+	Visibility string `json:"visibility,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -80,6 +90,8 @@ func (m *DetailedActivityAllOf1BestEffortsItems) UnmarshalJSON(raw []byte) error
 
 	// AO1
 	var dataAO1 struct {
+		Achievements []*Achievement `json:"achievements"`
+
 		Activity *MetaActivity `json:"activity,omitempty"`
 
 		Athlete *MetaAthlete `json:"athlete,omitempty"`
@@ -106,13 +118,19 @@ func (m *DetailedActivityAllOf1BestEffortsItems) UnmarshalJSON(raw []byte) error
 
 		PrRank int64 `json:"pr_rank,omitempty"`
 
+		ResourceState int64 `json:"resource_state,omitempty"`
+
 		Segment *DetailedSegmentAllOf0 `json:"segment,omitempty"`
 
 		StartIndex int64 `json:"start_index,omitempty"`
+
+		Visibility string `json:"visibility,omitempty"`
 	}
 	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
+
+	m.Achievements = dataAO1.Achievements
 
 	m.Activity = dataAO1.Activity
 
@@ -140,9 +158,13 @@ func (m *DetailedActivityAllOf1BestEffortsItems) UnmarshalJSON(raw []byte) error
 
 	m.PrRank = dataAO1.PrRank
 
+	m.ResourceState = dataAO1.ResourceState
+
 	m.Segment = dataAO1.Segment
 
 	m.StartIndex = dataAO1.StartIndex
+
+	m.Visibility = dataAO1.Visibility
 
 	return nil
 }
@@ -157,6 +179,8 @@ func (m DetailedActivityAllOf1BestEffortsItems) MarshalJSON() ([]byte, error) {
 	}
 	_parts = append(_parts, aO0)
 	var dataAO1 struct {
+		Achievements []*Achievement `json:"achievements"`
+
 		Activity *MetaActivity `json:"activity,omitempty"`
 
 		Athlete *MetaAthlete `json:"athlete,omitempty"`
@@ -183,10 +207,16 @@ func (m DetailedActivityAllOf1BestEffortsItems) MarshalJSON() ([]byte, error) {
 
 		PrRank int64 `json:"pr_rank,omitempty"`
 
+		ResourceState int64 `json:"resource_state,omitempty"`
+
 		Segment *DetailedSegmentAllOf0 `json:"segment,omitempty"`
 
 		StartIndex int64 `json:"start_index,omitempty"`
+
+		Visibility string `json:"visibility,omitempty"`
 	}
+
+	dataAO1.Achievements = m.Achievements
 
 	dataAO1.Activity = m.Activity
 
@@ -214,9 +244,13 @@ func (m DetailedActivityAllOf1BestEffortsItems) MarshalJSON() ([]byte, error) {
 
 	dataAO1.PrRank = m.PrRank
 
+	dataAO1.ResourceState = m.ResourceState
+
 	dataAO1.Segment = m.Segment
 
 	dataAO1.StartIndex = m.StartIndex
+
+	dataAO1.Visibility = m.Visibility
 
 	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {
@@ -232,6 +266,10 @@ func (m *DetailedActivityAllOf1BestEffortsItems) Validate(formats strfmt.Registr
 
 	// validation for a type composition with SummarySegmentEffort
 	if err := m.SummarySegmentEffort.Validate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAchievements(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -258,6 +296,37 @@ func (m *DetailedActivityAllOf1BestEffortsItems) Validate(formats strfmt.Registr
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DetailedActivityAllOf1BestEffortsItems) validateAchievements(formats strfmt.Registry) error {
+
+	if typeutils.IsZero(m.Achievements) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Achievements); i++ {
+		if typeutils.IsZero(m.Achievements[i]) { // not required
+			continue
+		}
+
+		if m.Achievements[i] != nil {
+			if err := m.Achievements[i].Validate(formats); err != nil {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
+					return ve.ValidateName("achievements" + "." + strconv.Itoa(i))
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
+					return ce.ValidateName("achievements" + "." + strconv.Itoa(i))
+				}
+
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -376,6 +445,10 @@ func (m *DetailedActivityAllOf1BestEffortsItems) ContextValidate(ctx context.Con
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateAchievements(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateActivity(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -391,6 +464,35 @@ func (m *DetailedActivityAllOf1BestEffortsItems) ContextValidate(ctx context.Con
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DetailedActivityAllOf1BestEffortsItems) contextValidateAchievements(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Achievements); i++ {
+
+		if m.Achievements[i] != nil {
+
+			if typeutils.IsZero(m.Achievements[i]) { // not required
+				continue
+			}
+
+			if err := m.Achievements[i].ContextValidate(ctx, formats); err != nil {
+				ve := new(errors.Validation)
+				if stderrors.As(err, &ve) {
+					return ve.ValidateName("achievements" + "." + strconv.Itoa(i))
+				}
+				ce := new(errors.CompositeError)
+				if stderrors.As(err, &ce) {
+					return ce.ValidateName("achievements" + "." + strconv.Itoa(i))
+				}
+
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

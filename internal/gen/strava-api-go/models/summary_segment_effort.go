@@ -20,6 +20,9 @@ type SummarySegmentEffort struct {
 	// The unique identifier of the activity related to this effort
 	ActivityID int64 `json:"activity_id,omitempty"`
 
+	// The identifier of the activity related to this effort, as a string
+	ActivityIDStr string `json:"activity_id_str,omitempty"`
+
 	// The effort's distance in meters
 	Distance float32 `json:"distance,omitempty"`
 

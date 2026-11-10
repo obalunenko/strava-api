@@ -83,9 +83,20 @@ strava-token:
 	@go run ./internal/tools/strava-token
 .PHONY: strava-token
 
+## Run live integration tests against the Strava API.
+test-integration:
+	STRAVA_ACCESS_TOKEN="$$(go run ./internal/tools/strava-token)" go test -count=1 -tags=integration ./examples ./internal/specaudit
+.PHONY: test-integration
+
+## Update the API spec from Strava, keeping the local changes.
 update-swagger-spec:
-	go run github.com/go-swagger/go-swagger/cmd/swagger@latest flatten --format=json --with-flatten=minimal --output=./docs/swagger.json $(API_DOC_URL)
+	API_DOC_URL=$(API_DOC_URL) ./scripts/codegen/update-swagger-spec.sh
 .PHONY: update-swagger-spec
+
+## Show the local changes of the API spec compared to the Strava one.
+swagger-local-changes:
+	@git diff --no-index docs/swagger.upstream.json docs/swagger.json; test $$? -le 1
+.PHONY: swagger-local-changes
 
 
 .DEFAULT_GOAL := help

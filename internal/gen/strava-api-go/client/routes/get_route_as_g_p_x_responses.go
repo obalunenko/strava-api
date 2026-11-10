@@ -49,11 +49,9 @@ func NewGetRouteAsGPXOK(writer io.Writer) *GetRouteAsGPXOK {
 	}
 }
 
-/*
-GetRouteAsGPXOK describes a response with status code 200, with default header values.
-
-A GPX file with the route.
-*/
+// GetRouteAsGPXOK describes a response with status code 200, with default header values.
+//
+// A GPX file with the route.
 type GetRouteAsGPXOK struct {
 	Payload io.Writer
 }
@@ -117,11 +115,9 @@ func NewGetRouteAsGPXDefault(code int) *GetRouteAsGPXDefault {
 	}
 }
 
-/*
-GetRouteAsGPXDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetRouteAsGPXDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetRouteAsGPXDefault struct {
 	_statusCode int
 

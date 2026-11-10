@@ -63,62 +63,78 @@ CreateActivityParams contains all the parameters to send to the API endpoint
 */
 type CreateActivityParams struct {
 
-	/* Commute.
-
-	   Set to 1 to mark as commute.
-	*/
+	// Commute.
+	//
+	// Set to 1 to mark as commute.
 	Commute *int64
 
-	/* Description.
-
-	   Description of the activity.
-	*/
+	// Description.
+	//
+	// Description of the activity.
 	Description *string
 
-	/* Distance.
-
-	   In meters.
-
-	   Format: float
-	*/
+	// Distance.
+	//
+	// In meters.
+	//
+	// Format: float
 	Distance *float32
 
-	/* ElapsedTime.
-
-	   In seconds.
-	*/
+	// ElapsedTime.
+	//
+	// In seconds.
 	ElapsedTime int64
 
-	/* Name.
-
-	   The name of the activity.
-	*/
+	// Name.
+	//
+	// The name of the activity.
 	Name string
 
-	/* SportType.
-
-	   Sport type of activity. For example - Run, MountainBikeRide, Ride, etc.
-	*/
+	// SportType.
+	//
+	// Sport type of activity. For example - Run, MountainBikeRide, Ride, etc.
 	SportType string
 
-	/* StartDateLocal.
-
-	   ISO 8601 formatted date time.
-
-	   Format: date-time
-	*/
+	// StartDateLocal.
+	//
+	// ISO 8601 formatted date time.
+	//
+	// Format: date-time
 	StartDateLocal strfmt.DateTime
 
-	/* Trainer.
+	// TagsCommute.
+	//
+	// Activity tag: true adds the Commute tag, false removes it. Cannot be combined with the legacy commute param in the same request.
+	TagsCommute *bool
 
-	   Set to 1 to mark as a trainer activity.
-	*/
+	// TagsCompetition.
+	//
+	// Activity tag: true adds the Competition tag, false removes it. Cannot be combined with the legacy commute param in the same request.
+	TagsCompetition *bool
+
+	// TagsForACause.
+	//
+	// Activity tag: true adds the ForACause tag, false removes it. Cannot be combined with the legacy commute param in the same request.
+	TagsForACause *bool
+
+	// TagsRecovery.
+	//
+	// Activity tag: true adds the Recovery tag, false removes it. Cannot be combined with the legacy commute param in the same request.
+	TagsRecovery *bool
+
+	// TagsWithPet.
+	//
+	// Activity tag: true adds the WithPet tag, false removes it. Cannot be combined with the legacy commute param in the same request.
+	TagsWithPet *bool
+
+	// Trainer.
+	//
+	// Set to 1 to mark as a trainer activity.
 	Trainer *int64
 
-	/* Type.
-
-	   Type of activity. For example - Run, Ride etc.
-	*/
+	// Type.
+	//
+	// Type of activity. For example - Run, Ride etc.
 	Type *string
 
 	HTTPClient *http.Client
@@ -255,6 +271,61 @@ func (o *CreateActivityParams) SetStartDateLocal(startDateLocal strfmt.DateTime)
 	o.StartDateLocal = startDateLocal
 }
 
+// WithTagsCommute adds the tagsCommute to the create activity params.
+func (o *CreateActivityParams) WithTagsCommute(tagsCommute *bool) *CreateActivityParams {
+	o.SetTagsCommute(tagsCommute)
+	return o
+}
+
+// SetTagsCommute adds the tagsCommute to the create activity params.
+func (o *CreateActivityParams) SetTagsCommute(tagsCommute *bool) {
+	o.TagsCommute = tagsCommute
+}
+
+// WithTagsCompetition adds the tagsCompetition to the create activity params.
+func (o *CreateActivityParams) WithTagsCompetition(tagsCompetition *bool) *CreateActivityParams {
+	o.SetTagsCompetition(tagsCompetition)
+	return o
+}
+
+// SetTagsCompetition adds the tagsCompetition to the create activity params.
+func (o *CreateActivityParams) SetTagsCompetition(tagsCompetition *bool) {
+	o.TagsCompetition = tagsCompetition
+}
+
+// WithTagsForACause adds the tagsForACause to the create activity params.
+func (o *CreateActivityParams) WithTagsForACause(tagsForACause *bool) *CreateActivityParams {
+	o.SetTagsForACause(tagsForACause)
+	return o
+}
+
+// SetTagsForACause adds the tagsForACause to the create activity params.
+func (o *CreateActivityParams) SetTagsForACause(tagsForACause *bool) {
+	o.TagsForACause = tagsForACause
+}
+
+// WithTagsRecovery adds the tagsRecovery to the create activity params.
+func (o *CreateActivityParams) WithTagsRecovery(tagsRecovery *bool) *CreateActivityParams {
+	o.SetTagsRecovery(tagsRecovery)
+	return o
+}
+
+// SetTagsRecovery adds the tagsRecovery to the create activity params.
+func (o *CreateActivityParams) SetTagsRecovery(tagsRecovery *bool) {
+	o.TagsRecovery = tagsRecovery
+}
+
+// WithTagsWithPet adds the tagsWithPet to the create activity params.
+func (o *CreateActivityParams) WithTagsWithPet(tagsWithPet *bool) *CreateActivityParams {
+	o.SetTagsWithPet(tagsWithPet)
+	return o
+}
+
+// SetTagsWithPet adds the tagsWithPet to the create activity params.
+func (o *CreateActivityParams) SetTagsWithPet(tagsWithPet *bool) {
+	o.TagsWithPet = tagsWithPet
+}
+
 // WithTrainer adds the trainer to the create activity params.
 func (o *CreateActivityParams) WithTrainer(trainer *int64) *CreateActivityParams {
 	o.SetTrainer(trainer)
@@ -362,6 +433,81 @@ func (o *CreateActivityParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	if fStartDateLocal != "" {
 		if err := r.SetFormParam("start_date_local", fStartDateLocal); err != nil {
 			return err
+		}
+	}
+
+	if o.TagsCommute != nil {
+
+		// form param tags[Commute]
+		var frTagsCommute bool
+		if o.TagsCommute != nil {
+			frTagsCommute = *o.TagsCommute
+		}
+		fTagsCommute := conv.FormatBool(frTagsCommute)
+		if fTagsCommute != "" {
+			if err := r.SetFormParam("tags[Commute]", fTagsCommute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TagsCompetition != nil {
+
+		// form param tags[Competition]
+		var frTagsCompetition bool
+		if o.TagsCompetition != nil {
+			frTagsCompetition = *o.TagsCompetition
+		}
+		fTagsCompetition := conv.FormatBool(frTagsCompetition)
+		if fTagsCompetition != "" {
+			if err := r.SetFormParam("tags[Competition]", fTagsCompetition); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TagsForACause != nil {
+
+		// form param tags[ForACause]
+		var frTagsForACause bool
+		if o.TagsForACause != nil {
+			frTagsForACause = *o.TagsForACause
+		}
+		fTagsForACause := conv.FormatBool(frTagsForACause)
+		if fTagsForACause != "" {
+			if err := r.SetFormParam("tags[ForACause]", fTagsForACause); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TagsRecovery != nil {
+
+		// form param tags[Recovery]
+		var frTagsRecovery bool
+		if o.TagsRecovery != nil {
+			frTagsRecovery = *o.TagsRecovery
+		}
+		fTagsRecovery := conv.FormatBool(frTagsRecovery)
+		if fTagsRecovery != "" {
+			if err := r.SetFormParam("tags[Recovery]", fTagsRecovery); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TagsWithPet != nil {
+
+		// form param tags[WithPet]
+		var frTagsWithPet bool
+		if o.TagsWithPet != nil {
+			frTagsWithPet = *o.TagsWithPet
+		}
+		fTagsWithPet := conv.FormatBool(frTagsWithPet)
+		if fTagsWithPet != "" {
+			if err := r.SetFormParam("tags[WithPet]", fTagsWithPet); err != nil {
+				return err
+			}
 		}
 	}
 

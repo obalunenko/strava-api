@@ -28,6 +28,9 @@ type Comment struct {
 	// Format: date-time
 	CreatedAt strfmt.DateTime `json:"created_at,omitempty"`
 
+	// The cursor of this comment, passed as after_cursor to fetch the next page of comments
+	Cursor string `json:"cursor,omitempty"`
+
 	// The unique identifier of this comment
 	ID int64 `json:"id,omitempty"`
 

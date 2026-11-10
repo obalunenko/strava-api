@@ -17,20 +17,26 @@ type HeartRateDetails struct {
 	// The heart heart rate of the athlete during this effort
 	AverageHeartrate float32 `json:"average_heartrate,omitempty"`
 
+	// Whether the option to hide this activity's heart rate data is available to the athlete
+	DisplayHideHeartrateOption bool `json:"display_hide_heartrate_option,omitempty"`
+
 	// Whether the logged-in athlete has heart rate data for this activity
 	HasHeartrate bool `json:"has_heartrate,omitempty"`
+
+	// Whether the athlete has opted out of sharing this activity's heart rate data
+	HeartrateOptOut bool `json:"heartrate_opt_out,omitempty"`
 
 	// The maximum heart rate of the athlete during this effort
 	MaxHeartrate float32 `json:"max_heartrate,omitempty"`
 }
 
 // Validate validates this heart rate details
-func (m *HeartRateDetails) Validate(formats strfmt.Registry) error {
+func (m *HeartRateDetails) Validate(_ strfmt.Registry) error {
 	return nil
 }
 
 // ContextValidate validates this heart rate details based on context it is used
-func (m *HeartRateDetails) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *HeartRateDetails) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

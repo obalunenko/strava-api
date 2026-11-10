@@ -45,11 +45,9 @@ func NewGetSegmentByIDOK() *GetSegmentByIDOK {
 	return &GetSegmentByIDOK{}
 }
 
-/*
-GetSegmentByIDOK describes a response with status code 200, with default header values.
-
-Representation of a segment.
-*/
+// GetSegmentByIDOK describes a response with status code 200, with default header values.
+//
+// Representation of a segment.
 type GetSegmentByIDOK struct {
 	Payload *models.DetailedSegment
 }
@@ -117,11 +115,9 @@ func NewGetSegmentByIDDefault(code int) *GetSegmentByIDDefault {
 	}
 }
 
-/*
-GetSegmentByIDDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetSegmentByIDDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetSegmentByIDDefault struct {
 	_statusCode int
 

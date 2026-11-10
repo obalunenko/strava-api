@@ -44,9 +44,6 @@ type SummaryAthlete struct {
 	// URL to a 62x62 pixel profile picture.
 	ProfileMedium string `json:"profile_medium,omitempty"`
 
-	// Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
-	ResourceState int64 `json:"resource_state,omitempty"`
-
 	// The athlete's sex.
 	// Enum: ["M","F"]
 	Sex string `json:"sex,omitempty"`
@@ -89,8 +86,6 @@ func (m *SummaryAthlete) UnmarshalJSON(raw []byte) error {
 
 		ProfileMedium string `json:"profile_medium,omitempty"`
 
-		ResourceState int64 `json:"resource_state,omitempty"`
-
 		Sex string `json:"sex,omitempty"`
 
 		State string `json:"state,omitempty"`
@@ -118,8 +113,6 @@ func (m *SummaryAthlete) UnmarshalJSON(raw []byte) error {
 	m.Profile = dataAO1.Profile
 
 	m.ProfileMedium = dataAO1.ProfileMedium
-
-	m.ResourceState = dataAO1.ResourceState
 
 	m.Sex = dataAO1.Sex
 
@@ -158,8 +151,6 @@ func (m SummaryAthlete) MarshalJSON() ([]byte, error) {
 
 		ProfileMedium string `json:"profile_medium,omitempty"`
 
-		ResourceState int64 `json:"resource_state,omitempty"`
-
 		Sex string `json:"sex,omitempty"`
 
 		State string `json:"state,omitempty"`
@@ -184,8 +175,6 @@ func (m SummaryAthlete) MarshalJSON() ([]byte, error) {
 	dataAO1.Profile = m.Profile
 
 	dataAO1.ProfileMedium = m.ProfileMedium
-
-	dataAO1.ResourceState = m.ResourceState
 
 	dataAO1.Sex = m.Sex
 

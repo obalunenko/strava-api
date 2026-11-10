@@ -21,11 +21,23 @@ import (
 type DetailedAthlete struct {
 	CommentAthlete
 
+	// The athlete's type
+	AthleteType int64 `json:"athlete_type,omitempty"`
+
 	// The athlete's bikes.
 	Bikes []*SummaryGear `json:"bikes"`
 
+	// Whether this athlete is blocked
+	Blocked bool `json:"blocked,omitempty"`
+
+	// Whether the logged-in athlete can follow this athlete
+	CanFollow bool `json:"can_follow,omitempty"`
+
 	// The athlete's clubs.
-	Clubs []*DetailedClubAllOf0 `json:"clubs"`
+	Clubs []*DetailedClub `json:"clubs"`
+
+	// The athlete's preferred date format
+	DatePreference string `json:"date_preference,omitempty"`
 
 	// The athlete's follower count.
 	FollowerCount int64 `json:"follower_count,omitempty"`
@@ -40,11 +52,14 @@ type DetailedAthlete struct {
 	// Enum: ["feet","meters"]
 	MeasurementPreference string `json:"measurement_preference,omitempty"`
 
+	// The number of athletes followed by both this athlete and the logged-in athlete
+	MutualFriendCount int64 `json:"mutual_friend_count,omitempty"`
+
+	// The number of clubs this athlete can post to
+	PostableClubsCount int64 `json:"postable_clubs_count,omitempty"`
+
 	// The athlete's shoes.
 	Shoes []*SummaryGear `json:"shoes"`
-
-	// The athlete's weight.
-	Weight float32 `json:"weight,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -58,9 +73,17 @@ func (m *DetailedAthlete) UnmarshalJSON(raw []byte) error {
 
 	// AO1
 	var dataAO1 struct {
+		AthleteType int64 `json:"athlete_type,omitempty"`
+
 		Bikes []*SummaryGear `json:"bikes"`
 
-		Clubs []*DetailedClubAllOf0 `json:"clubs"`
+		Blocked bool `json:"blocked,omitempty"`
+
+		CanFollow bool `json:"can_follow,omitempty"`
+
+		Clubs []*DetailedClub `json:"clubs"`
+
+		DatePreference string `json:"date_preference,omitempty"`
 
 		FollowerCount int64 `json:"follower_count,omitempty"`
 
@@ -70,17 +93,27 @@ func (m *DetailedAthlete) UnmarshalJSON(raw []byte) error {
 
 		MeasurementPreference string `json:"measurement_preference,omitempty"`
 
-		Shoes []*SummaryGear `json:"shoes"`
+		MutualFriendCount int64 `json:"mutual_friend_count,omitempty"`
 
-		Weight float32 `json:"weight,omitempty"`
+		PostableClubsCount int64 `json:"postable_clubs_count,omitempty"`
+
+		Shoes []*SummaryGear `json:"shoes"`
 	}
 	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
 
+	m.AthleteType = dataAO1.AthleteType
+
 	m.Bikes = dataAO1.Bikes
 
+	m.Blocked = dataAO1.Blocked
+
+	m.CanFollow = dataAO1.CanFollow
+
 	m.Clubs = dataAO1.Clubs
+
+	m.DatePreference = dataAO1.DatePreference
 
 	m.FollowerCount = dataAO1.FollowerCount
 
@@ -90,9 +123,11 @@ func (m *DetailedAthlete) UnmarshalJSON(raw []byte) error {
 
 	m.MeasurementPreference = dataAO1.MeasurementPreference
 
-	m.Shoes = dataAO1.Shoes
+	m.MutualFriendCount = dataAO1.MutualFriendCount
 
-	m.Weight = dataAO1.Weight
+	m.PostableClubsCount = dataAO1.PostableClubsCount
+
+	m.Shoes = dataAO1.Shoes
 
 	return nil
 }
@@ -107,9 +142,17 @@ func (m DetailedAthlete) MarshalJSON() ([]byte, error) {
 	}
 	_parts = append(_parts, aO0)
 	var dataAO1 struct {
+		AthleteType int64 `json:"athlete_type,omitempty"`
+
 		Bikes []*SummaryGear `json:"bikes"`
 
-		Clubs []*DetailedClubAllOf0 `json:"clubs"`
+		Blocked bool `json:"blocked,omitempty"`
+
+		CanFollow bool `json:"can_follow,omitempty"`
+
+		Clubs []*DetailedClub `json:"clubs"`
+
+		DatePreference string `json:"date_preference,omitempty"`
 
 		FollowerCount int64 `json:"follower_count,omitempty"`
 
@@ -119,14 +162,24 @@ func (m DetailedAthlete) MarshalJSON() ([]byte, error) {
 
 		MeasurementPreference string `json:"measurement_preference,omitempty"`
 
-		Shoes []*SummaryGear `json:"shoes"`
+		MutualFriendCount int64 `json:"mutual_friend_count,omitempty"`
 
-		Weight float32 `json:"weight,omitempty"`
+		PostableClubsCount int64 `json:"postable_clubs_count,omitempty"`
+
+		Shoes []*SummaryGear `json:"shoes"`
 	}
+
+	dataAO1.AthleteType = m.AthleteType
 
 	dataAO1.Bikes = m.Bikes
 
+	dataAO1.Blocked = m.Blocked
+
+	dataAO1.CanFollow = m.CanFollow
+
 	dataAO1.Clubs = m.Clubs
+
+	dataAO1.DatePreference = m.DatePreference
 
 	dataAO1.FollowerCount = m.FollowerCount
 
@@ -136,9 +189,11 @@ func (m DetailedAthlete) MarshalJSON() ([]byte, error) {
 
 	dataAO1.MeasurementPreference = m.MeasurementPreference
 
-	dataAO1.Shoes = m.Shoes
+	dataAO1.MutualFriendCount = m.MutualFriendCount
 
-	dataAO1.Weight = m.Weight
+	dataAO1.PostableClubsCount = m.PostableClubsCount
+
+	dataAO1.Shoes = m.Shoes
 
 	jsonDataAO1, errAO1 := jsonutils.WriteJSON(dataAO1)
 	if errAO1 != nil {
@@ -340,7 +395,7 @@ func (m *DetailedAthlete) contextValidateBikes(ctx context.Context, formats strf
 		if m.Bikes[i] != nil {
 
 			if typeutils.IsZero(m.Bikes[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.Bikes[i].ContextValidate(ctx, formats); err != nil {
@@ -369,7 +424,7 @@ func (m *DetailedAthlete) contextValidateClubs(ctx context.Context, formats strf
 		if m.Clubs[i] != nil {
 
 			if typeutils.IsZero(m.Clubs[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.Clubs[i].ContextValidate(ctx, formats); err != nil {
@@ -398,7 +453,7 @@ func (m *DetailedAthlete) contextValidateShoes(ctx context.Context, formats strf
 		if m.Shoes[i] != nil {
 
 			if typeutils.IsZero(m.Shoes[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.Shoes[i].ContextValidate(ctx, formats); err != nil {

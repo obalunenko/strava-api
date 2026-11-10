@@ -63,12 +63,11 @@ GetZonesByActivityIDParams contains all the parameters to send to the API endpoi
 */
 type GetZonesByActivityIDParams struct {
 
-	/* ID.
-
-	   The identifier of the activity.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the activity.
+	//
+	// Format: int64
 	ID int64
 
 	HTTPClient *http.Client

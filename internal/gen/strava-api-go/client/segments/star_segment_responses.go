@@ -45,11 +45,9 @@ func NewStarSegmentOK() *StarSegmentOK {
 	return &StarSegmentOK{}
 }
 
-/*
-StarSegmentOK describes a response with status code 200, with default header values.
-
-Representation of a segment.
-*/
+// StarSegmentOK describes a response with status code 200, with default header values.
+//
+// Representation of a segment.
 type StarSegmentOK struct {
 	Payload *models.DetailedSegment
 }
@@ -117,11 +115,9 @@ func NewStarSegmentDefault(code int) *StarSegmentDefault {
 	}
 }
 
-/*
-StarSegmentDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// StarSegmentDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type StarSegmentDefault struct {
 	_statusCode int
 

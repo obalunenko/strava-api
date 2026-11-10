@@ -43,9 +43,7 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 	return &Client{transport: transport, formats: strfmt.Default}
 }
 
-/*
-Client for uploads API.
-*/
+// Client for uploads API.
 type Client struct {
 	transport runtime.ContextualTransport
 	formats   strfmt.Registry
@@ -96,19 +94,17 @@ type ClientService interface {
 	SetTransport(transport runtime.ContextualTransport)
 }
 
-/*
-CreateUploaduploads activity.
-
-Uploads a new data file to create an activity from. Requires activity:write scope..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.CreateUploadContext] instead.
-*/
+// CreateUpload uploads activity.
+//
+// Uploads a new data file to create an activity from. Requires activity:write scope..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.CreateUploadContext] instead.
 func (a *Client) CreateUpload(params *CreateUploadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUploadCreated, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -117,13 +113,11 @@ func (a *Client) CreateUpload(params *CreateUploadParams, authInfo runtime.Clien
 	return a.CreateUploadContext(ctx, params, authInfo, opts...)
 }
 
-/*
-CreateUploadContextuploads activity.
-
-Uploads a new data file to create an activity from. Requires activity:write scope..
-
-Do not use the deprecated [CreateUploadParams.Context] with this method: it would be ignored.
-*/
+// CreateUploadContext uploads activity.
+//
+// Uploads a new data file to create an activity from. Requires activity:write scope..
+//
+// Do not use the deprecated [CreateUploadParams.Context] with this method: it would be ignored.
 func (a *Client) CreateUploadContext(ctx context.Context, params *CreateUploadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUploadCreated, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -166,19 +160,17 @@ func (a *Client) CreateUploadContext(ctx context.Context, params *CreateUploadPa
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetUploadByIDgets upload.
-
-Returns an upload for a given identifier. Requires activity:write scope..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetUploadByIDContext] instead.
-*/
+// GetUploadByID gets upload.
+//
+// Returns an upload for a given identifier. Requires activity:write scope..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetUploadByIDContext] instead.
 func (a *Client) GetUploadByID(params *GetUploadByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUploadByIDOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -187,13 +179,11 @@ func (a *Client) GetUploadByID(params *GetUploadByIDParams, authInfo runtime.Cli
 	return a.GetUploadByIDContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetUploadByIDContextgets upload.
-
-Returns an upload for a given identifier. Requires activity:write scope..
-
-Do not use the deprecated [GetUploadByIDParams.Context] with this method: it would be ignored.
-*/
+// GetUploadByIDContext gets upload.
+//
+// Returns an upload for a given identifier. Requires activity:write scope..
+//
+// Do not use the deprecated [GetUploadByIDParams.Context] with this method: it would be ignored.
 func (a *Client) GetUploadByIDContext(ctx context.Context, params *GetUploadByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUploadByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {

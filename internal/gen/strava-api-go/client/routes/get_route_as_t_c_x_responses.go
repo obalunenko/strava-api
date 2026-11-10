@@ -49,11 +49,9 @@ func NewGetRouteAsTCXOK(writer io.Writer) *GetRouteAsTCXOK {
 	}
 }
 
-/*
-GetRouteAsTCXOK describes a response with status code 200, with default header values.
-
-A TCX file with the route.
-*/
+// GetRouteAsTCXOK describes a response with status code 200, with default header values.
+//
+// A TCX file with the route.
 type GetRouteAsTCXOK struct {
 	Payload io.Writer
 }
@@ -117,11 +115,9 @@ func NewGetRouteAsTCXDefault(code int) *GetRouteAsTCXDefault {
 	}
 }
 
-/*
-GetRouteAsTCXDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetRouteAsTCXDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetRouteAsTCXDefault struct {
 	_statusCode int
 

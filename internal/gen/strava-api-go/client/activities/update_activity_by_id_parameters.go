@@ -68,12 +68,11 @@ type UpdateActivityByIDParams struct {
 	// Body.
 	Body *models.UpdatableActivity
 
-	/* ID.
-
-	   The identifier of the activity.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the activity.
+	//
+	// Format: int64
 	ID int64
 
 	HTTPClient *http.Client

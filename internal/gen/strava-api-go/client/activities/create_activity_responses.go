@@ -45,11 +45,9 @@ func NewCreateActivityCreated() *CreateActivityCreated {
 	return &CreateActivityCreated{}
 }
 
-/*
-CreateActivityCreated describes a response with status code 201, with default header values.
-
-The activity's detailed representation.
-*/
+// CreateActivityCreated describes a response with status code 201, with default header values.
+//
+// The activity's detailed representation.
 type CreateActivityCreated struct {
 	Payload *models.DetailedActivity
 }
@@ -117,11 +115,9 @@ func NewCreateActivityDefault(code int) *CreateActivityDefault {
 	}
 }
 
-/*
-CreateActivityDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// CreateActivityDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type CreateActivityDefault struct {
 	_statusCode int
 

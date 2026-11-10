@@ -24,10 +24,10 @@ type SummarySegment struct {
 	ActivityType string `json:"activity_type,omitempty"`
 
 	// athlete pr effort
-	AthletePrEffort *SummaryPRSegmentEffort `json:"athlete_pr_effort,omitempty"`
+	AthletePrEffort *SummarySegmentEffort `json:"athlete_pr_effort,omitempty"`
 
 	// athlete segment stats
-	AthleteSegmentStats *SummarySegmentEffort `json:"athlete_segment_stats,omitempty"`
+	AthleteSegmentStats *SummaryPRSegmentEffort `json:"athlete_segment_stats,omitempty"`
 
 	// The segment's average grade, in percents
 	AverageGrade float32 `json:"average_grade,omitempty"`
@@ -50,8 +50,17 @@ type SummarySegment struct {
 	// The segments's lowest elevation, in meters
 	ElevationLow float32 `json:"elevation_low,omitempty"`
 
+	// URL to the elevation profile image
+	ElevationProfile string `json:"elevation_profile,omitempty"`
+
+	// elevation profiles
+	ElevationProfiles *ElevationProfiles `json:"elevation_profiles,omitempty"`
+
 	// end latlng
 	EndLatlng LatLng `json:"end_latlng,omitempty"`
+
+	// Whether this segment is considered hazardous
+	Hazardous bool `json:"hazardous,omitempty"`
 
 	// The unique identifier of this segment
 	ID int64 `json:"id,omitempty"`
@@ -62,8 +71,20 @@ type SummarySegment struct {
 	// The name of this segment
 	Name string `json:"name,omitempty"`
 
+	// The logged-in athlete's personal record time on this segment, in seconds
+	PrTime int64 `json:"pr_time,omitempty"`
+
 	// Whether this segment is private.
 	Private bool `json:"private,omitempty"`
+
+	// Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
+	ResourceState int64 `json:"resource_state,omitempty"`
+
+	// Whether this segment is starred by the logged-in athlete
+	Starred bool `json:"starred,omitempty"`
+
+	// The time at which the logged-in athlete starred this segment
+	StarredDate string `json:"starred_date,omitempty"`
 
 	// start latlng
 	StartLatlng LatLng `json:"start_latlng,omitempty"`
@@ -85,6 +106,10 @@ func (m *SummarySegment) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAthleteSegmentStats(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateElevationProfiles(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -190,6 +215,29 @@ func (m *SummarySegment) validateAthleteSegmentStats(formats strfmt.Registry) er
 	return nil
 }
 
+func (m *SummarySegment) validateElevationProfiles(formats strfmt.Registry) error {
+	if typeutils.IsZero(m.ElevationProfiles) { // not required
+		return nil
+	}
+
+	if m.ElevationProfiles != nil {
+		if err := m.ElevationProfiles.Validate(formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("elevation_profiles")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("elevation_profiles")
+			}
+
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *SummarySegment) validateEndLatlng(formats strfmt.Registry) error {
 	if typeutils.IsZero(m.EndLatlng) { // not required
 		return nil
@@ -241,6 +289,10 @@ func (m *SummarySegment) ContextValidate(ctx context.Context, formats strfmt.Reg
 	}
 
 	if err := m.contextValidateAthleteSegmentStats(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateElevationProfiles(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -299,6 +351,31 @@ func (m *SummarySegment) contextValidateAthleteSegmentStats(ctx context.Context,
 			ce := new(errors.CompositeError)
 			if stderrors.As(err, &ce) {
 				return ce.ValidateName("athlete_segment_stats")
+			}
+
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *SummarySegment) contextValidateElevationProfiles(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ElevationProfiles != nil {
+
+		if typeutils.IsZero(m.ElevationProfiles) { // not required
+			return nil
+		}
+
+		if err := m.ElevationProfiles.ContextValidate(ctx, formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("elevation_profiles")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("elevation_profiles")
 			}
 
 			return err

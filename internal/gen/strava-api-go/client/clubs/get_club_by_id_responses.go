@@ -45,11 +45,9 @@ func NewGetClubByIDOK() *GetClubByIDOK {
 	return &GetClubByIDOK{}
 }
 
-/*
-GetClubByIDOK describes a response with status code 200, with default header values.
-
-The detailed representation of a club.
-*/
+// GetClubByIDOK describes a response with status code 200, with default header values.
+//
+// The detailed representation of a club.
 type GetClubByIDOK struct {
 	Payload *models.DetailedClub
 }
@@ -117,11 +115,9 @@ func NewGetClubByIDDefault(code int) *GetClubByIDDefault {
 	}
 }
 
-/*
-GetClubByIDDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetClubByIDDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetClubByIDDefault struct {
 	_statusCode int
 

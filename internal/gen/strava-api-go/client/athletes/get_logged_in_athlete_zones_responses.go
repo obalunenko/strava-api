@@ -45,11 +45,9 @@ func NewGetLoggedInAthleteZonesOK() *GetLoggedInAthleteZonesOK {
 	return &GetLoggedInAthleteZonesOK{}
 }
 
-/*
-GetLoggedInAthleteZonesOK describes a response with status code 200, with default header values.
-
-Heart rate and power zones.
-*/
+// GetLoggedInAthleteZonesOK describes a response with status code 200, with default header values.
+//
+// Heart rate and power zones.
 type GetLoggedInAthleteZonesOK struct {
 	Payload *models.Zones
 }
@@ -117,11 +115,9 @@ func NewGetLoggedInAthleteZonesDefault(code int) *GetLoggedInAthleteZonesDefault
 	}
 }
 
-/*
-GetLoggedInAthleteZonesDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetLoggedInAthleteZonesDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetLoggedInAthleteZonesDefault struct {
 	_statusCode int
 

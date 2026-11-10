@@ -62,10 +62,9 @@ GetGearByIDParams contains all the parameters to send to the API endpoint
 */
 type GetGearByIDParams struct {
 
-	/* ID.
-
-	   The identifier of the gear.
-	*/
+	// ID.
+	//
+	// The identifier of the gear.
 	ID string
 
 	HTTPClient *http.Client

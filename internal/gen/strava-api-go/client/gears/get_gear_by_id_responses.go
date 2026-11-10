@@ -45,11 +45,9 @@ func NewGetGearByIDOK() *GetGearByIDOK {
 	return &GetGearByIDOK{}
 }
 
-/*
-GetGearByIDOK describes a response with status code 200, with default header values.
-
-A representation of the gear.
-*/
+// GetGearByIDOK describes a response with status code 200, with default header values.
+//
+// A representation of the gear.
 type GetGearByIDOK struct {
 	Payload *models.DetailedGear
 }
@@ -117,11 +115,9 @@ func NewGetGearByIDDefault(code int) *GetGearByIDDefault {
 	}
 }
 
-/*
-GetGearByIDDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetGearByIDDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetGearByIDDefault struct {
 	_statusCode int
 

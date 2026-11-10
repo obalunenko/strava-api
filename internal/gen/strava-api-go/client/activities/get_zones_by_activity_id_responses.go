@@ -45,11 +45,9 @@ func NewGetZonesByActivityIDOK() *GetZonesByActivityIDOK {
 	return &GetZonesByActivityIDOK{}
 }
 
-/*
-GetZonesByActivityIDOK describes a response with status code 200, with default header values.
-
-Activity Zones.
-*/
+// GetZonesByActivityIDOK describes a response with status code 200, with default header values.
+//
+// Activity Zones.
 type GetZonesByActivityIDOK struct {
 	Payload []*models.ActivityZone
 }
@@ -115,11 +113,9 @@ func NewGetZonesByActivityIDDefault(code int) *GetZonesByActivityIDDefault {
 	}
 }
 
-/*
-GetZonesByActivityIDDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetZonesByActivityIDDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetZonesByActivityIDDefault struct {
 	_statusCode int
 

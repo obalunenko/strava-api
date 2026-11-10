@@ -43,9 +43,7 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 	return &Client{transport: transport, formats: strfmt.Default}
 }
 
-/*
-Client for segment efforts API.
-*/
+// Client for segment efforts API.
 type Client struct {
 	transport runtime.ContextualTransport
 	formats   strfmt.Registry
@@ -72,19 +70,17 @@ type ClientService interface {
 	SetTransport(transport runtime.ContextualTransport)
 }
 
-/*
-GetEffortsBySegmentIDlists segment efforts.
-
-Returns a set of the authenticated athlete's segment efforts for a given segment.  Requires subscription..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetEffortsBySegmentIDContext] instead.
-*/
+// GetEffortsBySegmentID lists segment efforts.
+//
+// Returns a set of the authenticated athlete's segment efforts for a given segment.  Requires subscription..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetEffortsBySegmentIDContext] instead.
 func (a *Client) GetEffortsBySegmentID(params *GetEffortsBySegmentIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEffortsBySegmentIDOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -93,13 +89,11 @@ func (a *Client) GetEffortsBySegmentID(params *GetEffortsBySegmentIDParams, auth
 	return a.GetEffortsBySegmentIDContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetEffortsBySegmentIDContextlists segment efforts.
-
-Returns a set of the authenticated athlete's segment efforts for a given segment.  Requires subscription..
-
-Do not use the deprecated [GetEffortsBySegmentIDParams.Context] with this method: it would be ignored.
-*/
+// GetEffortsBySegmentIDContext lists segment efforts.
+//
+// Returns a set of the authenticated athlete's segment efforts for a given segment.  Requires subscription..
+//
+// Do not use the deprecated [GetEffortsBySegmentIDParams.Context] with this method: it would be ignored.
 func (a *Client) GetEffortsBySegmentIDContext(ctx context.Context, params *GetEffortsBySegmentIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEffortsBySegmentIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -142,19 +136,17 @@ func (a *Client) GetEffortsBySegmentIDContext(ctx context.Context, params *GetEf
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetSegmentEffortByIDgets segment effort.
-
-Returns a segment effort from an activity that is owned by the authenticated athlete. Requires subscription..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetSegmentEffortByIDContext] instead.
-*/
+// GetSegmentEffortByID gets segment effort.
+//
+// Returns a segment effort from an activity that is owned by the authenticated athlete. Requires subscription..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetSegmentEffortByIDContext] instead.
 func (a *Client) GetSegmentEffortByID(params *GetSegmentEffortByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentEffortByIDOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -163,13 +155,11 @@ func (a *Client) GetSegmentEffortByID(params *GetSegmentEffortByIDParams, authIn
 	return a.GetSegmentEffortByIDContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetSegmentEffortByIDContextgets segment effort.
-
-Returns a segment effort from an activity that is owned by the authenticated athlete. Requires subscription..
-
-Do not use the deprecated [GetSegmentEffortByIDParams.Context] with this method: it would be ignored.
-*/
+// GetSegmentEffortByIDContext gets segment effort.
+//
+// Returns a segment effort from an activity that is owned by the authenticated athlete. Requires subscription..
+//
+// Do not use the deprecated [GetSegmentEffortByIDParams.Context] with this method: it would be ignored.
 func (a *Client) GetSegmentEffortByIDContext(ctx context.Context, params *GetSegmentEffortByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentEffortByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {

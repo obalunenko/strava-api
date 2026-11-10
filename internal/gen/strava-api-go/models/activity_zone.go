@@ -31,8 +31,11 @@ type ActivityZone struct {
 	// points
 	Points int64 `json:"points,omitempty"`
 
+	// Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
+	ResourceState int64 `json:"resource_state,omitempty"`
+
 	// score
-	Score int64 `json:"score,omitempty"`
+	Score float32 `json:"score,omitempty"`
 
 	// sensor based
 	SensorBased bool `json:"sensor_based,omitempty"`

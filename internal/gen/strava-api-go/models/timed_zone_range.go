@@ -17,7 +17,7 @@ type TimedZoneRange struct {
 	ZoneRange
 
 	// The number of seconds spent in this zone
-	Time int64 `json:"time,omitempty"`
+	Time float32 `json:"time,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -31,7 +31,7 @@ func (m *TimedZoneRange) UnmarshalJSON(raw []byte) error {
 
 	// AO1
 	var dataAO1 struct {
-		Time int64 `json:"time,omitempty"`
+		Time float32 `json:"time,omitempty"`
 	}
 	if err := jsonutils.ReadJSON(raw, &dataAO1); err != nil {
 		return err
@@ -52,7 +52,7 @@ func (m TimedZoneRange) MarshalJSON() ([]byte, error) {
 	}
 	_parts = append(_parts, aO0)
 	var dataAO1 struct {
-		Time int64 `json:"time,omitempty"`
+		Time float32 `json:"time,omitempty"`
 	}
 
 	dataAO1.Time = m.Time

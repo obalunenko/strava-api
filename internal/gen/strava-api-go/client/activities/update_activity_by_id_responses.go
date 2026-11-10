@@ -45,11 +45,9 @@ func NewUpdateActivityByIDOK() *UpdateActivityByIDOK {
 	return &UpdateActivityByIDOK{}
 }
 
-/*
-UpdateActivityByIDOK describes a response with status code 200, with default header values.
-
-The activity's detailed representation.
-*/
+// UpdateActivityByIDOK describes a response with status code 200, with default header values.
+//
+// The activity's detailed representation.
 type UpdateActivityByIDOK struct {
 	Payload *models.DetailedActivity
 }
@@ -117,11 +115,9 @@ func NewUpdateActivityByIDDefault(code int) *UpdateActivityByIDDefault {
 	}
 }
 
-/*
-UpdateActivityByIDDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// UpdateActivityByIDDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type UpdateActivityByIDDefault struct {
 	_statusCode int
 

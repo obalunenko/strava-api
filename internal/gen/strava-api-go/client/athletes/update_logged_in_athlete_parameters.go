@@ -63,12 +63,11 @@ UpdateLoggedInAthleteParams contains all the parameters to send to the API endpo
 */
 type UpdateLoggedInAthleteParams struct {
 
-	/* Weight.
-
-	   The weight of the athlete in kilograms.
-
-	   Format: float
-	*/
+	// Weight.
+	//
+	// The weight of the athlete in kilograms.
+	//
+	// Format: float
 	Weight float32
 
 	HTTPClient *http.Client
@@ -146,9 +145,13 @@ func (o *UpdateLoggedInAthleteParams) WriteToRequest(r runtime.ClientRequest, re
 	}
 	var res []error
 
-	// path param weight
-	if err := r.SetPathParam("weight", conv.FormatFloat(o.Weight)); err != nil {
-		return err
+	// form param weight
+	frWeight := o.Weight
+	fWeight := conv.FormatFloat(frWeight)
+	if fWeight != "" {
+		if err := r.SetFormParam("weight", fWeight); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

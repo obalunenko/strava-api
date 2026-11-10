@@ -43,9 +43,7 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 	return &Client{transport: transport, formats: strfmt.Default}
 }
 
-/*
-Client for streams API.
-*/
+// Client for streams API.
 type Client struct {
 	transport runtime.ContextualTransport
 	formats   strfmt.Registry
@@ -84,19 +82,17 @@ type ClientService interface {
 	SetTransport(transport runtime.ContextualTransport)
 }
 
-/*
-GetActivityStreamsgets activity streams.
-
-Returns the given activity's streams. Requires activity:read scope. Requires activity:read_all scope for Only Me activities..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetActivityStreamsContext] instead.
-*/
+// GetActivityStreams gets activity streams.
+//
+// Returns the given activity's streams. Requires activity:read scope. Requires activity:read_all scope for Only Me activities..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetActivityStreamsContext] instead.
 func (a *Client) GetActivityStreams(params *GetActivityStreamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetActivityStreamsOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -105,13 +101,11 @@ func (a *Client) GetActivityStreams(params *GetActivityStreamsParams, authInfo r
 	return a.GetActivityStreamsContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetActivityStreamsContextgets activity streams.
-
-Returns the given activity's streams. Requires activity:read scope. Requires activity:read_all scope for Only Me activities..
-
-Do not use the deprecated [GetActivityStreamsParams.Context] with this method: it would be ignored.
-*/
+// GetActivityStreamsContext gets activity streams.
+//
+// Returns the given activity's streams. Requires activity:read scope. Requires activity:read_all scope for Only Me activities..
+//
+// Do not use the deprecated [GetActivityStreamsParams.Context] with this method: it would be ignored.
 func (a *Client) GetActivityStreamsContext(ctx context.Context, params *GetActivityStreamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetActivityStreamsOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -154,19 +148,17 @@ func (a *Client) GetActivityStreamsContext(ctx context.Context, params *GetActiv
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetRouteStreamsgets route streams.
-
-Returns the given route's streams. Requires read_all scope for private routes..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetRouteStreamsContext] instead.
-*/
+// GetRouteStreams gets route streams.
+//
+// Returns the given route's streams. Requires read_all scope for private routes..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetRouteStreamsContext] instead.
 func (a *Client) GetRouteStreams(params *GetRouteStreamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteStreamsOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -175,13 +167,11 @@ func (a *Client) GetRouteStreams(params *GetRouteStreamsParams, authInfo runtime
 	return a.GetRouteStreamsContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetRouteStreamsContextgets route streams.
-
-Returns the given route's streams. Requires read_all scope for private routes..
-
-Do not use the deprecated [GetRouteStreamsParams.Context] with this method: it would be ignored.
-*/
+// GetRouteStreamsContext gets route streams.
+//
+// Returns the given route's streams. Requires read_all scope for private routes..
+//
+// Do not use the deprecated [GetRouteStreamsParams.Context] with this method: it would be ignored.
 func (a *Client) GetRouteStreamsContext(ctx context.Context, params *GetRouteStreamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRouteStreamsOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -224,19 +214,17 @@ func (a *Client) GetRouteStreamsContext(ctx context.Context, params *GetRouteStr
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetSegmentEffortStreamsgets segment effort streams.
-
-Returns a set of streams for a segment effort completed by the authenticated athlete. Requires read_all scope..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetSegmentEffortStreamsContext] instead.
-*/
+// GetSegmentEffortStreams gets segment effort streams.
+//
+// Returns a set of streams for a segment effort completed by the authenticated athlete. Requires read_all scope..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetSegmentEffortStreamsContext] instead.
 func (a *Client) GetSegmentEffortStreams(params *GetSegmentEffortStreamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentEffortStreamsOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -245,13 +233,11 @@ func (a *Client) GetSegmentEffortStreams(params *GetSegmentEffortStreamsParams, 
 	return a.GetSegmentEffortStreamsContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetSegmentEffortStreamsContextgets segment effort streams.
-
-Returns a set of streams for a segment effort completed by the authenticated athlete. Requires read_all scope..
-
-Do not use the deprecated [GetSegmentEffortStreamsParams.Context] with this method: it would be ignored.
-*/
+// GetSegmentEffortStreamsContext gets segment effort streams.
+//
+// Returns a set of streams for a segment effort completed by the authenticated athlete. Requires read_all scope..
+//
+// Do not use the deprecated [GetSegmentEffortStreamsParams.Context] with this method: it would be ignored.
 func (a *Client) GetSegmentEffortStreamsContext(ctx context.Context, params *GetSegmentEffortStreamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentEffortStreamsOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -294,19 +280,17 @@ func (a *Client) GetSegmentEffortStreamsContext(ctx context.Context, params *Get
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetSegmentStreamsgets segment streams.
-
-Returns the given segment's streams. Requires read_all scope for private segments..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetSegmentStreamsContext] instead.
-*/
+// GetSegmentStreams gets segment streams.
+//
+// Returns the given segment's streams. Requires read_all scope for private segments..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetSegmentStreamsContext] instead.
 func (a *Client) GetSegmentStreams(params *GetSegmentStreamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentStreamsOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -315,13 +299,11 @@ func (a *Client) GetSegmentStreams(params *GetSegmentStreamsParams, authInfo run
 	return a.GetSegmentStreamsContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetSegmentStreamsContextgets segment streams.
-
-Returns the given segment's streams. Requires read_all scope for private segments..
-
-Do not use the deprecated [GetSegmentStreamsParams.Context] with this method: it would be ignored.
-*/
+// GetSegmentStreamsContext gets segment streams.
+//
+// Returns the given segment's streams. Requires read_all scope for private segments..
+//
+// Do not use the deprecated [GetSegmentStreamsParams.Context] with this method: it would be ignored.
 func (a *Client) GetSegmentStreamsContext(ctx context.Context, params *GetSegmentStreamsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSegmentStreamsOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {

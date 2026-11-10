@@ -45,11 +45,9 @@ func NewGetLoggedInAthleteActivitiesOK() *GetLoggedInAthleteActivitiesOK {
 	return &GetLoggedInAthleteActivitiesOK{}
 }
 
-/*
-GetLoggedInAthleteActivitiesOK describes a response with status code 200, with default header values.
-
-The authenticated athlete's activities
-*/
+// GetLoggedInAthleteActivitiesOK describes a response with status code 200, with default header values.
+//
+// The authenticated athlete's activities
 type GetLoggedInAthleteActivitiesOK struct {
 	Payload []*models.SummaryActivity
 }
@@ -115,11 +113,9 @@ func NewGetLoggedInAthleteActivitiesDefault(code int) *GetLoggedInAthleteActivit
 	}
 }
 
-/*
-GetLoggedInAthleteActivitiesDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetLoggedInAthleteActivitiesDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetLoggedInAthleteActivitiesDefault struct {
 	_statusCode int
 

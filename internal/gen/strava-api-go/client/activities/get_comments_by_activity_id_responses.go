@@ -45,11 +45,9 @@ func NewGetCommentsByActivityIDOK() *GetCommentsByActivityIDOK {
 	return &GetCommentsByActivityIDOK{}
 }
 
-/*
-GetCommentsByActivityIDOK describes a response with status code 200, with default header values.
-
-Comments.
-*/
+// GetCommentsByActivityIDOK describes a response with status code 200, with default header values.
+//
+// Comments.
 type GetCommentsByActivityIDOK struct {
 	Payload []*models.Comment
 }
@@ -115,11 +113,9 @@ func NewGetCommentsByActivityIDDefault(code int) *GetCommentsByActivityIDDefault
 	}
 }
 
-/*
-GetCommentsByActivityIDDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetCommentsByActivityIDDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetCommentsByActivityIDDefault struct {
 	_statusCode int
 

@@ -136,7 +136,7 @@ func (m *BaseStream) validateSeriesType(formats strfmt.Registry) error {
 }
 
 // ContextValidate validates this base stream based on context it is used
-func (m *BaseStream) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *BaseStream) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

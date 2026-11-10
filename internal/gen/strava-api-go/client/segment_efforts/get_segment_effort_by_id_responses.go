@@ -45,11 +45,9 @@ func NewGetSegmentEffortByIDOK() *GetSegmentEffortByIDOK {
 	return &GetSegmentEffortByIDOK{}
 }
 
-/*
-GetSegmentEffortByIDOK describes a response with status code 200, with default header values.
-
-Representation of a segment effort.
-*/
+// GetSegmentEffortByIDOK describes a response with status code 200, with default header values.
+//
+// Representation of a segment effort.
 type GetSegmentEffortByIDOK struct {
 	Payload *models.DetailedSegmentEffort
 }
@@ -117,11 +115,9 @@ func NewGetSegmentEffortByIDDefault(code int) *GetSegmentEffortByIDDefault {
 	}
 }
 
-/*
-GetSegmentEffortByIDDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetSegmentEffortByIDDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetSegmentEffortByIDDefault struct {
 	_statusCode int
 

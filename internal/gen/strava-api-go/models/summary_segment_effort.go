@@ -20,6 +20,9 @@ type SummarySegmentEffort struct {
 	// The unique identifier of the activity related to this effort
 	ActivityID int64 `json:"activity_id,omitempty"`
 
+	// The identifier of the activity related to this effort, as a string
+	ActivityIDStr string `json:"activity_id_str,omitempty"`
+
 	// The effort's distance in meters
 	Distance float32 `json:"distance,omitempty"`
 
@@ -84,7 +87,7 @@ func (m *SummarySegmentEffort) validateStartDateLocal(formats strfmt.Registry) e
 }
 
 // ContextValidate validates this summary segment effort based on context it is used
-func (m *SummarySegmentEffort) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *SummarySegmentEffort) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

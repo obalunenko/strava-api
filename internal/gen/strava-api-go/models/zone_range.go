@@ -22,12 +22,12 @@ type ZoneRange struct {
 }
 
 // Validate validates this zone range
-func (m *ZoneRange) Validate(formats strfmt.Registry) error {
+func (m *ZoneRange) Validate(_ strfmt.Registry) error {
 	return nil
 }
 
 // ContextValidate validates this zone range based on context it is used
-func (m *ZoneRange) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *ZoneRange) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

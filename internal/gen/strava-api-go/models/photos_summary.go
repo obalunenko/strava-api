@@ -22,6 +22,9 @@ type PhotosSummary struct {
 
 	// primary
 	Primary *PhotosSummaryPrimary `json:"primary,omitempty"`
+
+	// Whether the primary photo is shown for the activity
+	UsePrimaryPhoto bool `json:"use_primary_photo,omitempty"`
 }
 
 // Validate validates this photos summary
@@ -126,6 +129,9 @@ type PhotosSummaryPrimary struct {
 	// id
 	ID int64 `json:"id,omitempty"`
 
+	// The type of the media
+	MediaType int64 `json:"media_type,omitempty"`
+
 	// source
 	Source int64 `json:"source,omitempty"`
 
@@ -137,12 +143,12 @@ type PhotosSummaryPrimary struct {
 }
 
 // Validate validates this photos summary primary
-func (m *PhotosSummaryPrimary) Validate(formats strfmt.Registry) error {
+func (m *PhotosSummaryPrimary) Validate(_ strfmt.Registry) error {
 	return nil
 }
 
 // ContextValidate validates this photos summary primary based on context it is used
-func (m *PhotosSummaryPrimary) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *PhotosSummaryPrimary) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

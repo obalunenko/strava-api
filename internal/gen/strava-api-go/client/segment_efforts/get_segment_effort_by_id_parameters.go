@@ -63,12 +63,11 @@ GetSegmentEffortByIDParams contains all the parameters to send to the API endpoi
 */
 type GetSegmentEffortByIDParams struct {
 
-	/* ID.
-
-	   The identifier of the segment effort.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the segment effort.
+	//
+	// Format: int64
 	ID int64
 
 	HTTPClient *http.Client

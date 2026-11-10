@@ -64,26 +64,23 @@ GetActivityStreamsParams contains all the parameters to send to the API endpoint
 */
 type GetActivityStreamsParams struct {
 
-	/* ID.
-
-	   The identifier of the activity.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the activity.
+	//
+	// Format: int64
 	ID int64
 
-	/* KeyByType.
-
-	   Must be true.
-
-	   Default: true
-	*/
+	// KeyByType.
+	//
+	// Must be true.
+	//
+	// Default: true
 	KeyByType bool
 
-	/* Keys.
-
-	   Desired stream types.
-	*/
+	// Keys.
+	//
+	// Desired stream types.
 	Keys []string
 
 	HTTPClient *http.Client

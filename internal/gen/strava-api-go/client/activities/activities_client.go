@@ -43,9 +43,7 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 	return &Client{transport: transport, formats: strfmt.Default}
 }
 
-/*
-Client for activities API.
-*/
+// Client for activities API.
 type Client struct {
 	transport runtime.ContextualTransport
 	formats   strfmt.Registry
@@ -53,6 +51,30 @@ type Client struct {
 
 // ClientOption may be used to customize the behavior of Client methods.
 type ClientOption func(*runtime.ClientOperation)
+
+// This client is generated with a few options you might find useful for your swagger spec.
+//
+// Feel free to add you own set of options.
+
+// WithContentType allows the client to force the Content-Type header
+// to negotiate a specific Consumer from the server.
+//
+// You may use this option to set arbitrary extensions to your MIME media type.
+func WithContentType(mime string) ClientOption {
+	return func(r *runtime.ClientOperation) {
+		r.ConsumesMediaTypes = []string{mime}
+	}
+}
+
+// WithContentTypeApplicationJSON sets the Content-Type header to "application/json".
+func WithContentTypeApplicationJSON(r *runtime.ClientOperation) {
+	r.ConsumesMediaTypes = []string{"application/json"}
+}
+
+// WithContentTypeMultipartFormData sets the Content-Type header to "multipart/form-data".
+func WithContentTypeMultipartFormData(r *runtime.ClientOperation) {
+	r.ConsumesMediaTypes = []string{"multipart/form-data"}
+}
 
 // ClientService is the interface for Client methods.
 type ClientService interface {
@@ -108,19 +130,17 @@ type ClientService interface {
 	SetTransport(transport runtime.ContextualTransport)
 }
 
-/*
-CreateActivitycreates an activity.
-
-Creates a manual activity for an athlete, requires activity:write scope..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.CreateActivityContext] instead.
-*/
+// CreateActivity creates an activity.
+//
+// Creates a manual activity for an athlete, requires activity:write scope..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.CreateActivityContext] instead.
 func (a *Client) CreateActivity(params *CreateActivityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateActivityCreated, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -129,13 +149,11 @@ func (a *Client) CreateActivity(params *CreateActivityParams, authInfo runtime.C
 	return a.CreateActivityContext(ctx, params, authInfo, opts...)
 }
 
-/*
-CreateActivityContextcreates an activity.
-
-Creates a manual activity for an athlete, requires activity:write scope..
-
-Do not use the deprecated [CreateActivityParams.Context] with this method: it would be ignored.
-*/
+// CreateActivityContext creates an activity.
+//
+// Creates a manual activity for an athlete, requires activity:write scope..
+//
+// Do not use the deprecated [CreateActivityParams.Context] with this method: it would be ignored.
 func (a *Client) CreateActivityContext(ctx context.Context, params *CreateActivityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateActivityCreated, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -147,7 +165,7 @@ func (a *Client) CreateActivityContext(ctx context.Context, params *CreateActivi
 		Method:             "POST",
 		PathPattern:        "/activities",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"multipart/form-data"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateActivityReader{formats: a.formats},
@@ -178,23 +196,21 @@ func (a *Client) CreateActivityContext(ctx context.Context, params *CreateActivi
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-	GetActivityByIDgets activity.
-
-	Returns the given activity that is owned by the authenticated athlete. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
-
-We strongly encourage you to display the appropriate attribution that identifies Garmin as the data source and the device name in your application. Please see example below from VeloViewer (that provides an attribution for a Garmin Forerunner device).
-
-![Attribution](/images/device-attribution-image.png).
-
-	This method does not support injected context.
-	However, timeout and opentracing contexts are honored whenever enabled.
-
-	If you need to pass a specific context, use [Client.GetActivityByIDContext] instead.
-*/
+// GetActivityByID gets activity.
+//
+// Returns the given activity that is owned by the authenticated athlete. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
+//
+// We strongly encourage you to display the appropriate attribution that identifies Garmin as the data source and the device name in your application. Please see example below from VeloViewer (that provides an attribution for a Garmin Forerunner device).
+//
+// ![Attribution](/images/device-attribution-image.png).
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetActivityByIDContext] instead.
 func (a *Client) GetActivityByID(params *GetActivityByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetActivityByIDOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -203,17 +219,15 @@ func (a *Client) GetActivityByID(params *GetActivityByIDParams, authInfo runtime
 	return a.GetActivityByIDContext(ctx, params, authInfo, opts...)
 }
 
-/*
-	GetActivityByIDContextgets activity.
-
-	Returns the given activity that is owned by the authenticated athlete. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
-
-We strongly encourage you to display the appropriate attribution that identifies Garmin as the data source and the device name in your application. Please see example below from VeloViewer (that provides an attribution for a Garmin Forerunner device).
-
-![Attribution](/images/device-attribution-image.png).
-
-	Do not use the deprecated [GetActivityByIDParams.Context] with this method: it would be ignored.
-*/
+// GetActivityByIDContext gets activity.
+//
+// Returns the given activity that is owned by the authenticated athlete. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
+//
+// We strongly encourage you to display the appropriate attribution that identifies Garmin as the data source and the device name in your application. Please see example below from VeloViewer (that provides an attribution for a Garmin Forerunner device).
+//
+// ![Attribution](/images/device-attribution-image.png).
+//
+// Do not use the deprecated [GetActivityByIDParams.Context] with this method: it would be ignored.
 func (a *Client) GetActivityByIDContext(ctx context.Context, params *GetActivityByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetActivityByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -256,19 +270,17 @@ func (a *Client) GetActivityByIDContext(ctx context.Context, params *GetActivity
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetCommentsByActivityIDlists activity comments.
-
-Returns the comments on the given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetCommentsByActivityIDContext] instead.
-*/
+// GetCommentsByActivityID lists activity comments.
+//
+// Returns the comments on the given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetCommentsByActivityIDContext] instead.
 func (a *Client) GetCommentsByActivityID(params *GetCommentsByActivityIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCommentsByActivityIDOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -277,13 +289,11 @@ func (a *Client) GetCommentsByActivityID(params *GetCommentsByActivityIDParams, 
 	return a.GetCommentsByActivityIDContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetCommentsByActivityIDContextlists activity comments.
-
-Returns the comments on the given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
-
-Do not use the deprecated [GetCommentsByActivityIDParams.Context] with this method: it would be ignored.
-*/
+// GetCommentsByActivityIDContext lists activity comments.
+//
+// Returns the comments on the given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
+//
+// Do not use the deprecated [GetCommentsByActivityIDParams.Context] with this method: it would be ignored.
 func (a *Client) GetCommentsByActivityIDContext(ctx context.Context, params *GetCommentsByActivityIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCommentsByActivityIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -326,19 +336,17 @@ func (a *Client) GetCommentsByActivityIDContext(ctx context.Context, params *Get
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetKudoersByActivityIDlists activity kudoers.
-
-Returns the athletes who kudoed an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetKudoersByActivityIDContext] instead.
-*/
+// GetKudoersByActivityID lists activity kudoers.
+//
+// Returns the athletes who kudoed an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetKudoersByActivityIDContext] instead.
 func (a *Client) GetKudoersByActivityID(params *GetKudoersByActivityIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKudoersByActivityIDOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -347,13 +355,11 @@ func (a *Client) GetKudoersByActivityID(params *GetKudoersByActivityIDParams, au
 	return a.GetKudoersByActivityIDContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetKudoersByActivityIDContextlists activity kudoers.
-
-Returns the athletes who kudoed an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
-
-Do not use the deprecated [GetKudoersByActivityIDParams.Context] with this method: it would be ignored.
-*/
+// GetKudoersByActivityIDContext lists activity kudoers.
+//
+// Returns the athletes who kudoed an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
+//
+// Do not use the deprecated [GetKudoersByActivityIDParams.Context] with this method: it would be ignored.
 func (a *Client) GetKudoersByActivityIDContext(ctx context.Context, params *GetKudoersByActivityIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKudoersByActivityIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -396,19 +402,17 @@ func (a *Client) GetKudoersByActivityIDContext(ctx context.Context, params *GetK
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetLapsByActivityIDlists activity laps.
-
-Returns the laps of an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetLapsByActivityIDContext] instead.
-*/
+// GetLapsByActivityID lists activity laps.
+//
+// Returns the laps of an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetLapsByActivityIDContext] instead.
 func (a *Client) GetLapsByActivityID(params *GetLapsByActivityIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLapsByActivityIDOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -417,13 +421,11 @@ func (a *Client) GetLapsByActivityID(params *GetLapsByActivityIDParams, authInfo
 	return a.GetLapsByActivityIDContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetLapsByActivityIDContextlists activity laps.
-
-Returns the laps of an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
-
-Do not use the deprecated [GetLapsByActivityIDParams.Context] with this method: it would be ignored.
-*/
+// GetLapsByActivityIDContext lists activity laps.
+//
+// Returns the laps of an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
+//
+// Do not use the deprecated [GetLapsByActivityIDParams.Context] with this method: it would be ignored.
 func (a *Client) GetLapsByActivityIDContext(ctx context.Context, params *GetLapsByActivityIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLapsByActivityIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -466,19 +468,17 @@ func (a *Client) GetLapsByActivityIDContext(ctx context.Context, params *GetLaps
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetLoggedInAthleteActivitieslists athlete activities.
-
-Returns the activities of an athlete for a specific identifier. Requires activity:read. Only Me activities will be filtered out unless requested by a token with activity:read_all..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetLoggedInAthleteActivitiesContext] instead.
-*/
+// GetLoggedInAthleteActivities lists athlete activities.
+//
+// Returns the activities of an athlete for a specific identifier. Requires activity:read. Only Me activities will be filtered out unless requested by a token with activity:read_all..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetLoggedInAthleteActivitiesContext] instead.
 func (a *Client) GetLoggedInAthleteActivities(params *GetLoggedInAthleteActivitiesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteActivitiesOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -487,13 +487,11 @@ func (a *Client) GetLoggedInAthleteActivities(params *GetLoggedInAthleteActiviti
 	return a.GetLoggedInAthleteActivitiesContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetLoggedInAthleteActivitiesContextlists athlete activities.
-
-Returns the activities of an athlete for a specific identifier. Requires activity:read. Only Me activities will be filtered out unless requested by a token with activity:read_all..
-
-Do not use the deprecated [GetLoggedInAthleteActivitiesParams.Context] with this method: it would be ignored.
-*/
+// GetLoggedInAthleteActivitiesContext lists athlete activities.
+//
+// Returns the activities of an athlete for a specific identifier. Requires activity:read. Only Me activities will be filtered out unless requested by a token with activity:read_all..
+//
+// Do not use the deprecated [GetLoggedInAthleteActivitiesParams.Context] with this method: it would be ignored.
 func (a *Client) GetLoggedInAthleteActivitiesContext(ctx context.Context, params *GetLoggedInAthleteActivitiesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteActivitiesOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -536,19 +534,17 @@ func (a *Client) GetLoggedInAthleteActivitiesContext(ctx context.Context, params
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetZonesByActivityIDgets activity zones.
-
-Summit Feature. Returns the zones of a given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetZonesByActivityIDContext] instead.
-*/
+// GetZonesByActivityID gets activity zones.
+//
+// Summit Feature. Returns the zones of a given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetZonesByActivityIDContext] instead.
 func (a *Client) GetZonesByActivityID(params *GetZonesByActivityIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetZonesByActivityIDOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -557,13 +553,11 @@ func (a *Client) GetZonesByActivityID(params *GetZonesByActivityIDParams, authIn
 	return a.GetZonesByActivityIDContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetZonesByActivityIDContextgets activity zones.
-
-Summit Feature. Returns the zones of a given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
-
-Do not use the deprecated [GetZonesByActivityIDParams.Context] with this method: it would be ignored.
-*/
+// GetZonesByActivityIDContext gets activity zones.
+//
+// Summit Feature. Returns the zones of a given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities..
+//
+// Do not use the deprecated [GetZonesByActivityIDParams.Context] with this method: it would be ignored.
 func (a *Client) GetZonesByActivityIDContext(ctx context.Context, params *GetZonesByActivityIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetZonesByActivityIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -606,19 +600,17 @@ func (a *Client) GetZonesByActivityIDContext(ctx context.Context, params *GetZon
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-UpdateActivityByIDupdates activity.
-
-Updates the given activity that is owned by the authenticated athlete. Requires activity:write. Also requires activity:read_all in order to update Only Me activities.
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.UpdateActivityByIDContext] instead.
-*/
+// UpdateActivityByID updates activity.
+//
+// Updates the given activity that is owned by the authenticated athlete. Requires activity:write. Also requires activity:read_all in order to update Only Me activities.
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.UpdateActivityByIDContext] instead.
 func (a *Client) UpdateActivityByID(params *UpdateActivityByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateActivityByIDOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -627,13 +619,11 @@ func (a *Client) UpdateActivityByID(params *UpdateActivityByIDParams, authInfo r
 	return a.UpdateActivityByIDContext(ctx, params, authInfo, opts...)
 }
 
-/*
-UpdateActivityByIDContextupdates activity.
-
-Updates the given activity that is owned by the authenticated athlete. Requires activity:write. Also requires activity:read_all in order to update Only Me activities.
-
-Do not use the deprecated [UpdateActivityByIDParams.Context] with this method: it would be ignored.
-*/
+// UpdateActivityByIDContext updates activity.
+//
+// Updates the given activity that is owned by the authenticated athlete. Requires activity:write. Also requires activity:read_all in order to update Only Me activities.
+//
+// Do not use the deprecated [UpdateActivityByIDParams.Context] with this method: it would be ignored.
 func (a *Client) UpdateActivityByIDContext(ctx context.Context, params *UpdateActivityByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateActivityByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {

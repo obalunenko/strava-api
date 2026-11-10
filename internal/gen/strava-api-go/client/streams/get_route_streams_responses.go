@@ -45,11 +45,9 @@ func NewGetRouteStreamsOK() *GetRouteStreamsOK {
 	return &GetRouteStreamsOK{}
 }
 
-/*
-GetRouteStreamsOK describes a response with status code 200, with default header values.
-
-The set of requested streams.
-*/
+// GetRouteStreamsOK describes a response with status code 200, with default header values.
+//
+// The set of requested streams.
 type GetRouteStreamsOK struct {
 	Payload *models.StreamSet
 }
@@ -117,11 +115,9 @@ func NewGetRouteStreamsDefault(code int) *GetRouteStreamsDefault {
 	}
 }
 
-/*
-GetRouteStreamsDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetRouteStreamsDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetRouteStreamsDefault struct {
 	_statusCode int
 

@@ -14,6 +14,9 @@ import (
 // swagger:model summaryGear
 type SummaryGear struct {
 
+	// The distance logged with this gear, in the athlete's preferred units
+	ConvertedDistance float32 `json:"converted_distance,omitempty"`
+
 	// The distance logged with this gear.
 	Distance float32 `json:"distance,omitempty"`
 
@@ -23,20 +26,26 @@ type SummaryGear struct {
 	// The gear's name.
 	Name string `json:"name,omitempty"`
 
+	// The gear's nickname
+	Nickname string `json:"nickname,omitempty"`
+
 	// Whether this gear's is the owner's default one.
 	Primary bool `json:"primary,omitempty"`
 
 	// Resource state, indicates level of detail. Possible values: 2 -> "summary", 3 -> "detail"
 	ResourceState int64 `json:"resource_state,omitempty"`
+
+	// Whether this gear is retired
+	Retired bool `json:"retired,omitempty"`
 }
 
 // Validate validates this summary gear
-func (m *SummaryGear) Validate(formats strfmt.Registry) error {
+func (m *SummaryGear) Validate(_ strfmt.Registry) error {
 	return nil
 }
 
 // ContextValidate validates this summary gear based on context it is used
-func (m *SummaryGear) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *SummaryGear) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

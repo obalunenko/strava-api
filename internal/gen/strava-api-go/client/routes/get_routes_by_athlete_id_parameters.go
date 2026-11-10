@@ -63,26 +63,23 @@ GetRoutesByAthleteIDParams contains all the parameters to send to the API endpoi
 */
 type GetRoutesByAthleteIDParams struct {
 
-	/* ID.
-
-	   The identifier of the athlete.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the athlete.
+	//
+	// Format: int64
 	ID int64
 
-	/* Page.
-
-	   Page number. Defaults to 1.
-	*/
+	// Page.
+	//
+	// Page number. Defaults to 1.
 	Page *int64
 
-	/* PerPage.
-
-	   Number of items per page. Defaults to 30.
-
-	   Default: 30
-	*/
+	// PerPage.
+	//
+	// Number of items per page. Defaults to 30.
+	//
+	// Default: 30
 	PerPage *int64
 
 	HTTPClient *http.Client

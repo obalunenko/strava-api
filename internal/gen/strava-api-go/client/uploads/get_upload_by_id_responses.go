@@ -45,11 +45,9 @@ func NewGetUploadByIDOK() *GetUploadByIDOK {
 	return &GetUploadByIDOK{}
 }
 
-/*
-GetUploadByIDOK describes a response with status code 200, with default header values.
-
-Representation of the upload.
-*/
+// GetUploadByIDOK describes a response with status code 200, with default header values.
+//
+// Representation of the upload.
 type GetUploadByIDOK struct {
 	Payload *models.Upload
 }
@@ -117,11 +115,9 @@ func NewGetUploadByIDDefault(code int) *GetUploadByIDDefault {
 	}
 }
 
-/*
-GetUploadByIDDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetUploadByIDDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetUploadByIDDefault struct {
 	_statusCode int
 

@@ -15,7 +15,7 @@ This is a **generated Go client wrapper** around the Strava API v3, built using 
 ### Code Generation Workflow
 ```bash
 # Update API spec
-make update-swagger-spec  # Downloads latest from Strava
+make update-swagger-spec  # Merges the latest Strava spec, keeping local changes
 
 # Regenerate client
 make codegen  # Runs: gen → sync-vendor → format-code → vet
@@ -23,7 +23,8 @@ make codegen  # Runs: gen → sync-vendor → format-code → vet
 
 Key files:
 - `internal/generate.go` - Contains `//go:generate` directive for swagger codegen
-- `docs/swagger.json` - Strava API specification (source of truth)
+- `docs/swagger.json` - Strava API specification with local changes (source of truth for codegen)
+- `docs/swagger.upstream.json` - Untouched copy of the official spec, the merge base for updates (do not edit)
 - Generated client uses go-openapi runtime with Bearer token auth
 
 ## Development Workflow

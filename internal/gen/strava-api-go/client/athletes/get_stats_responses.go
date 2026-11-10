@@ -45,11 +45,9 @@ func NewGetStatsOK() *GetStatsOK {
 	return &GetStatsOK{}
 }
 
-/*
-GetStatsOK describes a response with status code 200, with default header values.
-
-Activity stats of the athlete.
-*/
+// GetStatsOK describes a response with status code 200, with default header values.
+//
+// Activity stats of the athlete.
 type GetStatsOK struct {
 	Payload *models.ActivityStats
 }
@@ -117,11 +115,9 @@ func NewGetStatsDefault(code int) *GetStatsDefault {
 	}
 }
 
-/*
-GetStatsDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetStatsDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetStatsDefault struct {
 	_statusCode int
 

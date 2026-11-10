@@ -23,12 +23,21 @@ type SummaryPRSegmentEffort struct {
 	// The unique identifier of the activity related to the PR effort.
 	PrActivityID int64 `json:"pr_activity_id,omitempty"`
 
+	// The identifier of the activity holding the personal record, as a string
+	PrActivityIDStr string `json:"pr_activity_id_str,omitempty"`
+
+	// The visibility of the activity holding the personal record
+	PrActivityVisibility string `json:"pr_activity_visibility,omitempty"`
+
 	// The time at which the PR effort was started.
-	// Format: date-time
-	PrDate strfmt.DateTime `json:"pr_date,omitempty"`
+	// Format: date
+	PrDate strfmt.Date `json:"pr_date,omitempty"`
 
 	// The elapsed time ot the PR effort.
 	PrElapsedTime int64 `json:"pr_elapsed_time,omitempty"`
+
+	// The visibility of the personal record
+	PrVisibility string `json:"pr_visibility,omitempty"`
 }
 
 // Validate validates this summary p r segment effort
@@ -50,7 +59,7 @@ func (m *SummaryPRSegmentEffort) validatePrDate(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.FormatOf("pr_date", "body", "date-time", m.PrDate.String(), formats); err != nil {
+	if err := validate.FormatOf("pr_date", "body", "date", m.PrDate.String(), formats); err != nil {
 		return err
 	}
 
@@ -58,7 +67,7 @@ func (m *SummaryPRSegmentEffort) validatePrDate(formats strfmt.Registry) error {
 }
 
 // ContextValidate validates this summary p r segment effort based on context it is used
-func (m *SummaryPRSegmentEffort) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *SummaryPRSegmentEffort) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

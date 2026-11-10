@@ -4,6 +4,7 @@ package models
 import internalmodels "github.com/obalunenko/strava-api/internal/gen/strava-api-go/models"
 
 type (
+	Achievement                            = internalmodels.Achievement
 	ActivityStats                          = internalmodels.ActivityStats
 	ActivityTotal                          = internalmodels.ActivityTotal
 	ActivityType                           = internalmodels.ActivityType
@@ -11,8 +12,6 @@ type (
 	AltitudeStream                         = internalmodels.AltitudeStream
 	BaseStream                             = internalmodels.BaseStream
 	CadenceStream                          = internalmodels.CadenceStream
-	ClubActivity                           = internalmodels.ClubActivity
-	ClubAthlete                            = internalmodels.ClubAthlete
 	Comment                                = internalmodels.Comment
 	CommentAthlete                         = internalmodels.CommentAthlete
 	DetailedActivity                       = internalmodels.DetailedActivity
@@ -27,6 +26,7 @@ type (
 	DetailedSegmentAllOf0                  = internalmodels.DetailedSegmentAllOf0
 	DetailedSegmentEffort                  = internalmodels.DetailedSegmentEffort
 	DistanceStream                         = internalmodels.DistanceStream
+	ElevationProfiles                      = internalmodels.ElevationProfiles
 	Error                                  = internalmodels.Error
 	ExplorerResponse                       = internalmodels.ExplorerResponse
 	ExplorerSegment                        = internalmodels.ExplorerSegment
@@ -37,6 +37,8 @@ type (
 	Lap                                    = internalmodels.Lap
 	LatLng                                 = internalmodels.LatLng
 	LatLngStream                           = internalmodels.LatLngStream
+	LocalLegend                            = internalmodels.LocalLegend
+	LocalLegendEffortCounts                = internalmodels.LocalLegendEffortCounts
 	MetaActivity                           = internalmodels.MetaActivity
 	MetaAthlete                            = internalmodels.MetaAthlete
 	MetaClub                               = internalmodels.MetaClub
@@ -47,10 +49,14 @@ type (
 	PowerStream                            = internalmodels.PowerStream
 	PowerZoneRanges                        = internalmodels.PowerZoneRanges
 	Route                                  = internalmodels.Route
+	RouteMapUrls                           = internalmodels.RouteMapUrls
+	SegmentXoms                            = internalmodels.SegmentXoms
+	SegmentXomsDestination                 = internalmodels.SegmentXomsDestination
 	SmoothGradeStream                      = internalmodels.SmoothGradeStream
 	SmoothVelocityStream                   = internalmodels.SmoothVelocityStream
 	Split                                  = internalmodels.Split
 	SportType                              = internalmodels.SportType
+	StatVisibility                         = internalmodels.StatVisibility
 	StreamSet                              = internalmodels.StreamSet
 	SummaryActivity                        = internalmodels.SummaryActivity
 	SummaryAthlete                         = internalmodels.SummaryAthlete
@@ -65,6 +71,7 @@ type (
 	TimeStream                             = internalmodels.TimeStream
 	Upload                                 = internalmodels.Upload
 	UpdatableActivity                      = internalmodels.UpdatableActivity
+	UpdatableActivityTags                  = internalmodels.UpdatableActivityTags
 	Waypoint                               = internalmodels.Waypoint
 	ZoneRange                              = internalmodels.ZoneRange
 	ZoneRanges                             = internalmodels.ZoneRanges
@@ -72,11 +79,11 @@ type (
 )
 
 func NewActivityType(value ActivityType) *ActivityType {
-	return internalmodels.NewActivityType(value)
+	return new(value)
 }
 
 func NewSportType(value SportType) *SportType {
-	return internalmodels.NewSportType(value)
+	return new(value)
 }
 
 const (

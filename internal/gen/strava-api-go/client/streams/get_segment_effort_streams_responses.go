@@ -45,11 +45,9 @@ func NewGetSegmentEffortStreamsOK() *GetSegmentEffortStreamsOK {
 	return &GetSegmentEffortStreamsOK{}
 }
 
-/*
-GetSegmentEffortStreamsOK describes a response with status code 200, with default header values.
-
-The set of requested streams.
-*/
+// GetSegmentEffortStreamsOK describes a response with status code 200, with default header values.
+//
+// The set of requested streams.
 type GetSegmentEffortStreamsOK struct {
 	Payload *models.StreamSet
 }
@@ -117,11 +115,9 @@ func NewGetSegmentEffortStreamsDefault(code int) *GetSegmentEffortStreamsDefault
 	}
 }
 
-/*
-GetSegmentEffortStreamsDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetSegmentEffortStreamsDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetSegmentEffortStreamsDefault struct {
 	_statusCode int
 

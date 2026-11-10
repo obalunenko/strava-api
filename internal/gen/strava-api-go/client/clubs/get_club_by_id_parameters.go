@@ -63,12 +63,11 @@ GetClubByIDParams contains all the parameters to send to the API endpoint
 */
 type GetClubByIDParams struct {
 
-	/* ID.
-
-	   The identifier of the club.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the club.
+	//
+	// Format: int64
 	ID int64
 
 	HTTPClient *http.Client

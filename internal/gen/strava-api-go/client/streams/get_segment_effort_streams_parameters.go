@@ -64,26 +64,23 @@ GetSegmentEffortStreamsParams contains all the parameters to send to the API end
 */
 type GetSegmentEffortStreamsParams struct {
 
-	/* ID.
-
-	   The identifier of the segment effort.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the segment effort.
+	//
+	// Format: int64
 	ID int64
 
-	/* KeyByType.
-
-	   Must be true.
-
-	   Default: true
-	*/
+	// KeyByType.
+	//
+	// Must be true.
+	//
+	// Default: true
 	KeyByType bool
 
-	/* Keys.
-
-	   The types of streams to return.
-	*/
+	// Keys.
+	//
+	// The types of streams to return.
 	Keys []string
 
 	HTTPClient *http.Client

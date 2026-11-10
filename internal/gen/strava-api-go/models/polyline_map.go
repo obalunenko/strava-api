@@ -20,17 +20,20 @@ type PolylineMap struct {
 	// The polyline of the map, only returned on detailed representation of an object
 	Polyline string `json:"polyline,omitempty"`
 
+	// Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
+	ResourceState int64 `json:"resource_state,omitempty"`
+
 	// The summary polyline of the map
 	SummaryPolyline string `json:"summary_polyline,omitempty"`
 }
 
 // Validate validates this polyline map
-func (m *PolylineMap) Validate(formats strfmt.Registry) error {
+func (m *PolylineMap) Validate(_ strfmt.Registry) error {
 	return nil
 }
 
 // ContextValidate validates this polyline map based on context it is used
-func (m *PolylineMap) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m *PolylineMap) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }
 

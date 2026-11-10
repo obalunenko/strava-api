@@ -45,11 +45,9 @@ func NewExploreSegmentsOK() *ExploreSegmentsOK {
 	return &ExploreSegmentsOK{}
 }
 
-/*
-ExploreSegmentsOK describes a response with status code 200, with default header values.
-
-List of matching segments.
-*/
+// ExploreSegmentsOK describes a response with status code 200, with default header values.
+//
+// List of matching segments.
 type ExploreSegmentsOK struct {
 	Payload *models.ExplorerResponse
 }
@@ -117,11 +115,9 @@ func NewExploreSegmentsDefault(code int) *ExploreSegmentsDefault {
 	}
 }
 
-/*
-ExploreSegmentsDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// ExploreSegmentsDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type ExploreSegmentsDefault struct {
 	_statusCode int
 

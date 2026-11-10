@@ -63,12 +63,11 @@ GetUploadByIDParams contains all the parameters to send to the API endpoint
 */
 type GetUploadByIDParams struct {
 
-	/* UploadID.
-
-	   The identifier of the upload.
-
-	   Format: int64
-	*/
+	// UploadID.
+	//
+	// The identifier of the upload.
+	//
+	// Format: int64
 	UploadID int64
 
 	HTTPClient *http.Client

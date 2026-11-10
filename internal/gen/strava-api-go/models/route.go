@@ -47,11 +47,17 @@ type Route struct {
 	// map
 	Map *PolylineMap `json:"map,omitempty"`
 
+	// map urls
+	MapUrls *RouteMapUrls `json:"map_urls,omitempty"`
+
 	// The name of this route
 	Name string `json:"name,omitempty"`
 
 	// Whether this route is private
 	Private bool `json:"private,omitempty"`
+
+	// Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
+	ResourceState int64 `json:"resource_state,omitempty"`
 
 	// The segments traversed by this route
 	Segments []*DetailedSegmentAllOf0 `json:"segments"`
@@ -59,13 +65,13 @@ type Route struct {
 	// Whether this route is starred by the logged-in athlete
 	Starred bool `json:"starred,omitempty"`
 
-	// This route's sub-type (1 for road, 2 for mountain bike, 3 for cross, 4 for trail, 5 for mixed)
+	// This route's sub-type (1 = Road, 2 = MTB, 3 = Gravel, 4 = Trail, 5 = Mixed)
 	SubType int64 `json:"sub_type,omitempty"`
 
 	// An epoch timestamp of when the route was created
 	Timestamp int64 `json:"timestamp,omitempty"`
 
-	// This route's type (1 for ride, 2 for runs)
+	// This route's type (1 = Ride, 2 = Run, 3 = Walk, 4 = Hike, 5 = Trail Run, 6 = Gravel Ride, 7 = Mountain Bike Ride)
 	Type int64 `json:"type,omitempty"`
 
 	// The time at which the route was last updated
@@ -90,6 +96,10 @@ func (m *Route) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMap(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMapUrls(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -160,6 +170,29 @@ func (m *Route) validateMap(formats strfmt.Registry) error {
 			ce := new(errors.CompositeError)
 			if stderrors.As(err, &ce) {
 				return ce.ValidateName("map")
+			}
+
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Route) validateMapUrls(formats strfmt.Registry) error {
+	if typeutils.IsZero(m.MapUrls) { // not required
+		return nil
+	}
+
+	if m.MapUrls != nil {
+		if err := m.MapUrls.Validate(formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("map_urls")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("map_urls")
 			}
 
 			return err
@@ -259,6 +292,10 @@ func (m *Route) ContextValidate(ctx context.Context, formats strfmt.Registry) er
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateMapUrls(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateSegments(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -323,6 +360,31 @@ func (m *Route) contextValidateMap(ctx context.Context, formats strfmt.Registry)
 	return nil
 }
 
+func (m *Route) contextValidateMapUrls(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.MapUrls != nil {
+
+		if typeutils.IsZero(m.MapUrls) { // not required
+			return nil
+		}
+
+		if err := m.MapUrls.ContextValidate(ctx, formats); err != nil {
+			ve := new(errors.Validation)
+			if stderrors.As(err, &ve) {
+				return ve.ValidateName("map_urls")
+			}
+			ce := new(errors.CompositeError)
+			if stderrors.As(err, &ce) {
+				return ce.ValidateName("map_urls")
+			}
+
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Route) contextValidateSegments(ctx context.Context, formats strfmt.Registry) error {
 
 	for i := 0; i < len(m.Segments); i++ {
@@ -330,7 +392,7 @@ func (m *Route) contextValidateSegments(ctx context.Context, formats strfmt.Regi
 		if m.Segments[i] != nil {
 
 			if typeutils.IsZero(m.Segments[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.Segments[i].ContextValidate(ctx, formats); err != nil {
@@ -359,7 +421,7 @@ func (m *Route) contextValidateWaypoints(ctx context.Context, formats strfmt.Reg
 		if m.Waypoints[i] != nil {
 
 			if typeutils.IsZero(m.Waypoints[i]) { // not required
-				return nil
+				continue
 			}
 
 			if err := m.Waypoints[i].ContextValidate(ctx, formats); err != nil {

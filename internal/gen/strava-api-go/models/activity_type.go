@@ -175,6 +175,6 @@ func (m ActivityType) Validate(formats strfmt.Registry) error {
 }
 
 // ContextValidate validates this activity type based on context it is used
-func (m ActivityType) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+func (m ActivityType) ContextValidate(_ context.Context, _ strfmt.Registry) error {
 	return nil
 }

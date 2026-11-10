@@ -63,12 +63,11 @@ GetRouteAsGPXParams contains all the parameters to send to the API endpoint
 */
 type GetRouteAsGPXParams struct {
 
-	/* ID.
-
-	   The identifier of the route.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the route.
+	//
+	// Format: int64
 	ID int64
 
 	HTTPClient *http.Client

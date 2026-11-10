@@ -45,11 +45,9 @@ func NewGetActivityStreamsOK() *GetActivityStreamsOK {
 	return &GetActivityStreamsOK{}
 }
 
-/*
-GetActivityStreamsOK describes a response with status code 200, with default header values.
-
-The set of requested streams.
-*/
+// GetActivityStreamsOK describes a response with status code 200, with default header values.
+//
+// The set of requested streams.
 type GetActivityStreamsOK struct {
 	Payload *models.StreamSet
 }
@@ -117,11 +115,9 @@ func NewGetActivityStreamsDefault(code int) *GetActivityStreamsDefault {
 	}
 }
 
-/*
-GetActivityStreamsDefault describes a response with status code -1, with default header values.
-
-Unexpected error.
-*/
+// GetActivityStreamsDefault describes a response with status code -1, with default header values.
+//
+// Unexpected error.
 type GetActivityStreamsDefault struct {
 	_statusCode int
 

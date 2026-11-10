@@ -63,18 +63,16 @@ GetActivityByIDParams contains all the parameters to send to the API endpoint
 */
 type GetActivityByIDParams struct {
 
-	/* ID.
-
-	   The identifier of the activity.
-
-	   Format: int64
-	*/
+	// ID.
+	//
+	// The identifier of the activity.
+	//
+	// Format: int64
 	ID int64
 
-	/* IncludeAllEfforts.
-
-	   To include all segments efforts.
-	*/
+	// IncludeAllEfforts.
+	//
+	// To include all segments efforts.
 	IncludeAllEfforts *bool
 
 	HTTPClient *http.Client

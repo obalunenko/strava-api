@@ -43,9 +43,7 @@ func NewClientWithBearerToken(host, basePath, scheme, bearerToken string) Client
 	return &Client{transport: transport, formats: strfmt.Default}
 }
 
-/*
-Client for clubs API.
-*/
+// Client for clubs API.
 type Client struct {
 	transport runtime.ContextualTransport
 	formats   strfmt.Registry
@@ -57,29 +55,11 @@ type ClientOption func(*runtime.ClientOperation)
 // ClientService is the interface for Client methods.
 type ClientService interface {
 
-	// GetClubActivitiesByID list club activities.
-	GetClubActivitiesByID(params *GetClubActivitiesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubActivitiesByIDOK, error)
-
-	// GetClubActivitiesByIDContext list club activities.
-	GetClubActivitiesByIDContext(ctx context.Context, params *GetClubActivitiesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubActivitiesByIDOK, error)
-
-	// GetClubAdminsByID list club administrators.
-	GetClubAdminsByID(params *GetClubAdminsByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubAdminsByIDOK, error)
-
-	// GetClubAdminsByIDContext list club administrators.
-	GetClubAdminsByIDContext(ctx context.Context, params *GetClubAdminsByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubAdminsByIDOK, error)
-
 	// GetClubByID get club.
 	GetClubByID(params *GetClubByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubByIDOK, error)
 
 	// GetClubByIDContext get club.
 	GetClubByIDContext(ctx context.Context, params *GetClubByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubByIDOK, error)
-
-	// GetClubMembersByID list club members.
-	GetClubMembersByID(params *GetClubMembersByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubMembersByIDOK, error)
-
-	// GetClubMembersByIDContext list club members.
-	GetClubMembersByIDContext(ctx context.Context, params *GetClubMembersByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubMembersByIDOK, error)
 
 	// GetLoggedInAthleteClubs list athlete clubs.
 	GetLoggedInAthleteClubs(params *GetLoggedInAthleteClubsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteClubsOK, error)
@@ -90,159 +70,17 @@ type ClientService interface {
 	SetTransport(transport runtime.ContextualTransport)
 }
 
-/*
-GetClubActivitiesByIDlists club activities.
-
-Retrieve recent activities from members of a specific club. The authenticated athlete must belong to the requested club in order to hit this endpoint. Pagination is supported. Athlete profile visibility is respected for all activities..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetClubActivitiesByIDContext] instead.
-*/
-func (a *Client) GetClubActivitiesByID(params *GetClubActivitiesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubActivitiesByIDOK, error) {
-	var ctx context.Context
-	if params.inner.ctx != nil {
-		ctx = params.inner.ctx
-	} else {
-		ctx = context.Background()
-	}
-
-	return a.GetClubActivitiesByIDContext(ctx, params, authInfo, opts...)
-}
-
-/*
-GetClubActivitiesByIDContextlists club activities.
-
-Retrieve recent activities from members of a specific club. The authenticated athlete must belong to the requested club in order to hit this endpoint. Pagination is supported. Athlete profile visibility is respected for all activities..
-
-Do not use the deprecated [GetClubActivitiesByIDParams.Context] with this method: it would be ignored.
-*/
-func (a *Client) GetClubActivitiesByIDContext(ctx context.Context, params *GetClubActivitiesByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubActivitiesByIDOK, error) {
-	// NOTE: parameters are not validated before sending
-	if params == nil {
-		params = NewGetClubActivitiesByIDParams()
-	}
-
-	op := &runtime.ClientOperation{
-		ID:                 "getClubActivitiesById",
-		Method:             "GET",
-		PathPattern:        "/clubs/{id}/activities",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetClubActivitiesByIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Client:             params.HTTPClient,
-	}
-
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.SubmitContext(ctx, op)
-	if err != nil {
-		return nil, err
-	}
-
-	// only one success response has to be checked
-	success, ok := result.(*GetClubActivitiesByIDOK)
-	if ok {
-		return success, nil
-	}
-
-	// unexpected success response.
-	//
-	// a default response is provided: fill this and return an error
-	unexpectedSuccess := result.(*GetClubActivitiesByIDDefault)
-
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-GetClubAdminsByIDlists club administrators.
-
-Returns a list of the administrators of a given club..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetClubAdminsByIDContext] instead.
-*/
-func (a *Client) GetClubAdminsByID(params *GetClubAdminsByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubAdminsByIDOK, error) {
-	var ctx context.Context
-	if params.inner.ctx != nil {
-		ctx = params.inner.ctx
-	} else {
-		ctx = context.Background()
-	}
-
-	return a.GetClubAdminsByIDContext(ctx, params, authInfo, opts...)
-}
-
-/*
-GetClubAdminsByIDContextlists club administrators.
-
-Returns a list of the administrators of a given club..
-
-Do not use the deprecated [GetClubAdminsByIDParams.Context] with this method: it would be ignored.
-*/
-func (a *Client) GetClubAdminsByIDContext(ctx context.Context, params *GetClubAdminsByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubAdminsByIDOK, error) {
-	// NOTE: parameters are not validated before sending
-	if params == nil {
-		params = NewGetClubAdminsByIDParams()
-	}
-
-	op := &runtime.ClientOperation{
-		ID:                 "getClubAdminsById",
-		Method:             "GET",
-		PathPattern:        "/clubs/{id}/admins",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetClubAdminsByIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Client:             params.HTTPClient,
-	}
-
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.SubmitContext(ctx, op)
-	if err != nil {
-		return nil, err
-	}
-
-	// only one success response has to be checked
-	success, ok := result.(*GetClubAdminsByIDOK)
-	if ok {
-		return success, nil
-	}
-
-	// unexpected success response.
-	//
-	// a default response is provided: fill this and return an error
-	unexpectedSuccess := result.(*GetClubAdminsByIDDefault)
-
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-GetClubByIDgets club.
-
-Returns a given a club using its identifier..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetClubByIDContext] instead.
-*/
+// GetClubByID gets club.
+//
+// Returns a given a club using its identifier..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetClubByIDContext] instead.
 func (a *Client) GetClubByID(params *GetClubByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubByIDOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -251,13 +89,11 @@ func (a *Client) GetClubByID(params *GetClubByIDParams, authInfo runtime.ClientA
 	return a.GetClubByIDContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetClubByIDContextgets club.
-
-Returns a given a club using its identifier..
-
-Do not use the deprecated [GetClubByIDParams.Context] with this method: it would be ignored.
-*/
+// GetClubByIDContext gets club.
+//
+// Returns a given a club using its identifier..
+//
+// Do not use the deprecated [GetClubByIDParams.Context] with this method: it would be ignored.
 func (a *Client) GetClubByIDContext(ctx context.Context, params *GetClubByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubByIDOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {
@@ -300,89 +136,17 @@ func (a *Client) GetClubByIDContext(ctx context.Context, params *GetClubByIDPara
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
-/*
-GetClubMembersByIDlists club members.
-
-Returns a list of the athletes who are members of a given club..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetClubMembersByIDContext] instead.
-*/
-func (a *Client) GetClubMembersByID(params *GetClubMembersByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubMembersByIDOK, error) {
-	var ctx context.Context
-	if params.inner.ctx != nil {
-		ctx = params.inner.ctx
-	} else {
-		ctx = context.Background()
-	}
-
-	return a.GetClubMembersByIDContext(ctx, params, authInfo, opts...)
-}
-
-/*
-GetClubMembersByIDContextlists club members.
-
-Returns a list of the athletes who are members of a given club..
-
-Do not use the deprecated [GetClubMembersByIDParams.Context] with this method: it would be ignored.
-*/
-func (a *Client) GetClubMembersByIDContext(ctx context.Context, params *GetClubMembersByIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetClubMembersByIDOK, error) {
-	// NOTE: parameters are not validated before sending
-	if params == nil {
-		params = NewGetClubMembersByIDParams()
-	}
-
-	op := &runtime.ClientOperation{
-		ID:                 "getClubMembersById",
-		Method:             "GET",
-		PathPattern:        "/clubs/{id}/members",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetClubMembersByIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Client:             params.HTTPClient,
-	}
-
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.SubmitContext(ctx, op)
-	if err != nil {
-		return nil, err
-	}
-
-	// only one success response has to be checked
-	success, ok := result.(*GetClubMembersByIDOK)
-	if ok {
-		return success, nil
-	}
-
-	// unexpected success response.
-	//
-	// a default response is provided: fill this and return an error
-	unexpectedSuccess := result.(*GetClubMembersByIDDefault)
-
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-GetLoggedInAthleteClubslists athlete clubs.
-
-Returns a list of the clubs whose membership includes the authenticated athlete..
-
-This method does not support injected context.
-However, timeout and opentracing contexts are honored whenever enabled.
-
-If you need to pass a specific context, use [Client.GetLoggedInAthleteClubsContext] instead.
-*/
+// GetLoggedInAthleteClubs lists athlete clubs.
+//
+// Returns a list of the clubs whose membership includes the authenticated athlete..
+//
+// This method does not support injected context.
+// However, timeout and opentracing contexts are honored whenever enabled.
+//
+// If you need to pass a specific context, use [Client.GetLoggedInAthleteClubsContext] instead.
 func (a *Client) GetLoggedInAthleteClubs(params *GetLoggedInAthleteClubsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteClubsOK, error) {
 	var ctx context.Context
-	if params.inner.ctx != nil {
+	if params != nil && params.inner.ctx != nil {
 		ctx = params.inner.ctx
 	} else {
 		ctx = context.Background()
@@ -391,13 +155,11 @@ func (a *Client) GetLoggedInAthleteClubs(params *GetLoggedInAthleteClubsParams, 
 	return a.GetLoggedInAthleteClubsContext(ctx, params, authInfo, opts...)
 }
 
-/*
-GetLoggedInAthleteClubsContextlists athlete clubs.
-
-Returns a list of the clubs whose membership includes the authenticated athlete..
-
-Do not use the deprecated [GetLoggedInAthleteClubsParams.Context] with this method: it would be ignored.
-*/
+// GetLoggedInAthleteClubsContext lists athlete clubs.
+//
+// Returns a list of the clubs whose membership includes the authenticated athlete..
+//
+// Do not use the deprecated [GetLoggedInAthleteClubsParams.Context] with this method: it would be ignored.
 func (a *Client) GetLoggedInAthleteClubsContext(ctx context.Context, params *GetLoggedInAthleteClubsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLoggedInAthleteClubsOK, error) {
 	// NOTE: parameters are not validated before sending
 	if params == nil {

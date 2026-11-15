@@ -18,7 +18,8 @@ function check_installed() {
 function tool_path() {
   local name="$1"
 
-  go tool -C "${REPO_ROOT}/tools/${name}" -n "${name}"
+  # Build for the host: GOOS/GOARCH may be set to cross-compile the app.
+  GOOS= GOARCH= go tool -C "${REPO_ROOT}/tools/${name}" -n "${name}"
 }
 
 # Runs a tool pinned in tools/<name>/go.mod: go_tool <name> [args...]

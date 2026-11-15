@@ -5,11 +5,15 @@ set -Eeuo pipefail
 SCRIPT_NAME="$(basename "$0")"
 SCRIPT_DIR="$(dirname "$0")"
 REPO_ROOT="$(cd "${SCRIPT_DIR}" && git rev-parse --show-toplevel)"
+SCRIPTS_DIR="${REPO_ROOT}/scripts"
+
+source "${SCRIPTS_DIR}/helpers-source.sh"
 
 API_DOC_URL="${API_DOC_URL:-https://developers.strava.com/swagger/swagger.json}"
 
-# Pinned: a different flatten output format would conflict across the whole file.
-SWAGGER="github.com/go-swagger/go-swagger/cmd/swagger@v0.36.7"
+# The version comes from tools/swagger/go.mod, as for codegen. A bump can change
+# the flatten output format, which would conflict across the whole file.
+SWAGGER="$(tool_path swagger)"
 
 SPEC="docs/swagger.json"
 UPSTREAM="docs/swagger.upstream.json"
@@ -26,7 +30,7 @@ fi
 TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "${TMP_DIR}"' EXIT
 
-go run "${SWAGGER}" flatten --format=json --with-flatten=minimal --output="${TMP_DIR}/upstream.json" "${API_DOC_URL}"
+"${SWAGGER}" flatten --format=json --with-flatten=minimal --output="${TMP_DIR}/upstream.json" "${API_DOC_URL}"
 
 if cmp -s "${TMP_DIR}/upstream.json" "${UPSTREAM}"; then
   echo "${SCRIPT_NAME}: the Strava spec has not changed"
@@ -53,7 +57,7 @@ if [[ "${conflicts}" -gt 0 ]]; then
 fi
 
 # Fails on broken JSON and on references to definitions that Strava removed.
-if ! go run "${SWAGGER}" expand --format=json --output="${TMP_DIR}/check.json" "${SPEC}"; then
+if ! "${SWAGGER}" expand --format=json --output="${TMP_DIR}/check.json" "${SPEC}"; then
   echo "${SCRIPT_NAME}: ${SPEC} is broken after the merge, fix it and run 'make codegen'" >&2
   exit 1
 fi

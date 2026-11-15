@@ -9,7 +9,7 @@ SCRIPTS_DIR="${REPO_ROOT}/scripts"
 
 source "${SCRIPTS_DIR}/helpers-source.sh"
 
-checkInstalled 'swagger'
+check_installed 'swagger'
 
 GEN_DIR="${REPO_ROOT}/internal/gen/strava-api-go"
 

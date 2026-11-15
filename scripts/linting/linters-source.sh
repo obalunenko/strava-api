@@ -78,9 +78,7 @@ function go_lint() {
 function go_group() {
   echo "goimports..."
 
-  check_installed 'goimports'
-
-  declare -a lints=$(goimports -l -local=$(go list -m) $(find . -type f -name "*.go" | grep -v "vendor/"))
+  declare -a lints=$(go_tool goimports -l -local=$(go list -m) $(find . -type f -name "*.go" | grep -v "vendor/"))
 
   if [[ ${lints} ]]; then
     echo "fix it:"

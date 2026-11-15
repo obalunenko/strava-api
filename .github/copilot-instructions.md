@@ -1,6 +1,6 @@
 # Strava API Client - AI Coding Agent Instructions
 
-This is a **generated Go client wrapper** around the Strava API v3, built using code generation from OpenAPI specs and containerized tooling.
+This is a **generated Go client wrapper** around the Strava API v3, built using code generation from OpenAPI specs.
 
 ## Architecture Overview
 
@@ -29,17 +29,15 @@ Key files:
 
 ## Development Workflow
 
-### Docker-Based Tooling
-All linting/formatting/testing uses containerized tools via `ghcr.io/obalunenko/go-tools`:
+### Tooling
+Tools (goimports, swagger) are pinned in `tools/<name>/go.mod` with a `tool` directive and run through `go tool`, so the versions come from those files:
 ```bash
 # Primary commands (use these, not direct go commands)
-make lint-full    # Full linting suite
-make fmt          # Format code
-make imports      # Fix import sorting
-make vet          # Static analysis
-
-# Docker compose wraps all tools
-docker compose -f deployments/docker-compose/go-tools-docker-compose.yml up --exit-code-from lint-full lint-full
+make lint-full      # Full linting suite
+make fmt            # Format code
+make imports        # Fix import sorting
+make vet            # Static analysis
+make install-tools  # Prebuild the pinned tools (optional, they build on first use)
 ```
 
 ### Testing Pattern
@@ -87,13 +85,13 @@ client/           # User-facing wrapper interfaces
 internal/gen/     # Generated code (DO NOT EDIT)
 examples/         # Integration tests & usage documentation
 scripts/          # Build and development scripts
-deployments/      # Docker compose configurations
+tools/            # Pinned tools, one go.mod per tool
 ```
 
 ## Key Constraints
 
 1. **Never edit generated code** in `internal/gen/` - regenerate via `make codegen`
-2. **Use containerized tools** - don't run go tools directly, use Make targets
+2. **Use Make targets** - they run the tools pinned in `tools/`
 3. **Follow wrapper pattern** - new APIs need interface + implementation + constructor
 4. **Context-first parameters** in all API methods
 5. **Options structs** for optional parameters instead of many function parameters

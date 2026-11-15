@@ -9,7 +9,9 @@ SCRIPTS_DIR="${REPO_ROOT}/scripts"
 
 source "${SCRIPTS_DIR}/helpers-source.sh"
 
-checkInstalled 'swagger'
+# go:generate runs swagger from PATH.
+SWAGGER_BIN="$(tool_path swagger)"
+export PATH="$(dirname "${SWAGGER_BIN}"):${PATH}"
 
 GEN_DIR="${REPO_ROOT}/internal/gen/strava-api-go"
 

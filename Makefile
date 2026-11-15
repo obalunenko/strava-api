@@ -8,11 +8,6 @@ SHELL := env APP_NAME=$(APP_NAME) $(SHELL)
 
 API_DOC_URL?=https://developers.strava.com/swagger/swagger.json
 
-COMPOSE_TOOLS_FILE=deployments/docker-compose/go-tools-docker-compose.yml
-COMPOSE_TOOLS_CMD_BASE=docker compose -f $(COMPOSE_TOOLS_FILE)
-COMPOSE_TOOLS_CMD_UP=$(COMPOSE_TOOLS_CMD_BASE) up --exit-code-from
-COMPOSE_TOOLS_CMD_PULL=$(COMPOSE_TOOLS_CMD_BASE) build
-
 GOVERSION:=1.27
 
 TARGET_MAX_CHAR_NUM=20
@@ -36,7 +31,7 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
 gen:
-	$(COMPOSE_TOOLS_CMD_UP) go-generate go-generate
+	./scripts/codegen/go-generate.sh
 .PHONY: gen
 
 codegen: gen sync-vendor format-code vet
@@ -48,21 +43,21 @@ sync-vendor:
 
 ## Fix imports sorting.
 imports:
-	$(COMPOSE_TOOLS_CMD_UP) fix-imports fix-imports
+	./scripts/style/fix-imports.sh
 .PHONY: imports
 
 ## Format code with go fmt.
 fmt:
-	$(COMPOSE_TOOLS_CMD_UP) fix-fmt fix-fmt
+	./scripts/style/fmt.sh
 .PHONY: fmt
 
 ## Format code and sort imports.
 format-code: fmt imports
 .PHONY: format-code
 
-## Installs vendored tools.
+## Build tools pinned in tools/<name>/go.mod.
 install-tools:
-	$(COMPOSE_TOOLS_CMD_PULL)
+	./scripts/install-tools.sh
 .PHONY: install-tools
 
 vet:
@@ -71,7 +66,7 @@ vet:
 
 ## Run full linting
 lint-full:
-	$(COMPOSE_TOOLS_CMD_UP) lint-full lint-full
+	./scripts/linting/run-linters.sh
 .PHONY: lint-full
 
 bump-go-version:

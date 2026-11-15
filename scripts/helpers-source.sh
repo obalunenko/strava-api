@@ -2,7 +2,7 @@
 
 set -Eeuo pipefail
 
-function checkInstalled() {
+function check_installed() {
   CMD=$1
 
   if ! command -v "${CMD}" &>/dev/null; then
@@ -12,7 +12,26 @@ function checkInstalled() {
   fi
 }
 
-function openSource() {
+# Prints the binary path of a tool pinned in tools/<name>/go.mod, building it on
+# first use. go tool runs inside the tool module: -modfile from the repo root
+# clashes with vendor/.
+function tool_path() {
+  local name="$1"
+
+  go tool -C "${REPO_ROOT}/tools/${name}" -n "${name}"
+}
+
+# Runs a tool pinned in tools/<name>/go.mod: go_tool <name> [args...]
+function go_tool() {
+  local name="$1"
+  shift
+
+  local bin
+  bin="$(tool_path "${name}")"
+  "${bin}" "$@"
+}
+
+function open_source() {
   OPEN_CMD=""
   OPEN_SRC=$1
 

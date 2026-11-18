@@ -18,9 +18,7 @@ output:
 linters:
   default: none
   enable:
-    - bodyclose
     - copyloopvar
-    - depguard
     - dogsled
     - dupl
     - errcheck
@@ -37,10 +35,8 @@ linters:
     - misspell
     - mnd
     - nakedret
-    - noctx
     - nolintlint
     - revive
-    - rowserrcheck
     - staticcheck
     - unconvert
     - unparam
@@ -48,12 +44,6 @@ linters:
     - whitespace
     - wsl_v5
   settings:
-    depguard:
-      rules:
-        logger:
-          deny:
-            - pkg: github.com/sirupsen/logrus
-              desc: logging is allowed only by github.com/obalunenko/logger
     dupl:
       threshold: 100
     funlen:
@@ -148,6 +138,7 @@ linters:
       - linters:
           - dupl
           - funlen
+          - goconst
           - gocyclo
           - gosec
         path: _test\.go

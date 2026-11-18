@@ -17,7 +17,7 @@ func (w withSeparator) Apply(p *internal.Parameters) {
 	p.Separator = string(w)
 }
 
-// WithSeparator adds slice separator option.
+// WithSeparator sets the separator of slice values. The default is ",".
 func WithSeparator(separator string) Option {
 	return withSeparator(separator)
 }
@@ -28,7 +28,7 @@ func (w withTimeLayout) Apply(p *internal.Parameters) {
 	p.Layout = string(w)
 }
 
-// WithTimeLayout adds time.Time layout option.
+// WithTimeLayout sets the layout of time.Time values. The default is time.RFC3339.
 func WithTimeLayout(layout string) Option {
 	return withTimeLayout(layout)
 }

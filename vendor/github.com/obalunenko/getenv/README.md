@@ -11,6 +11,9 @@ Package getenv provides a simple way to get environment variables.
 It's type-safe and supports built-in types and slices of them.
 Empty environment variable values are treated as not set.
 
+Slices are split by "," and time.Time values are parsed with the time.RFC3339 layout,
+unless option.WithSeparator or option.WithTimeLayout sets another one.
+
 Types supported:
 - string
 - []string
@@ -210,9 +213,9 @@ Output:
 ### EnvOrDefault
 
 EnvOrDefault retrieves the value of the environment variable named by the key.
-If the variable is present in the environment the value will be parsed and returned.
-Otherwise, the default value will be returned.
-The value returned will be of the same type as the default value.
+If the variable is set and its value can be parsed, the parsed value is returned.
+Otherwise, defaultVal is returned: both when the variable is not set (or empty)
+and when its value is invalid. Use Env to tell these cases apart.
 
 ```golang
 package main

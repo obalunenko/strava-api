@@ -11,7 +11,7 @@ require (
 	github.com/go-openapi/swag/stringutils v0.29.2
 	github.com/go-openapi/swag/typeutils v0.29.2
 	github.com/go-openapi/validate v1.0.1
-	github.com/obalunenko/getenv v1.16.0
+	github.com/obalunenko/getenv v1.17.0
 	github.com/stretchr/testify v1.12.1
 )
 

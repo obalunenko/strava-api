@@ -10,7 +10,7 @@ require (
 	github.com/go-openapi/swag/jsonutils v0.29.2
 	github.com/go-openapi/swag/stringutils v0.29.2
 	github.com/go-openapi/swag/typeutils v0.29.2
-	github.com/go-openapi/validate v1.0.1
+	github.com/go-openapi/validate v1.0.2
 	github.com/obalunenko/getenv v1.16.0
 	github.com/stretchr/testify v1.12.1
 )
@@ -19,10 +19,10 @@ require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/go-logr/logr v1.4.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/go-openapi/analysis v1.0.1 // indirect
+	github.com/go-openapi/analysis v1.0.2 // indirect
 	github.com/go-openapi/jsonpointer v1.0.2 // indirect
 	github.com/go-openapi/jsonreference v1.0.3 // indirect
-	github.com/go-openapi/loads v0.25.3 // indirect
+	github.com/go-openapi/loads v0.25.4 // indirect
 	github.com/go-openapi/runtime/server-middleware v0.33.4 // indirect
 	github.com/go-openapi/spec v1.0.1 // indirect
 	github.com/go-openapi/swag/fileutils v0.29.2 // indirect
@@ -38,8 +38,8 @@ require (
 	go.opentelemetry.io/otel/log v1.47.0 // indirect
 	go.opentelemetry.io/otel/metric v1.47.0 // indirect
 	go.opentelemetry.io/otel/trace v1.47.0 // indirect
-	go.yaml.in/yaml/v3 v3.0.5 // indirect
+	go.yaml.in/yaml/v3 v3.0.6 // indirect
 	golang.org/x/net v0.62.0 // indirect
-	golang.org/x/sync v0.24.0 // indirect
-	golang.org/x/text v0.43.0 // indirect
+	golang.org/x/sync v0.25.0 // indirect
+	golang.org/x/text v0.44.0 // indirect
 )

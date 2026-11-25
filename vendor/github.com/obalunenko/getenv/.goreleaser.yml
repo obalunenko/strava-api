@@ -10,9 +10,6 @@ release:
 builds:
   - skip: true
 
-checksum:
-  name_template: "{{ .ProjectName }}-{{ .Version }}-checksums.txt"
-
 snapshot:
   version_template: SNAPSHOT-{{ .Commit }}
 

@@ -1,11 +1,4 @@
-.PHONY: help, test-cover, prepare-cover-report, open-cover-report, update-readme-cover, update-readme-doc, test, test-regression, configure, tidy, imports, fmt, format-project, install-tools, vet, lint-full, lint-pipeline, lint-sonar, release, release-local-snapshot, check-releaser, new-version
-BIN_DIR=./bin
-
-SHELL := env VERSION=$(VERSION) $(SHELL)
-VERSION ?= $(shell git describe --tags $(git rev-list --tags --max-count=1))
-
-APP_NAME?=getenv
-SHELL := env APP_NAME=$(APP_NAME) $(SHELL)
+.PHONY: help test-cover prepare-cover-report open-cover-report update-readme-doc test configure tidy imports fmt format-project install-tools vet lint-full release release-local-snapshot check-releaser new-version
 
 GOVERSION:=1.27.4
 
@@ -13,7 +6,6 @@ TARGET_MAX_CHAR_NUM=20
 
 ## Show help
 help:
-	${call colored, help is running...}
 	@echo ''
 	@echo 'Usage:'
 	@echo '  make <target>'
@@ -41,10 +33,6 @@ prepare-cover-report: test-cover
 open-cover-report: prepare-cover-report
 	./scripts/open-coverage-report.sh
 
-## Update readme coverage.
-update-readme-cover: prepare-cover-report
-	./scripts/update-readme-coverage.sh
-
 ## Update readme doc.
 update-readme-doc:
 	./scripts/update-readme-doc.sh
@@ -52,9 +40,6 @@ update-readme-doc:
 ## Run tests.
 test:
 	./scripts/tests/run.sh
-
-## Run regression tests.
-test-regression: test
 
 ## Tidy go.mod and install needed tools.
 configure: tidy install-tools
@@ -86,14 +71,6 @@ vet:
 lint-full:
 	./scripts/linting/run-linters.sh
 
-## Run linting for build pipeline
-lint-pipeline:
-	./scripts/linting/golangci-pipeline.sh
-
-## Run linting for sonar report
-lint-sonar:
-	./scripts/linting/golangci-sonar.sh
-
 ## Release
 release:
 	./scripts/release/release.sh
@@ -107,7 +84,7 @@ check-releaser:
 	./scripts/release/check.sh
 
 ## Issue new release.
-new-version: vet test-regression
+new-version: vet test
 	./scripts/release/new-version.sh
 
 bump-go-version:

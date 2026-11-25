@@ -19,11 +19,10 @@ bin/
 dist/
 coverage/
 .DS_Store
-tests-report.json
 README_doc.md
-.vscode/
-
+tests-report.json
 linters-report.xml
+.vscode/
 
 # Codecov CLI downloaded by codecov-action in CI
 /codecov
